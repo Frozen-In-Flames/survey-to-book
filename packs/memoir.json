@@ -1,0 +1,1584 @@
+{
+  "genre": "memoir",
+  "version": "1.0.0",
+  "framework": {
+    "voice": "first-person, reflective, plainspoken and lyrical",
+    "pov": "first person",
+    "tense": "past tense for events, present tense for reflection",
+    "page_target_words": 250,
+    "devices": {
+      "scene": {
+        "name": "Scene",
+        "instruction": "Render the answer as a lived scene with concrete action, setting, and physical detail, in the moment, rather than summarizing it from a distance."
+      },
+      "reflection": {
+        "name": "Reflection",
+        "instruction": "Step back from the event and reflect on what it meant then and what it means now, letting the older narrator's understanding sit beside the younger self's experience."
+      },
+      "sensory_place": {
+        "name": "Sensory place",
+        "instruction": "Build the place through a fixed sensory palette: light, sound, smell, texture, and temperature, so the reader can stand in it."
+      },
+      "character_voice": {
+        "name": "Character voice",
+        "instruction": "Give each person a distinct voice: their phrasing, their habits of speech, and the one thing they always say or never say."
+      },
+      "dialogue": {
+        "name": "Dialogue",
+        "instruction": "Let the turning point of the page happen in spoken exchange, not in narration. Keep the dialogue short, specific, and in character."
+      },
+      "motif_plant": {
+        "name": "Motif planting",
+        "instruction": "Introduce a small recurring object or image plainly, in the middle of the action, without explaining its significance. It must be able to return later."
+      },
+      "motif_payoff": {
+        "name": "Motif payoff",
+        "instruction": "Return to an image planted earlier in the book and let it carry the emotional weight of this page. Do not explain the connection; let the image do the work."
+      },
+      "foreshadow": {
+        "name": "Foreshadow",
+        "instruction": "Plant one quiet detail that points toward something later in the life: a sentence, a look, a small decision whose consequence the narrator does not yet see."
+      },
+      "turning_point": {
+        "name": "Turning point",
+        "instruction": "Make the change of direction the spine of the page: what was true before this moment, the moment itself, and what became true after it."
+      },
+      "show_dont_tell": {
+        "name": "Show, don't tell",
+        "instruction": "Convey the emotion through action and detail only. Never name the feeling directly; let the reader feel it from what happens."
+      },
+      "time_compression": {
+        "name": "Time compression",
+        "instruction": "Cover a stretch of years in a few compressed beats: a repeated gesture, a season returning, the same room with different light, so time passes without a list of events."
+      },
+      "closing_image": {
+        "name": "Closing image",
+        "instruction": "End the page on a single still image that holds the whole page's meaning, and stop there."
+      }
+    },
+    "global_instructions": "Write honest, specific memoir prose. Prefer concrete nouns and verbs over abstraction. Never invent facts the respondent did not supply: no new names, places, or dates. If an answer is brief, develop it through sensory detail and reflection, not through invented events."
+  },
+  "chapters": [
+    {
+      "id": "origins",
+      "title": "Origins",
+      "arc": "Birth, family, and the first home: the ground the life stands on."
+    },
+    {
+      "id": "childhood",
+      "title": "Childhood",
+      "arc": "The neighborhood, school, and the first lessons about the world."
+    },
+    {
+      "id": "coming_of_age",
+      "title": "Coming of Age",
+      "arc": "Adolescence: the body, first love, first risk, first rebellion."
+    },
+    {
+      "id": "leaving",
+      "title": "Leaving",
+      "arc": "Departure and independence: the first home away from home."
+    },
+    {
+      "id": "love_and_kinship",
+      "title": "Love and Kinship",
+      "arc": "Partnership, chosen family, and what love teaches."
+    },
+    {
+      "id": "work_and_craft",
+      "title": "Work and Craft",
+      "arc": "Vocation: choosing it, learning it, failing at it, mastering it."
+    },
+    {
+      "id": "loss_and_reckoning",
+      "title": "Loss and Reckoning",
+      "arc": "Grief, mistakes, apologies, and forgiveness."
+    },
+    {
+      "id": "turning",
+      "title": "Turning",
+      "arc": "Reinvention: the day everything changed and the second act."
+    },
+    {
+      "id": "legacy",
+      "title": "Legacy",
+      "arc": "What is passed on: children, mentees, traditions, and stories."
+    },
+    {
+      "id": "reckoning_and_light",
+      "title": "Reckoning and Light",
+      "arc": "Meaning, mortality, and the closing image."
+    }
+  ],
+  "questions": [
+    {
+      "id": "m001",
+      "chapter": "origins",
+      "prompt": "Describe the place where you were born, as you first remember hearing about it. What did it look like, sound like, smell like?",
+      "narrative_job": "Establishes the birthplace as the book's anchor place.",
+      "position": "Chapter 1, opening: the ground the life stands on.",
+      "devices": [
+        "scene",
+        "sensory_place"
+      ],
+      "bible_keys": [
+        "places.birthplace"
+      ],
+      "fact": {
+        "slot": "birthplace",
+        "kind": "place_name",
+        "triggers": [
+          "born in",
+          "birthplace",
+          "where I was born"
+        ]
+      }
+    },
+    {
+      "id": "m002",
+      "chapter": "origins",
+      "prompt": "What is your full name, and who chose it? Was there a story, a relative, or a hope behind it?",
+      "narrative_job": "Names the narrator and fixes the book's central identity.",
+      "position": "Chapter 1: the name the book is told under.",
+      "devices": [
+        "reflection",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "people.narrator"
+      ],
+      "fact": {
+        "slot": "narrator_name",
+        "kind": "person_name",
+        "triggers": [
+          "my name is",
+          "I am",
+          "named"
+        ]
+      }
+    },
+    {
+      "id": "m003",
+      "chapter": "origins",
+      "prompt": "What year were you born, and what was the world doing that year? What did your family say about that time?",
+      "narrative_job": "Fixes the book in historical time.",
+      "position": "Chapter 1: the year the story starts.",
+      "devices": [
+        "reflection",
+        "time_compression"
+      ],
+      "bible_keys": [
+        "events.birth_year"
+      ],
+      "fact": {
+        "slot": "birth_year",
+        "kind": "year",
+        "triggers": [
+          "born in",
+          "the year",
+          "in 19",
+          "in 20"
+        ]
+      }
+    },
+    {
+      "id": "m004",
+      "chapter": "origins",
+      "prompt": "Who was your mother? Give her name, and describe her as you remember her best: her hands, her voice, her temper, her laugh.",
+      "narrative_job": "Introduces the mother as a full person, not a role.",
+      "position": "Chapter 1: the first person in the narrator's life.",
+      "devices": [
+        "character_voice",
+        "sensory_place"
+      ],
+      "bible_keys": [
+        "people.mother"
+      ],
+      "fact": {
+        "slot": "mother_name",
+        "kind": "person_name",
+        "triggers": [
+          "my mother",
+          "mom",
+          "mother"
+        ]
+      }
+    },
+    {
+      "id": "m005",
+      "chapter": "origins",
+      "prompt": "Who was your father? Give his name, and describe him as you remember him best: how he moved through a room, what he was good at, what he avoided.",
+      "narrative_job": "Introduces the father as a full person, not a role.",
+      "position": "Chapter 1: the second person in the narrator's life.",
+      "devices": [
+        "character_voice",
+        "scene"
+      ],
+      "bible_keys": [
+        "people.father"
+      ],
+      "fact": {
+        "slot": "father_name",
+        "kind": "person_name",
+        "triggers": [
+          "my father",
+          "dad",
+          "father"
+        ]
+      }
+    },
+    {
+      "id": "m006",
+      "chapter": "origins",
+      "prompt": "Describe your first home from the inside: the kitchen, the light at a particular hour, the sound the house made at night.",
+      "narrative_job": "Builds the childhood home as a place the reader can stand in.",
+      "position": "Chapter 1: the house as a character.",
+      "devices": [
+        "sensory_place",
+        "scene"
+      ],
+      "bible_keys": [
+        "places.childhood_home"
+      ]
+    },
+    {
+      "id": "m007",
+      "chapter": "origins",
+      "prompt": "What is your earliest memory? Not the story you were told, but the first thing you yourself remember: an image, a feeling, a fragment.",
+      "narrative_job": "Opens the narrator's own memory, distinct from family legend.",
+      "position": "Chapter 1: the first true memory.",
+      "devices": [
+        "scene",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.first_memory"
+      ]
+    },
+    {
+      "id": "m008",
+      "chapter": "origins",
+      "prompt": "What family story was told about your birth or your first days? Who told it, and how did the telling change as you grew older?",
+      "narrative_job": "Separates legend from memory and shows how stories are inherited.",
+      "position": "Chapter 1: the legend beside the fact.",
+      "devices": [
+        "reflection",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.birth_story"
+      ]
+    },
+    {
+      "id": "m009",
+      "chapter": "origins",
+      "prompt": "Was there a light left on for you at home, a lamp or a porch light or a window, and who kept it burning? Describe it exactly.",
+      "narrative_job": "Plants the book's central motif: the light kept burning for the narrator.",
+      "position": "Chapter 1: the motif is planted, unexplained.",
+      "devices": [
+        "motif_plant",
+        "sensory_place",
+        "closing_image"
+      ],
+      "bible_keys": [
+        "motifs.porch_light",
+        "places.childhood_home"
+      ]
+    },
+    {
+      "id": "m010",
+      "chapter": "origins",
+      "prompt": "What did your parents hope you would become? Say it in their words if you can, and say what you made of that hope.",
+      "narrative_job": "Sets up the expectation the rest of the book answers.",
+      "position": "Chapter 1, close: the hope the life will be measured against.",
+      "devices": [
+        "dialogue",
+        "foreshadow"
+      ],
+      "bible_keys": [
+        "events.parental_hope"
+      ]
+    },
+    {
+      "id": "m011",
+      "chapter": "childhood",
+      "prompt": "Describe the street or neighborhood where you grew up. Who lived nearby, and what were the rules of that place, spoken and unspoken?",
+      "narrative_job": "Widens the world from the house to the neighborhood.",
+      "position": "Chapter 2, opening: the world beyond the front door.",
+      "devices": [
+        "sensory_place",
+        "scene"
+      ],
+      "bible_keys": [
+        "places.neighborhood"
+      ]
+    },
+    {
+      "id": "m012",
+      "chapter": "childhood",
+      "prompt": "Who was your first real friend? How did you meet, and what did the two of you do that nobody else understood?",
+      "narrative_job": "Introduces the first chosen bond.",
+      "position": "Chapter 2: the first friend.",
+      "devices": [
+        "character_voice",
+        "scene"
+      ],
+      "bible_keys": [
+        "people.first_friend"
+      ]
+    },
+    {
+      "id": "m013",
+      "chapter": "childhood",
+      "prompt": "Describe your first day of school. What did you wear, what did you carry, and what did you learn that had nothing to do with lessons?",
+      "narrative_job": "Marks the first step into the public world.",
+      "position": "Chapter 2: the first public test.",
+      "devices": [
+        "scene",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.first_school_day"
+      ]
+    },
+    {
+      "id": "m014",
+      "chapter": "childhood",
+      "prompt": "Was there a teacher who changed the direction of your life, for better or worse? Describe one specific moment with them.",
+      "narrative_job": "Introduces the first mentor or the first wound from authority.",
+      "position": "Chapter 2: the teacher who mattered.",
+      "devices": [
+        "character_voice",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "people.teacher"
+      ]
+    },
+    {
+      "id": "m015",
+      "chapter": "childhood",
+      "prompt": "What was the strictest rule in your house, and what happened the first time you broke it?",
+      "narrative_job": "Shows the household's moral shape through one collision.",
+      "position": "Chapter 2: the rule and the breaking of it.",
+      "devices": [
+        "scene",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.household_rule"
+      ]
+    },
+    {
+      "id": "m016",
+      "chapter": "childhood",
+      "prompt": "Where was your secret place as a child: a tree, a room, a corner, a stretch of road? What did you do there that you did nowhere else?",
+      "narrative_job": "Gives the child an interior life of their own.",
+      "position": "Chapter 2: the private world.",
+      "devices": [
+        "sensory_place",
+        "scene"
+      ],
+      "bible_keys": [
+        "places.secret_place"
+      ]
+    },
+    {
+      "id": "m017",
+      "chapter": "childhood",
+      "prompt": "What chore did you hate most, and what did it teach you about work before you ever had a job?",
+      "narrative_job": "Plants the book's attitude toward labor.",
+      "position": "Chapter 2: the first work.",
+      "devices": [
+        "reflection",
+        "scene"
+      ],
+      "bible_keys": [
+        "events.childhood_chore"
+      ]
+    },
+    {
+      "id": "m018",
+      "chapter": "childhood",
+      "prompt": "Describe a meal from your childhood in full: who cooked, what was on the table, who sat where, and what was said or left unsaid.",
+      "narrative_job": "Uses a meal to show the family as a system.",
+      "position": "Chapter 2: the family at the table.",
+      "devices": [
+        "sensory_place",
+        "dialogue",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.family_meal"
+      ]
+    },
+    {
+      "id": "m019",
+      "chapter": "childhood",
+      "prompt": "What frightened you most as a child? Describe one night or one moment when that fear was at its worst, and how you got through it.",
+      "narrative_job": "Names the childhood fear that later pages will pay off.",
+      "position": "Chapter 2: the fear, planted for later.",
+      "devices": [
+        "scene",
+        "foreshadow",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.childhood_fear"
+      ]
+    },
+    {
+      "id": "m020",
+      "chapter": "childhood",
+      "prompt": "What was your purest joy as a child, the thing you would do for hours and lose all track of time doing?",
+      "narrative_job": "Closes childhood on delight, balancing the fear.",
+      "position": "Chapter 2, close: joy as the counterweight.",
+      "devices": [
+        "scene",
+        "closing_image"
+      ],
+      "bible_keys": [
+        "events.childhood_joy"
+      ]
+    },
+    {
+      "id": "m021",
+      "chapter": "coming_of_age",
+      "prompt": "When did you first feel your body change, and how did you understand what was happening? Who, if anyone, explained it to you?",
+      "narrative_job": "Marks the threshold out of childhood.",
+      "position": "Chapter 3, opening: the body changes.",
+      "devices": [
+        "reflection",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.adolescence"
+      ]
+    },
+    {
+      "id": "m022",
+      "chapter": "coming_of_age",
+      "prompt": "Who was your first love, and what did loving them feel like before you had the words for it?",
+      "narrative_job": "Introduces first love as experience, not label.",
+      "position": "Chapter 3: first love.",
+      "devices": [
+        "scene",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "people.first_love"
+      ]
+    },
+    {
+      "id": "m023",
+      "chapter": "coming_of_age",
+      "prompt": "Describe your first heartbreak: where you were, what was said or not said, and what you did with the days after.",
+      "narrative_job": "Shows the first loss the narrator survives.",
+      "position": "Chapter 3: the first break.",
+      "devices": [
+        "scene",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.first_heartbreak"
+      ]
+    },
+    {
+      "id": "m024",
+      "chapter": "coming_of_age",
+      "prompt": "What was the first real risk you took on purpose? What did you stand to lose, and was it worth it?",
+      "narrative_job": "Introduces risk as a habit of the narrator's character.",
+      "position": "Chapter 3: the first chosen risk.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.first_risk"
+      ]
+    },
+    {
+      "id": "m025",
+      "chapter": "coming_of_age",
+      "prompt": "What did you rebel against, and what form did the rebellion take? Who noticed, and what did it cost you?",
+      "narrative_job": "Shows the narrator pushing against the given shape of life.",
+      "position": "Chapter 3: the rebellion.",
+      "devices": [
+        "scene",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "events.rebellion"
+      ]
+    },
+    {
+      "id": "m026",
+      "chapter": "coming_of_age",
+      "prompt": "Was there an older person outside your family who saw something in you before you saw it in yourself? What did they say or do?",
+      "narrative_job": "Introduces the mentor who is not a parent or teacher.",
+      "position": "Chapter 3: the one who saw it first.",
+      "devices": [
+        "character_voice",
+        "foreshadow"
+      ],
+      "bible_keys": [
+        "people.mentor"
+      ]
+    },
+    {
+      "id": "m027",
+      "chapter": "coming_of_age",
+      "prompt": "What belief from your childhood did you lose in these years, and what took its place, if anything did?",
+      "narrative_job": "Tracks the inner break with the given world.",
+      "position": "Chapter 3: the belief that fell away.",
+      "devices": [
+        "reflection",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.lost_belief"
+      ]
+    },
+    {
+      "id": "m028",
+      "chapter": "coming_of_age",
+      "prompt": "What song, sound, or piece of music defined these years for you? Where did you hear it, and what did it let you feel?",
+      "narrative_job": "Anchors adolescence in sound and memory.",
+      "position": "Chapter 3: the soundtrack.",
+      "devices": [
+        "sensory_place",
+        "scene"
+      ],
+      "bible_keys": [
+        "events.adolescent_music"
+      ]
+    },
+    {
+      "id": "m029",
+      "chapter": "coming_of_age",
+      "prompt": "What was the worst mistake you made as a teenager? Tell it plainly, without softening it, and say what it taught you.",
+      "narrative_job": "Practices the book's honesty on the narrator's own worst moment.",
+      "position": "Chapter 3: the mistake, told straight.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.teenage_mistake"
+      ]
+    },
+    {
+      "id": "m030",
+      "chapter": "coming_of_age",
+      "prompt": "What promise did you make to yourself at the end of your adolescence, and have you kept it?",
+      "narrative_job": "Closes the chapter on a vow the rest of the book tests.",
+      "position": "Chapter 3, close: the vow.",
+      "devices": [
+        "reflection",
+        "foreshadow"
+      ],
+      "bible_keys": [
+        "events.adolescent_vow"
+      ]
+    },
+    {
+      "id": "m031",
+      "chapter": "leaving",
+      "prompt": "Describe the day you left home for the first time to live elsewhere. Who was there, what did you carry, and what did the door sound like closing?",
+      "narrative_job": "Marks the departure as a scene, not a date.",
+      "position": "Chapter 4, opening: the leaving.",
+      "devices": [
+        "scene",
+        "turning_point",
+        "sensory_place"
+      ],
+      "bible_keys": [
+        "events.leaving_home",
+        "places.first_home_away"
+      ]
+    },
+    {
+      "id": "m032",
+      "chapter": "leaving",
+      "prompt": "What was your first home away from home like? Describe one room of it in full, and who you shared it with, if anyone.",
+      "narrative_job": "Builds the first independent place.",
+      "position": "Chapter 4: the first place that was yours.",
+      "devices": [
+        "sensory_place",
+        "scene"
+      ],
+      "bible_keys": [
+        "places.first_home_away"
+      ]
+    },
+    {
+      "id": "m033",
+      "chapter": "leaving",
+      "prompt": "What was your first real job? Describe the work, the place, the people, and what your hands learned there.",
+      "narrative_job": "Introduces adult work as physical experience.",
+      "position": "Chapter 4: the first job.",
+      "devices": [
+        "scene",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.first_job"
+      ]
+    },
+    {
+      "id": "m034",
+      "chapter": "leaving",
+      "prompt": "Describe the first money you ever earned and what you did with it. What did spending it, or saving it, mean to you?",
+      "narrative_job": "Shows the narrator's first relationship with money.",
+      "position": "Chapter 4: the first pay.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.first_pay"
+      ]
+    },
+    {
+      "id": "m035",
+      "chapter": "leaving",
+      "prompt": "What city, town, or landscape did you land in, and how did it change what you thought a life could look like?",
+      "narrative_job": "Widens the world again, the way the neighborhood once did.",
+      "position": "Chapter 4: the new place.",
+      "devices": [
+        "sensory_place",
+        "reflection"
+      ],
+      "bible_keys": [
+        "places.new_city"
+      ]
+    },
+    {
+      "id": "m036",
+      "chapter": "leaving",
+      "prompt": "When did you feel loneliest in those first years away, and what did you do about it?",
+      "narrative_job": "Names the cost of independence.",
+      "position": "Chapter 4: the loneliness.",
+      "devices": [
+        "scene",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.early_loneliness"
+      ]
+    },
+    {
+      "id": "m037",
+      "chapter": "leaving",
+      "prompt": "Was there a stranger who helped you when you needed it, expecting nothing? Describe the moment and what it taught you about people.",
+      "narrative_job": "Plants the book's faith in strangers' kindness.",
+      "position": "Chapter 4: the stranger's kindness.",
+      "devices": [
+        "scene",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.stranger_kindness"
+      ]
+    },
+    {
+      "id": "m038",
+      "chapter": "leaving",
+      "prompt": "What did you have to learn to do for yourself that someone else had always done for you: cooking, mending, fixing, caring? Tell the story of learning it.",
+      "narrative_job": "Shows self-reliance arriving in small practical acts.",
+      "position": "Chapter 4: learning to keep yourself.",
+      "devices": [
+        "scene",
+        "time_compression"
+      ],
+      "bible_keys": [
+        "events.self_reliance"
+      ]
+    },
+    {
+      "id": "m039",
+      "chapter": "leaving",
+      "prompt": "Did you write home, call home, or go silent? Describe one letter or call home from those years, and what you left out of it.",
+      "narrative_job": "Shows the distance between the life lived and the life reported.",
+      "position": "Chapter 4: the letter home.",
+      "devices": [
+        "dialogue",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.letter_home"
+      ]
+    },
+    {
+      "id": "m040",
+      "chapter": "leaving",
+      "prompt": "When did you realize you would not be going back to live where you came from, and how did that feel?",
+      "narrative_job": "Closes the departure: the break becomes permanent.",
+      "position": "Chapter 4, close: the decision not to return.",
+      "devices": [
+        "turning_point",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.no_return"
+      ]
+    },
+    {
+      "id": "m041",
+      "chapter": "love_and_kinship",
+      "prompt": "How did you meet the person who became your partner in life? Describe the meeting exactly as it happened, not as the story later became.",
+      "narrative_job": "Introduces the partner through the real first meeting.",
+      "position": "Chapter 5, opening: the meeting.",
+      "devices": [
+        "scene",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "people.partner",
+        "events.meeting_partner"
+      ],
+      "fact": {
+        "slot": "partner_name",
+        "kind": "person_name",
+        "triggers": [
+          "my partner",
+          "my wife",
+          "my husband",
+          "my love"
+        ]
+      }
+    },
+    {
+      "id": "m042",
+      "chapter": "love_and_kinship",
+      "prompt": "What did courtship look like for the two of you: the places, the rituals, the small things that meant more than the grand ones?",
+      "narrative_job": "Shows love as a practice, not a feeling.",
+      "position": "Chapter 5: the courtship.",
+      "devices": [
+        "scene",
+        "sensory_place",
+        "time_compression"
+      ],
+      "bible_keys": [
+        "events.courtship"
+      ]
+    },
+    {
+      "id": "m043",
+      "chapter": "love_and_kinship",
+      "prompt": "Describe the day you committed to each other, whether a wedding or something quieter. Who was there, and what did you promise, in your own words?",
+      "narrative_job": "Records the commitment as the narrator made it.",
+      "position": "Chapter 5: the commitment.",
+      "devices": [
+        "scene",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "events.commitment"
+      ]
+    },
+    {
+      "id": "m044",
+      "chapter": "love_and_kinship",
+      "prompt": "What was your worst fight, and what was it really about underneath the words you used?",
+      "narrative_job": "Shows the relationship under strain, honestly.",
+      "position": "Chapter 5: the fight.",
+      "devices": [
+        "dialogue",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.worst_fight"
+      ]
+    },
+    {
+      "id": "m045",
+      "chapter": "love_and_kinship",
+      "prompt": "How did you make up after that fight, or after fights in general? Who reached out first, and what did repair look like between you?",
+      "narrative_job": "Shows repair as a skill the couple built.",
+      "position": "Chapter 5: the repair.",
+      "devices": [
+        "scene",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.repair"
+      ]
+    },
+    {
+      "id": "m046",
+      "chapter": "love_and_kinship",
+      "prompt": "Who is your chosen family, the people who are family by choice rather than blood? Name them and say how each one earned that place.",
+      "narrative_job": "Widens kinship beyond blood.",
+      "position": "Chapter 5: the chosen family.",
+      "devices": [
+        "character_voice",
+        "reflection"
+      ],
+      "bible_keys": [
+        "people.chosen_family"
+      ]
+    },
+    {
+      "id": "m047",
+      "chapter": "love_and_kinship",
+      "prompt": "Describe a friend you kept for decades. What kept the friendship alive across distance and change?",
+      "narrative_job": "Shows long friendship as a second kind of marriage.",
+      "position": "Chapter 5: the long friendship.",
+      "devices": [
+        "time_compression",
+        "scene"
+      ],
+      "bible_keys": [
+        "people.lifelong_friend"
+      ]
+    },
+    {
+      "id": "m048",
+      "chapter": "love_and_kinship",
+      "prompt": "Describe a friend you lost, whether to distance, a falling out, or death. What would you say to them now if you could?",
+      "narrative_job": "Names the friendship that did not survive.",
+      "position": "Chapter 5: the friend lost.",
+      "devices": [
+        "reflection",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "events.lost_friend"
+      ]
+    },
+    {
+      "id": "m049",
+      "chapter": "love_and_kinship",
+      "prompt": "What small ritual did you and your partner keep, year after year, that nobody else would have understood? Describe it being done one ordinary time.",
+      "narrative_job": "Captures love in its smallest repeated form.",
+      "position": "Chapter 5: the ritual.",
+      "devices": [
+        "scene",
+        "motif_plant"
+      ],
+      "bible_keys": [
+        "events.partner_ritual"
+      ]
+    },
+    {
+      "id": "m050",
+      "chapter": "love_and_kinship",
+      "prompt": "What has loving someone for a long time taught you that falling in love never could?",
+      "narrative_job": "Closes the chapter on what duration teaches.",
+      "position": "Chapter 5, close: what long love teaches.",
+      "devices": [
+        "reflection",
+        "closing_image"
+      ],
+      "bible_keys": [
+        "events.long_love_lesson"
+      ]
+    },
+    {
+      "id": "m051",
+      "chapter": "work_and_craft",
+      "prompt": "How did you choose your work, or did the work choose you? Describe the moment the choice became real.",
+      "narrative_job": "Traces vocation to its decision point.",
+      "position": "Chapter 6, opening: the choice of work.",
+      "devices": [
+        "scene",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.choosing_work"
+      ]
+    },
+    {
+      "id": "m052",
+      "chapter": "work_and_craft",
+      "prompt": "Who taught you your craft, and how did they teach: by showing, by letting you fail, by scolding, by silence?",
+      "narrative_job": "Introduces the craft's teacher.",
+      "position": "Chapter 6: the teacher of the craft.",
+      "devices": [
+        "character_voice",
+        "scene"
+      ],
+      "bible_keys": [
+        "people.craft_teacher"
+      ]
+    },
+    {
+      "id": "m053",
+      "chapter": "work_and_craft",
+      "prompt": "Describe the first time you did your work well enough to feel proud of it. What were you making or doing, and who noticed?",
+      "narrative_job": "Marks the first mastery moment.",
+      "position": "Chapter 6: the first good work.",
+      "devices": [
+        "scene",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.first_good_work"
+      ]
+    },
+    {
+      "id": "m054",
+      "chapter": "work_and_craft",
+      "prompt": "What was your biggest failure at work? Tell it in full: what went wrong, whose trust was involved, and what it cost.",
+      "narrative_job": "Practices honesty on professional failure.",
+      "position": "Chapter 6: the failure.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.work_failure"
+      ]
+    },
+    {
+      "id": "m055",
+      "chapter": "work_and_craft",
+      "prompt": "Was there a boss, a client, or a colleague who shaped your working life more than anyone else? Describe one exchange with them.",
+      "narrative_job": "Shows work as a web of people.",
+      "position": "Chapter 6: the one who shaped the work.",
+      "devices": [
+        "dialogue",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "people.work_shaper"
+      ]
+    },
+    {
+      "id": "m056",
+      "chapter": "work_and_craft",
+      "prompt": "Describe something you made with your own hands or your own skill that still exists somewhere. Where is it now, and what does it carry of you?",
+      "narrative_job": "Anchors craft in a surviving object.",
+      "position": "Chapter 6: the thing that remains.",
+      "devices": [
+        "sensory_place",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.made_thing"
+      ]
+    },
+    {
+      "id": "m057",
+      "chapter": "work_and_craft",
+      "prompt": "When were you most afraid about money, and what did that fear make you do?",
+      "narrative_job": "Names the financial fear behind the working life.",
+      "position": "Chapter 6: the money fear.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.money_fear"
+      ]
+    },
+    {
+      "id": "m058",
+      "chapter": "work_and_craft",
+      "prompt": "What part of your work did you come to love that you never expected to love?",
+      "narrative_job": "Shows mastery changing taste.",
+      "position": "Chapter 6: the unexpected love.",
+      "devices": [
+        "reflection",
+        "scene"
+      ],
+      "bible_keys": [
+        "events.unexpected_love_of_work"
+      ]
+    },
+    {
+      "id": "m059",
+      "chapter": "work_and_craft",
+      "prompt": "Did you ever burn out, and how did you know? What did you do to come back, or what made coming back impossible?",
+      "narrative_job": "Names exhaustion and its answer.",
+      "position": "Chapter 6: the burnout.",
+      "devices": [
+        "scene",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.burnout"
+      ]
+    },
+    {
+      "id": "m060",
+      "chapter": "work_and_craft",
+      "prompt": "What did you teach someone else about your craft, and what did teaching it teach you?",
+      "narrative_job": "Closes the chapter on craft passed on.",
+      "position": "Chapter 6, close: the teaching.",
+      "devices": [
+        "reflection",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "events.teaching_craft"
+      ]
+    },
+    {
+      "id": "m061",
+      "chapter": "loss_and_reckoning",
+      "prompt": "Who was the first person you loved who died? Describe the day you learned, and the days right after, in the order they happened.",
+      "narrative_job": "Marks the first grief as a sequence, not a summary.",
+      "position": "Chapter 7, opening: the first grief.",
+      "devices": [
+        "scene",
+        "time_compression"
+      ],
+      "bible_keys": [
+        "events.first_grief"
+      ]
+    },
+    {
+      "id": "m062",
+      "chapter": "loss_and_reckoning",
+      "prompt": "Describe a funeral you attended that stayed with you. What did people do, say, or fail to say that told you who they really were?",
+      "narrative_job": "Shows grief as a social event that reveals character.",
+      "position": "Chapter 7: the funeral.",
+      "devices": [
+        "scene",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.funeral"
+      ]
+    },
+    {
+      "id": "m063",
+      "chapter": "loss_and_reckoning",
+      "prompt": "What apology do you still owe someone? Say what happened, why you never said it, and what it would cost to say it now.",
+      "narrative_job": "Names the owed apology plainly.",
+      "position": "Chapter 7: the apology owed.",
+      "devices": [
+        "reflection",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "events.apology_owed"
+      ]
+    },
+    {
+      "id": "m064",
+      "chapter": "loss_and_reckoning",
+      "prompt": "What apology did you give that mattered most? Describe the moment you said it and what happened next.",
+      "narrative_job": "Shows the apology that was actually made.",
+      "position": "Chapter 7: the apology given.",
+      "devices": [
+        "scene",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.apology_given"
+      ]
+    },
+    {
+      "id": "m065",
+      "chapter": "loss_and_reckoning",
+      "prompt": "Were you ever betrayed, or did you ever betray someone? Tell one side of it fully and honestly.",
+      "narrative_job": "Practices honesty on betrayal from either side.",
+      "position": "Chapter 7: the betrayal.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.betrayal"
+      ]
+    },
+    {
+      "id": "m066",
+      "chapter": "loss_and_reckoning",
+      "prompt": "Whom did you forgive, and how did you know the forgiveness was real rather than just words?",
+      "narrative_job": "Shows forgiveness as a process with evidence.",
+      "position": "Chapter 7: the forgiveness.",
+      "devices": [
+        "reflection",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.forgiveness"
+      ]
+    },
+    {
+      "id": "m067",
+      "chapter": "loss_and_reckoning",
+      "prompt": "What is your deepest regret? Describe the moment you would go back to, and say what you would do differently, if anything.",
+      "narrative_job": "Names the regret the narrator carries.",
+      "position": "Chapter 7: the regret.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.deepest_regret"
+      ]
+    },
+    {
+      "id": "m068",
+      "chapter": "loss_and_reckoning",
+      "prompt": "Did you ever face a serious illness or injury, your own or someone close to you? Describe the waiting, and what the waiting taught you.",
+      "narrative_job": "Shows the body and mortality entering the story.",
+      "position": "Chapter 7: the illness.",
+      "devices": [
+        "scene",
+        "time_compression"
+      ],
+      "bible_keys": [
+        "events.illness"
+      ]
+    },
+    {
+      "id": "m069",
+      "chapter": "loss_and_reckoning",
+      "prompt": "Describe the emptying of a house after someone died or left: what was kept, what was given away, what nobody could bear to touch.",
+      "narrative_job": "Uses the emptied house to show loss in objects.",
+      "position": "Chapter 7: the emptied house.",
+      "devices": [
+        "sensory_place",
+        "scene",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.emptied_house"
+      ]
+    },
+    {
+      "id": "m070",
+      "chapter": "loss_and_reckoning",
+      "prompt": "What did grief change in you that has never changed back?",
+      "narrative_job": "Closes the chapter on what loss permanently rewrote.",
+      "position": "Chapter 7, close: what grief changed.",
+      "devices": [
+        "reflection",
+        "closing_image"
+      ],
+      "bible_keys": [
+        "events.grief_change"
+      ]
+    },
+    {
+      "id": "m071",
+      "chapter": "turning",
+      "prompt": "Describe the day everything changed: the day you knew the old life was over, whether anyone else could see it or not.",
+      "narrative_job": "Marks the pivot the second act turns on.",
+      "position": "Chapter 8, opening: the day everything changed.",
+      "devices": [
+        "scene",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.day_everything_changed"
+      ]
+    },
+    {
+      "id": "m072",
+      "chapter": "turning",
+      "prompt": "What did you have to give up in order to start again, and what did giving it up feel like in your hands?",
+      "narrative_job": "Shows reinvention's price.",
+      "position": "Chapter 8: the price of starting again.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.giving_up"
+      ]
+    },
+    {
+      "id": "m073",
+      "chapter": "turning",
+      "prompt": "What did you learn to do late in life that you had never done before? Describe the first clumsy attempt.",
+      "narrative_job": "Shows learning as a late-life act.",
+      "position": "Chapter 8: the late learning.",
+      "devices": [
+        "scene",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.late_learning"
+      ]
+    },
+    {
+      "id": "m074",
+      "chapter": "turning",
+      "prompt": "Describe a journey that changed you: where you went, why you went, and what you brought back that was not in your bag.",
+      "narrative_job": "Uses a journey as the turning's vehicle.",
+      "position": "Chapter 8: the journey.",
+      "devices": [
+        "sensory_place",
+        "scene",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.transforming_journey"
+      ]
+    },
+    {
+      "id": "m075",
+      "chapter": "turning",
+      "prompt": "Was there a stranger in this period who said one thing that stayed with you for years? What was it, and where were you standing when they said it?",
+      "narrative_job": "Returns the stranger, now as a messenger.",
+      "position": "Chapter 8: the stranger's sentence.",
+      "devices": [
+        "dialogue",
+        "foreshadow"
+      ],
+      "bible_keys": [
+        "events.stranger_sentence"
+      ]
+    },
+    {
+      "id": "m076",
+      "chapter": "turning",
+      "prompt": "What second chance were you given, and what did you do with it that you would not have done the first time?",
+      "narrative_job": "Shows the second chance used differently.",
+      "position": "Chapter 8: the second chance.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.second_chance"
+      ]
+    },
+    {
+      "id": "m077",
+      "chapter": "turning",
+      "prompt": "What did you finally let go of, and how did you know it was time?",
+      "narrative_job": "Names the release.",
+      "position": "Chapter 8: the letting go.",
+      "devices": [
+        "reflection",
+        "turning_point"
+      ],
+      "bible_keys": [
+        "events.letting_go"
+      ]
+    },
+    {
+      "id": "m078",
+      "chapter": "turning",
+      "prompt": "What new skill, habit, or daily practice did the new life require, and how did it become yours?",
+      "narrative_job": "Shows the new life becoming ordinary.",
+      "position": "Chapter 8: the new practice.",
+      "devices": [
+        "scene",
+        "time_compression"
+      ],
+      "bible_keys": [
+        "events.new_practice"
+      ]
+    },
+    {
+      "id": "m079",
+      "chapter": "turning",
+      "prompt": "Describe a door that closed in these years and a door that opened, and how you could tell them apart at the time, if you could.",
+      "narrative_job": "Uses doors as the chapter's image of choice.",
+      "position": "Chapter 8: the doors.",
+      "devices": [
+        "reflection",
+        "scene"
+      ],
+      "bible_keys": [
+        "events.doors"
+      ]
+    },
+    {
+      "id": "m080",
+      "chapter": "turning",
+      "prompt": "When did you first feel that the new life was really yours, not just something you were trying on?",
+      "narrative_job": "Closes the chapter on arrival in the second act.",
+      "position": "Chapter 8, close: the new life becomes yours.",
+      "devices": [
+        "scene",
+        "closing_image"
+      ],
+      "bible_keys": [
+        "events.new_life_mine"
+      ]
+    },
+    {
+      "id": "m081",
+      "chapter": "legacy",
+      "prompt": "If you have children, describe each one as they are now, in their own terms rather than yours. If you do not, describe the young person whose life you have shaped most.",
+      "narrative_job": "Introduces the next generation on their own terms.",
+      "position": "Chapter 9, opening: the next generation.",
+      "devices": [
+        "character_voice",
+        "reflection"
+      ],
+      "bible_keys": [
+        "people.children"
+      ]
+    },
+    {
+      "id": "m082",
+      "chapter": "legacy",
+      "prompt": "What lesson did you try hardest to pass on, and did it take? Tell the story of the teaching, not the lesson itself.",
+      "narrative_job": "Shows transmission through story, not precept.",
+      "position": "Chapter 9: the lesson passed on.",
+      "devices": [
+        "scene",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "events.lesson_passed_on"
+      ]
+    },
+    {
+      "id": "m083",
+      "chapter": "legacy",
+      "prompt": "What family tradition did you keep alive, or start yourself? Describe it being done one ordinary time.",
+      "narrative_job": "Shows tradition as a repeated act.",
+      "position": "Chapter 9: the tradition.",
+      "devices": [
+        "scene",
+        "sensory_place"
+      ],
+      "bible_keys": [
+        "events.family_tradition"
+      ]
+    },
+    {
+      "id": "m084",
+      "chapter": "legacy",
+      "prompt": "How has the family story changed now that you are the one telling it? What do you leave in, and what do you leave out?",
+      "narrative_job": "Shows the narrator becoming the family's historian.",
+      "position": "Chapter 9: the storyteller's turn.",
+      "devices": [
+        "reflection",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.family_story_now"
+      ]
+    },
+    {
+      "id": "m085",
+      "chapter": "legacy",
+      "prompt": "What place from your life do you most want preserved, and what would be lost if it disappeared?",
+      "narrative_job": "Names the place worth keeping.",
+      "position": "Chapter 9: the place to preserve.",
+      "devices": [
+        "sensory_place",
+        "reflection"
+      ],
+      "bible_keys": [
+        "places.to_preserve"
+      ]
+    },
+    {
+      "id": "m086",
+      "chapter": "legacy",
+      "prompt": "Write, in your mind, a letter to your younger self at twenty. What would you warn about, and what would you tell them not to change?",
+      "narrative_job": "Uses the letter form for the book's advice to its younger self.",
+      "position": "Chapter 9: the letter to twenty.",
+      "devices": [
+        "reflection",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "events.letter_to_young_self"
+      ]
+    },
+    {
+      "id": "m087",
+      "chapter": "legacy",
+      "prompt": "What would you protect, above everything else, if you could protect only one thing: a person, a place, a memory, a way of living?",
+      "narrative_job": "Forces the book's single priority into the open.",
+      "position": "Chapter 9: the one thing to protect.",
+      "devices": [
+        "reflection",
+        "closing_image"
+      ],
+      "bible_keys": [
+        "events.one_thing_to_protect"
+      ]
+    },
+    {
+      "id": "m088",
+      "chapter": "legacy",
+      "prompt": "Describe a gift you gave that mattered: what it was, why you chose it, and what happened when it was received.",
+      "narrative_job": "Shows giving as the legacy's currency.",
+      "position": "Chapter 9: the gift.",
+      "devices": [
+        "scene",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.meaningful_gift"
+      ]
+    },
+    {
+      "id": "m089",
+      "chapter": "legacy",
+      "prompt": "Describe watching someone you raised or mentored do something you could never have done. What did you feel in that moment?",
+      "narrative_job": "Shows the legacy outgrowing its maker.",
+      "position": "Chapter 9: watching them surpass you.",
+      "devices": [
+        "scene",
+        "reflection"
+      ],
+      "bible_keys": [
+        "events.surpassed"
+      ]
+    },
+    {
+      "id": "m090",
+      "chapter": "legacy",
+      "prompt": "What do you hope people will say about you when you are not in the room? Say it as plainly as you can.",
+      "narrative_job": "Closes the chapter on reputation as the narrator hopes it.",
+      "position": "Chapter 9, close: what they will say.",
+      "devices": [
+        "reflection",
+        "foreshadow"
+      ],
+      "bible_keys": [
+        "events.hoped_reputation"
+      ]
+    },
+    {
+      "id": "m091",
+      "chapter": "reckoning_and_light",
+      "prompt": "What does the light left burning for you mean to you now, all these years later? Has its meaning changed since you were a child?",
+      "narrative_job": "Pays off the book's central motif: the porch light returns.",
+      "position": "Chapter 10, opening: the motif returns.",
+      "devices": [
+        "motif_payoff",
+        "reflection"
+      ],
+      "bible_keys": [
+        "motifs.porch_light"
+      ]
+    },
+    {
+      "id": "m092",
+      "chapter": "reckoning_and_light",
+      "prompt": "What is the truest thing you know about your life, the one sentence you would stand by even if everything else in this book were doubted?",
+      "narrative_job": "Asks for the book's thesis sentence.",
+      "position": "Chapter 10: the truest thing.",
+      "devices": [
+        "reflection",
+        "closing_image"
+      ],
+      "bible_keys": [
+        "events.truest_thing"
+      ]
+    },
+    {
+      "id": "m093",
+      "chapter": "reckoning_and_light",
+      "prompt": "What do you still not understand about your own life, after all these years? Name it without trying to solve it.",
+      "narrative_job": "Leaves room for the unresolved, honestly.",
+      "position": "Chapter 10: the unanswered question.",
+      "devices": [
+        "reflection",
+        "show_dont_tell"
+      ],
+      "bible_keys": [
+        "events.still_unknown"
+      ]
+    },
+    {
+      "id": "m094",
+      "chapter": "reckoning_and_light",
+      "prompt": "If you could sit down with one person from your life, living or dead, for one more hour, who would it be and what would you ask them?",
+      "narrative_job": "Uses the imagined hour to name the deepest unfinished conversation.",
+      "position": "Chapter 10: the one more hour.",
+      "devices": [
+        "dialogue",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.one_more_hour"
+      ]
+    },
+    {
+      "id": "m095",
+      "chapter": "reckoning_and_light",
+      "prompt": "Describe an ordinary day in your life now, from waking to sleep, in full. What does an ordinary day hold that the extraordinary ones never did?",
+      "narrative_job": "Shows the present as a scene worth recording.",
+      "position": "Chapter 10: the ordinary day.",
+      "devices": [
+        "scene",
+        "sensory_place",
+        "time_compression"
+      ],
+      "bible_keys": [
+        "events.ordinary_day_now"
+      ]
+    },
+    {
+      "id": "m096",
+      "chapter": "reckoning_and_light",
+      "prompt": "What are you most grateful for, and whom do you thank for it? Name them.",
+      "narrative_job": "Names gratitude's recipients.",
+      "position": "Chapter 10: the gratitude.",
+      "devices": [
+        "reflection",
+        "character_voice"
+      ],
+      "bible_keys": [
+        "events.gratitude"
+      ]
+    },
+    {
+      "id": "m097",
+      "chapter": "reckoning_and_light",
+      "prompt": "What advice would you give to someone starting the life you have lived, in three sentences or fewer, with no softening?",
+      "narrative_job": "Distills the book's advice to its hardest form.",
+      "position": "Chapter 10: the advice, unsoftened.",
+      "devices": [
+        "reflection",
+        "dialogue"
+      ],
+      "bible_keys": [
+        "events.advice"
+      ]
+    },
+    {
+      "id": "m098",
+      "chapter": "reckoning_and_light",
+      "prompt": "How do you think about the end of your life, and what do you want the ending to look like, if you get any say in it?",
+      "narrative_job": "Faces mortality directly and plainly.",
+      "position": "Chapter 10: the ending, faced.",
+      "devices": [
+        "reflection",
+        "scene"
+      ],
+      "bible_keys": [
+        "events.mortality"
+      ]
+    },
+    {
+      "id": "m099",
+      "chapter": "reckoning_and_light",
+      "prompt": "What do you want to be remembered for, above all else, and what would it mean for that to be true?",
+      "narrative_job": "Asks for the remembered self, stated plainly.",
+      "position": "Chapter 10: the remembered self.",
+      "devices": [
+        "reflection",
+        "motif_payoff"
+      ],
+      "bible_keys": [
+        "events.remembered_for"
+      ]
+    },
+    {
+      "id": "m100",
+      "chapter": "reckoning_and_light",
+      "prompt": "Describe the last image of this book: where are you, what is the light doing, and who, if anyone, is with you? End there.",
+      "narrative_job": "Closes the book on a single still image, the porch light's final form.",
+      "position": "Chapter 10, close: the last image.",
+      "devices": [
+        "closing_image",
+        "motif_payoff",
+        "sensory_place"
+      ],
+      "bible_keys": [
+        "motifs.porch_light",
+        "events.last_image"
+      ]
+    }
+  ]
+}

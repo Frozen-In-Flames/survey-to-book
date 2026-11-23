@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+models/
+tools/llama-b12651/
+tools/llama.tar.gz
+books/*/state.json
