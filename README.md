@@ -42,10 +42,14 @@ model writes a short synopsis of that chapter, and the synopses
 accumulate into a rolling synopsis. A page prompt is assembled from
 the framework controls for the slot, the bible (rendered under a word
 budget, most relevant entries first), the fixed facts, the rolling
-synopsis, the two most recent pages in full, and the current answer.
-Because the bible and synopsis compress all earlier material, prompt
-size stays bounded as book length grows: the context cost of page 300
-is of the same order as page 30.
+synopsis, a short closing excerpt of the most recent page, and the
+current answer. Because the bible and synopsis compress all earlier
+material, prompt size stays bounded as book length grows: the
+context cost of page 300 is of the same order as page 30. Earlier
+pages are deliberately not fed forward in full: the first book this
+system produced showed that a model handed previous pages as raw
+text re-emits their sentences verbatim (in that book, 90 of 100
+pages shared a full sentence with the previous page).
 
 **Continuity verification.** After generation, a deterministic
 checker scans the finished pages against the bible's typed facts.
@@ -61,6 +65,30 @@ contradictions (a renamed parent, an altered birth year) are
 required to be flagged, and consistent fixtures are required to
 pass; regression tests cover the grandfather, grandmother, list, and
 plural cases that the first book exposed.
+
+**Duplication measurement and the refrain parameter.** A sibling
+checker measures verbatim sentence overlap between each page and
+the pages before it; its headline metric (pages sharing a full
+sentence with the previous page) is recorded in every build report.
+A page that repeats earlier sentences beyond a small allowance is
+treated as failed and regenerated with the overlap named, a bounded
+number of times, and the outcome is recorded. Recurrence itself is
+a writer's control, not an error: the framework's `refrain`
+parameter (a boolean in each pack, overridable at build time with
+`--refrain` / `--no-refrain`) selects it. A refrain is recurrence
+with development. With the parameter on, the book's anchor theme —
+the first page's opening sentences — is carried in the prompt as a
+theme, and the model is directed to restate it, where a page calls
+it back, as developed by everything the story has established
+since: newer facts and shifted understanding, in fresh wording.
+Verbatim copying is not the mechanism in either setting, and the
+report separates the two measurements: verbatim overlap (the loop
+detector, which must stay low in both settings) and, with the
+parameter on, a development check that classifies each recurrence
+of the anchor — verbatim copies fail it, and thematic recurrences
+pass only when they demonstrably carry material drawn from the
+story since the anchor. The check's verdict and any failing pages
+are named in the report and the book's colophon.
 
 **Generation.** Inference is fully local and offline, served by
 llama.cpp from a GGUF model file on the same machine. No network
@@ -85,16 +113,39 @@ build continues from the first ungenerated page.
 - **Typed facts with mechanical enforcement.** Facts declared at the
   survey layer become constraints verified over the finished text,
   with negative controls proving the verification can fail.
+- **Recurrence as a measured parameter.** The refrain is a named,
+  togglable framework control whose two failure modes — verbatim
+  looping and undeveloped restatement — are each measured by a
+  deterministic checker, so the selected behavior is verified in
+  the build report rather than asserted.
 
 ## Genre packs
 
-One pack ships in this release:
+Two packs ship in this release:
 
 - **memoir** (v1.0.0): 100 questions in 10 chapters of 10, ordered as
   a life arc (origins, childhood home, family, early world, first
   wounds, becoming, work and calling, love and partnership, losses
   and turning points, present day and legacy). Framework: first-person
   retrospective voice, twelve-device library, five typed facts.
+  Refrain default: on (its first book was generated with recurrence
+  in effect, before the parameter existed; the pack now records the
+  setting explicitly).
+
+- **biography** (v1.0.0): 100 questions in 10 chapters of 10, ordered
+  cradle to present (before the beginning, birth and first years,
+  the making of the child, apprenticeship, the young adult, the
+  work, love and household, standing and struggle, late years and
+  death, legacy). Framework: third-person retrospective voice — the
+  pack's defining difference from memoir — a thirteen-device library
+  (scene reconstruction, period detail, documentary anchor, voice of
+  record, the subject's own words, contextual frame, character
+  portrait, testimony weave, object evidence, turning point,
+  reputation against the record, legacy lens, chapter turn), and
+  seven typed fact slots kept about the subject (name, birth year,
+  birthplace, mother, father, partner, death year). Refrain default:
+  off; in a third-person chronological life, recurrence reads as
+  error rather than voice.
 
 Additional genre packs are added one at a time as updates to this
 same application; the engine is genre-agnostic and loads any pack
@@ -102,9 +153,15 @@ that satisfies the schema in `engine/pack.py`.
 
 ## Proof of works
 
-`books/memoir-first-book/` contains the first book produced by this
-system, generated from the memoir pack and the demonstration answer
-set in `demo/`:
+Each genre pack ships with a first book generated from the pack and
+a demonstration answer set in `demo/`, as evidence of the pack in
+operation. The demonstration user of the series is Frozen In
+Flames, a fictional persona: the canonical record of the
+character's invented life is `demo/frozen-in-flames-character.json`,
+and each pack's demonstration answers are that character's answers,
+drawn from the single record so the same character headlines every
+book. (The first book predates the shared-character rule; its
+respondent is a separate fictional persona, as its entry states.)
 
 - **The Porch Light** — 100 pages, one per question, 38,261 words,
   generated locally with Qwen2.5-3B-Instruct (Q4_K_M GGUF, Apache-2.0;
@@ -117,13 +174,40 @@ set in `demo/`:
   the page and word counts and the continuity check outcome for the
   run.
 
-- Live reader: the full text of the book can be read in a browser at
-  https://frozen-in-flames.github.io/survey-to-book/, page by page
-  with chapter navigation. The same page carries a download button
-  that saves the book file (Markdown, or plain text) for offline
-  reading. The site is static and self-contained; it is generated
-  from the manuscript by `tools/build_reader_site.py` and served
-  from `docs/`.
+- **The Cold Room** (`books/biography-first-book/`) — the biography
+  pack's first book: 100 pages, one per question, 28,415 words,
+  generated locally with the same model and settings as the first
+  book (Qwen2.5-3B-Instruct Q4_K_M GGUF via llama.cpp build b12651;
+  temperature 0.8, top-p 0.95, repeat penalty 1.1, 480-token page
+  budget, single inference slot). The subject is Frozen In Flames,
+  the series' demonstration user: a fictional persona whose
+  fabricated survey answers are drawn from the canonical character
+  record in `demo/frozen-in-flames-character.json`, and the book's
+  front matter states this. The story bible extracted from the
+  answers agrees with the character record fact for fact (subject
+  Frozen In Flames, born 1960 in Memphis; mother Evelyn Flames,
+  father Harold Flames, partner Alice Flames; the character is
+  living, so the pack's death-year slot is declared but
+  unestablished). Continuity check: 0 issues. The pack's refrain
+  parameter was off for this build. Duplication: 2 of 100 pages
+  share a full sentence verbatim with the previous page, against
+  90 of 100 in the first book; the two exceptions (pages 38 and 39)
+  are the pages where the bounded regeneration was exhausted and
+  the least-duplicative attempt was kept, as recorded in
+  `report.json`, which also records 27 regeneration retries across
+  22 pages.
+
+- Live library: both books can be read in a browser at
+  https://frozen-in-flames.github.io/survey-to-book/, which is now a
+  library index: every published book is listed with its title,
+  genre, demonstration character, and page and word counts, a Read
+  button opening that book's full text page by page with chapter
+  navigation, and a Download button for the book file (Markdown,
+  byte-identical to the book's manuscript, or plain text). The site
+  is static and self-contained; it is generated from the books'
+  manuscripts and reports by `tools/build_reader_site.py` and
+  served from `docs/`. Adding the next book is a data entry in
+  that generator, not a rewrite.
 
 - Continuity: the first check of the finished book flagged 17
   candidate issues. Inspection against the source answers showed all
@@ -157,6 +241,22 @@ set in `demo/`:
   mid-sentence: the 480-token page budget truncated generation, and
   the engine accepts a page that meets the minimum length rather than
   extending it to a sentence boundary.
+
+- Known deviations in the second book, recorded on the same terms:
+  (1) the chapter-7 rolling synopsis is absent. Generation was
+  interrupted between that chapter's final page being saved and its
+  synopsis being written, and the resumable build does not revisit
+  completed chapters; chapters 8–10 were therefore generated without
+  that chapter's synopsis in their rolling context (the story bible
+  and fixed facts were unaffected, and the continuity check still
+  reports 0 issues). (2) Pages 38 and 39 each share one full
+  sentence with the previous page after the bounded duplication
+  retries were exhausted; the least-duplicative attempts were kept
+  and the outcome is recorded in the report, as the metric's
+  exceptions. (3) The opening page carries a meta-narrative
+  mannerism (it describes its own act of introduction); the
+  remaining 99 pages do not. The final page ends on a complete
+  sentence.
 
 Each future genre pack will ship with its own first book in the same
 way, as evidence of the pack in operation.
@@ -203,9 +303,12 @@ material.
 - `engine/` — the genre-agnostic engine (pack validation, story
   bible, prompt assembly and sequential generation, continuity
   checking, Markdown export, CLI).
-- `packs/` — genre packs. `packs/memoir.json` is generated from
-  `tools/build_memoir_pack.py`.
-- `demo/` — the demonstration answer set for the memoir pack.
+- `packs/` — genre packs. `packs/memoir.json` and
+  `packs/biography.json` are generated from the builders in
+  `tools/`.
+- `demo/` — the demonstration answer sets, and the canonical
+  character record (`frozen-in-flames-character.json`) they are
+  drawn from.
 - `books/` — generated books published as proof of works.
 - `tests/` — the test suite, including the negative controls.
 - `tools/` — pack and demo-data builders.
