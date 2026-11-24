@@ -1,0 +1,7 @@
+{
+ "skipped_empty": [],
+ "pages_built": 100,
+ "total_words": 38261,
+ "continuity_issues": [],
+ "model": "Qwen2.5-3B-Instruct (Q4_K_M GGUF) via llama.cpp, local"
+}

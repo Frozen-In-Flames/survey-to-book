@@ -12,6 +12,15 @@ Two deterministic checks are applied:
    from a bible name by a small edit distance (a misspelling or a
    silently altered name) are flagged for review.
 
+Two matching rules keep the scans from producing false positives.
+Trigger phrases are matched at word boundaries, so a trigger such as
+"Father" does not match inside "grandfather" and "Mother" does not
+match inside "grandmother": a name attached to a grandparent is a
+claim about the grandparent, not about the parent. And a token that
+is an established name plus a plural "s" (the family name "Calloways"
+against the established "Calloway") is the same name in plural form,
+not a misspelling.
+
 The checker is deliberately conservative: it flags candidate problems
 with page references and excerpts rather than asserting certainty.
 An empty result means no candidate contradiction was found.
@@ -73,6 +82,20 @@ def _is_contradiction(candidate: str, value: str) -> bool:
     return True
 
 
+def _trigger_pattern(trigger: str) -> "re.Pattern[str]":
+    """Compile a trigger phrase to match at word boundaries.
+
+    A bare substring search matches "Mother" inside "grandmother" and
+    "Father" inside "grandfather", which turns a correctly named
+    grandparent into a spurious contradiction of the parent's name.
+    Boundaries are added only where the trigger's edge is a word
+    character, so phrases and punctuation-ended triggers still match.
+    """
+    prefix = r"\b" if trigger[0].isalnum() or trigger[0] == "_" else ""
+    suffix = r"\b" if trigger[-1].isalnum() or trigger[-1] == "_" else ""
+    return re.compile(prefix + re.escape(trigger) + suffix, re.IGNORECASE)
+
+
 def check_continuity(pages: list[dict], facts: dict[str, dict]) -> list[dict]:
     """Return a list of candidate continuity issues (possibly empty).
 
@@ -90,7 +113,7 @@ def check_continuity(pages: list[dict], facts: dict[str, dict]) -> list[dict]:
                 continue
             text = page["text"]
             for trigger in fact["triggers"]:
-                for m in re.finditer(re.escape(trigger), text, re.IGNORECASE):
+                for m in _trigger_pattern(trigger).finditer(text):
                     window = text[m.end():m.end() + 48]
                     if fact["kind"] in ("person_name", "place_name"):
                         cand = re.match(
@@ -131,6 +154,11 @@ def check_continuity(pages: list[dict], facts: dict[str, dict]) -> list[dict]:
         for page in pages:
             seen_tokens = set(_NAME_TOKEN_RE.findall(page["text"]))
             for token in seen_tokens:
+                # A plural of an established name ("Calloways" for
+                # "Calloway") is the same name, not a misspelling.
+                if any(token.lower() == ref.lower() + "s"
+                       for ref in established):
+                    continue
                 for ref in established:
                     if token != ref and _levenshtein(token.lower(),
                                                      ref.lower()) == 1:

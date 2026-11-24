@@ -81,6 +81,85 @@ class TestContinuity(unittest.TestCase):
                           if i["type"] == "fact_contradiction"]
         self.assertEqual(contradictions, [])
 
+    def test_grandfather_name_is_not_a_father_contradiction(self):
+        # Regression: the bare trigger "Father" used to match inside
+        # "grandfather", flagging a correctly named grandfather as a
+        # contradiction of the father's name.
+        facts = {
+            "father_name": {
+                "slot": "father_name", "kind": "person_name",
+                "value": "Henry Calloway",
+                "triggers": ["my father", "Father"],
+                "source_question": "q001",
+            },
+        }
+        pages = [
+            page(0, "q001", "Henry Calloway repaired engines."),
+            page(1, "q002",
+                 "My grandfather Tomas Delgado rowed out in the storm "
+                 "and refused all thanks."),
+            page(2, "q003",
+                 "We had inherited the boat from my grandfather "
+                 "Tomas Delgado."),
+        ]
+        issues = check_continuity(pages, facts)
+        contradictions = [i for i in issues
+                          if i["type"] == "fact_contradiction"]
+        self.assertEqual(contradictions, [])
+
+    def test_grandmother_name_is_not_a_mother_contradiction(self):
+        # Regression: the bare trigger "Mother" used to match inside
+        # "grandmother", flagging a correctly named grandmother as a
+        # contradiction of the mother's name.
+        pages = [
+            page(0, "q001", "Elena Vasquez ran the cafe."),
+            page(1, "q002", "I was born in 1962."),
+            page(2, "q003",
+                 "Sunday dinner at my grandmother Odette's, where the "
+                 "gumbo took two days."),
+        ]
+        issues = check_continuity(pages, FACTS)
+        contradictions = [i for i in issues
+                          if i["type"] == "fact_contradiction"]
+        self.assertEqual(contradictions, [])
+
+    def test_name_in_list_after_grandmother_is_not_flagged(self):
+        # Regression: "my grandmother, Eli" used to flag Eli as the
+        # mother's name, because the trigger matched inside
+        # "grandmother" and the next capitalized name was taken as
+        # the value.
+        pages = [
+            page(0, "q001", "Elena Vasquez ran the cafe."),
+            page(1, "q002", "I was born in 1962."),
+            page(2, "q003",
+                 "Gone: my parents, my grandmother, Eli, and the "
+                 "versions of my brother and myself."),
+        ]
+        issues = check_continuity(pages, FACTS)
+        contradictions = [i for i in issues
+                          if i["type"] == "fact_contradiction"]
+        self.assertEqual(contradictions, [])
+
+    def test_plural_family_name_is_not_name_drift(self):
+        # Regression: "Calloways" was flagged as a one-letter drift
+        # of the established name "Calloway"; a plural is the same
+        # name, not a misspelling.
+        facts = {
+            "mother_name": {
+                "slot": "mother_name", "kind": "person_name",
+                "value": "Rosa Calloway",
+                "triggers": ["my mother", "Mother"],
+                "source_question": "q001",
+            },
+        }
+        pages = [
+            page(0, "q001", "Rosa Calloway ran the cafe."),
+            page(1, "q002", "The Calloways gathered at the harbor."),
+        ]
+        issues = check_continuity(pages, facts)
+        drift = [i for i in issues if i["type"] == "name_drift"]
+        self.assertEqual(drift, [])
+
 
 if __name__ == "__main__":
     unittest.main()
