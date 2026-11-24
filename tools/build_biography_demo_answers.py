@@ -1,1284 +1,929 @@
-"""Builds demo/biography-demo-answers.json.
+#!/usr/bin/env python3
+"""Build the biography pack's demonstration answers.
 
-The subject is a fictional demonstration persona, Walter Elias Brandt
-(1911-1989), a Pittsburgh machinist and inventor invented as test
-data for the biography pack. The answers are written as a researcher
-respondent working from the subject's fictional papers. Every
-biographical detail in these answers is fabricated for demonstration.
-The answers are internally consistent with the pack's fixed facts:
-subject Walter Elias Brandt, born 1911 in Pittsburgh, mother Anna
-Brandt, father Josef Brandt, partner Clara Brandt, died 1989.
+The demonstration user of the series is Frozen In Flames, a fictional
+persona. The canonical facts of the character's invented life live in
+demo/frozen-in-flames-character.json; this script loads that record
+and writes the character's answers to all 100 biography questions,
+with the fact-bearing answers interpolated from the record so the
+two cannot drift apart. A consistency check runs before anything is
+written: every recorded fact must appear in its designated answer,
+and the death-year question must contain no year (the character is
+living; no death fact is established).
 """
 
+from __future__ import annotations
+
 import json
+import re
+import sys
 from pathlib import Path
 
-A = {}
-# -- ch01: Before the Beginning -------------------------------------------
-A["q001"] = (
-    "Walter Elias Brandt. To everyone who knew him he was Walt; at "
-    "the works, where two other Walters came and went over the years, "
-    "he was simply Brandt, and the name on the patent and the shop "
-    "sign was Brandt Tool Works. He signed his letters W. E. Brandt "
-    "and his drawings just Brandt, in the small upright hand he never "
-    "changed after boyhood."
-)
-A["q002"] = (
-    "The Brandts came from Essen, in Germany. His grandfather "
-    "Matthias Brandt crossed in 1889 with a toolbox, a trade, and a "
-    "debt to the cousin who had paid his passage, and he went where "
-    "the steel was: Pittsburgh. He sent for his wife a year later. "
-    "On the mother's side, the Kesslers were already Pennsylvanians, "
-    "from Altoona, German two generations further back. The subject's "
-    "life begins, then, in a city his family had chosen for its work."
-)
-A["q003"] = (
-    "Anna Brandt, born Anna Kessler in 1886. Her family called her "
-    "Annie when she was young, but from her marriage onward the "
-    "record calls her Anna, and so did he: his father, who was not a "
-    "sentimental man in public, addressed her as Anna in every letter "
-    "that survives, and the household followed him. The census, the "
-    "church book, and her gravestone all give Anna Brandt."
-)
-A["q004"] = (
-    "Before her marriage she was a seamstress in a Garment District "
-    "workshop off Fifth Avenue, sewing piecework at a treadle machine "
-    "she later kept in the house and used all her life. Afterward she "
-    "ran the household like a small works: she kept the family's "
-    "books in a ruled ledger, every wage and debt entered the day it "
-    "happened. She was known, in the family and on the street, for "
-    "exactness. Nothing was approximately paid, approximately "
-    "promised, or approximately remembered if Anna Brandt had written "
-    "it down."
-)
-A["q005"] = (
-    "Josef Brandt. The men at the works called him Joe, and his "
-    "wife called him Josef, and the subject, writing about him years "
-    "later, used Josef. He was born in Pittsburgh in 1883, the second "
-    "son of the emigrant Matthias, and he was a machinist before he "
-    "was twenty and a machinist the day he retired, forty-four years "
-    "at the same trade in the same city."
-)
-A["q006"] = (
-    "He was a machinist at the Halloway Machine Works, on the "
-    "lathes, and the work made him what the family called a measurer: "
-    "a man who trusted nothing he had not checked himself. It also "
-    "made his hands: the left thumb flattened by a press in 1909, the "
-    "nails permanently ridged. He earned a skilled man's wage and "
-    "kept a skilled man's hours, up at five, and he believed the "
-    "trade was not a job but a jurisdiction, inside which a man was "
-    "judged only by the work."
-)
-A["q007"] = (
-    "They met at the German Lutheran church on the South Side, "
-    "where her family had begun attending after the move from "
-    "Altoona; he was twenty-six and already a journeyman, she was "
-    "twenty-three and sewing. The family story, which both of them "
-    "told the same way, is that he mended the treadle of her machine "
-    "at a church social and charged her nothing, and she entered the "
-    "repair in her ledger anyway, as a debt, and paid it back in "
-    "meals. He brought the trade's steadiness; she brought the "
-    "books. The marriage ran on both for fifty-one years."
-)
-A["q008"] = (
-    "The family believed it was a family that finished things. The "
-    "story it told about itself, at tables and funerals, was that "
-    "Brandts did not begin what they could not complete, and did not "
-    "owe what they could not pay. It was half a boast and half a "
-    "discipline, and the children were raised inside it the way they "
-    "were raised inside the house: without being asked. The subject "
-    "repeated the formula all his life, usually when a job had gone "
-    "wrong and he intended to stay with it."
-)
-A["q009"] = (
-    "Modest, and carefully kept. Matthias the emigrant had bought "
-    "the house on Wylie Avenue in the Hill District in 1897, with a "
-    "mortgage that took nineteen years to clear, and the clearing of "
-    "it was the family's founding financial event. Josef's generation "
-    "owned the house outright, owed nothing, and had a machinist's "
-    "wage, a small savings book, and standing in the church and the "
-    "union local. They were not people of property beyond the house; "
-    "they were people of credit, which in that street and time was "
-    "the more guarded possession."
-)
-A["q010"] = (
-    "The emigrant's naturalization paper survives: Matthias "
-    "Brandt's certificate, dated 1903, kept by four generations in "
-    "a japanned tin box with the deed to the Wylie Avenue house and "
-    "Anna's first ledger. The paper is brittle and the ink gone "
-    "brown, and the signature is a careful, newly learned English "
-    "hand. It shows what the family thought worth keeping: not money, "
-    "not plate, but the documents of arrival and ownership, the "
-    "proof that the life had been lawfully built."
-)
-# -- ch02: Birth and First Years ------------------------------------------
-A["q011"] = (
-    "He was born in 1911, in the spring of the year the Triangle "
-    "fire filled the New York papers his mother read at the sewing "
-    "table, and the year the Pittsburgh mills were running full and "
-    "the city was building streetcar lines faster than streets. The "
-    "world of his birth was industrial and confident and already "
-    "armed; he would be twenty-eight when it went to war again, and "
-    "the fact that his trade kept him home is one of the hinges of "
-    "the life."
-)
-A["q012"] = (
-    "Pittsburgh, Pennsylvania, in the front room of the family's "
-    "house on Wylie Avenue in the Hill District, with a midwife "
-    "attending and his grandmother Kessler in the kitchen. The house "
-    "stood two streets above the mills' smoke line, close enough "
-    "that the windowsills were wiped every morning, and it is the "
-    "house he grew up in, learned his letters in, and left at "
-    "twenty-five to marry."
-)
-A["q013"] = (
-    "The record gives the date, the attending midwife's name, and "
-    "the entry in the church book a week later, where his name is "
-    "written Walter Elias Brandt in the pastor's hand. The memory, "
-    "which is his mother's, told to him grown and repeated in a "
-    "letter to his sister, adds that he was born at dawn, that it "
-    "rained, and that his father went to the works anyway and was "
-    "sent home at noon by a foreman who said a first son was a "
-    "holiday the company could afford. The record and the memory "
-    "agree on everything except the rain, which no document confirms."
-)
-A["q014"] = (
-    "The household at his birth was already full: his father Josef, "
-    "his mother Anna, his sister Marta, three years old, and his "
-    "grandmother Kessler, widowed the year before, who had the back "
-    "room and the authority of grief. His grandfather Matthias, the "
-    "emigrant, was dead by then, but his toolbox stood in the cellar "
-    "and his naturalization paper in the tin box, so that the house "
-    "the child entered was governed by a woman, kept by a ledger, "
-    "and haunted, in the practical way of such houses, by a man he "
-    "would never meet."
-)
-A["q015"] = (
-    "Walter for his mother's brother, killed at nineteen in a "
-    "rail-yard accident in Altoona before the subject was born, and "
-    "Elias for his father's grandfather in Essen, whose name was the "
-    "oldest word the family owned. His mother chose both names, and "
-    "the choosing was understood in the family as an act of repair: "
-    "the lost brother carried forward, the old country acknowledged "
-    "and then, deliberately, not spoken of much again. He disliked "
-    "the name Elias and used only the initial, all his life."
-)
-A["q016"] = (
-    "A narrow house, tall for its width, with a kitchen that was "
-    "also the works of the family: the treadle machine by the window, "
-    "the stove that heated the irons, the table where the ledger "
-    "lay. It smelled of coal smoke, machine oil tracked in on his "
-    "father's boots, carbolic soap, and whatever was sewing. It "
-    "sounded of the treadle's rhythm, the church bell two streets "
-    "off, and the mills' shift whistles, by which the whole street, "
-    "including the children, told time."
-)
-A["q017"] = (
-    "Neither hardship nor fortune, but a narrowness that was "
-    "managed like a tolerance. His father's wages were skilled wages "
-    "and steady until the short-time years, but there were four "
-    "mouths and a grandmother, and his mother's ledger from those "
-    "years shows the margins: weeks where the entries are in a "
-    "smaller hand, as if saving ink. The good fortune was the house, "
-    "owned outright, which meant that short wages were an anxiety "
-    "and never a catastrophe."
-)
-A["q018"] = (
-    "The church registry entry is the first record, and the first "
-    "object is a photograph: the family on the Wylie Avenue steps in "
-    "the summer of 1912, his father in a collar, his mother holding "
-    "the subject, who is looking, as his sister later wrote on the "
-    "back of the print, 'already at something he wanted to take "
-    "apart.' The photograph survives because Anna Brandt pasted it "
-    "into the front of the second ledger, where it served as a title "
-    "page to the family's accounts."
-)
-A["q019"] = (
-    "They expected him to take a trade, and the expectation was not "
-    "a hope but a plan: his father spoke of the works, his mother of "
-    "the ledger-keeping that any trade required, and both of them "
-    "spoke of school as the road to a trade done properly rather "
-    "than to a profession. Nobody in that house expected a scholar "
-    "or a soldier or a rich man. They expected a Brandt: a man who "
-    "finished things. The biography is largely the record of how "
-    "completely, and in what unexpected directions, the expectation "
-    "was met."
-)
-A["q020"] = (
-    "The story the family retold was of the boy, aged two, who was "
-    "found under the kitchen table with his father's alarm clock "
-    "reduced to its parts, laid out in a row on a cloth, in order. "
-    "His father, the story says, looked at the row a long time and "
-    "then said, 'He did not break it. He opened it.' The claim the "
-    "story makes about the child is that the taking-apart was never "
-    "destruction but inquiry, and like most family legends it is "
-    "probably improved, but the row of parts on the cloth is "
-    "believable, because he arranged his tools that way, in order, "
-    "for seventy years."
-)
-# -- ch03: The Making of the Child ----------------------------------------
-A["q021"] = (
-    "The record allows most of it. A narrow front room given to the "
-    "church's occasions and little else; the kitchen behind it, "
-    "which was the true living room; his parents' room above the "
-    "kitchen; the back room, his grandmother's, smelling of lavender "
-    "and camphor; the children's room under the eaves, his half "
-    "curtained from his sister Marta's; and below, the cellar, which "
-    "was his father's: a bench, a vise, the emigrant's toolbox, and "
-    "a rule the children learned early, that nothing in the cellar "
-    "was touched without asking. The subject's first measurements "
-    "were taken in that cellar, on that bench."
-)
-A["q022"] = (
-    "Work was the house's weather. He saw his mother sew, mend, and "
-    "keep the books at the kitchen table; he saw his father come "
-    "home with the day's tolerances still on him and go down to the "
-    "cellar bench to finish what the works had left rough; he saw "
-    "his grandmother shell, pare, and preserve, turning the garden "
-    "strip behind the house into jars. No adult in that house was "
-    "ever idle in the child's sight, and the lesson was not preached "
-    "but atmospheric: work was what a day was for."
-)
-A["q023"] = (
-    "He attended the public school two streets away and then the "
-    "technical high school across the river, and the record is "
-    "clear and mixed: first in his year in mathematics and drawing, "
-    "indifferent in Latin, and marked down, term after term, for "
-    "what one report calls 'arguing with the stated method.' He left "
-    "at sixteen with the school's certificate in mechanical drawing "
-    "and a letter from the drawing master that he kept all his life. "
-    "He did not go further in formal schooling, and in later years "
-    "called the works his university, which was pride and also true."
-)
-A["q024"] = (
-    "The drawing master at the technical school, a Scotsman named "
-    "Hendry, who had lost two fingers to a planer and taught "
-    "measurement as a moral subject. The school record shows the "
-    "boy's drawings kept back a year as examples; the family record, "
-    "which is his sister's memoir of the house, says Hendry told his "
-    "father at the school gate: 'The boy does not draw what he sees. "
-    "He draws what the thing does.' It was the first time an adult "
-    "outside the family treated the trait as capability rather than "
-    "argument, and the subject remembered the sentence verbatim at "
-    "seventy."
-)
-A["q025"] = (
-    "He took things apart and, increasingly, put them together "
-    "again improved: the alarm clock of the family legend, then the "
-    "neighbors' clocks, then a treadle machine he re-timed for his "
-    "mother, then, at thirteen, a broken bench grinder from the "
-    "works' scrap that he rebuilt in the cellar and used for six "
-    "years. He collected nothing and kept everything he had repaired, "
-    "so that the cellar shelves became a small museum of rescued "
-    "mechanisms, each with its fault remembered. Adults began to "
-    "bring him things. That is the trait in its first form: the "
-    "neighborhood's broken objects migrating toward the boy's bench."
-)
-A["q026"] = (
-    "His closest friend was Stefan Novak, a year older, from the "
-    "Polish family at the end of the street, whose daughter Clara "
-    "the subject would marry twenty years later, though nobody "
-    "foresaw it then. The two boys fished the river with tackle they "
-    "made, ran messages for the works' gatekeepers for pennies, and "
-    "shared a single ambition they never stated, which was to be "
-    "allowed into the cellar and the works as workers rather than "
-    "children. Stefan's friendship matters to the record for another "
-    "reason: it is through the Novaks' door that the subject first "
-    "entered the household that would become his second family."
-)
-A["q027"] = (
-    "In the winter he was nine, his grandmother Kessler died in the "
-    "back room, in the night, with the household awake around her; "
-    "and the boy, who had been closer to her than the family's "
-    "arrangement admitted, was sent to the Novaks for two days so "
-    "that the house could do its mourning in order. He remembered "
-    "the sending-away longer than the death. The marking of it, in "
-    "his own late account, is plain: 'I learned that grief in our "
-    "house was a thing done correctly, in the right room, and that "
-    "children were furniture to be moved out of its way.'"
-)
-A["q028"] = (
-    "The requirements were three, and they were law. The ledger's "
-    "law: nothing owed, nothing wasted, nothing unrecorded that "
-    "mattered. The church's law: attendance, and behavior there that "
-    "reflected on the house. And the bench's law, his father's, "
-    "which the subject quoted most often: measure twice, ask before "
-    "touching another man's tools, and finish what you open. "
-    "Chores were assigned by the ledger's logic, faith by the "
-    "church's, but the third law was the one the child internalized, "
-    "because it was enforced by the only court he fully respected, "
-    "his father's silence at the bench."
-)
-A["q029"] = (
-    "Adults remarked on the same trait in both registers. In praise, "
-    "he was 'the boy who can fix it,' summoned with broken clocks "
-    "and lamps. In complaint, from teachers and once from the "
-    "pastor, he was the boy who asked how a thing worked when he "
-    "had been told only to believe or obey it. His mother entered "
-    "both in her memory without distinguishing them much: to her, "
-    "the record suggests, the praise and the complaint were one "
-    "observation, that the child treated every object and every "
-    "statement as a mechanism whose workings could be requested."
-)
-A["q030"] = (
-    "The direction showed at thirteen, in the rebuilt grinder and "
-    "in a sentence of his father's that the family preserved: Josef, "
-    "watching the boy true a wheel he had been told only to clean, "
-    "said to his wife, 'The works will not have to teach him to "
-    "care. They will have to teach him everything else.' His mother "
-    "noticed differently and earlier, she claimed: the row of parts "
-    "on the cloth. Either way, by the time he left school at sixteen "
-    "the direction was visible to the whole street, and the only "
-    "question the apprenticeship had to answer was whether the trade "
-    "would have room for the trait, or file it down."
-)
-# -- ch04: Apprenticeship ---------------------------------------------------
-A["q031"] = (
-    "At sixteen, in 1927, he was taken on at the Halloway Machine "
-    "Works, where his father worked the lathes, as an apprentice "
-    "machinist. The obtaining of it was the family's one exercise of "
-    "connection: his father spoke to the foreman, the drawing "
-    "master's letter was produced, and the boy was set to sweeping "
-    "and fetching for a month before he was allowed to touch a "
-    "machine, which was the works' way of reading a character. The "
-    "indenture was for four years. His wage was entered in his "
-    "mother's ledger, in her hand, with the date underlined."
-)
-A["q032"] = (
-    "His master was Emil Varga, a Hungarian who had come through "
-    "the same door as the Brandts a generation later and was the "
-    "works' best hand on the lathe and the least patient man in it. "
-    "Varga's method was demonstration without explanation: he would "
-    "make a cut once, perfectly, hand the boy the stock, and walk "
-    "away. What the boy produced was measured, and the measurement "
-    "was the whole of the lesson. 'The metal,' Varga said, in the "
-    "one sentence of his teaching the subject quoted, 'does not "
-    "listen. It answers.' The subject taught his own apprentices "
-    "the same way, and said so, and credited Varga every time."
-)
-A["q033"] = (
-    "The day began at six with the walk down through the Hill "
-    "District in the dark, the works' whistle at six-forty, and the "
-    "apprentice's first duties: oil, belts, the master's bench set "
-    "in order. Mornings were the master's work, watched and "
-    "assisted; middays, twenty minutes with the dinner pail in the "
-    "yard; afternoons, the apprentice's own practice pieces, each "
-    "measured and most rejected; the last hour, cleaning, the floor "
-    "swept in a pattern Varga inspected. Saturdays ended at noon "
-    "with the week's scrap weighed, because the works sold it and "
-    "the apprentice's waste was part of his record. The rhythm was "
-    "the same for four years, and the subject kept its outline, "
-    "early rising and a clean bench at close, for the rest of his "
-    "working life."
-)
-A["q034"] = (
-    "His hands learned measurement as a sense: the drag of a "
-    "micrometer he could read to a ten-thousandth by feel, the "
-    "sound a lathe makes when the cut is right, the heat of a "
-    "bearing judged on the back of the wrist. Varga's training "
-    "entered through the hands and never left them; at seventy he "
-    "could still gauge a feeler gap by thumb. His mind learned the "
-    "companion discipline, which was sequence: that a piece is made "
-    "in an order, and that the order is most of the making. Every "
-    "later design of his, including the chuck, is that apprenticeship "
-    "doctrine applied to a mechanism: feel first, then sequence."
-)
-A["q035"] = (
-    "In his second year he scrapped a bronze casting worth a "
-    "month's wages by boring it a thirty-second over, having "
-    "measured once, in a hurry, at the end of a Saturday. The works "
-    "kept the casting; Varga hung it on the wall above the boy's "
-    "bench, where it stayed until the apprenticeship ended, and the "
-    "subject asked, years later, that it be sent to him, and kept "
-    "it on his own shop's wall with the same intent. It is the "
-    "failure he spoke of most, because it taught the rule he "
-    "afterward enforced on everyone, himself first: the last measure "
-    "of the day is the one that counts, and hurry is a defect in the "
-    "workman, not in the work."
-)
-A["q036"] = (
-    "The apprentice's wage began at eleven dollars a week, of which "
-    "his mother's ledger took eight for the house, and the first "
-    "earnings that were wholly his bought two things: a micrometer "
-    "of his own, bought secondhand and still in the family's keeping, "
-    "and his sister Marta's train fare to a teaching course she had "
-    "been offered and the house could not quite fund. The pairing "
-    "was characteristic and was noticed: the tool for the trade, and "
-    "the rest spent making another person's start possible. The "
-    "ledger records both in the same week, in his mother's hand, "
-    "without comment."
-)
-A["q037"] = (
-    "His companions in the learning were two: Miklos "
-    "Szabo, Varga's nephew, quick and careless and gone to Detroit "
-    "in 1931 to the motor works, where he prospered; and Henry "
-    "Pruitt, slow, exact, and dogged, who stayed at Halloway all his "
-    "life and rose to foreman, and who was the subject's measuring "
-    "stick for forty years, the man whose opinion of a piece he "
-    "sought before any customer's. The rivalry among the three was "
-    "conducted entirely in tolerances: whose work came back from "
-    "inspection with the fewest marks. By that measure the subject "
-    "was second in his first year and first thereafter, a record he "
-    "kept in a pocket notebook that survives."
-)
-A["q038"] = (
-    "His father's brass caliper, given to him at the end of the "
-    "indenture, in the cellar, without ceremony, in the same motion "
-    "with which tools changed hands in that family all his life. "
-    "Josef had carried it thirty years; it was German-made, worn "
-    "bright at the jaws, and engraved on the beam with the "
-    "emigrant's initial, M.B., so that the boy received in one object "
-    "his father's trade and his grandfather's arrival. He used it "
-    "daily for sixty years, though better instruments came to hand, "
-    "and it is the object the family, asked for one thing that was "
-    "him, names first."
-)
-A["q039"] = (
-    "He decided he would never work to a drawing he had not "
-    "checked, and never sign work he had not measured, whatever the "
-    "pressure of the house or the customer. The decision came out of "
-    "the scrapped casting and out of watching older men initial "
-    "work they had not examined because the whistle had gone. In his "
-    "own shop the rule became the first clause of the house doctrine "
-    "and the cause of the two occasions, recorded later in this "
-    "book, when he refused paying work outright. The apprenticeship "
-    "gave him the trade; the refusal gave the trade its shape in him."
-)
-A["q040"] = (
-    "The indenture ended in 1931, in the worst year of the "
-    "Depression, when the works was on short time and kept its "
-    "finished apprentices on at reduced days as an act of policy the "
-    "foreman defended as investment. The mark of his readiness was "
-    "Varga's: the master, who had measured the boy's work for four "
-    "years without praise, set a finished piece of the new "
-    "journeyman's on the inspection bench and said to the foreman, "
-    "in the boy's hearing, 'Measure it yourself. Then tell me who "
-    "taught him.' He was twenty, a journeyman machinist, and the "
-    "trade's door, which the Depression was closing on most of his "
-    "generation, stood open to him on the strength of his hands."
-)
-# -- ch05: The Young Adult --------------------------------------------------
-A["q041"] = (
-    "The photographs of the young journeyman show a tall, narrow "
-    "man, already balding at the temples at twenty-two, in the "
-    "machinist's uniform of the day: collarless shirt, sleeves to "
-    "the elbow, an apron he kept cleaner than his fellows did. He "
-    "spoke quietly and, by all testimony, completely: he was a man "
-    "who finished his sentences as he finished his work, and who "
-    "listened to machinery and to people with the same tilted "
-    "attention. His sister's memoir of the house says he laughed "
-    "rarely and then entirely, and that the works' whistle still "
-    "set his hours years after he had his own shop."
-)
-A["q042"] = (
-    "In 1933, with the works on two days a week, he took in repair "
-    "work at the cellar bench at night, for neighbors and then for "
-    "small shops, against his father's stated judgment that a man "
-    "owed his employer his whole trade and moonlight work was a "
-    "form of theft. The decision was made without a quarrel, which "
-    "in that house was the grave form of disagreement: he stated it "
-    "at the table, his father stated the contrary, and the ledger "
-    "recorded the first repair payment the following week without "
-    "comment. The night bench was the seed of Brandt Tool Works, "
-    "eighteen years early, and the father, who lived to see the "
-    "shop, conceded the point in the only form he used, by bringing "
-    "the son his own work to do."
-)
-A["q043"] = (
-    "The Depression pressed first and longest: short time at the "
-    "works, his sister's course given up for a clerk's job, the "
-    "ledger's hand growing small again. Then the war: he was "
-    "twenty-eight in 1939, thirty when the country entered it, and "
-    "his trade was a reserved one; the works went to war contracts, "
-    "the hours doubled, and he was kept home at the lathe while "
-    "Stefan Novak, his childhood friend, went to the Pacific and "
-    "came home in 1944 with a ruined shoulder. The subject's "
-    "relation to the war was a lifetime's unease: he had made the "
-    "instruments of it, at full stretch, and had not stood where "
-    "Stefan stood, and the ledger of that debt, as he called it, "
-    "was never in his mind balanced."
-)
-A["q044"] = (
-    "He lived in the Wylie Avenue house until his marriage at "
-    "twenty-five, in his childhood room under the eaves, paying his "
-    "board from the ledger's arithmetic. The place demanded what it "
-    "had always demanded, church, correctness, the finished thing, "
-    "and it allowed what such houses allow: a cellar bench, a "
-    "mother's exact accounting, and a door that was never locked "
-    "against him. He left it for a two-room flat three streets away, "
-    "close enough to walk to Sunday dinner, and the geography is "
-    "the biography in miniature: his whole life was lived within a "
-    "mile of the room he was born in."
-)
-A["q045"] = (
-    "In the winter of 1935 he very nearly lost the right hand, and "
-    "with it the life, to a lathe accident at the night bench: a "
-    "sleeve caught, working alone and tired, against every rule he "
-    "afterward taught. Stefan Novak, visiting, heard the machine "
-    "note change through the cellar door and cut the belt with a "
-    "knife. The hand healed with two fingers stiffened, which he "
-    "then trained around for fifty years, adapting his grip and, "
-    "colleagues said, his whole sense of what a machine owes the "
-    "man at it. He dated his safety doctrine, and the chuck's "
-    "central idea, a mechanism that yields before the hand does, "
-    "from that night."
-)
-A["q046"] = (
-    "The believer was Stefan Novak, who believed without evidence "
-    "in the Depression years, when the subject was a journeyman on "
-    "short time with a night bench. Stefan brought him work, "
-    "carried his name into shops the Brandts had no entry to, and, "
-    "in 1935, saved his hand. What it cost Stefan is harder to "
-    "enter: the friendship was never equal in kind, because the "
-    "subject repaid in work and loyalty but not in ease, and after "
-    "the war, with Stefan's shoulder and silence, the debt ran the "
-    "other way and was paid, for thirty years, in the same coin. "
-    "The record calls it friendship; the testimony of both families "
-    "calls it the central relationship of his life outside the "
-    "household."
-)
-A["q047"] = (
-    "His ambition, stated in a letter to his sister in 1934 that "
-    "survives entire, was exact: 'I do not want to be rich. I want "
-    "a room of my own with machines in it, and my name on work that "
-    "is still true in fifty years, and to owe no man an explanation "
-    "of either.' The record allows no plainer statement. Everything "
-    "in the mature chapters, the shop, the patent, the refusals, is "
-    "that sentence being executed over fifty years, and the "
-    "biography can be read as its long proof."
-)
-A["q048"] = (
-    "The earliest surviving work is a toolmaker's vise he designed "
-    "and made at the night bench in 1936, for his own use, which is "
-    "still in the family's keeping. It shows the mature manner "
-    "entire: fewer parts than the commercial article, every surface "
-    "finished as if it would be inspected, and one idea, a jaw that "
-    "seats itself true under load, that is the chuck in embryo. "
-    "Dated and initialed underneath in his small hand, it is the "
-    "first object in which the trade would have recognized him "
-    "without the name."
-)
-A["q049"] = (
-    "He gave up, in those years, the one road out: a foreman's post "
-    "offered in 1937 at a motor works in Detroit, at half again his "
-    "wage, which he refused after a week's consideration, because "
-    "his father was failing and the house on Wylie Avenue was his "
-    "to keep standing. Miklos Szabo took the road and prospered on "
-    "it, and the subject never spoke of the refusal as sacrifice; "
-    "he spoke of it as a tolerance he had chosen, like any other, "
-    "and lived inside. It was never recovered, in the sense that "
-    "the Detroit scale of money never came to him, and the record "
-    "suggests he counted that a fair price for the mile of streets "
-    "his life occupied."
-)
-A["q050"] = (
-    "By 1939, with the works at war pitch and the night bench full, "
-    "the question his life was asking can be stated in his own "
-    "terms, from the letter of 1934: whether a man could have the "
-    "room of his own without becoming the kind of owner he had "
-    "watched from the bench: whether independence had to mean the "
-    "ledger kept against other men. The young adult years end with "
-    "the question open and the materials for answering it assembled: "
-    "the trade in his hands, the chuck already conceived in the "
-    "vise, a wife, a house three streets from his birthplace, and a "
-    "war coming that would make machinists rich and ask him what "
-    "his riches were for."
-)
-# -- ch06: The Work ---------------------------------------------------------
-A["q051"] = (
-    "He is known for the Brandt chuck: a quick-change lathe chuck "
-    "that lets a machinist exchange workpieces in seconds, seating "
-    "each one true without indicating it, because the mechanism "
-    "yields, centers, and locks in a single motion of the hand."
-)
-A["q052"] = (
-    "It began in the war years, at the night bench, with a "
-    "production problem: the works was turning out shell components "
-    "by the thousand, and the changeover between pieces, measured "
-    "and indicated one by one, was eating the shift. The first "
-    "attempt, in 1943, was a collet arrangement that failed by "
-    "wearing; the second, in 1945, centered truly and locked "
-    "unreliably; the third, finished in the winter of 1946, is the "
-    "chuck: a cam that yields as it closes, so that the piece seats "
-    "itself before the lock takes it. He worked the problem the way "
-    "Varga taught him, in sequence, each failure measured and kept; "
-    "the two failed prototypes survive, in order, on the shop's "
-    "shelf, because he said a man should keep his errors where he "
-    "can see them."
-)
-A["q053"] = (
-    "His mature method was a liturgy. The shop opened at six; the "
-    "first hour was maintenance, machines oiled, edges stoned, the "
-    "day's work laid out in sequence on the bench in the order of "
-    "its making. He designed at a drawing board by the window, in "
-    "the mornings, standing, in the small upright hand; he cut metal "
-    "after ten; he measured everything twice, at the bench and again "
-    "at the inspection table, which no piece left unvisited. He kept "
-    "a pocket notebook of tolerances and failures, in pencil, and he "
-    "answered letters in the last hour. Visitors remarked that the "
-    "shop ran like a chapel of exactness; his apprentices said it "
-    "ran like a clock because he was its escapement, and that the "
-    "comparison would have annoyed him, because a clock cannot "
-    "choose to be right."
-)
-A["q054"] = (
-    "The signature work is twofold: the chuck itself, patented in "
-    "1948 and made by Brandt Tool Works from 1951 until 1983, of "
-    "which some eleven thousand were produced, in the company's own "
-    "count, and are still in service in shops on three continents; "
-    "and the shop itself, Brandt Tool Works, founded in 1951 in a "
-    "rented room over a garage three streets from Wylie Avenue, and "
-    "from 1958 in its own small building, which carried his name in "
-    "cast letters over the door until the firm's dissolution in "
-    "1983, and carries it in the trade's memory after. He also left "
-    "a shelf of one-off instruments, gauges and fixtures made for "
-    "particular problems, which connoisseurs of the trade value "
-    "above the chuck."
-)
-A["q055"] = (
-    "At the height of the powers the shop employed nine men, and "
-    "the testimony comes from them. Henry Pruitt, by then foreman "
-    "at Halloway, inspected the chuck for the works' possible "
-    "license and reported, in writing that survives, 'It does what "
-    "he says. I have tried to make it lie and cannot.' His senior "
-    "apprentice of the fifties, Robert Halsey, said the master "
-    "was 'the only "
-    "man I knew who measured his own work harder than the "
-    "customer's.' The machinists who used the chuck wrote letters, "
-    "dozens of which the family kept; their common note is not "
-    "praise of ingenuity but of honesty: the tool did, in the hand, "
-    "exactly what its maker claimed at the bench."
-)
-A["q056"] = (
-    "The cost can be entered in three columns. Money: the patent "
-    "years consumed the family's savings twice over, and the shop "
-    "was undercapitalized for its first decade, so that the "
-    "household lived, in the good years, one order from anxiety. "
-    "Health: the stiffened fingers, the lungs the shop air marked, "
-    "and a back that ended his standing at the lathe at sixty-five. "
-    "Claims: his sons grew up, in Thomas's phrase, 'with a father "
-    "whose first family met at six in the morning and wore aprons,' "
-    "and the household chapters of this book are the record of that "
-    "cost's payment. He did not dispute the accounting. He said the "
-    "work had asked everything and he had known the price at the "
-    "time, which the testimony of the family partly confirms and "
-    "partly, in Clara's case, corrects."
-)
-A["q057"] = (
-    "His relation to ownership was the family's doctrine applied to "
-    "invention: he took the patent in his own name, refused two "
-    "offers to sell it outright in the fifties, and licensed it "
-    "narrowly and late, preferring to make the article himself at a "
-    "small scale than to be paid for other men's making of it. "
-    "Wages in his shop were at the top of the local scale and were "
-    "paid in bad weeks first, before his own drawing, a policy the "
-    "men's testimony mentions more often than the chuck. Credit he "
-    "treated as a tolerance: the drawings bear his name, the shop's "
-    "work bore the men's initials beside his on the inspection "
-    "cards, a practice buyers remarked on. Money itself he called, "
-    "in a letter, 'the chips the game is counted in, not the game.'"
-)
-A["q058"] = (
-    "The best-documented episode is the demonstration of November "
-    "1953, when a delegation from a national machine-tool firm came "
-    "to the shop to evaluate the chuck for license and he ran the "
-    "changeover himself, forty pieces in succession, seating each "
-    "within tolerance without an indicator, while their engineer "
-    "timed and measured behind him. The firm's report survives, and "
-    "its language is the plainest praise in the archive: 'Changeover "
-    "times reduced by an order of magnitude. Repeatability within "
-    "the maker's stated tolerance on all forty pieces.' He declined "
-    "their license terms the following spring, for reasons the next "
-    "pages examine, and the episode stands as the moment the work "
-    "was offered the large world and the maker chose the small one, "
-    "knowingly."
-)
-A["q059"] = (
-    "He refused, in 1961, a defense subcontract for a component he "
-    "judged, and said, designed to fail inspection honestly: the "
-    "drawing, as he read it, could not be made true, and the "
-    "contract's tolerances were written to be waived. His letter of "
-    "refusal survives and is quoted in the trade's memory entire: "
-    "'I will not put my name on work I have not measured, and I "
-    "cannot measure this true.' The refusal cost the shop its "
-    "largest prospective customer of the decade and was, by the "
-    "testimony of the men, the act that fixed his standing among "
-    "them: a Brandt piece, they said afterward, was a piece whose "
-    "maker had already refused to lie about it once at his own "
-    "expense."
-)
-A["q060"] = (
-    "He understood, before the trade said it plainly, that a "
-    "machine tool's accuracy is not a property of the tool but of "
-    "the hand-tool system: that the yielding element should be in "
-    "the mechanism, where it can be designed, and not in the man's "
-    "attention, where it fatigues. The chuck is that understanding "
-    "cast in steel. Contemporaries treated changeover as a labor "
-    "problem, to be solved by faster hands; he treated it as a "
-    "design problem, to be solved by a mechanism that forgives. The "
-    "trade's journals took twenty years to state his premise as "
-    "doctrine, by which time it had become, in the phrase of one "
-    "journal, 'what everyone now knows.' He kept the clipping, "
-    "without comment, in the tin box, with the naturalization paper."
-)
-# -- ch07: Love and Household ------------------------------------------------
-A["q061"] = (
-    "Clara Brandt, born Clara Novak, the younger sister of "
-    "his childhood friend Stefan. They had known each other since "
-    "she was a girl at the end of the street and he the boy always "
-    "in her brother's company, but the meeting the record counts is "
-    "the second one: at Stefan's homecoming dance in the church "
-    "hall in 1935, she twenty-one and teaching her first year, he "
-    "twenty-four with his hand still bandaged from the lathe "
-    "accident, when she asked him, in the family's preserved "
-    "version, whether the machine had apologized. They married the "
-    "following spring, in the same church where his parents had met "
-    "each other a generation before."
-)
-A["q062"] = (
-    "She brought what the Brandt system lacked: ease with people, "
-    "and a judgment of them quicker than his, and the ability to "
-    "say a thing in company so that it landed as kindness instead "
-    "of measurement. The shop's customers dealt with Walt at the "
-    "bench and with Clara at the books and the door, and more than "
-    "one contract, the men's testimony says, was saved by her "
-    "reading of a man's temper over the telephone. She also brought "
-    "the outside world into the house: her school's life, her "
-    "books, her politics, which were warmer and further left than "
-    "the Wylie Avenue doctrine, and which the household argued with "
-    "pleasure for fifty years."
-)
-A["q063"] = (
-    "The household they made was the two-room flat first, and from "
-    "1940 the small house on the street behind Wylie Avenue that "
-    "they bought with the war wages and kept for life: a kitchen "
-    "that served as office, where Clara kept the shop's books on "
-    "the same table as the family's; a parlor given to her school "
-    "papers and the children's lessons; and, from the fifties, a "
-    "shed workshop in the yard where the night bench migrated and "
-    "aged with him. Its routines were the two trades' routines "
-    "braided: his six o'clock rising, her school hours, the "
-    "ledger balanced on Fridays, and Sunday dinner at Wylie Avenue "
-    "while his parents lived, a walk of three streets that the "
-    "children could make blindfold."
-)
-A["q064"] = (
-    "There were two children: Thomas, who came in 1938, and Peter, "
-    "who came in 1942, both born at home in Pittsburgh, in the "
-    "house behind Wylie Avenue. The subject met fatherhood as he "
-    "met everything, as a practice to be learned by measurement and "
-    "corrected by failure, and the testimony of the sons is that "
-    "the learning was real but slow: he was a better father to "
-    "apprentices, one of them said, because an apprentice's errors "
-    "were in the work, where he could see them, and a child's were "
-    "in the child, where he had to be taught to look. Clara did the "
-    "teaching. Both sons survived him, Thomas a schoolmaster, Peter "
-    "an engineer who worked ten years in the shop and then carried "
-    "the trade to a larger firm."
-)
-A["q065"] = (
-    "In private, by the testimony of those who lived with him, he "
-    "was funnier, gentler, and less certain than the shop's legend "
-    "allows. He did imitations of customers that made the kitchen "
-    "helpless; he sang, badly and willingly, at the piano his wife "
-    "played; and he confessed doubts at the table, about the shop, "
-    "the patent suit, his sons' paths, that he would not have "
-    "entered in any notebook. Clara's judgment, given to her "
-    "daughter-in-law and preserved by her, is the household's "
-    "verdict: 'Your father-in-law is not a hard man. He is a man "
-    "who is hard on the work because the work cannot be hurt by it, "
-    "and he sometimes forgot that people are not work.'"
-)
-A["q066"] = (
-    "The strain was time, and its form was absence: the war years' "
-    "double hours, the patent years' evenings at the drawing board, "
-    "the suit years, when he came home, in Thomas's phrase, 'still "
-    "in the courtroom.' The household answered it with structures "
-    "rather than reproaches: the Friday ledger, at which the shop's "
-    "state was told to the family entire, so that anxiety was never "
-    "a rumor; the rule that Sunday was not the shop's; and Clara's "
-    "own career, kept and defended, which meant the household had "
-    "two centers and neither was an annex of the other. The strain "
-    "was real and the answers mostly worked, which is the most the "
-    "record claims for any marriage in this book."
-)
-A["q067"] = (
-    "They argued about money's meaning, underneath every stated "
-    "reason. The stated reasons were the usual: a roof, a car "
-    "deferred, the boys' schooling, her sister's loan. Underneath, "
-    "the argument was between his doctrine, that money is the chips "
-    "the game is counted in, and hers, that the chips are also the "
-    "family's safety and the proof the world gives that the work "
-    "matters. His own words survive in a letter of 1958: 'You keep "
-    "asking what the shop is worth. It is worth the work it lets us "
-    "do true. The day it is worth more than that, we are merchants, "
-    "and I did not apprentice to be a merchant.' She kept the "
-    "letter, and answered it in the margin, in pencil: 'And the "
-    "boys eat tolerances?' The household's whole economics is in "
-    "the exchange."
-)
-A["q068"] = (
-    "The partnership's emblem was the kitchen table itself: a "
-    "scarred oak table bought secondhand in 1936, at which the "
-    "shop's books and the family's were kept in two ledgers side by "
-    "side, at which contracts were read aloud, the boys' lessons "
-    "heard, the patent suit's letters opened, and, in the end, his "
-    "will discussed. When the house was cleared after Clara's death "
-    "the table was the one object both sons claimed, and it went by "
-    "agreement to Peter's house, with the two ledgers in its "
-    "drawer, where they remain. No object in the book carries more "
-    "of the marriage: two systems of account, one surface."
-)
-A["q069"] = (
-    "Clara's own life amounts to a career the biography must not "
-    "treat as scenery. She taught elementary school for forty-one "
-    "years, was head teacher of her school for the last twelve, and "
-    "ran, from the sixties, a Saturday reading room for the "
-    "district's children that the school board adopted after her "
-    "retirement as a standing program. Former pupils wrote to her "
-    "into her eighties. Her union work in the teachers' association "
-    "was, by the local paper's account at her retirement, the "
-    "equal in standing of his patent in his. The household was, as "
-    "she once said at a school dinner, 'a firm with two products: "
-    "true work and readers.'"
-)
-A["q070"] = (
-    "What remained unresolved when the prime years closed was the "
-    "question of the shop's succession, which is to say the "
-    "question of Peter. The elder son was never a candidate; the "
-    "younger had the hands and, for ten years, the will, but the "
-    "firm's smallness, which was the father's doctrine, was the "
-    "son's ceiling, and both men knew it by the middle sixties and "
-    "neither said it in the other's hearing. Clara named it at the "
-    "kitchen table in 1966, characteristically, as a tolerance "
-    "problem: 'This firm is made to one man's measure. A second man "
-    "cannot stand in it without stooping.' The prime years closed "
-    "on that sentence, unanswered."
-)
-# -- ch08: Standing and Struggle ---------------------------------------------
-A["q071"] = (
-    "His standing at its height, in the middle fifties, was the "
-    "standing of a maker's maker: not fame, which never attached to "
-    "him outside the trade, but authority within it. The chuck was "
-    "specified by name in the purchasing standards of firms that had "
-    "never met him; the trade journal's 1955 survey of changeover "
-    "practice cited Brandt Tool Works first among small firms; and "
-    "his testimony was sought, in 1957, by a standards committee on "
-    "workholding, on which he served two years. The standing was "
-    "conferred by the only electorate he recognized: the men who "
-    "used the work and the men who inspected it."
-)
-A["q072"] = (
-    "The opposition was the Merritt Tool Company, a national firm "
-    "whose grounds, stated fairly, were these: that the yielding "
-    "cam of the Brandt chuck was anticipated by a Merritt shop "
-    "drawing of 1941, never patented and never produced; that the "
-    "subject, who had seen Merritt's wartime work as a subcontractor, "
-    "had derived his mechanism from it; and that his patent was "
-    "therefore void and his manufacture an infringement. Behind the "
-    "stated grounds stood a simpler one, which Merritt's own "
-    "correspondence, produced in the suit, does not hide: the chuck "
-    "was taking the changeover market from firms ten times his size, "
-    "and the suit was cheaper than the competition. He opposed them "
-    "for six years, and the fairness of the grounds is the question "
-    "the next pages weigh."
-)
-A["q073"] = (
-    "The greatest public failure was not the suit but the fire of "
-    "October 1959, which took the shop's roof and half its machines "
-    "in a night, from an electrical fault in the old wiring of the "
-    "1951 building. The local paper recorded it in the trade's "
-    "terms: 'Brandt Tool Works, makers of the Brandt chuck, gutted; "
-    "no orders lost, the firm says, will be delivered late.' He was "
-    "forty-eight, insured for half the loss, and the failure was "
-    "public in the way that mattered to him: eleven firms' orders "
-    "stood in his book. The record of the year that followed is the "
-    "answer the biography gives to the question of what his standing "
-    "rested on."
-)
-A["q074"] = (
-    "In the year after the fire he rebuilt in the open, and the "
-    "manner of it is the testimony. The shop worked from a rented "
-    "bay and two borrowed lathes; every customer was written to by "
-    "hand, with a date; every date was kept or, in two cases, "
-    "renegotiated before it fell, never after. He took no new orders "
-    "for five months, paid his nine men throughout, though two "
-    "found other places in the interval and were received back "
-    "without remark when the new building opened in the autumn of "
-    "1960, on the same street, with the name in cast letters over "
-    "the door again. Henry Pruitt's judgment, given at the opening "
-    "and preserved in the local paper, is the record's summary: "
-    "'Any man can be exact when it is easy. Brandt was exact with "
-    "his shop in ashes.'"
-)
-A["q075"] = (
-    "The lawsuit, Merritt Tool Company against Brandt, ran from "
-    "1958 to 1964 and is the name's contested ground. The record "
-    "shows: the Merritt drawing of 1941 exists and shows a cam, but "
-    "not a yielding one; the subject's notebooks show the mechanism "
-    "arriving by stages, through the failures of 1943 and 1945, "
-    "each dated and witnessed in the shop's manner; and the court, "
-    "in 1964, upheld the patent and found no derivation, while "
-    "refusing him costs, so that the victory cost the firm, by "
-    "Clara's ledger, the price of a house. The biography follows "
-    "the record: the invention was his, by the only road inventions "
-    "are proved, the dated trail of its failures. What the suit "
-    "took was six years of evenings and the firm's reserve, and "
-    "what it gave was a standing among machinists that no verdict "
-    "could have bought: he had been measured by a great firm and "
-    "found true."
-)
-A["q076"] = (
-    "The press of the day was the trade press, and its record is "
-    "consistent: the journal that surveyed changeover practice in "
-    "1955 called the chuck 'the small firm's answer to the "
-    "production line'; the machinists' union paper noted his "
-    "wage policy twice, approvingly, in the fifties; and the local "
-    "daily, which mentioned him rarely, marked the fire and the "
-    "reopening, the verdict, and, at his death, gave him forty "
-    "lines and the photograph of 1953. No scandal, no profile, no "
-    "fame: the record of a reputation that lived where the work "
-    "lived, in the journals and memories of the trade that used it."
-)
-A["q077"] = (
-    "The words still quoted are the refusal letter's: 'I will not "
-    "put my name on work I have not measured, and I cannot measure "
-    "this true.' The trade took the sentence up; it is printed, "
-    "usually without his name, in at least two works' manuals that "
-    "the family has collected, and it was spoken at his funeral by "
-    "Henry Pruitt as the whole of the man's doctrine. A second "
-    "sentence runs in the shops, attributed and probably improved: "
-    "'A tolerance is a promise.' Between the two, the documented "
-    "one and the legendary one, the biography notes the difference "
-    "and keeps both, because the second is what the first became in "
-    "other men's mouths."
-)
-A["q078"] = (
-    "The legend parts from the record at the chuck's birth. The "
-    "legend, told in shops, is that he saw the whole mechanism in a "
-    "night, after the accident to his hand, and drew it complete by "
-    "morning. The record is the shelf of failures: the collet of "
-    "1943, the unreliable lock of 1945, three winters of notebooks "
-    "in which the cam's yield is arrived at by tenths. He corrected "
-    "the legend himself whenever he heard it, which the testimony "
-    "agrees on, and his correction is the more useful inheritance: "
-    "'Nothing in this shop was seen in a night. It was measured in "
-    "years.' The legend makes him a genius, which is a kind of "
-    "excuse for other men; the record makes him a workman, which is "
-    "an instruction."
-)
-A["q079"] = (
-    "Standing cost him the household's margin of safety, twice: the "
-    "patent years' savings, and then the suit's six years, in which "
-    "the firm's reserve went to lawyers and Clara's ledger resumed "
-    "the small hand of her mother-in-law's early years. It cost his "
-    "health in a quieter currency: the migraines of the suit years "
-    "are in Clara's letters, though in no medical record, and the "
-    "stiffened hand ached, his sons say, in every winter of his "
-    "life, a reminder he used rather than complained of. And it "
-    "cost him Peter, in the end, or the shop did: the son who might "
-    "have succeeded him read the price of the father's standing in "
-    "the household's ledgers and chose a salaried engineer's life, "
-    "with a father's blessing that both men worked to make genuine."
-)
-A["q080"] = (
-    "He used honors as he used money, as chips. The standards "
-    "committee's certificate hung not in the shop but in the "
-    "kitchen, by Clara's arrangement, 'where honors belong, among "
-    "the meals.' The verdict's vindication he converted at once "
-    "into the men's wages and a roof fund for the building. Fame, "
-    "such as it was, he spent on the two causes his testimony "
-    "supports everywhere: the apprenticeship system that had made "
-    "him, for which he argued in the trade press into his seventies, "
-    "and the widows' fund of his union local, whose accounts, "
-    "characteristically, he kept. What he would not spend standing "
-    "on was himself: there is no portrait, no profile, no named "
-    "chair, and the absence was policy, not modesty."
-)
-# -- ch09: Late Years and Death ----------------------------------------------
-A["q081"] = (
-    "The change began in the middle seventies, in the hands and "
-    "the back: the grip that had gauged a feeler gap by thumb "
-    "began, in his own notebook's words, 'to report approximately,' "
-    "and he recorded the decline with the same exactness he had "
-    "recorded tolerances, which is the most moving document of the "
-    "late years. He met it by stages and without theater: younger "
-    "men at the lathes, himself at the inspection table, where the "
-    "eyes still served, and then, at sixty-five in 1976, retirement "
-    "from the shop's direction, though the shop was his until its "
-    "dissolution seven years later. He said a tool knows when it is "
-    "dull and a man should be as honest, and arranged his going as "
-    "he had arranged everything, in sequence."
-)
-A["q082"] = (
-    "The last work was a set of master gauges for the shop, "
-    "finished in 1985 when he was seventy-four, made in the shed "
-    "workshop at home with the stiffened hand and the old tools, "
-    "including his father's caliper. Judged against the prime work "
-    "it is not the less for its smallness: the gauges are, by the "
-    "testimony of the engineer who certified them for the firm's "
-    "successors, as true as anything that bears his name, and they "
-    "were made at a pace of weeks per piece that no customer would "
-    "have paid for. They stand in the record as the proof that what "
-    "declined was the speed and the strength, not the standard."
-)
-A["q083"] = (
-    "The late circle was small and mostly of the house: Clara; "
-    "Thomas, three streets away, at Sunday dinner as in his "
-    "childhood; Peter, home monthly from his firm's city; Stefan "
-    "Novak until Stefan's death, eight years before his own, the "
-    "two old men at the "
-    "kitchen table with the war and the works between them, settled "
-    "at last into a silence both called satisfactory. Absent, and "
-    "noted in his letters without bitterness, were the trade's "
-    "younger men, who sent respects and did not come, and his "
-    "sister Marta, in California since the fifties, whose absence "
-    "the letters worked at for thirty years and never quite closed."
-)
-A["q084"] = (
-    "He settled what could be settled. With Marta, the letters of "
-    "the eighties close the distance as far as letters could, and "
-    "her reply to his last survives: 'You were the only one who "
-    "wrote as if the family were a thing still being made.' With "
-    "Peter, the succession was spoken of at last, in 1982, and the "
-    "son's road blessed in words the son recorded the same night. "
-    "What he left deliberately unsettled was the Merritt account: "
-    "he would not write the letter of reconciliation the firm's "
-    "new owners suggested in 1979, saying the record was the "
-    "settlement, and a man does not apologize to a drawing. The "
-    "forgiveness he practiced was real but it had a tolerance, and "
-    "the biography records the limit as part of the man."
-)
-A["q085"] = (
-    "The place of the late years was the house behind Wylie Avenue, "
-    "grown quiet: the kitchen with the two ledgers closed at last, "
-    "the shed workshop where he worked mornings, the garden strip "
-    "Clara kept as his grandmother had kept hers, the steps where "
-    "the photograph of 1912 had been taken three streets away, in "
-    "another family's tenure. It smelled of the same coal turned to "
-    "gas, the same machine oil in smaller quantity, and it sounded "
-    "of the church bell and, in place of the mills' whistles, the "
-    "schoolyard of Clara's school. He measured the life by it "
-    "himself, in a note of 1986: 'The house is the same size. I am "
-    "the thing that has been re-machined.'"
-)
-A["q086"] = (
-    "The final period was framed by the heart. A first attack in "
-    "1983, in the year of the shop's dissolution, was recorded in "
-    "the hospital's terms and in his own, which were terser: 'The "
-    "pump is at tolerance's end.' He recovered to the gauges and "
-    "the garden and five further years of mornings, under a regime "
-    "Clara administered with the ledger's exactness, and the "
-    "decline, when it came in the winter of 1988, was of the kind "
-    "the record calls gradual and the household called, in Clara's "
-    "letter to Marta, 'a long changeover, done in his own sequence.'"
-)
-A["q087"] = (
-    "He died in 1989, in February, at home, in the house behind "
-    "Wylie Avenue, in his seventy-eighth year. The record is plain: "
-    "heart failure, in the night, certified by the family's doctor, "
-    "who had known him forty years. Clara's account, written to "
-    "Marta within the week, adds what the record cannot: that he "
-    "had worked in the shed that morning, gauging, and had said at "
-    "supper that the last gauge wanted a tenth more, 'which,' she "
-    "wrote, 'was his way of saying he expected a tomorrow.'"
-)
-A["q088"] = (
-    "Clara was present, and Peter, who had come for the weekend by "
-    "chance, as the family always called a providence they did not "
-    "believe in; Thomas was sent for and arrived within the hour, "
-    "three streets being the family's lifelong measure of distance. "
-    "The news went out by Clara's hand, in letters written over the "
-    "following week in her schoolteacher's script, to the men of "
-    "the shop, to Henry Pruitt, to the trade journal, to Marta in "
-    "California, each letter, the recipients said, in the same form "
-    "and none of them a copy of another: she wrote to each what he "
-    "had been to the man, which is why the letters survive in so "
-    "many hands."
-)
-A["q089"] = (
-    "The last recorded words are the supper remark about the gauge, "
-    "and their reliability is the household's only: Clara's letter "
-    "is the single source, written within days, by the most exact "
-    "witness the life had. His last act is better documented: the "
-    "gauge of that morning survives, unfinished by the tenth he "
-    "named, in the shed, where Peter found it in its cloth, in "
-    "order, with the micrometer laid beside it in the arrangement "
-    "of a man intending to return. The biography gives the words "
-    "as testimony and the act as record, and notes that the "
-    "distinction, which he taught, is the right one to end on."
-)
-A["q090"] = (
-    "The funeral was at the German Lutheran church where his "
-    "parents met, the trade present in its suits, Henry Pruitt "
-    "speaking the refusal sentence as the whole eulogy he would "
-    "permit himself. The local paper's forty lines called him 'a "
-    "maker of precision instruments and of men,' a phrase Clara "
-    "corrected in her copy, in pencil, to 'of instruments, and of "
-    "apprentices,' and her correction is the biography's. The "
-    "obituary in the trade journal ran longer and got the tolerances "
-    "right. There is a stone in the family plot with the name and "
-    "the two dates and nothing else, by his instruction, and under "
-    "it, by Clara's, the brass caliper was not buried, because, she "
-    "said, it was still in tolerance and should stay in the world."
-)
-# -- ch10: Legacy --------------------------------------------------------------
-A["q091"] = (
-    "The chuck is still in use: of the eleven thousand made, the "
-    "successors' count finds them on lathes in job shops on three "
-    "continents, still seating true, still changed over in seconds, "
-    "most of them older than the men who run them. The design, its "
-    "patent long expired, has been absorbed into the standard "
-    "practice of two larger makers, without the name, which is the "
-    "usual fate of good mechanisms and the one his doctrine "
-    "predicted: the work is still true in fifty years, and the name "
-    "on it is the trade's memory rather than the article's."
-)
-A["q092"] = (
-    "The house behind Wylie Avenue was sold by Clara in 1991 to a "
-    "young machinist of Peter's finding, a circumstance the family "
-    "counts as arranged rather than accidental. The tools were "
-    "divided by the will's plain schedule: the shop's remaining "
-    "instruments to the men who had used them, each by name; the "
-    "papers, notebooks, drawings, and ledgers to the county "
-    "historical society, where they form the Brandt papers and are "
-    "the archive of this book; the brass caliper and the unfinished "
-    "gauge to Peter, and after him, by his stated intent, to the "
-    "historical society, 'when they are done being used.' The tin "
-    "box with the naturalization paper went to Thomas's daughter, "
-    "the family's keeper in the fourth generation."
-)
-A["q093"] = (
-    "Clara outlived him by four years, dying in the same "
-    "house's successor flat, at work on the reading room's accounts "
-    "into her last month; the school program she founded still "
-    "runs and bears, by the district's choice and against her "
-    "recorded preference, her name. Thomas taught until 1998 and "
-    "kept the Sunday table going for his own children, three "
-    "streets from the house he was born in, the family's geography "
-    "holding into a third generation. Peter rose to chief engineer "
-    "of his firm, kept the caliper in use, and gave, in 1996, the "
-    "interview on which several chapters of this book draw, the "
-    "son's account measured and, where it corrects the legend, "
-    "corroborated by the papers."
-)
-A["q094"] = (
-    "The obituaries got the work right and the man half right. They "
-    "had the chuck, the patent, the verdict, the fire, all correct; "
-    "they missed, as first assessments do, the household: Clara's "
-    "partnership in the firm, the ledgers' government of the life, "
-    "and the cost columns, which no obituary could have carried. "
-    "The trade journal's assessment came nearest, and even it "
-    "called him solitary, he whose life was lived within a mile "
-    "and a web of obligations so dense that the biography has "
-    "needed a hundred pages to map it. The correction of the first "
-    "draft is the work of this book, and it is entered here as the "
-    "record requires: plainly, and with respect for the drafters, "
-    "who had forty lines and a deadline."
-)
-A["q095"] = (
-    "The work descended by absorption rather than by succession. "
-    "Two national makers took up the yielding cam after the "
-    "patent's expiry, improving its materials and, in the trade's "
-    "judgment, coarsening its tolerances, so that a Brandt chuck of "
-    "1955 will still out-seat a successor of 1985, a fact the "
-    "successors' own service literature concedes in the language of "
-    "maintenance intervals. In the other line of descent, the "
-    "apprentices carried the doctrine: Robert Halsey taught two "
-    "generations in the technical schools, and the refusal sentence "
-    "hangs, framed, in a school shop in Pittsburgh to this day, "
-    "with his name under it, which he would have struck out and "
-    "which the school, probably rightly, retains."
-)
-A["q096"] = (
-    "The strongest claim made for him is that he changed how the "
-    "trade thinks about accuracy: that the yielding element belongs "
-    "in the mechanism, not in the man's attention. The record "
-    "supports the claim in its narrow form. His notebooks state the "
-    "premise in 1946; the journals state it as doctrine in the "
-    "sixties; the successors embody it, unnamed, in their standard "
-    "practice. What the record does not support is the claim's "
-    "grander form, that he founded a school or foresaw an industry: "
-    "he foresaw a lathe, clearly, and a shop, and the rest was the "
-    "trade thinking with his tool in its hands for forty years. The "
-    "biography enters the narrow claim as proven and the grand one "
-    "as the legend's arithmetic, which adds a man's work to his "
-    "intentions and calls the sum his importance."
-)
-A["q097"] = (
-    "The strongest criticism is that the doctrine was a cage: that "
-    "the firm stayed small because smallness was the only size at "
-    "which his standard could be kept, that nine men's livelihoods "
-    "and a son's succession were the price of one man's tolerance, "
-    "and that 'I cannot measure this true' could serve, on "
-    "occasions the record half shows, as a refusal of growth "
-    "dressed as a refusal of falsehood. The record supports the "
-    "criticism's facts and disputes its conclusion. The smallness "
-    "was chosen, in writing, in 1934, before there was anything to "
-    "refuse; the men were paid first and stayed; the son was "
-    "blessed in his going. What remains true in the criticism is "
-    "the cost, which the household chapters have already entered, "
-    "and which the biography does not balance away."
-)
-A["q098"] = (
-    "The object a stranger should hold is the brass caliper. It is "
-    "in the hand a minute before the life comes with it: the "
-    "emigrant's initial on the beam, the father's thirty years of "
-    "wear at the jaws, the son's sixty years of daily use, the "
-    "graduations still true. Three generations measured with it, "
-    "and the things they made with it are on three continents, and "
-    "the caliper itself, which made nothing, explains them all: "
-    "that accuracy is an inheritance before it is an achievement, "
-    "handed down as an object and a standard together, and that a "
-    "life can be, in the end, an instrument for taking the measure "
-    "of other things, worn bright at the points of contact."
-)
-A["q099"] = (
-    "Judging by the recorded words, he would have received the "
-    "present standing of the work with the two responses the record "
-    "shows everywhere: satisfaction that the chucks still seat true "
-    "in fifty years, which was the letter of 1934 fulfilled to the "
-    "year; and a correction, entered at once, of any sentence that "
-    "made the work a monument. 'It was a tool,' the notebooks say, "
-    "in the last of them, 'and a tool is not praised. It is used, "
-    "and kept true, and handed on.' The name's survival in manuals "
-    "without the name would not have surprised him, and the "
-    "schoolroom sentence with his name under it would have, and "
-    "the biography records both, as he would have required: the "
-    "fact, and the correction, together."
-)
-A["q100"] = (
-    "The fact that should outlast every legend is the smallest one "
-    "in the archive: that in the winter of 1946, in a cellar behind "
-    "the house he was born in, a journeyman machinist of no standing "
-    "finished a mechanism that seated a workpiece true by yielding "
-    "to it, and wrote the tolerance in a pocket notebook, and kept "
-    "the two failures that preceded it on a shelf where he could "
-    "see them. Everything else, the patent, the firm, the suit, the "
-    "standing, is commentary on that entry. Legends make him a "
-    "genius, an iron man, a saint of the shop; the record makes him "
-    "a man who measured twice and finished what he opened, in a "
-    "mile of one city's streets, for seventy-eight years. The "
-    "biography ends where the record does, on the fact, because the "
-    "fact is sufficient."
-)
+ROOT = Path(__file__).resolve().parent.parent
+CHARACTER_PATH = ROOT / "demo" / "frozen-in-flames-character.json"
+OUT_PATH = ROOT / "demo" / "biography-demo-answers.json"
+
+RECORD = json.loads(CHARACTER_PATH.read_text(encoding="utf-8"))
+F = RECORD["facts"]
+NAME = F["subject_name"]
+MOTHER = F["mother_name"]
+FATHER = F["father_name"]
+PARTNER = F["partner_name"]
+BIRTH_YEAR = F["birth_year"]
+BIRTHPLACE = F["birthplace"]
+
+ANSWERS: dict[str, str] = {
+    # Chapter 1 -- Before the Beginning
+    "q001": (
+        f"{NAME}. The name is given in full because it is the name "
+        "the whole record uses: the subject of this biography, a "
+        "musician and recording engineer of Memphis, Tennessee, "
+        "known in daily life, and in every studio he ever worked in, "
+        "simply as Frozen."
+    ),
+    "q002": (
+        "What is known is modest and mostly kept in family memory. "
+        "The Flames name came down the river: the subject's "
+        "great-grandfather reached Memphis with a toolbox and stayed. "
+        "On the other side, the Harts were western Tennessee people, "
+        "farmers who became townspeople over two generations. No "
+        "papers survive from before the Memphis years, and the "
+        "family never claimed more ancestry than it could show."
+    ),
+    "q003": (
+        f"{MOTHER}, born Evelyn Hart in 1934, a piano teacher and "
+        "church organist. She is documented in the record first as a "
+        "working musician: she taught lessons in the front room of "
+        "the family house, played for services and weddings, and "
+        "kept the household's books in the same careful hand she "
+        "used for music."
+    ),
+    "q004": (
+        "The subject's mother came from the Harts of western "
+        "Tennessee. Her father, Samuel Hart, worked the railroad and "
+        "was gone for days at a time; her mother kept a front room "
+        "with a pump organ in it, and every Hart child learned some "
+        "music whether inclined to it or not. The subject's ear, by "
+        "all family testimony, came down this side."
+    ),
+    "q005": (
+        f"{FATHER}. He is documented in the record as a repairman: "
+        "for most of his working life he ran a small Memphis shop "
+        "that repaired radios, televisions, and guitars, and he was "
+        "known on the street as a man who could make a dead machine "
+        "answer again. He taught his son the bench trade before any "
+        "studio did."
+    ),
+    "q006": (
+        "The subject's father came from the Flames side, the river "
+        "people. His father, Emil Flames, was a toolmaker who "
+        "settled in Memphis and raised his children on a single "
+        "household doctrine: a family keeps what it can fix, and "
+        "fixes what it keeps. The repair shop the subject grew up "
+        "in was that doctrine with a cash register."
+    ),
+    "q007": (
+        "His parents met over a broken piano pedal. Evelyn Hart was "
+        "playing for a church social when the pedal failed; Harold "
+        "Flames was the repairman the church called. He fixed the "
+        "pedal, stayed for the singing, and, by the family's "
+        "account, was engaged before he had heard her play a whole "
+        "service through without stopping."
+    ),
+    "q008": (
+        "He was born into Memphis in 1960: a river city where "
+        "churches and recording studios stood streets apart and "
+        "sometimes shared musicians, where a radio played in every "
+        "kitchen, and where a working family could be poor in money "
+        "and rich in standing if its work was respected. The record "
+        "shows both institutions, church and studio, waiting for "
+        "him from the start."
+    ),
+    "q009": (
+        "The family's standing was that of respected working "
+        "people. The repair shop was a known corner; the mother "
+        "taught half the street's children their scales. They were "
+        "not rich and were never hungry, and their credit, in the "
+        "old sense of the word, was excellent: what the Flames "
+        "family said it would do, it did."
+    ),
+    "q010": (
+        "What he inherited was his mother's ear and his father's "
+        "hands, and one conviction from both of them: anything "
+        "broken can be understood, and most things understood can "
+        "be mended. The witnesses disagree about which inheritance "
+        "mattered more. The record suggests the biography is the "
+        "story of the two becoming one trade."
+    ),
+    # Chapter 2 -- Birth and First Years
+    "q011": (
+        f"He was born in {BIRTH_YEAR}, on a March morning, in the "
+        "city hospital in Memphis, the first child of Evelyn and "
+        "Harold Flames. The year matters to the shape of the life: "
+        "he was ten when the decade of the big studios ended, and "
+        "old enough to have learned the old machines before the "
+        "new ones arrived."
+    ),
+    "q012": (
+        f"{BIRTHPLACE}, Tennessee, in a hospital a short ride from "
+        "the river, and he was brought home to the rooms behind his "
+        "father's repair shop. The record keeps him in that city, "
+        "with travels, for the whole of the life that follows."
+    ),
+    "q013": (
+        "The documented circumstances are plain. The birth was "
+        "registered with the city within the week, the certificate "
+        "names both parents and the father's trade, and a two-line "
+        "notice in the church bulletin welcomed him by name. No "
+        "family legend attaches to the day itself, which the "
+        "subject, later, said was the right size of welcome."
+    ),
+    "q014": (
+        "The household he entered was the flat behind the repair "
+        "shop: two rooms and a kitchen, solder and piano music "
+        "coming through the walls in about equal measure. His "
+        "mother's students came and went through the front; his "
+        "father's customers through the shop door; the child was "
+        "raised, in effect, in the doorway between music made and "
+        "music mended."
+    ),
+    "q015": (
+        "His earliest surroundings, as the record reconstructs "
+        "them, were the shop counter with its spools of wire, the "
+        "guitars waiting in a row for repair, his mother's piano, "
+        "and, at the end of the street, the old icehouse, a thick-"
+        "walled building he would pass every day of his childhood "
+        "without knowing it was waiting for him."
+    ),
+    "q016": (
+        "His mother cared for him in the main, between students. "
+        "When both parents were working, a neighbour, Mrs. Cole, "
+        "watched him from her porch across the street. The record "
+        "shows no institution and no hardship in the arrangement; "
+        "it shows a street that regarded the child as partly its "
+        "own."
+    ),
+    "q017": (
+        "His early temperament, by the testimony of everyone who "
+        "was asked, was quiet and listening. He talked late and "
+        "listened early. He took his toys apart not to break them "
+        "but, his mother insisted, to hear what was inside them; "
+        "the family learned to give him broken things, which he "
+        "preferred to new ones."
+    ),
+    "q018": (
+        "The family story told about the child, the one his mother "
+        "repeated all her life, is that before he could talk in "
+        "sentences he would hum back the notes she played, exactly, "
+        "from the next room. It cannot be verified and the "
+        "biographer does not ask the reader to believe it. It is "
+        "recorded because the family believed it, and organized "
+        "his childhood around it."
+    ),
+    "q019": (
+        "His own words enter the record early. At about seven, "
+        "handed a radio his father had pronounced dead, he is "
+        "reported to have said: it is not dead, it is just not "
+        "answering yet. The sentence survives because his father "
+        "wrote it in the shop's day book, under the date, without "
+        "comment."
+    ),
+    "q020": (
+        "The chapter turns on a child formed by two rooms: the "
+        "front room where music was taught and the back room where "
+        "machines were mended. Nothing in the record yet shows the "
+        "two becoming one life. Everything in the record after "
+        "this chapter is that becoming."
+    ),
+    # Chapter 3 -- The Making of the Child
+    "q021": (
+        "His schooling was the neighbourhood school, and the "
+        "record of it is unremarkable except in one subject. His "
+        "grades were ordinary; his music teacher, a Mr. Price, let "
+        "him stay after school to play the school piano, and wrote "
+        "on one report that the boy heard accurately and worked "
+        "willingly, which the family kept as the truest sentence "
+        "any school produced about him."
+    ),
+    "q022": (
+        "The earliest work of his hands the record can fix is "
+        "bench work: rewiring a lamp at nine, restringing guitars "
+        "in his father's shop by eleven, unpaid and supervised. "
+        "His father inspected every job and made him redo the "
+        "careless ones, which the subject later described as the "
+        "whole of his real education."
+    ),
+    "q023": (
+        "His closest childhood friendship was with Danny Reyes, a "
+        "boy two streets over who had a drum kit in a garage and "
+        "ambitions neither of them could yet name. The friendship "
+        "is documented in the ordinary way, in photographs and in "
+        "Reyes's later testimony: the two of them, and a garage, "
+        "and noise the street tolerated longer than it should have."
+    ),
+    "q024": (
+        "The hardship of the childhood came the winter the shop's "
+        "landlord raised the rent and work fell off together. His "
+        "mother took extra students; his father took in sewing "
+        "machines and anything else with a motor; nobody in the "
+        "family called it hardship at the time. The subject learned "
+        "from it the household's answer to worry, which was work, "
+        "in both hands."
+    ),
+    "q025": (
+        "The household's practice was church on Sundays, because "
+        "his mother played the organ and the family sat where it "
+        "could see her hands. The subject's own later account is "
+        "that the music stayed with him longer than the sermons "
+        "did, and that he considered this his mother's doing rather "
+        "than his failing."
+    ),
+    "q026": (
+        "His first instrument was his mother's piano, learned at "
+        "her side in the front room. His second was a guitar his "
+        "father repaired and gave him, an instrument a customer had "
+        "brought in broken and never returned for. The record "
+        "preserves the order because he insisted on it: the piano "
+        "first, because she was first."
+    ),
+    "q027": (
+        "The books and images that formed him were not, in the "
+        "main, books. They were the radio catalogues and repair "
+        "manuals of his father's trade, whose circuit diagrams he "
+        "studied the way other children studied picture books, and "
+        "the record sleeves in the shop's small front rack, which "
+        "he handled like documents, because to him they were."
+    ),
+    "q028": (
+        "The wider world reached him through the radio his family "
+        "repaired for other people and tested at the bench. By "
+        "night he could catch far stations fading in and out over "
+        "the river, and he kept a list, in a school notebook, of "
+        "the stations he had caught and the weather when he caught "
+        "them: his first log book, though nobody called it that."
+    ),
+    "q029": (
+        "His character in the record shows early in a small, "
+        "documented act. At twelve he found a wallet with money in "
+        "it on the street and returned it to its owner the same "
+        "day, and was annoyed at being praised for it afterwards. "
+        "It was not mine, he said. The biographer notes the story "
+        "because it is the first instance of the exactness about "
+        "other people's property that the whole later record shows."
+    ),
+    "q030": (
+        "The chapter turns at fourteen, in 1974, when the unpaid "
+        "help in his father's shop became paid work after school, "
+        "and the boy who listened like it was a job was, in the "
+        "plainest sense, employed. The making of the child was "
+        "finished. The making of the tradesman began."
+    ),
+    # Chapter 4 -- Apprenticeship
+    "q031": (
+        "His first paid work, in 1974, was after-school bench work "
+        "in his father's repair shop: radios, televisions, guitars, "
+        "paid at a small man's wage for a boy's hours. The record "
+        "is precise about it because his father was: the day book "
+        "shows the first wage entered like any other job, with the "
+        "work described and the amount paid."
+    ),
+    "q032": (
+        "His first master was his father, at the bench. His second "
+        "was Marcus Webb, who owned a recording studio across town "
+        "and knew the family through the shop. Webb let the boy "
+        "watch sessions from the corner, on the stated condition "
+        "that he watch in silence and coil the cables afterwards "
+        "better than he found them."
+    ),
+    "q033": (
+        "The terms of the studio apprenticeship, from 1979, were "
+        "that there were no wages. He was paid, in Webb's phrase, "
+        "in tape and lessons: he swept, he coiled cable, he kept "
+        "the session log, and in exchange he was taught the "
+        "machines and allowed to stay for the music. The record "
+        "shows he never missed a session he was permitted to attend."
+    ),
+    "q034": (
+        "The standard the apprenticeship taught was Webb's, and it "
+        "was absolute: a cable coiled wrong is a session ruined "
+        "later; a log kept loosely is a record lost. Every session "
+        "was written down to the minute, who played, what broke, "
+        "what worked. The subject kept that standard, and that log "
+        "book, for the rest of his working life."
+    ),
+    "q035": (
+        "The tools of the apprenticeship were his father's "
+        "soldering iron at the bench and, at the studio, the tape "
+        "machine Webb taught him to align, patiently, by ear and by "
+        "measurement together. The iron survives; it is in the "
+        "record because the subject kept it all his life, and used "
+        "it, and would not lend it."
+    ),
+    "q036": (
+        "The failure of the apprenticeship, the one the record "
+        "does not soften, is that he once mislabelled a reel and a "
+        "singer's best take was erased. Webb made him tell the "
+        "singer himself, in the room, before anyone else spoke. He "
+        "did it, and he never mislabelled anything again; the log "
+        "book's care dates, by his own account, from that afternoon."
+    ),
+    "q037": (
+        "The discipline of the training was writing. Everything "
+        "was entered: the session, the settings, the repairs, the "
+        "failures with their causes. Webb's doctrine, which became "
+        "the subject's, was that a thing not written down has not "
+        "been learned, only survived. The log books of those years "
+        "survive and are the spine of this biography's middle chapters."
+    ),
+    "q038": (
+        "What he read, he read the way his father read: manuals. "
+        "Studio manuals now, machine by machine, until he could "
+        "align, bias, and repair the room he was learning to run. "
+        "The record shows no other curriculum and the subject "
+        "claimed no other; his education was a bench, a studio, "
+        "and a shelf of other men's instructions, mastered."
+    ),
+    "q039": (
+        "The apprenticeship ended the morning Webb let him run a "
+        "session alone: a gospel group, a Sunday, a small budget "
+        "and no rescue available. The recording came out clean. "
+        "Webb's entry in the log that day, in Webb's hand, is four "
+        "words long, and the biographer will not improve on them: "
+        "he is ready now."
+    ),
+    "q040": (
+        "The chapter turns on a completed tradesman. He had a "
+        "trade, a standard, and a log book, and he had learned the "
+        "thing his whole later life assumes: that music, which "
+        "feels like weather, is made in rooms, by work, and can be "
+        "kept. The young adult who follows was already formed; "
+        "only his circumstances were about to change."
+    ),
+    # Chapter 5 -- The Young Adult
+    "q041": (
+        "He left home at nineteen, not in anger and not far in "
+        "spirit: a rented room near the studio, a mattress, a hot "
+        "plate, and his mother's piano still the place he went on "
+        "Sundays. The record shows a leaving of the ordinary kind, "
+        "a household becoming two households that shared a table "
+        "every week."
+    ),
+    "q042": (
+        "His first independent work was engineering sessions for "
+        "local singers, hired by word of mouth. The first full "
+        "album the record credits to him is by the Night Clerks, a "
+        "Memphis band whose singer had heard what he did with a "
+        "demo and asked for him by name. It is a modest credit. It "
+        "is also the first time the name Frozen appears in print "
+        "as the man behind the glass."
+    ),
+    "q043": (
+        "The money of those years was by the session, and "
+        "sometimes in trade, and he logged it like sessions: rent "
+        "first, tape second, food third, which was his own joke "
+        "about the order and also, the record suggests, roughly "
+        "the truth. He was never, in these years, ahead. He was "
+        "also never, the log shows, behind on the rent."
+    ),
+    "q044": (
+        "The times he came of age in were changing under the "
+        "trade: tape giving way, slowly, to newer machines, and "
+        "studios arguing about it like a religion. The record "
+        "shows him learning both and refusing the argument. A tool "
+        "is a tool, he said; the log is the log. It was his "
+        "father's doctrine, applied to a quarrel his father never had."
+    ),
+    "q045": (
+        "His ambition in those years was stated plainly and often, "
+        "to anyone who asked and some who did not: he wanted a room "
+        "of his own where the work was done right. I want a room "
+        "where it is done right. The sentence is recorded by three "
+        "separate witnesses, which in this biography counts as a "
+        "document."
+    ),
+    "q046": (
+        "The setback of the young adult years was a studio closure: "
+        "a room he depended on shut its doors with two weeks of his "
+        "pay inside it. He worked a winter repairing televisions to "
+        "stay even, his father's trade as the net under his own, "
+        "and the record notes it without drama because he noted it "
+        "without drama: one line in the log, and the winter's "
+        "repairs itemized."
+    ),
+    "q047": (
+        "Session work took him travelling, to other cities' rooms, "
+        "for days and once for most of a season. The record is "
+        "deliberately loose about the geography; what it keeps is "
+        "the notebooks. He came home from every trip with a "
+        "notebook full of other rooms' habits, what they did "
+        "better, what they did worse, and what he meant to steal."
+    ),
+    "q048": (
+        "His reputation formed in the way reputations in a trade "
+        "actually form: singers asked for him by name. Get Frozen, "
+        "the record shows them saying, because he listened before "
+        "he touched a dial, and because a session with him ended "
+        "with everything labelled. It was not fame. It was better "
+        "than fame, in his own later judgment: it was repeat work."
+    ),
+    "q049": (
+        "What the record leaves out of these years is his own "
+        "music. He was engineering other people's records by day "
+        "and writing his own songs at night, and the songs went "
+        "into a drawer, unrecorded, while the drawer filled. The "
+        "biographer flags the omission because the subject flagged "
+        "it himself, later, as the central evasion of his young life."
+    ),
+    "q050": (
+        "The chapter turns in 1988, when the old icehouse at the "
+        "end of his childhood street, the thick-walled building he "
+        "had passed every day as a boy, came up for lease. He took "
+        "it. The young adult had found the room he had been "
+        "describing for a decade, and it had been waiting at the "
+        "end of the street where he started."
+    ),
+}
+
+ANSWERS.update({
+    # Chapter 6 -- The Work
+    "q051": (
+        "His principal work, from 1988, was the Cold Room: the "
+        "small recording studio he founded in the converted "
+        "icehouse at the end of his childhood street. The work was "
+        "recording other people's music, done to his standard, and "
+        "slowly, in the hours the studio was dark, his own. The "
+        "record treats the founding as the life's hinge, and so "
+        "does he."
+    ),
+    "q052": (
+        "His method at the height of the work was his father's "
+        "saying made into a studio rule: tape does not care what "
+        "you meant. Listen first. Set the room before the artist "
+        "arrives. Keep the log open on the desk. He held that a "
+        "session is decided before the first note, in the "
+        "preparation nobody applauds, and the record of the "
+        "sessions supports him."
+    ),
+    "q053": (
+        "The work he is best known for is the Night Clerks' album "
+        "Static Bloom, the record most people name when his name "
+        "comes up. The documentary record supports the association "
+        "and complicates it: the log shows a band at its peak and "
+        "an engineer who mostly stayed out of the way. He deflects "
+        "the credit to the band to this day, and the deflection is "
+        "also documented."
+    ),
+    "q054": (
+        "A representative day at the height of it: up before the "
+        "session, the machine aligned, coffee, the log open. The "
+        "artists arrived to a room already listening. The day ended "
+        "when the room was reset for tomorrow, the reels labelled, "
+        "the failures written down with their causes. Witnesses "
+        "describe the routine as unvarying, and the unvarying as "
+        "the point."
+    ),
+    "q055": (
+        "The object that best evidences the work is a ribbon "
+        "microphone he rebuilt in his father's shop from a dead "
+        "unit and spare parts, and used ever after on quiet songs. "
+        "It sits on a shelf in the Cold Room still, with its log "
+        "entry beside it: what was wrong, what he did, what it has "
+        "recorded since. The biographer knows no cleaner summary "
+        "of the man."
+    ),
+    "q056": (
+        "His collaborators, as the record documents them, were "
+        "Marcus Webb until Webb retired, a circle of Memphis "
+        "players who came and went through the Cold Room's door, "
+        "and, on early sessions, his younger sister Ruth, who sang "
+        "harmony and kept the books for the studio's first two "
+        "years. The work was solitary in method and crowded in fact."
+    ),
+    "q057": (
+        "The recognition the record documents is modest and "
+        "mostly in print small enough to miss: album credits, a "
+        "newspaper profile that got his age wrong and his work "
+        "right, and the trade's own currency, which is the repeat "
+        "call. He kept the profile in the log book, the error "
+        "uncorrected, as a reminder of what print is worth."
+    ),
+    "q058": (
+        "The money the work made was enough, most years, and the "
+        "record is honest about the mechanism: the studio paid its "
+        "way, and in the thin years the repair bench at the back "
+        "of the building, his father's trade carried on, covered "
+        "what the sessions did not. He never separated the two "
+        "trades in the accounts, because he never separated them "
+        "in himself."
+    ),
+    "q059": (
+        "The work he left unfinished is his own album: the songs "
+        "from the drawer of his young years, begun as reels in the "
+        "studio's dark hours, set aside for other people's records "
+        "for the better part of two decades. The record does not "
+        "excuse it. It notes that he finished other people's work "
+        "first, every time, and that he knew the cost while he "
+        "paid it."
+    ),
+    "q060": (
+        "The chapter turns on a work with a place and a name: the "
+        "Cold Room, its log books filling, its standard known. And "
+        "in 1991 the work gained a witness, when the photographer "
+        "hired to shoot a session stayed to argue about the light, "
+        "and the household chapter of the life began."
+    ),
+    # Chapter 7 -- Love and Household
+    "q061": (
+        f"{PARTNER}, born Alice Verano, a photographer. She enters "
+        "the documented record as a working artist in her own "
+        "right: hired in 1990 to photograph a session at the Cold "
+        "Room, married to the subject in 1991, and thereafter the "
+        "person whose prints of his rooms hang in every room he "
+        "worked in."
+    ),
+    "q062": (
+        "They met at work, in 1990, when Alice Verano was hired to "
+        "photograph a session and told the engineer, within the "
+        "hour, that his studio had the best light of any room that "
+        "was not supposed to have any. The session log for that day "
+        "survives. Her name is in it, in his handwriting, spelled "
+        "right the first time, which witnesses treat as evidence."
+    ),
+    "q063": (
+        "The courtship survives in the record as letters, hers "
+        "kept in a labelled box in the studio, written from the "
+        "road when her work travelled, and in his log books, where "
+        "her sessions and visits are entered with the same care as "
+        "the music. They married in 1991. The biographer notes "
+        "that this is the best-documented chapter of the life, and "
+        "that the documentation is mostly hers."
+    ),
+    "q064": (
+        "The household they made was a small house two streets "
+        "from the studio: her darkroom in the back room, his bench "
+        "in the shed, and, after his mother died, his mother's "
+        "piano in the front room, where it stands in the record "
+        "from then on. It was a working house. Both of them said "
+        "so, as praise."
+    ),
+    "q065": (
+        "The household held no children of their own; its children "
+        "were his sister Ruth's, who were there on weekends and "
+        "holidays and grew up, in effect, with two households. The "
+        "record mentions it plainly because the witnesses do: the "
+        "house was full, on the days it was full, and quiet in a "
+        "way both of them defended on the others."
+    ),
+    "q066": (
+        "His partner's work, as the record documents it, was "
+        "photography: portraits, rooms, working people at their "
+        "benches and instruments. The Cold Room's walls are her "
+        "prints. Between them, the witnesses say, the two of them "
+        "documented the same world twice, once in sound and once "
+        "in light, and the archive of each is the other's index."
+    ),
+    "q067": (
+        "The household's economy was two irregular incomes and one "
+        "regular habit: the log. They kept a household book with "
+        "the same rules as the session logs, everything entered, "
+        "nothing rounded in their own favour. It is an "
+        "unromantic document and the biographer recommends it as "
+        "the truest portrait of the marriage that survives."
+    ),
+    "q068": (
+        "The strain the record shows in the household came with "
+        "money, in the thin years, and took the form of his "
+        "silences, which she named in a letter the record keeps: "
+        "he went quiet the way a room goes quiet, all at once and "
+        "on purpose. What held them, by both accounts, was her "
+        "refusal to let him sell his mother's piano, ever, for any "
+        "bill. Some things were not the accounts' business."
+    ),
+    "q069": (
+        "What the witnesses say of the household is consistent to "
+        "the point of suspicion, until the biographer notes the "
+        "source: most of them ate there. Friends describe a house "
+        "where work and supper were the same conversation, where "
+        "a session's failure and a soup's failure got the same "
+        "post-mortem, and where both were usually fixed by morning."
+    ),
+    "q070": (
+        "The chapter turns with the household proven: two trades, "
+        "one house, a book kept honestly. What it had been built "
+        "to hold against arrived in the next decade, when the "
+        "standing he had earned met the years that tested it, and "
+        "then, in a single night, the fire."
+    ),
+    # Chapter 8 -- Standing and Struggle
+    "q071": (
+        "His standing at its height, by the late nineteen-nineties, "
+        "was that of a fixture: the man singers asked for, the "
+        "room other engineers visited to see how it was done. The "
+        "record shows it was built the slow way, on log books and "
+        "clean sessions and reels labelled right, and that he "
+        "trusted it exactly as far as it was built and no further."
+    ),
+    "q072": (
+        "The institutional record of the standing is boring, which "
+        "is its distinction: the studio's licences in order, its "
+        "taxes paid, one bank loan taken for the roof and retired "
+        "early. The biographer lists these because the subject "
+        "listed them, among his achievements, without irony. "
+        "Keeping the paperwork was keeping the room."
+    ),
+    "q073": (
+        "The opposition the record documents came as an offer: a "
+        "larger studio concern proposed to buy the Cold Room, its "
+        "name and its book of work, and close it, the building "
+        "being worth more to them dark than lit. He refused, in "
+        "writing, in one sentence, which the record keeps and the "
+        "legacy chapter will return to."
+    ),
+    "q074": (
+        "The money trouble of the standing years came when "
+        "recording budgets shrank and sessions thinned across the "
+        "whole trade. The record shows the answer was the old one: "
+        "the repair bench at the back of the building carried the "
+        "studio through, radios and televisions paying for tape. "
+        "He entered those years in the log without self-pity, "
+        "itemized."
+    ),
+    "q075": (
+        "The failure of his own the record keeps in this chapter "
+        "is the album: his own record, shelved twice in these "
+        "years, once for money and once, by his own entry in the "
+        "log, for fear of finishing it. He called it the record of "
+        "his cowardice and his standards in equal measure, and the "
+        "biographer has found no witness who disagreed with either half."
+    ),
+    "q076": (
+        "The public criticism the record preserves is a review "
+        "that called his production old-fashioned, a decade behind "
+        "the fashion. He kept the clipping, pinned inside the "
+        "front cover of the current log book, where he would see "
+        "it daily. Evidence, not injury, he said, when asked. It "
+        "is still there in the record, and so, the biographer "
+        "notes, is he."
+    ),
+    "q077": (
+        "The private cost the record shows is his hearing: the "
+        "left ear is not what it was, after years of loud rooms, "
+        "and he mixes accordingly and says so to clients in "
+        "advance, in writing. The biographer records it as he "
+        "recorded it himself: a tradesman's wear, entered in the "
+        "log like a machine's, with the adjustment noted beside it."
+    ),
+    "q078": (
+        "What he refused, in these years, besides the buyout, was "
+        "work he thought dishonest: most clearly, a session meant "
+        "to copy another singer's record note for note and pass "
+        "as an original. He declined it and sent the client, "
+        "politely and in writing, to the very concern that had "
+        "tried to buy him. The letter survives. It is courteous. "
+        "It is final."
+    ),
+    "q079": (
+        "The support the record documents around him in the "
+        "struggle years was the household first, Alice and the "
+        "house two streets away; his sister Ruth, who had kept "
+        "the studio's books and now kept its spirits; and the "
+        "players, who began bringing him their own students to "
+        "teach, which he counted, correctly, as the trade's vote."
+    ),
+    "q080": (
+        "The chapter turns in 2003, in one night: a fire in the "
+        "building next door, and then in his. The Cold Room as "
+        "first built, the room of his young ambition, burned. What "
+        "the fire could not take is the subject of the rest of "
+        "this biography: the log books were at the house, and the "
+        "standard was in the man."
+    ),
+    # Chapter 9 -- Late Years and Death
+    "q081": (
+        "His late-life circumstances begin with the rebuilding: "
+        "two years after the fire of 2003 in which the Cold Room "
+        "rose again in the same thick walls, slower, smaller, and "
+        "entirely his. The late years of the record are the rebuilt "
+        "room and a calendar he finally chose himself: fewer "
+        "sessions, each one wanted."
+    ),
+    "q082": (
+        "His routine in the late years is documented by everyone "
+        "who visited: mornings at the repair bench, afternoons in "
+        "the studio, evenings at his mother's piano in the front "
+        "room of the house. He kept the log. He answered letters "
+        "from young engineers in full. Witnesses describe a man "
+        "whose days had become the shape his young self had asked for."
+    ),
+    "q083": (
+        "The late work the record shows is twofold: finishing, at "
+        "last and in pieces, his own album, the drawer's songs "
+        "becoming reels; and teaching, two young engineers taken "
+        "on the old terms, no wages at first, paid in tape and "
+        "lessons, who learned the log book habit at his bench the "
+        "way he had learned it at Webb's."
+    ),
+    "q084": (
+        "His health in the record is entered as he entered "
+        "everything: the left ear, as documented; a knee that "
+        "predicts weather, which was his joke and also, witnesses "
+        "say, accurate; otherwise sound. He was impatient with "
+        "sympathy and with questions about retirement, a word he "
+        "treated as a rumour about other people."
+    ),
+    "q085": (
+        "The deaths in his immediate family came in their order. "
+        "His father died in 1998, at home, with his tools in reach "
+        "in the shed, as he would have specified. His mother died "
+        "in 2005; her piano was not sold, then or ever, and stands "
+        "in the subject's front room in the record from that year "
+        "forward. He wrote both entries in the log himself, in his "
+        "ordinary hand."
+    ),
+    "q086": (
+        "Among contemporaries, the death the record weighs most "
+        "is Marcus Webb's, in 2011. The subject spoke at the "
+        "service, about cable coiled right and logs kept honestly, "
+        "and was given Webb's studio log books afterward, which he "
+        "keeps still, shelved with his own. The apprenticeship's "
+        "archive is complete, in one room, in his keeping."
+    ),
+    "q087": (
+        f"{NAME} has not died. The survey reaches him alive, in "
+        "his middle sixties, working shorter days in the room he "
+        "rebuilt, and the pages that in another life would record "
+        "an ending record instead what he has arranged: the log "
+        "books to the studio's keeping, the rebuilt microphone to "
+        "stay on its shelf, the piano to his sister's daughter. "
+        "He is, by every account including his own, not finished."
+    ),
+    "q088": (
+        "What he has said about his own end is said the way he "
+        "says everything, in advance and in writing: he is to lie "
+        "beside his parents in the Memphis ground where the Harts "
+        "and the Flames family are, with no stone larger than "
+        "theirs. The record notes the instruction exists, in the "
+        "front of the current log book, where the right person "
+        "will find it."
+    ),
+    "q089": (
+        "The instructions he has left are kept with the log books "
+        "and are practical: the studio to be offered first to the "
+        "engineers he taught, at the value of its work and not its "
+        "walls; the tapes catalogued and kept; his own album, "
+        "finished or not, to be labelled honestly either way. It "
+        "is less a will than a session log for an event he will "
+        "not engineer."
+    ),
+    "q090": (
+        "His most recent recorded words, given to a young engineer "
+        "who asked him what all the work had been for, are these: "
+        "so the room would be ready for whoever comes next. The "
+        "biographer offers them without improvement, as the "
+        "subject's own summary of the late years, and notes that "
+        "the room, on the day the words were recorded, was ready."
+    ),
+    # Chapter 10 -- Legacy
+    "q091": (
+        "His reputation today, as the record documents it, lives "
+        "in the trade's mouth: among the singers and engineers of "
+        "his city he is a standard of comparison, and a session "
+        "done the way Frozen does it is a phrase with a meaning "
+        "everyone in that world can unpack. It is a local "
+        "reputation. The record shows he never wanted a larger "
+        "kind, and got the kind he wanted."
+    ),
+    "q092": (
+        "The record against the reputation is incomplete, and the "
+        "biographer says so plainly: much of his best work is "
+        "uncredited session work, present in the music and absent "
+        "from the sleeves. The truer record is the log books, a "
+        "hundred sessions a year for decades, in his hand. "
+        "Reputation says he mattered. The logs say how, and when, "
+        "and for whom."
+    ),
+    "q093": (
+        "His influence, as documented, runs through hands: the "
+        "two engineers he taught now teach the log book habit to "
+        "their own assistants, and rooms he has never seen run on "
+        "session sheets copied from his. Influence of this kind "
+        "does not announce itself. The record finds it the way he "
+        "would: in other people's paperwork, done right."
+    ),
+    "q094": (
+        "The material legacy the record can point to is a set of "
+        "working objects: the Cold Room itself, rebuilt; the log "
+        "books, complete; the rebuilt ribbon microphone on its "
+        "shelf, still used on quiet songs; his mother's piano, "
+        "still played. Nothing in the list is a monument. "
+        "Everything in it works, which the biographer takes to be "
+        "the point of the list."
+    ),
+    "q095": (
+        "The saying he is quoted by, in other people's studios "
+        "now, is the rule of his room: tape does not care what you "
+        "meant. He always credited it to his father, who said it "
+        "first about radios, and the record supports the credit. "
+        "It is the closest thing the life has to a motto, and he "
+        "would want it entered correctly: inherited, not invented."
+    ),
+    "q096": (
+        "What is misremembered about him, the record shows, is "
+        "generous error: he is credited, in talk, with records he "
+        "only repaired equipment for, and with sessions he "
+        "attended as a boy with a broom. He corrects it when it "
+        "happens, in writing, in the log, without embarrassment to "
+        "anyone. The corrections are part of the archive, and the "
+        "biographer has relied on them gratefully."
+    ),
+    "q097": (
+        "His own assessment of the life, given more than once and "
+        "in nearly the same words, is that he is a tradesman of "
+        "other people's best days, and that this is not modesty "
+        "but bookkeeping. The record, weighed whole, supports the "
+        "assessment and the spirit of it: he kept the books of "
+        "his life the way he kept the session logs, and understated "
+        "his own part in both."
+    ),
+    "q098": (
+        "The refusal he is most known for is the buyout: money "
+        "enough to stop, offered for the room and its name, "
+        "refused in one written sentence because the room was the "
+        "work and not its price. Strangers tell that story about "
+        "him more than any other. The record confirms the offer, "
+        "the sentence, and the refusal, and notes that he never "
+        "told the story himself if he could help it."
+    ),
+    "q099": (
+        "What remains open in the record is his own album: the "
+        "drawer's songs, decades in the finishing, which he works "
+        "on still in the studio's dark hours. The biographer "
+        "cannot close the account and does not pretend to. The "
+        "last reel, in the subject's own log entry on the matter, "
+        "is not yet labelled."
+    ),
+    "q100": (
+        "The biographer's final assessment, on the whole record, "
+        "is this: a life spent making rooms where other people's "
+        "music could stay. The ear came from his mother, the hands "
+        "from his father, the standard from his master, and the "
+        "room from all three. What he added was the keeping: the "
+        "log written down, the work done right, and the room left "
+        "ready for whoever comes next."
+    ),
+})
+
+FACT_ANSWERS = {
+    "subject_name": ("q001", NAME),
+    "mother_name": ("q003", MOTHER),
+    "father_name": ("q005", FATHER),
+    "birth_year": ("q011", str(BIRTH_YEAR)),
+    "birthplace": ("q012", BIRTHPLACE),
+    "partner_name": ("q061", PARTNER),
+}
 
 
-def main() -> None:
-    data = {
-        "persona": "Walter Elias Brandt (fictional demonstration "
-                   "persona)",
-        "note": "All biographical details in these answers are "
-                "fabricated demonstration data, written to exercise "
-                "the biography genre pack end to end. Any resemblance "
-                "to a real person is unintended.",
-        "answers": A,
+def main() -> int:
+    problems = []
+    if len(ANSWERS) != 100:
+        problems.append(f"expected 100 answers, have {len(ANSWERS)}")
+    for slot, (qid, value) in FACT_ANSWERS.items():
+        if value not in ANSWERS.get(qid, ""):
+            problems.append(
+                f"character fact {slot}={value!r} missing from {qid}")
+    if re.search(r"\b(1[0-9]{3}|20[0-9]{2})\b", ANSWERS["q087"]):
+        problems.append("q087 must contain no year (living subject)")
+    for stale in ("Brandt", "Calloway", "Pittsburgh", "Walter",
+                  "Josef", "Clara", "Anna"):
+        for qid, text in ANSWERS.items():
+            if stale in text:
+                problems.append(f"stale persona token {stale!r} in {qid}")
+    if problems:
+        print("consistency check FAILED:")
+        for p in problems:
+            print(" -", p)
+        return 1
+    doc = {
+        "persona": (
+            "Frozen In Flames (fictional demonstration persona; the "
+            "series' demonstration user)"
+        ),
+        "provenance": (
+            "Fabricated demonstration material. These are the survey "
+            "answers of Frozen In Flames, a fictional character, "
+            "drawn from the canonical character record in "
+            "demo/frozen-in-flames-character.json. The life described "
+            "was invented as test data for the biography pack and is "
+            "not a biography of any real person."
+        ),
+        "answers": ANSWERS,
     }
-    out = (Path(__file__).resolve().parent.parent / "demo"
-           / "biography-demo-answers.json")
-    out.write_text(json.dumps(data, indent=1), encoding="utf-8")
-    print(f"wrote {out}: {len(A)} answers")
+    OUT_PATH.write_text(json.dumps(doc, indent=1, sort_keys=True),
+                        encoding="utf-8")
+    print(f"wrote {OUT_PATH}: {len(ANSWERS)} answers, "
+          f"consistent with {CHARACTER_PATH.name}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

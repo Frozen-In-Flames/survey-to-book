@@ -9,6 +9,15 @@ demonstration answers align exactly: every question has exactly one
 non-empty answer, no answer names an unknown question, and the
 typed facts the pack declares are the values the bible extracts
 from those answers.
+
+The demonstration subject is the series' demonstration user, the
+fictional persona Frozen In Flames. A canonical character record
+(demo/frozen-in-flames-character.json) holds the invented facts of
+the character's life exactly once; the demo answers are drawn from
+it, and this suite proves the bible extracted from the answers
+agrees with the record fact for fact. The character is living, so
+the pack's death_year slot is declared but deliberately
+unestablished by the demo answers.
 """
 
 import json
@@ -24,14 +33,15 @@ from engine.pack import load_pack, validate_pack
 ROOT = Path(__file__).resolve().parent.parent
 
 EXPECTED_FACTS = {
-    "subject_name": "Walter Elias Brandt",
-    "birth_year": "1911",
-    "birthplace": "Pittsburgh",
-    "mother_name": "Anna Brandt",
-    "father_name": "Josef Brandt",
-    "partner_name": "Clara Brandt",
-    "death_year": "1989",
+    "subject_name": "Frozen In Flames",
+    "birth_year": "1960",
+    "birthplace": "Memphis",
+    "mother_name": "Evelyn Flames",
+    "father_name": "Harold Flames",
+    "partner_name": "Alice Flames",
 }
+
+PACK_FACT_SLOTS = set(EXPECTED_FACTS) | {"death_year"}
 
 
 class TestBiographyPack(unittest.TestCase):
@@ -42,6 +52,9 @@ class TestBiographyPack(unittest.TestCase):
                   encoding="utf-8") as fh:
             cls.demo = json.load(fh)
         cls.answers = cls.demo["answers"]
+        with open(ROOT / "demo" / "frozen-in-flames-character.json",
+                  encoding="utf-8") as fh:
+            cls.character = json.load(fh)
 
     def test_pack_is_valid(self):
         self.assertEqual(validate_pack(self.pack), [])
@@ -53,6 +66,12 @@ class TestBiographyPack(unittest.TestCase):
     def test_third_person_framework(self):
         # The pack's defining difference from memoir is point of view.
         self.assertEqual(self.pack["framework"]["pov"], "third person")
+
+    def test_refrain_default_off(self):
+        # Biography is third-person and chronological; recurrence
+        # reads as error rather than voice, so the pack's refrain
+        # default is off.
+        self.assertIs(self.pack["framework"]["refrain"], False)
 
     def test_one_hundred_questions(self):
         self.assertEqual(len(self.pack["questions"]), 100)
@@ -75,11 +94,12 @@ class TestBiographyPack(unittest.TestCase):
     def test_fact_slots_present(self):
         slots = {q["fact"]["slot"] for q in self.pack["questions"]
                  if "fact" in q}
-        self.assertEqual(slots, set(EXPECTED_FACTS))
+        self.assertEqual(slots, PACK_FACT_SLOTS)
 
     def test_demo_answers_labeled_fabricated(self):
+        self.assertIn("Frozen In Flames", self.demo["persona"])
         self.assertIn("fictional", self.demo["persona"].lower())
-        self.assertIn("fabricated", self.demo["note"].lower())
+        self.assertIn("fabricated", self.demo["provenance"].lower())
 
     def test_answers_align_with_questions(self):
         """The memoir defect, as a test: ids must intersect fully."""
@@ -89,13 +109,26 @@ class TestBiographyPack(unittest.TestCase):
             self.assertTrue(self.answers[qid].strip(),
                             f"{qid} has an empty answer")
 
-    def test_facts_extract_expected_values(self):
+    def _extracted_facts(self):
         bible = Bible()
         for q in self.pack["questions"]:
             bible.update_from_answer(q, self.answers[q["id"]])
-        extracted = {slot: fact["value"]
-                     for slot, fact in bible.facts.items()}
+        return {slot: fact["value"] for slot, fact in bible.facts.items()}
+
+    def test_facts_extract_expected_values(self):
+        extracted = self._extracted_facts()
         self.assertEqual(extracted, EXPECTED_FACTS)
+        # The character is living: no death fact may be established.
+        self.assertNotIn("death_year", extracted)
+
+    def test_character_record_agrees_with_answers(self):
+        """One canonical character: the bible extracted from the
+        demo answers must equal the character record's facts."""
+        record_facts = {k: str(v)
+                        for k, v in self.character["facts"].items()}
+        self.assertEqual(self._extracted_facts(), record_facts)
+        self.assertEqual(self.character["character"]["name"],
+                         "Frozen In Flames")
 
     def test_stub_build_produces_full_book(self):
         """End-to-end plumbing: 100 answers in, 100 pages out."""
@@ -106,6 +139,7 @@ class TestBiographyPack(unittest.TestCase):
         self.assertEqual(report["pages_built"], 100)
         self.assertEqual(report["skipped_empty"], [])
         self.assertEqual(report["continuity_issues"], [])
+        self.assertIs(report["refrain"], False)
         self.assertEqual(
             report["duplication"]["pages_sharing_sentence_with_previous"],
             0)
