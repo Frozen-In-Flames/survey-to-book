@@ -27,13 +27,23 @@ outcome is recorded in the build report.
 
 Recurrence is also available as a selected device. The pack
 framework's ``refrain`` parameter (boolean, default off, overridable
-at build time) controls it. With refrain on, the previous pages
-reach the prompt in full and their recurring anchor material is
-allowed to return as a refrain; the duplication guard does not
-regenerate. With refrain off, the compressed feed-forward above
-applies and the guard is enforced. Either way the overlap is
-measured and reported alongside the setting, so both behaviors are
-verified rather than assumed.
+at build time) controls it. A refrain is recurrence with
+development: the anchor theme returns changed by what the story has
+established since its last appearance. With refrain on, the anchor
+theme (the first page's opening sentences) is carried in the prompt
+as a theme, and the model is directed to restate it, where the page
+calls it back, as developed by the intervening facts, in fresh
+wording. Verbatim copying is not the mechanism in either setting:
+previous pages never reach the prompt in full, and a page that
+copies earlier sentences verbatim is regenerated under the bounded
+retry rule in both settings (with refrain on, the retry calls for
+development, not merely fresh wording). The build report separates
+the two measurements: verbatim overlap (the loop detector) and,
+with refrain on, the development check (engine/duplication.py,
+check_refrain): every thematic recurrence of the anchor must
+demonstrably differ and carry newer material, and a book whose
+refrain passages are near-identical copies fails that check by
+name in the report.
 
 One page is produced per non-empty answer. Empty answers produce no
 page and are recorded in the build report; they are never padded or
@@ -48,12 +58,12 @@ from pathlib import Path
 
 from .bible import Bible
 from .continuity import check_continuity
-from .duplication import check_duplication, page_overlap
+from .duplication import check_duplication, check_refrain, \
+    page_overlap, split_sentences
 from .pack import questions_by_chapter
 
 WINDOW_PAGES = 1
 WINDOW_EXCERPT_WORDS = 60
-REFRAIN_WINDOW_PAGES = 2
 PAGE_MAX_TOKENS = 480
 MAX_DUP_RETRIES = 2
 
@@ -129,15 +139,6 @@ class BookBuilder:
         pages = self.ordered_pages()
         if not pages:
             return "(this is the first page of the book)"
-        if self.refrain:
-            last = pages[-REFRAIN_WINDOW_PAGES:]
-            blocks = [f"[Page {p['index'] + 1}]\n{p['text']}"
-                      for p in last]
-            return ("\n\n".join(blocks)
-                    + "\n[The pages above carry the book's recurring "
-                      "anchor material. Where the framework calls for "
-                      "the refrain, let the anchor lines return; "
-                      "otherwise continue the narrative forward.]")
         last = pages[-WINDOW_PAGES:]
         page = last[-1]
         words = page["text"].split()
@@ -147,6 +148,17 @@ class BookBuilder:
                 f"can continue from where it stopped. Do not repeat "
                 f"them, or any earlier sentence, verbatim.]\n"
                 f"... {excerpt}")
+
+    def _anchor_text(self) -> str | None:
+        """The book's refrain anchor: the first page's opening
+        sentences, carried as a theme (never as pages in full)."""
+        pages = self.ordered_pages()
+        if not pages:
+            return None
+        sentences = split_sentences(pages[0]["text"])
+        if not sentences:
+            return None
+        return " ".join(sentences[:2])
 
     def ordered_pages(self) -> list[dict]:
         pages = list(self.state["pages"].values())
@@ -170,6 +182,20 @@ class BookBuilder:
             f"{fw['page_target_words']} words. Output only the page's "
             f"prose: no title, no heading, no commentary about the task."
         )
+        refrain_block = ""
+        if self.refrain:
+            anchor = self._anchor_text()
+            if anchor:
+                refrain_block = (
+                    f"REFRAIN (a selected device of this book): the "
+                    f"book's anchor theme was first stated as: "
+                    f"\"{anchor}\" Where this page calls the theme "
+                    f"back, restate it as developed by everything "
+                    f"the story has established since: carry the "
+                    f"newer facts and the shifted understanding, in "
+                    f"fresh wording that means something new. A "
+                    f"refrain returns changed. Never copy an earlier "
+                    f"sentence verbatim.\n\n")
         user = (
             f"STORY BIBLE (established state; do not contradict it):\n"
             f"{bible.render(question['bible_keys'])}\n\n"
@@ -177,8 +203,9 @@ class BookBuilder:
             f"{bible.render_facts()}\n\n"
             f"ROLLING SYNOPSIS (chapters so far):\n"
             f"{self._synopsis_text(question['chapter'])}\n\n"
-            f"{'MOST RECENT PAGES (the book so far; the refrain may return)' if self.refrain else 'PREVIOUS PAGE, CLOSING LINES (background only)'}:\n"
+            f"PREVIOUS PAGE, CLOSING LINES (background only):\n"
             f"{self._window_text()}\n\n"
+            f"{refrain_block}"
             f"QUESTION_ID: {question['id']}\n"
             f"NARRATIVE JOB OF THIS PAGE: {question['narrative_job']}\n"
             f"POSITION IN THE BOOK: {question['position']}\n"
@@ -222,34 +249,49 @@ class BookBuilder:
             if len(text.split()) < 50:
                 text = self.model.complete(
                     prompt, max_tokens=PAGE_MAX_TOKENS)
-            # Duplication guard (refrain off only): a page that
-            # re-emits earlier sentences verbatim is treated as
-            # failed and regenerated with the overlap named, up to
-            # MAX_DUP_RETRIES times. The least-duplicative attempt
-            # is kept; the outcome is recorded on the page and in
-            # the build report. With refrain on, recurrence is the
-            # selected device: pages are measured and recorded but
-            # never regenerated for overlap.
+            # Duplication guard (both refrain settings): a page
+            # that re-emits earlier sentences verbatim is treated
+            # as failed and regenerated with the overlap named, up
+            # to MAX_DUP_RETRIES times. Verbatim copying is never
+            # the mechanism: with refrain off the retry calls for
+            # entirely fresh sentences; with refrain on it calls
+            # for the anchor theme restated as developed. The
+            # least-duplicative attempt is kept; the outcome is
+            # recorded on the page and in the build report.
             earlier = self.ordered_pages()
             earlier_texts = [p["text"] for p in earlier]
             previous_text = earlier[-1]["text"] if earlier else None
             best_overlap = page_overlap(text, earlier_texts,
                                         previous_text)
             retries = 0
-            while (not self.refrain and _overlap_fails(best_overlap)
+            while (_overlap_fails(best_overlap)
                    and retries < MAX_DUP_RETRIES):
                 retries += 1
                 named = "; ".join(
                     f'"{s[:120]}"'
                     for s in best_overlap["shared_sentences"][:3])
-                retry_note = (
-                    f"RETRY {retries}: the previous attempt at this "
-                    f"page repeated sentences verbatim from earlier "
-                    f"in the book, including: {named}. Write the page "
-                    f"again from the source answer in entirely fresh "
-                    f"sentences. Do not repeat any sentence that has "
-                    f"already appeared in the book, and do not restart "
-                    f"the previous page's wording.")
+                if self.refrain:
+                    retry_note = (
+                        f"RETRY {retries}: the previous attempt at "
+                        f"this page copied sentences verbatim from "
+                        f"earlier in the book, including: {named}. "
+                        f"Copying is not the refrain. If this page "
+                        f"calls the book's anchor theme back, restate "
+                        f"it as developed by what the story has "
+                        f"established since its first statement, "
+                        f"carrying the newer facts in fresh wording "
+                        f"that means something new. Do not repeat any "
+                        f"sentence that has already appeared in the "
+                        f"book.")
+                else:
+                    retry_note = (
+                        f"RETRY {retries}: the previous attempt at this "
+                        f"page repeated sentences verbatim from earlier "
+                        f"in the book, including: {named}. Write the page "
+                        f"again from the source answer in entirely fresh "
+                        f"sentences. Do not repeat any sentence that has "
+                        f"already appeared in the book, and do not restart "
+                        f"the previous page's wording.")
                 candidate = self.model.complete(
                     self.page_prompt(question, index, bible,
                                      retry_note=retry_note),
@@ -305,5 +347,7 @@ class BookBuilder:
             "duplication": check_duplication(pages),
             "model": getattr(self.model, "name", "unknown"),
         })
+        if self.refrain:
+            self.report["refrain_analysis"] = check_refrain(pages)
         self._save_state()
         return self.report

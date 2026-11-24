@@ -14,8 +14,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from engine.duplication import check_duplication, page_overlap, \
-    split_sentences
+from engine.duplication import check_duplication, check_refrain, \
+    page_overlap, split_sentences
 from engine.generate import BookBuilder
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -194,55 +194,173 @@ def refrain_pack() -> dict:
     return pack
 
 
-class RecordingModel:
-    """Records prompts; writes PAGE_A then a distinct page."""
+PAGE_B_ANCHOR_COPY = (
+    "The harbor bell rang over the water at dawn. Then the "
+    "narrative moved on to other matters entirely. Daniel mended "
+    "the torn net by lantern light in the back room. By morning "
+    "the road to the ferry had washed out completely."
+)
+PAGE_B_DEVELOPED = (
+    "Daniel mended the torn net by lantern light in the back "
+    "room. The harbor bell rang over the water at dawn, and "
+    "Daniel answered it from the ferry office. By morning the "
+    "road to the ferry had washed out completely."
+)
+PAGE_UNDEVELOPED = (
+    "At dawn the bell rang over the harbor water. Then the "
+    "narrative moved on to other matters entirely. Daniel mended "
+    "the torn net by lantern light in the back room."
+)
+PAGE_LONG_A = (
+    "The harbor bell rang over the water at dawn. Marta counted "
+    "the boats as they left the harbor one by one. The ledger lay "
+    "open on the table beside her tea. Gulls quarreled above the "
+    "ferry landing all morning long. She wrote the date carefully "
+    "at the top of the page. The quartermaster hid the silver "
+    "compass inside the hollow mast. Nobody on the dock admitted "
+    "to knowing anything about the matter at all. The tide was "
+    "already turning by the time she finished writing. Boats "
+    "knocked gently against the pilings in the brown harbor "
+    "water. A boy carried crates of oranges down the length of "
+    "the wharf. The ferry captain drank his coffee standing up "
+    "and watched the weather. By noon the whole harbor smelled "
+    "of tar and salt and oranges."
+)
 
-    name = "recording-test-model"
 
-    def __init__(self):
-        self.prompts: list[str] = []
+class TestRefrainChecker(unittest.TestCase):
+    """The development check: recurrence must return changed."""
+
+    def test_verbatim_anchor_copy_fails(self):
+        pages = [page(0, "q001", PAGE_A),
+                 page(1, "q002", PAGE_B_DISTINCT),
+                 page(2, "q003", PAGE_B_ANCHOR_COPY)]
+        result = check_refrain(pages)
+        self.assertFalse(result["development_pass"])
+        self.assertGreaterEqual(result["verbatim_anchor_copies"], 1)
+        self.assertIn(2, result["failing_pages"])
+
+    def test_developed_recurrence_passes(self):
+        pages = [page(0, "q001", PAGE_A),
+                 page(1, "q002", PAGE_B_DEVELOPED)]
+        result = check_refrain(pages)
+        self.assertTrue(result["development_pass"])
+        self.assertEqual(result["thematic_recurrences"], 1)
+        self.assertEqual(result["developed_recurrences"], 1)
+        self.assertEqual(result["verbatim_anchor_copies"], 0)
+
+    def test_undeveloped_recurrence_fails(self):
+        # Same anchor words reshuffled, nothing new absorbed: a
+        # recurrence in wording only, not in meaning.
+        pages = [page(0, "q001", PAGE_A),
+                 page(1, "q002", PAGE_UNDEVELOPED)]
+        result = check_refrain(pages)
+        self.assertFalse(result["development_pass"])
+        self.assertEqual(result["thematic_recurrences"], 1)
+        self.assertEqual(result["developed_recurrences"], 0)
+        self.assertIn(1, result["failing_pages"])
+
+    def test_no_recurrence_passes(self):
+        pages = [page(0, "q001", PAGE_A),
+                 page(1, "q002", PAGE_B_DISTINCT)]
+        result = check_refrain(pages)
+        self.assertTrue(result["development_pass"])
+        self.assertEqual(result["thematic_recurrences"], 0)
+
+
+class AnchorCopyModel:
+    """Always returns a page that copies the anchor sentence
+    verbatim, retry or not."""
+
+    name = "anchor-copy-test-model"
 
     def complete(self, prompt: str, max_tokens: int = 512) -> str:
-        self.prompts.append(prompt)
         if "TASK: SUMMARIZE_CHAPTER" in prompt:
             return "Synopsis of the chapter."
         if "QUESTION_ID: q001" in prompt:
             return PAGE_A
-        return PAGE_B_DISTINCT
+        return PAGE_B_ANCHOR_COPY
+
+
+class FlakyRefrainModel:
+    """Copies the anchor until the retry calls for development,
+    then restates the theme developed, with newer material."""
+
+    name = "flaky-refrain-test-model"
+
+    def complete(self, prompt: str, max_tokens: int = 512) -> str:
+        if "TASK: SUMMARIZE_CHAPTER" in prompt:
+            return "Synopsis of the chapter."
+        if "QUESTION_ID: q001" in prompt:
+            return PAGE_A
+        if "RETRY" in prompt:
+            return PAGE_B_DEVELOPED
+        return PAGE_B_ANCHOR_COPY
 
 
 class TestRefrainOn(unittest.TestCase):
-    """Refrain on: recurrence is the selected device. The overlap is
-    still measured and reported, but no page is regenerated for it,
-    and previous pages reach the prompt in full."""
+    """Refrain on: the anchor theme is carried as a theme and must
+    return developed. Verbatim copying is regenerated against in
+    this setting too, and the report names the development verdict."""
 
-    def test_recurrence_kept_without_retries(self):
+    def test_anchor_copy_regenerated_and_named_on_failure(self):
         with tempfile.TemporaryDirectory() as tmp:
             builder = BookBuilder(refrain_pack(), ANSWERS,
-                                  StubbornModel(),
+                                  AnchorCopyModel(),
                                   Path(tmp) / "state.json")
             report = builder.build()
         kept = builder.state["pages"]["q002"]
-        self.assertEqual(kept["text"], PAGE_B_REPEATING)
-        self.assertEqual(kept["duplication_retries"], 0)
-        self.assertEqual(kept["shared_with_previous"], 1)
-        self.assertIs(report["refrain"], True)
-        self.assertEqual(
-            report["duplication"]["pages_sharing_sentence_with_previous"],
-            1)
+        self.assertEqual(kept["duplication_retries"], 2)
+        analysis = report["refrain_analysis"]
+        self.assertFalse(analysis["development_pass"])
+        self.assertEqual(analysis["verbatim_anchor_copies"], 1)
+        self.assertEqual(analysis["failing_pages"], [1])
 
-    def test_full_previous_pages_fed_forward(self):
-        model = RecordingModel()
+    def test_developed_retry_is_kept_and_passes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            builder = BookBuilder(refrain_pack(), ANSWERS,
+                                  FlakyRefrainModel(),
+                                  Path(tmp) / "state.json")
+            report = builder.build()
+        kept = builder.state["pages"]["q002"]
+        self.assertEqual(kept["text"], PAGE_B_DEVELOPED)
+        self.assertEqual(kept["duplication_retries"], 1)
+        analysis = report["refrain_analysis"]
+        self.assertTrue(analysis["development_pass"])
+        self.assertEqual(analysis["developed_recurrences"], 1)
+
+    def test_anchor_theme_carried_not_full_pages(self):
+        class LongModel:
+            name = "long-test-model"
+
+            def __init__(self):
+                self.prompts: list[str] = []
+
+            def complete(self, prompt: str,
+                         max_tokens: int = 512) -> str:
+                self.prompts.append(prompt)
+                if "TASK: SUMMARIZE_CHAPTER" in prompt:
+                    return "Synopsis of the chapter."
+                if "QUESTION_ID: q001" in prompt:
+                    return PAGE_LONG_A
+                return PAGE_B_DISTINCT
+
+        model = LongModel()
         with tempfile.TemporaryDirectory() as tmp:
             builder = BookBuilder(refrain_pack(), ANSWERS, model,
                                   Path(tmp) / "state.json")
             builder.build()
         page_prompts = [p for p in model.prompts
                         if "TASK: SUMMARIZE_CHAPTER" not in p]
-        # Page 2's prompt carries page 1 in full, opening sentence
-        # included -- the opposite of the refrain-off excerpt rule.
-        self.assertIn("The harbor bell rang over the water at dawn",
-                      page_prompts[1])
+        prompt2 = page_prompts[1]
+        # The anchor theme is named, with the development directive.
+        self.assertIn("the harbor bell rang over the water at dawn",
+                      prompt2)
+        self.assertIn("refrain returns changed", prompt2)
+        # But the first page is not fed forward in full: a middle
+        # sentence of page 1, outside the closing excerpt, is absent.
+        self.assertNotIn("quartermaster hid the silver compass",
+                         prompt2)
 
 
 class TestRefrainCliOverride(unittest.TestCase):

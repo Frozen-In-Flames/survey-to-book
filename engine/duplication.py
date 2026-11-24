@@ -102,3 +102,112 @@ def check_duplication(pages: list[dict]) -> dict:
         "most_repeated_sentences": most_repeated,
         "per_page": per_page,
     }
+
+
+# ---------------------------------------------------------------------
+# Refrain development
+#
+# The refrain parameter selects recurrence as a device, but the
+# device is recurrence with development: the anchor theme returns
+# changed by what the story has established since its last
+# appearance. Identical restatement is the first book's defect, not
+# the device. This check separates the two quantities the build
+# report must state: verbatim copying (the loop detector, measured
+# by check_duplication and by the anchor-copy count here) and
+# refrain development (whether each thematic recurrence of the
+# anchor demonstrably differs and carries newer material).
+
+_STOPWORDS = frozenset({
+    "the", "a", "an", "and", "or", "but", "of", "to", "in", "on",
+    "at", "by", "for", "with", "from", "as", "was", "were", "is",
+    "are", "had", "has", "have", "he", "she", "it", "its", "his",
+    "her", "they", "their", "that", "this", "when", "than", "then",
+    "into", "over", "after", "before", "not", "no", "so", "if",
+})
+
+ANCHOR_JACCARD = 0.5
+
+
+def _content_words(sentence: str) -> set[str]:
+    return {w for w in re.findall(r"[a-z']+", sentence)
+            if w not in _STOPWORDS and len(w) > 2}
+
+
+def check_refrain(pages: list[dict]) -> dict:
+    """Measure refrain development against the book's anchor.
+
+    The anchor is the first page's countable sentences -- the
+    material the first book looped. Each later sentence is
+    classified against the anchor sentence it most resembles:
+
+    * a **verbatim anchor copy** if it is identical to an anchor
+      sentence (a loop, and a development failure);
+    * a **thematic recurrence** if its content words overlap an
+      anchor sentence's content words (Jaccard >= ANCHOR_JACCARD)
+      without being identical;
+    * a **developed recurrence** if, in addition, it carries at
+      least one content word drawn from the story's material
+      outside itself -- the pages since the anchor, or elsewhere
+      on its own page -- i.e. the theme has absorbed newer facts.
+
+    Development passes only when there are no verbatim anchor
+    copies and every thematic recurrence is developed.
+    """
+    if not pages:
+        return {"anchor_sentences": [], "recurrences": [],
+                "thematic_recurrences": 0, "developed_recurrences": 0,
+                "verbatim_anchor_copies": 0, "failing_pages": [],
+                "development_pass": True}
+    anchor = split_sentences(pages[0]["text"])
+    anchor_words = [_content_words(s) for s in anchor]
+    recurrences = []
+    story_words: set[str] = set()  # content words of pages[1..i-1]
+    for page in pages[1:]:
+        page_sentences = split_sentences(page["text"])
+        sentence_words = [_content_words(s) for s in page_sentences]
+        page_words = set().union(*sentence_words) if sentence_words \
+            else set()
+        for si, sentence in enumerate(page_sentences):
+            words = sentence_words[si]
+            best_j, best_anchor = 0.0, -1
+            for ai, aw in enumerate(anchor_words):
+                if not aw or not words:
+                    continue
+                j = len(words & aw) / len(words | aw)
+                if j > best_j:
+                    best_j, best_anchor = j, ai
+            if best_anchor < 0:
+                continue
+            if sentence == anchor[best_anchor]:
+                recurrences.append({
+                    "page_index": page["index"],
+                    "question_id": page["question_id"],
+                    "kind": "verbatim_copy", "developed": False})
+            elif best_j >= ANCHOR_JACCARD:
+                new_words = words - anchor_words[best_anchor]
+                others = set().union(
+                    *(w for j, w in enumerate(sentence_words)
+                      if j != si)) if len(sentence_words) > 1 else set()
+                pool = story_words | others
+                developed = bool(new_words & pool)
+                recurrences.append({
+                    "page_index": page["index"],
+                    "question_id": page["question_id"],
+                    "kind": "thematic",
+                    "developed": developed})
+        story_words |= page_words
+    thematic = [r for r in recurrences if r["kind"] == "thematic"]
+    verbatim = [r for r in recurrences if r["kind"] == "verbatim_copy"]
+    failing = sorted({r["page_index"] for r in verbatim}
+                     | {r["page_index"] for r in thematic
+                        if not r["developed"]})
+    return {
+        "anchor_sentences": anchor[:3],
+        "recurrences": recurrences,
+        "thematic_recurrences": len(thematic),
+        "developed_recurrences":
+            sum(1 for r in thematic if r["developed"]),
+        "verbatim_anchor_copies": len(verbatim),
+        "failing_pages": failing,
+        "development_pass": not failing,
+    }

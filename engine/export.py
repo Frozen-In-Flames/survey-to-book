@@ -94,7 +94,22 @@ def export_markdown(pack: dict, state: dict, report: dict, meta: dict) -> str:
     if "refrain" in report:
         setting = "on" if report["refrain"] else "off"
         lines.append(
-            f"- Refrain setting: {setting} (recurrence of anchor "
-            f"material is {'a selected device under this setting' if report['refrain'] else 'not selected; repeated sentences are treated as defects'}).")
+            f"- Refrain setting: {setting} (the refrain is recurrence "
+            f"with development: the anchor theme returns changed by "
+            f"the intervening story, never as a verbatim copy).")
+    ra = report.get("refrain_analysis")
+    if ra is not None:
+        if ra["development_pass"]:
+            lines.append(
+                f"- Refrain development check: pass "
+                f"({ra['developed_recurrences']} of "
+                f"{ra['thematic_recurrences']} thematic recurrences "
+                f"developed; no verbatim anchor copies).")
+        else:
+            bad = ", ".join(str(p + 1) for p in ra["failing_pages"])
+            lines.append(
+                f"- Refrain development check: FAIL (verbatim anchor "
+                f"copies: {ra['verbatim_anchor_copies']}; recurrences "
+                f"without development on page(s) {bad}).")
     lines.append("")
     return "\n".join(lines)
