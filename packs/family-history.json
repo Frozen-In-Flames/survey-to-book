@@ -1,0 +1,1661 @@
+{
+ "genre": "family-history",
+ "version": "1.0.0",
+ "framework": {
+  "voice": "First-person family voice: a member of the family telling its history from inside it, saying 'we' as readily as 'I', who keeps what the records show distinct from what the telling hands down and says which is which. Plain, warm, and exact about names and years; the family is rendered as people, not as a legend, and its faults are entered in the same hand as its virtues.",
+  "pov": "first person",
+  "refrain": true,
+  "tense": "past tense for the generations that are gone, present tense for the living family and what it still keeps",
+  "page_target_words": 250,
+  "global_instructions": "Transform the respondent's answers about his family into family-history prose in the first person. The subject of every page is the family across its generations -- two lines, Frozen and Flames, traced separately and joined in the respondent -- not the respondent alone. Never contradict the story bible or the fixed facts. Do not invent named people, places, or dates that are not in the supplied material. Where the material is thin, expand by rendering its documented implications as scene and context, not by fabricating events. Keep the written record and the family telling distinct, and attribute each to its source. Let the family's doctrine return where a page calls it back, restated as the generation on the page has developed it, never copied.",
+  "devices": {
+   "generation_portrait": {
+    "name": "Generation portrait",
+    "instruction": "Render one generation's world whole: its work, its house, its weather, the public events that pressed on it. One page should leave one generation standing as a time, not just a set of names."
+   },
+   "lineage_rendering": {
+    "name": "Lineage rendering",
+    "instruction": "Trace one thing down the generations -- a trait, a trade, a name, an object, a wound -- and show it changing hands and changing shape at each transfer."
+   },
+   "migration_scene": {
+    "name": "Migration scene",
+    "instruction": "Render a leaving or an arriving as a scene in time: what was carried, what was left behind, the first sight of the new place. Stay inside what the material supports."
+   },
+   "heirloom_evidence": {
+    "name": "Heirloom evidence",
+    "instruction": "Let a surviving object or record carry the page: a toolbox, a Bible with names entered in one hand, a piano, a photograph. Describe it exactly and let it testify about the people who kept it."
+   },
+   "record_and_telling": {
+    "name": "Record and telling",
+    "instruction": "Set the document beside the family story: where the Bible entry, the certificate, or the letter agrees with what the family tells, say so; where they differ, keep both visible, follow the record for fact and the telling for meaning."
+   },
+   "table_scene": {
+    "name": "The table scene",
+    "instruction": "Gather the family in one place -- a kitchen table, a porch, a church supper, a reunion -- and let the generations meet in dialogue, habit, and appetite. Who sat where is evidence."
+   },
+   "trade_line": {
+    "name": "The trade line",
+    "instruction": "Follow the family's work as it passes hand to hand: who taught whom, what the work demanded in each era, and what it made of the people who held it."
+   },
+   "branch_and_return": {
+    "name": "Branch and return",
+    "instruction": "Follow a line that left -- another city, another name, another trade -- and weigh its distance from the root honestly: what was kept, what was lost, what still writes home."
+   },
+   "namesake_echo": {
+    "name": "Namesake echo",
+    "instruction": "Where a name repeats across generations, render both bearers and let the repetition comment: what the name was meant to carry, and what each bearer did with it."
+   },
+   "era_frame": {
+    "name": "Era frame",
+    "instruction": "Place the family against the era's public events for a paragraph at most -- depression, war, migration, law -- then return to the household; the era explains the family, it does not replace it."
+   },
+   "the_doctrine": {
+    "name": "The doctrine",
+    "instruction": "State the family's saying or rule of life as the generation on the page received it, and test it against that generation's circumstances: where it held, where it bent, what it cost. The doctrine returns changed by each era that speaks it; never repeat it as a bare slogan without the era inside it."
+   },
+   "household_economy": {
+    "name": "Household economy",
+    "instruction": "Render how the family actually lived in the generation on the page: income, food, rent, debt, the work of children, the economics of keeping a household standing."
+   },
+   "chapter_turn": {
+    "name": "Chapter turn",
+    "instruction": "End the page on a turn toward the next generation: a birth, a leaving, an inheritance changing hands, or a question the next chapter's generation must answer."
+   }
+  }
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "title": "Two Names",
+   "act": "Act I: The Two Lines"
+  },
+  {
+   "id": "ch02",
+   "title": "The Flames Line: Fire and Music",
+   "act": "Act I: The Two Lines"
+  },
+  {
+   "id": "ch03",
+   "title": "The Frozen Line: Iron and Patience",
+   "act": "Act I: The Two Lines"
+  },
+  {
+   "id": "ch04",
+   "title": "The Parents: The Joining",
+   "act": "Act II: The Joining"
+  },
+  {
+   "id": "ch05",
+   "title": "My Generation",
+   "act": "Act II: The Joining"
+  },
+  {
+   "id": "ch06",
+   "title": "The Family Trades",
+   "act": "Act III: The Keeping"
+  },
+  {
+   "id": "ch07",
+   "title": "Houses, Heirlooms, and Records",
+   "act": "Act III: The Keeping"
+  },
+  {
+   "id": "ch08",
+   "title": "Hard Years and Partings",
+   "act": "Act IV: The Inheritance"
+  },
+  {
+   "id": "ch09",
+   "title": "Reunions and the Living Family",
+   "act": "Act IV: The Inheritance"
+  },
+  {
+   "id": "ch10",
+   "title": "What Was Passed Down",
+   "act": "Act IV: The Inheritance"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "chapter": "ch01",
+   "prompt": "What is the family name of your mother's line -- the surname her family carries? Begin the answer with the name.",
+   "narrative_job": "Open the book by naming the mother's line, and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 1 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.flames_name"
+   ],
+   "fact": {
+    "slot": "flames_line_name",
+    "kind": "person_name",
+    "triggers": [
+     "the Flames family name",
+     "the Flames line's name"
+    ]
+   }
+  },
+  {
+   "id": "q002",
+   "chapter": "ch01",
+   "prompt": "What is the family name of your father's line -- the surname his family carries? Begin the answer with the name.",
+   "narrative_job": "Name the father's line, and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 2 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.frozen_name"
+   ],
+   "fact": {
+    "slot": "frozen_line_name",
+    "kind": "person_name",
+    "triggers": [
+     "the Frozen family name",
+     "the Frozen line's name"
+    ]
+   }
+  },
+  {
+   "id": "q003",
+   "chapter": "ch01",
+   "prompt": "What is your full name, and how does it come from the two lines? Begin the answer with your full name.",
+   "narrative_job": "Introduce the respondent as the union of the two lines, and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 3 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "namesake_echo"
+   ],
+   "bible_keys": [
+    "respondent.identity"
+   ],
+   "fact": {
+    "slot": "subject_name",
+    "kind": "person_name",
+    "triggers": [
+     "the respondent"
+    ]
+   }
+  },
+  {
+   "id": "q004",
+   "chapter": "ch01",
+   "prompt": "Does your family have a naming tradition -- a rule or custom that governs the first names its children are given? What is it, and how is it kept?",
+   "narrative_job": "Establish the naming law both lines kept, the custom the whole book's names obey.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 4 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "namesake_echo"
+   ],
+   "bible_keys": [
+    "family.naming_tradition"
+   ]
+  },
+  {
+   "id": "q005",
+   "chapter": "ch01",
+   "prompt": "What is your mother's full name, and which line does she come from? Begin the answer with her full name.",
+   "narrative_job": "Name the mother directly, with her line, and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 5 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "people.mother"
+   ],
+   "fact": {
+    "slot": "mother_name",
+    "kind": "person_name",
+    "triggers": [
+     "my mother",
+     "the respondent's mother"
+    ]
+   }
+  },
+  {
+   "id": "q006",
+   "chapter": "ch01",
+   "prompt": "What is your father's full name, and which line does he come from? Begin the answer with his full name.",
+   "narrative_job": "Name the father directly, with his line, and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 6 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "people.father"
+   ],
+   "fact": {
+    "slot": "father_name",
+    "kind": "person_name",
+    "triggers": [
+     "my father",
+     "the respondent's father"
+    ]
+   }
+  },
+  {
+   "id": "q007",
+   "chapter": "ch01",
+   "prompt": "What saying, rule, or doctrine does the joined family hand down -- the sentence its members quote when they explain how this family lives -- and which line brought it?",
+   "narrative_job": "Plant the family's doctrine, the refrain this book will return to as each generation develops it.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 7 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.doctrine"
+   ]
+  },
+  {
+   "id": "q008",
+   "chapter": "ch01",
+   "prompt": "What records do the two lines keep -- each line's book, register, or papers -- and how do the two archives differ?",
+   "narrative_job": "Introduce the two archives the family history will rest on.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 8 of 10 within the chapter",
+   "devices": [
+    "heirloom_evidence",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "records.two_archives"
+   ]
+  },
+  {
+   "id": "q009",
+   "chapter": "ch01",
+   "prompt": "What does the joined family believe about itself: the story it tells about what the two lines are, together?",
+   "narrative_job": "State the joined family's myth, the one the book will test.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 9 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.myth"
+   ]
+  },
+  {
+   "id": "q010",
+   "chapter": "ch01",
+   "prompt": "The two lines came from two different places. What are those places, in the family's telling, and what does each place explain about its line?",
+   "narrative_job": "Close the chapter by pointing at the two origins the next two chapters will trace.",
+   "position": "Act I: The Two Lines, Chapter: Two Names; page 10 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "family.two_origins"
+   ]
+  },
+  {
+   "id": "q011",
+   "chapter": "ch02",
+   "prompt": "Who is the founding ancestor of the Flames line -- the first of that line to come to Texas? Begin the answer with the ancestor's full name.",
+   "narrative_job": "Name the Flames founder the line descends from, and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 1 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "family.flames_founder"
+   ],
+   "fact": {
+    "slot": "flames_founding_ancestor",
+    "kind": "person_name",
+    "triggers": [
+     "the founding ancestor of the Flames line",
+     "the Flames line's founder"
+    ]
+   }
+  },
+  {
+   "id": "q012",
+   "chapter": "ch02",
+   "prompt": "Where did the Flames line come from before Texas: the town or country it calls its origin? Begin the answer with the place.",
+   "narrative_job": "Fix the Flames origin place as fact and as ground.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 2 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "era_frame"
+   ],
+   "bible_keys": [
+    "family.flames_origins"
+   ],
+   "fact": {
+    "slot": "flames_origin_place",
+    "kind": "place_name",
+    "triggers": [
+     "the Flames family came from",
+     "the Flames line came from"
+    ]
+   }
+  },
+  {
+   "id": "q013",
+   "chapter": "ch02",
+   "prompt": "In what year did the Flames family come to Dallas, and who made the journey? Begin the answer with the year.",
+   "narrative_job": "Fix the Flames migration year as fact and open the arrival.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 3 of 10 within the chapter",
+   "devices": [
+    "migration_scene",
+    "era_frame"
+   ],
+   "bible_keys": [
+    "family.flames_migration"
+   ],
+   "fact": {
+    "slot": "flames_migration_year",
+    "kind": "year",
+    "triggers": [
+     "the Flames family came to Dallas in",
+     "the Flames line came to Dallas in"
+    ]
+   }
+  },
+  {
+   "id": "q014",
+   "chapter": "ch02",
+   "prompt": "Who is the Flames family's matriarch -- the woman the line itself names as the one who held it together in the founding generation? Begin the answer with her full name.",
+   "narrative_job": "Name the Flames matriarch and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 4 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "people.flames_matriarch"
+   ],
+   "fact": {
+    "slot": "flames_matriarch",
+    "kind": "person_name",
+    "triggers": [
+     "the Flames family's matriarch",
+     "the matriarch of the Flames line"
+    ]
+   }
+  },
+  {
+   "id": "q015",
+   "chapter": "ch02",
+   "prompt": "What was the Flames founder's trade, and what does the family tell about where the name Flames itself came from?",
+   "narrative_job": "Ground the line in its founding work and its name's telling.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 5 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.flames_founder_trade"
+   ]
+  },
+  {
+   "id": "q016",
+   "chapter": "ch02",
+   "prompt": "Describe the Flames line's arrival in Dallas: the journey, the first work, the first household.",
+   "narrative_job": "Render the Flames migration as scene and settlement.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 6 of 10 within the chapter",
+   "devices": [
+    "migration_scene",
+    "household_economy"
+   ],
+   "bible_keys": [
+    "family.flames_arrival"
+   ]
+  },
+  {
+   "id": "q017",
+   "chapter": "ch02",
+   "prompt": "What record did the Flames matriarch begin on the arrival, and what were its first entries?",
+   "narrative_job": "Fix the Flames Bible's beginning as the line's second founding.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 7 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "records.flames_bible_begun"
+   ]
+  },
+  {
+   "id": "q018",
+   "chapter": "ch02",
+   "prompt": "Who was the Flames family's patriarch in the next generation -- the man whose work set the line's standard in Texas? Begin the answer with his full name.",
+   "narrative_job": "Name the Flames patriarch and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 8 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "trade_line"
+   ],
+   "bible_keys": [
+    "people.flames_patriarch"
+   ],
+   "fact": {
+    "slot": "flames_patriarch",
+    "kind": "person_name",
+    "triggers": [
+     "the Flames family's patriarch",
+     "the patriarch of the Flames line"
+    ]
+   }
+  },
+  {
+   "id": "q019",
+   "chapter": "ch02",
+   "prompt": "How did music enter the Flames line: who brought it, and what did it change about the line's life?",
+   "narrative_job": "Trace the line's second inheritance, the one the respondent's mother descends from.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 9 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.flames_music"
+   ]
+  },
+  {
+   "id": "q020",
+   "chapter": "ch02",
+   "prompt": "What was the Flames line, by the time the respondent's mother was born into it: its standing, its household, its expectations?",
+   "narrative_job": "Close the Flames chapter on the line the mother carries into the joining.",
+   "position": "Act I: The Two Lines, Chapter: The Flames Line: Fire and Music; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.flames_at_mother"
+   ]
+  },
+  {
+   "id": "q021",
+   "chapter": "ch03",
+   "prompt": "Who is the founding ancestor of the Frozen line -- the first of that line to come to Texas? Begin the answer with the ancestor's full name.",
+   "narrative_job": "Name the Frozen founder the line descends from, and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 1 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "family.frozen_founder"
+   ],
+   "fact": {
+    "slot": "frozen_founding_ancestor",
+    "kind": "person_name",
+    "triggers": [
+     "the founding ancestor of the Frozen line",
+     "the Frozen line's founder"
+    ]
+   }
+  },
+  {
+   "id": "q022",
+   "chapter": "ch03",
+   "prompt": "Where did the Frozen line come from before Texas: the town or country it calls its origin? Begin the answer with the place.",
+   "narrative_job": "Fix the Frozen origin place as fact and as ground.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 2 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "era_frame"
+   ],
+   "bible_keys": [
+    "family.frozen_origins"
+   ],
+   "fact": {
+    "slot": "frozen_origin_place",
+    "kind": "place_name",
+    "triggers": [
+     "the Frozen family came from",
+     "the Frozen line came from"
+    ]
+   }
+  },
+  {
+   "id": "q023",
+   "chapter": "ch03",
+   "prompt": "In what year did the Frozen family come to Dallas, and who made the journey? Begin the answer with the year.",
+   "narrative_job": "Fix the Frozen migration year as fact and open the arrival.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 3 of 10 within the chapter",
+   "devices": [
+    "migration_scene",
+    "era_frame"
+   ],
+   "bible_keys": [
+    "family.frozen_migration"
+   ],
+   "fact": {
+    "slot": "frozen_migration_year",
+    "kind": "year",
+    "triggers": [
+     "the Frozen family came to Dallas in",
+     "the Frozen line came to Dallas in"
+    ]
+   }
+  },
+  {
+   "id": "q024",
+   "chapter": "ch03",
+   "prompt": "Who is the Frozen family's matriarch -- the woman the line itself names as the one who held it together in the founding generation? Begin the answer with her full name.",
+   "narrative_job": "Name the Frozen matriarch and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 4 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "people.frozen_matriarch"
+   ],
+   "fact": {
+    "slot": "frozen_matriarch",
+    "kind": "person_name",
+    "triggers": [
+     "the Frozen family's matriarch",
+     "the matriarch of the Frozen line"
+    ]
+   }
+  },
+  {
+   "id": "q025",
+   "chapter": "ch03",
+   "prompt": "What was the Frozen founder's trade, and what did he carry into Texas that the line still keeps?",
+   "narrative_job": "Ground the line in its founding work and its surviving object.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 5 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "family.frozen_founder_trade"
+   ]
+  },
+  {
+   "id": "q026",
+   "chapter": "ch03",
+   "prompt": "Describe the Frozen line's arrival in Dallas: the circumstances, the first work, the first household.",
+   "narrative_job": "Render the Frozen migration as scene and settlement.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 6 of 10 within the chapter",
+   "devices": [
+    "migration_scene",
+    "household_economy"
+   ],
+   "bible_keys": [
+    "family.frozen_arrival"
+   ]
+  },
+  {
+   "id": "q027",
+   "chapter": "ch03",
+   "prompt": "Who was the Frozen family's patriarch in the next generation -- the man whose word and work set the line's standard? Begin the answer with his full name.",
+   "narrative_job": "Name the Frozen patriarch and fix the fact.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 7 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "trade_line"
+   ],
+   "bible_keys": [
+    "people.frozen_patriarch"
+   ],
+   "fact": {
+    "slot": "frozen_patriarch",
+    "kind": "person_name",
+    "triggers": [
+     "the Frozen family's patriarch",
+     "the patriarch of the Frozen line"
+    ]
+   }
+  },
+  {
+   "id": "q028",
+   "chapter": "ch03",
+   "prompt": "State the family's doctrine as the Frozen patriarch's generation received and restated it: what did his version of the saying mean in his circumstances?",
+   "narrative_job": "Return the refrain, developed by the patriarch's era.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 8 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.doctrine_patriarch"
+   ]
+  },
+  {
+   "id": "q029",
+   "chapter": "ch03",
+   "prompt": "Who were the Frozen patriarch's children and his sister or brother, and how did the line divide its hopes among them -- including any who left Texas?",
+   "narrative_job": "Populate the line's next generation and seed its branch.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 9 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "branch_and_return"
+   ],
+   "bible_keys": [
+    "family.frozen_patriarch_children"
+   ]
+  },
+  {
+   "id": "q030",
+   "chapter": "ch03",
+   "prompt": "What was the Frozen line, by the time the respondent's father was born into it: its standing, its household, its expectations?",
+   "narrative_job": "Close the Frozen chapter on the line the father carries into the joining.",
+   "position": "Act I: The Two Lines, Chapter: The Frozen Line: Iron and Patience; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.frozen_at_father"
+   ]
+  },
+  {
+   "id": "q031",
+   "chapter": "ch04",
+   "prompt": "Describe your mother as the carrier of her line: her work, her gifts, what the Flames line looks like in her.",
+   "narrative_job": "Portrait of the mother as one line's living form.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 1 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "trade_line"
+   ],
+   "bible_keys": [
+    "people.mother_portrait"
+   ]
+  },
+  {
+   "id": "q032",
+   "chapter": "ch04",
+   "prompt": "Describe your father as the carrier of his line: his work, his gifts, what the Frozen line looks like in him.",
+   "narrative_job": "Portrait of the father as the other line's living form.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 2 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "trade_line"
+   ],
+   "bible_keys": [
+    "people.father_portrait"
+   ]
+  },
+  {
+   "id": "q033",
+   "chapter": "ch04",
+   "prompt": "How did your parents meet, and what does the family tell about the meeting?",
+   "narrative_job": "State the joining's first scene, as record and as telling.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 3 of 10 within the chapter",
+   "devices": [
+    "table_scene",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.parents_meeting"
+   ]
+  },
+  {
+   "id": "q034",
+   "chapter": "ch04",
+   "prompt": "When and where did your parents marry, and what did the wedding look like in the family's telling and its record?",
+   "narrative_job": "Fix the joining as record and as scene: the when and where of the two lines becoming one family.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 4 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "table_scene"
+   ],
+   "bible_keys": [
+    "family.parents_wedding"
+   ]
+  },
+  {
+   "id": "q035",
+   "chapter": "ch04",
+   "prompt": "What did each of your parents' families think of the match, and what did the two households become to each other?",
+   "narrative_job": "Render the alliance of the two lines, with its frictions.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 5 of 10 within the chapter",
+   "devices": [
+    "table_scene",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.two_households"
+   ]
+  },
+  {
+   "id": "q036",
+   "chapter": "ch04",
+   "prompt": "Describe your father's work as the joined household's economy: the shop, the bench, the customers, the standing it bought.",
+   "narrative_job": "Define the father's line through its trade, inside the joining.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 6 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "household_economy"
+   ],
+   "bible_keys": [
+    "people.father_work"
+   ]
+  },
+  {
+   "id": "q037",
+   "chapter": "ch04",
+   "prompt": "Describe your mother's work, in her trade and in the household, and what it made possible for the joined family.",
+   "narrative_job": "Define the mother's line through its labor, inside the joining.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 7 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "household_economy"
+   ],
+   "bible_keys": [
+    "people.mother_work"
+   ]
+  },
+  {
+   "id": "q038",
+   "chapter": "ch04",
+   "prompt": "Describe the household your parents made in Dallas: its rooms, its economy, its rules, its sounds.",
+   "narrative_job": "Establish the household the respondent grew up inside.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 8 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "household_economy"
+   ],
+   "bible_keys": [
+    "places.parents_household"
+   ]
+  },
+  {
+   "id": "q039",
+   "chapter": "ch04",
+   "prompt": "What did each of your parents carry from their own line -- a saying, a skill, a record, an object -- into the household they made?",
+   "narrative_job": "Trace both inheritances at the moment they come under one roof.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 9 of 10 within the chapter",
+   "devices": [
+    "lineage_rendering",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "family.parents_inheritance"
+   ]
+  },
+  {
+   "id": "q040",
+   "chapter": "ch04",
+   "prompt": "What children were born to your parents, and what names were they given -- and what did the naming declare about the joining?",
+   "narrative_job": "Close the joining on the children, whose names are the union made literal.",
+   "position": "Act II: The Joining, Chapter: The Parents: The Joining; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "namesake_echo"
+   ],
+   "bible_keys": [
+    "family.parents_children"
+   ]
+  },
+  {
+   "id": "q041",
+   "chapter": "ch05",
+   "prompt": "In what year were you born, and what was the joined family's state in that year? Begin the answer with the year.",
+   "narrative_job": "Fix the respondent's birth year as fact, set inside the family's circumstances.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 1 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "era_frame"
+   ],
+   "bible_keys": [
+    "respondent.birth"
+   ],
+   "fact": {
+    "slot": "birth_year",
+    "kind": "year",
+    "triggers": [
+     "I was born"
+    ]
+   }
+  },
+  {
+   "id": "q042",
+   "chapter": "ch05",
+   "prompt": "In what place were you born, and what did that place mean to the two lines by then? Begin the answer with the place.",
+   "narrative_job": "Fix the respondent's birthplace as fact and as the lines' shared ground.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 2 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "places.birthplace"
+   ],
+   "fact": {
+    "slot": "birthplace",
+    "kind": "place_name",
+    "triggers": [
+     "I was born in"
+    ]
+   }
+  },
+  {
+   "id": "q043",
+   "chapter": "ch05",
+   "prompt": "Who is your sister, and what is her place in the joined family -- her name, her gifts, her line of descent from both sides?",
+   "narrative_job": "Introduce the respondent's generation in its plurality.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 3 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "table_scene"
+   ],
+   "bible_keys": [
+    "people.sister"
+   ]
+  },
+  {
+   "id": "q044",
+   "chapter": "ch05",
+   "prompt": "Tell of the family's branch that left Texas: who went, where, and what became of their line?",
+   "narrative_job": "Open the branching line the later chapters will weigh.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 4 of 10 within the chapter",
+   "devices": [
+    "branch_and_return",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.branch"
+   ]
+  },
+  {
+   "id": "q045",
+   "chapter": "ch05",
+   "prompt": "Describe growing up between two lines: the rooms, the work you watched on each side, the place you were given at each family's table.",
+   "narrative_job": "Render the respondent's childhood as membership in two lines at once.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 5 of 10 within the chapter",
+   "devices": [
+    "table_scene",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "respondent.childhood"
+   ]
+  },
+  {
+   "id": "q046",
+   "chapter": "ch05",
+   "prompt": "What did each line require of its children in your generation: work, faith, music, silence, achievement, care?",
+   "narrative_job": "State the two households' demands as the generation's first law.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 6 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "household_economy"
+   ],
+   "bible_keys": [
+    "family.requirements"
+   ]
+  },
+  {
+   "id": "q047",
+   "chapter": "ch05",
+   "prompt": "State the family's doctrine as you yourself received it: who said it to you, in what circumstances, and what you understood it to mean then?",
+   "narrative_job": "Return the refrain, developed by the respondent's own receiving of it.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 7 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "lineage_rendering"
+   ],
+   "bible_keys": [
+    "family.doctrine_received"
+   ]
+  },
+  {
+   "id": "q048",
+   "chapter": "ch05",
+   "prompt": "Describe a gathering of the whole joined family from your childhood: who came from each line, what was eaten, what was said and unsaid.",
+   "narrative_job": "Let the two lines meet at one table.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 8 of 10 within the chapter",
+   "devices": [
+    "table_scene",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.childhood_gathering"
+   ]
+  },
+  {
+   "id": "q049",
+   "chapter": "ch05",
+   "prompt": "What names repeat across the two lines, and who in your generation was named for whom?",
+   "narrative_job": "Render the naming law's echoes in the respondent's own generation.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 9 of 10 within the chapter",
+   "devices": [
+    "namesake_echo",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.names"
+   ]
+  },
+  {
+   "id": "q050",
+   "chapter": "ch05",
+   "prompt": "When did you first understand that the joined family was something you would one day have to carry, and what showed you?",
+   "narrative_job": "Close the generation's chapter on the inheritance becoming conscious.",
+   "position": "Act II: The Joining, Chapter: My Generation; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "lineage_rendering"
+   ],
+   "bible_keys": [
+    "respondent.carrying"
+   ]
+  },
+  {
+   "id": "q051",
+   "chapter": "ch06",
+   "prompt": "What was the Frozen line's founding trade, and how did it shape what that line thought work was?",
+   "narrative_job": "Open the trades chapter at the Frozen root: work as a line's first definition of itself.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 1 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "trades.frozen_founding"
+   ]
+  },
+  {
+   "id": "q052",
+   "chapter": "ch06",
+   "prompt": "How did the Frozen patriarch's trade differ from the founder's, and what passed between them unchanged?",
+   "narrative_job": "Trace the bench line across its first transfer.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 2 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "lineage_rendering"
+   ],
+   "bible_keys": [
+    "trades.frozen_patriarch"
+   ]
+  },
+  {
+   "id": "q053",
+   "chapter": "ch06",
+   "prompt": "How did your father's trade carry the Frozen line's work forward, and what did he add of his own?",
+   "narrative_job": "Trace the bench line into the parents' generation.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 3 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "trades.father"
+   ]
+  },
+  {
+   "id": "q054",
+   "chapter": "ch06",
+   "prompt": "What work ran down the Flames line -- the founder's fire work, its Texas form, and the music that entered it?",
+   "narrative_job": "Give the Flames line's labor its standing beside the bench trades.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 4 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "trades.flames"
+   ]
+  },
+  {
+   "id": "q055",
+   "chapter": "ch06",
+   "prompt": "What is your own trade, and how does it stand in the two lines' work -- continuation, translation, or break?",
+   "narrative_job": "Place the respondent's work inside both lines' economies.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 5 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "trades.respondent"
+   ]
+  },
+  {
+   "id": "q056",
+   "chapter": "ch06",
+   "prompt": "What work has your sister taken up, inside or beside the family's trades?",
+   "narrative_job": "Populate the present generation's working world.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 6 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "trades.sister"
+   ]
+  },
+  {
+   "id": "q057",
+   "chapter": "ch06",
+   "prompt": "What did the two lines' trades, taken together, teach the joined family about how a person should work and what work is for?",
+   "narrative_job": "State the work ethic the trades deposited in the family.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 7 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "trade_line"
+   ],
+   "bible_keys": [
+    "trades.ethic"
+   ]
+  },
+  {
+   "id": "q058",
+   "chapter": "ch06",
+   "prompt": "What tools or instruments of the lines' trades survive, and in whose keeping are they now?",
+   "narrative_job": "Let the trades' objects testify to the line of hands.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 8 of 10 within the chapter",
+   "devices": [
+    "heirloom_evidence",
+    "trade_line"
+   ],
+   "bible_keys": [
+    "motifs.trade_tools"
+   ]
+  },
+  {
+   "id": "q059",
+   "chapter": "ch06",
+   "prompt": "What trade, skill, or way of working did either line lose on the way -- and what did the losing cost?",
+   "narrative_job": "Account for the lines' chosen and unchosen losses.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 9 of 10 within the chapter",
+   "devices": [
+    "trade_line",
+    "branch_and_return"
+   ],
+   "bible_keys": [
+    "trades.lost"
+   ]
+  },
+  {
+   "id": "q060",
+   "chapter": "ch06",
+   "prompt": "Where does the joined family's line of work stand now, in your hands and the hands coming after you?",
+   "narrative_job": "Close the trades chapter on the work's present tense.",
+   "position": "Act III: The Keeping, Chapter: The Family Trades; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "trade_line"
+   ],
+   "bible_keys": [
+    "trades.present"
+   ]
+  },
+  {
+   "id": "q061",
+   "chapter": "ch07",
+   "prompt": "Describe the Flames line's record book itself: its physical form, whose hands have written in it, and what it contains.",
+   "narrative_job": "Open the records chapter on the Flames archive as an object.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 1 of 10 within the chapter",
+   "devices": [
+    "heirloom_evidence",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "records.flames_book"
+   ]
+  },
+  {
+   "id": "q062",
+   "chapter": "ch07",
+   "prompt": "Describe the Frozen line's records -- its day books and logs: their form, whose hands kept them, and what they contain that the Bible does not.",
+   "narrative_job": "Set the second archive beside the first, in its own kind.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 2 of 10 within the chapter",
+   "devices": [
+    "heirloom_evidence",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "records.frozen_books"
+   ]
+  },
+  {
+   "id": "q063",
+   "chapter": "ch07",
+   "prompt": "Describe the Frozen founder's carried object as it survives now: its condition, its keeping place, what it shows.",
+   "narrative_job": "Return to the migration's object with the records chapter's eyes.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 3 of 10 within the chapter",
+   "devices": [
+    "heirloom_evidence",
+    "lineage_rendering"
+   ],
+   "bible_keys": [
+    "motifs.founder_object_now"
+   ]
+  },
+  {
+   "id": "q064",
+   "chapter": "ch07",
+   "prompt": "What instrument or household object carries the Flames line's memory, and where is it now?",
+   "narrative_job": "Choose the object that testifies for the music line.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 4 of 10 within the chapter",
+   "devices": [
+    "heirloom_evidence",
+    "lineage_rendering"
+   ],
+   "bible_keys": [
+    "motifs.flames_object"
+   ]
+  },
+  {
+   "id": "q065",
+   "chapter": "ch07",
+   "prompt": "What houses have the two lines lived in, in Texas and before it, and what does each house mark about its era?",
+   "narrative_job": "Render the family's geography as a succession of roofs.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 5 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "household_economy"
+   ],
+   "bible_keys": [
+    "places.family_houses"
+   ]
+  },
+  {
+   "id": "q066",
+   "chapter": "ch07",
+   "prompt": "What photographs, letters, or papers does the joined family hold, and who has done the work of keeping them?",
+   "narrative_job": "Account for the family's paper memory and its keepers.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 6 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "records.papers"
+   ]
+  },
+  {
+   "id": "q067",
+   "chapter": "ch07",
+   "prompt": "What records has your own generation made -- logs, recordings, photographs -- and how do they continue the two lines' older keeping?",
+   "narrative_job": "Bring the record forward into the respondent's own practice.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 7 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "lineage_rendering"
+   ],
+   "bible_keys": [
+    "records.own_generation"
+   ]
+  },
+  {
+   "id": "q068",
+   "chapter": "ch07",
+   "prompt": "What records or objects has the family lost -- to fire, moving, neglect, or dispute -- and what went with them?",
+   "narrative_job": "Name the archives' gaps honestly.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 8 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "records.lost"
+   ]
+  },
+  {
+   "id": "q069",
+   "chapter": "ch07",
+   "prompt": "Where do the written records and the family's telling most clearly disagree, and how does the family live with the difference?",
+   "narrative_job": "Perform the family history's central act of weighing.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 9 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "the_doctrine"
+   ],
+   "bible_keys": [
+    "records.disagreement"
+   ]
+  },
+  {
+   "id": "q070",
+   "chapter": "ch07",
+   "prompt": "Who keeps the family's records and heirlooms now, and how was that keeper chosen or fallen to?",
+   "narrative_job": "Fix the archives' present custody, and point the chapter at its purpose.",
+   "position": "Act III: The Keeping, Chapter: Houses, Heirlooms, and Records; page 10 of 10 within the chapter",
+   "devices": [
+    "heirloom_evidence",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "records.keeper"
+   ]
+  },
+  {
+   "id": "q071",
+   "chapter": "ch08",
+   "prompt": "Tell of the Frozen patriarch's death: when, how the family met it, and what of his passed into your hands.",
+   "narrative_job": "Open the hard years with the patriarch's parting, plainly.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 1 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.patriarch_death"
+   ]
+  },
+  {
+   "id": "q072",
+   "chapter": "ch08",
+   "prompt": "Tell of the Flames patriarch's death: when, and what it closed in that line.",
+   "narrative_job": "Render the other line's patriarch's passing in its own terms.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 2 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.flames_patriarch_death"
+   ]
+  },
+  {
+   "id": "q073",
+   "chapter": "ch08",
+   "prompt": "How did the founding generations of both lines pass: who went first, who last, and what did each death close?",
+   "narrative_job": "Take roll of the founders' and matriarchs' endings.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 3 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.founders_deaths"
+   ]
+  },
+  {
+   "id": "q074",
+   "chapter": "ch08",
+   "prompt": "Tell of the disaster that struck your own work -- the fire or ruin -- and how the joined family answered it.",
+   "narrative_job": "Place the respondent's generation's catastrophe and its rebuilding.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 4 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "the_doctrine"
+   ],
+   "bible_keys": [
+    "family.disaster"
+   ]
+  },
+  {
+   "id": "q075",
+   "chapter": "ch08",
+   "prompt": "Tell of the family's oldest parting: the one who left Texas and did not come back to live, and what the leaving cost both sides at the time.",
+   "narrative_job": "Weigh the branch's leaving as a parting, in its own era's terms.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 5 of 10 within the chapter",
+   "devices": [
+    "branch_and_return",
+    "table_scene"
+   ],
+   "bible_keys": [
+    "family.oldest_parting"
+   ]
+  },
+  {
+   "id": "q076",
+   "chapter": "ch08",
+   "prompt": "What estrangement, silence, or lost touch runs in either line, and what is honestly known about its cause?",
+   "narrative_job": "Name the family's unspoken break without inventing its resolution.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 6 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "branch_and_return"
+   ],
+   "bible_keys": [
+    "family.estrangement"
+   ]
+  },
+  {
+   "id": "q077",
+   "chapter": "ch08",
+   "prompt": "Tell of the joined family's thinnest years in your own time: what was short, and what did the family do about it?",
+   "narrative_job": "Render the present generation's material hardship.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 7 of 10 within the chapter",
+   "devices": [
+    "household_economy",
+    "era_frame"
+   ],
+   "bible_keys": [
+    "family.thin_years"
+   ]
+  },
+  {
+   "id": "q078",
+   "chapter": "ch08",
+   "prompt": "State the family's doctrine as the hard years tested it: where did it hold, where did it bend, and what did keeping it cost?",
+   "narrative_job": "Return the refrain under pressure, developed by loss.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 8 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.doctrine_tested"
+   ]
+  },
+  {
+   "id": "q079",
+   "chapter": "ch08",
+   "prompt": "Who held the family together in its hard years, in each line and in the joined family -- and how does that holding repeat the matriarchs' pattern?",
+   "narrative_job": "Trace the matriarchs' office as it passes to later hands.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 9 of 10 within the chapter",
+   "devices": [
+    "lineage_rendering",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.holders"
+   ]
+  },
+  {
+   "id": "q080",
+   "chapter": "ch08",
+   "prompt": "What survived the hard years intact -- and what survived changed, which is a different thing?",
+   "narrative_job": "Close the hard years on an honest inventory of survival.",
+   "position": "Act IV: The Inheritance, Chapter: Hard Years and Partings; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "family.survivals"
+   ]
+  },
+  {
+   "id": "q081",
+   "chapter": "ch09",
+   "prompt": "What is your wife's name, and how did she come into this family? Begin the answer with her full name.",
+   "narrative_job": "Bring the partner into the family as a third line's joining, and fix the fact.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 1 of 10 within the chapter",
+   "devices": [
+    "table_scene",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "people.partner"
+   ],
+   "fact": {
+    "slot": "partner_name",
+    "kind": "person_name",
+    "triggers": [
+     "my wife",
+     "the respondent's wife"
+    ]
+   }
+  },
+  {
+   "id": "q082",
+   "chapter": "ch09",
+   "prompt": "What family did your wife come from, and what did her line bring into yours -- its work, its ways, its own customs of naming and keeping?",
+   "narrative_job": "Give the incoming line its own standing in the history.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 2 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "branch_and_return"
+   ],
+   "bible_keys": [
+    "family.partner_line"
+   ]
+  },
+  {
+   "id": "q083",
+   "chapter": "ch09",
+   "prompt": "Who are the family's next generation -- your sister, the branch's young, the children coming up -- and where do they stand in the lines?",
+   "narrative_job": "Populate the generation the book will hand everything to.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 3 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "table_scene"
+   ],
+   "bible_keys": [
+    "family.next_generation"
+   ]
+  },
+  {
+   "id": "q084",
+   "chapter": "ch09",
+   "prompt": "Describe a reunion or gathering of the joined family as it happens now: who comes, from how far, and what the day is like.",
+   "narrative_job": "Let the whole living family meet at one table.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 4 of 10 within the chapter",
+   "devices": [
+    "table_scene",
+    "generation_portrait"
+   ],
+   "bible_keys": [
+    "family.reunion"
+   ]
+  },
+  {
+   "id": "q085",
+   "chapter": "ch09",
+   "prompt": "How does the branch that left stand with the root today: visits, calls, obligations kept or lapsed?",
+   "narrative_job": "Weigh the branch's present distance honestly.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 5 of 10 within the chapter",
+   "devices": [
+    "branch_and_return",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.branch_today"
+   ]
+  },
+  {
+   "id": "q086",
+   "chapter": "ch09",
+   "prompt": "What are you and your generation teaching the young of the family, deliberately -- and what are they refusing to learn?",
+   "narrative_job": "Render the transfer in progress, with its friction.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 6 of 10 within the chapter",
+   "devices": [
+    "lineage_rendering",
+    "table_scene"
+   ],
+   "bible_keys": [
+    "family.teaching"
+   ]
+  },
+  {
+   "id": "q087",
+   "chapter": "ch09",
+   "prompt": "State the family's doctrine as the young now say it, or refuse it: what has their version kept, and what has it changed?",
+   "narrative_job": "Return the refrain in the newest mouths, developed or contested.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 7 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "namesake_echo"
+   ],
+   "bible_keys": [
+    "family.doctrine_young"
+   ]
+  },
+  {
+   "id": "q088",
+   "chapter": "ch09",
+   "prompt": "Where does the family live now, house by house and city by city, and how did it come to be spread so?",
+   "narrative_job": "Fix the family's present geography.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 8 of 10 within the chapter",
+   "devices": [
+    "generation_portrait",
+    "branch_and_return"
+   ],
+   "bible_keys": [
+    "places.family_now"
+   ]
+  },
+  {
+   "id": "q089",
+   "chapter": "ch09",
+   "prompt": "What does the living family still argue about -- the old subjects, in their present forms?",
+   "narrative_job": "Name the family's continuing fault lines without flinching.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 9 of 10 within the chapter",
+   "devices": [
+    "table_scene",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.arguments"
+   ]
+  },
+  {
+   "id": "q090",
+   "chapter": "ch09",
+   "prompt": "What is the joined family, as it stands now, in one honest assessment: stronger, smaller, scattered, kept?",
+   "narrative_job": "Close the living-family chapter on a plain verdict.",
+   "position": "Act IV: The Inheritance, Chapter: Reunions and the Living Family; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.verdict"
+   ]
+  },
+  {
+   "id": "q091",
+   "chapter": "ch10",
+   "prompt": "State the family's doctrine one last time, as you would hand it on: what it meant at the root, what it has come to mean, and what you believe it will ask of the next generation.",
+   "narrative_job": "Give the refrain its fullest development, carrying every era the book has passed through.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 1 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "lineage_rendering"
+   ],
+   "bible_keys": [
+    "family.doctrine_final"
+   ]
+  },
+  {
+   "id": "q092",
+   "chapter": "ch10",
+   "prompt": "What of the two lines' heirlooms and records is in your own keeping, and what have you already passed on, and to whom?",
+   "narrative_job": "Take the keeper's inventory at the book's end.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 2 of 10 within the chapter",
+   "devices": [
+    "heirloom_evidence",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "records.keeping_final"
+   ]
+  },
+  {
+   "id": "q093",
+   "chapter": "ch10",
+   "prompt": "What have you yourself passed down already -- a skill, a standard, a saying, a room -- and who carries it now?",
+   "narrative_job": "Account for the respondent's own act of handing down.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 3 of 10 within the chapter",
+   "devices": [
+    "lineage_rendering",
+    "trade_line"
+   ],
+   "bible_keys": [
+    "family.passed_on"
+   ]
+  },
+  {
+   "id": "q094",
+   "chapter": "ch10",
+   "prompt": "Which of the family's names are carried by the living young, in both lines and the branch, and what do you hope or fear those names will do for them?",
+   "narrative_job": "Close the naming argument with its future tense.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 4 of 10 within the chapter",
+   "devices": [
+    "namesake_echo",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "family.names_forward"
+   ]
+  },
+  {
+   "id": "q095",
+   "chapter": "ch10",
+   "prompt": "What do the family's records still get wrong, or leave out, that you want corrected while you can correct it?",
+   "narrative_job": "Let the respondent amend the archives in his own voice.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 5 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "heirloom_evidence"
+   ],
+   "bible_keys": [
+    "records.corrections"
+   ]
+  },
+  {
+   "id": "q096",
+   "chapter": "ch10",
+   "prompt": "What part of the family's story is still unfinished -- the branch unvisited, the column left blank, the page not yet written?",
+   "narrative_job": "Name the history's open account honestly.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 6 of 10 within the chapter",
+   "devices": [
+    "branch_and_return",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "family.unfinished"
+   ]
+  },
+  {
+   "id": "q097",
+   "chapter": "ch10",
+   "prompt": "What is this joined family for: what does its whole history, told whole, show it was doing in the world?",
+   "narrative_job": "Test the founding myth against the full record.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 7 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "record_and_telling"
+   ],
+   "bible_keys": [
+    "family.purpose"
+   ]
+  },
+  {
+   "id": "q098",
+   "chapter": "ch10",
+   "prompt": "What plain advice does the family give its young, beneath the doctrine -- the working instructions for a life in these lines?",
+   "narrative_job": "Translate the inheritance into instructions a child could carry.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 8 of 10 within the chapter",
+   "devices": [
+    "the_doctrine",
+    "table_scene"
+   ],
+   "bible_keys": [
+    "family.advice"
+   ]
+  },
+  {
+   "id": "q099",
+   "chapter": "ch10",
+   "prompt": "What do you want entered next in the family's records -- the entry you hope the next keeper writes?",
+   "narrative_job": "Point the archives at their next page.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 9 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "records.next_entry"
+   ]
+  },
+  {
+   "id": "q100",
+   "chapter": "ch10",
+   "prompt": "End the book: what is the single fact about this family that should outlast every story told about it?",
+   "narrative_job": "Close on the fact that survives the telling.",
+   "position": "Act IV: The Inheritance, Chapter: What Was Passed Down; page 10 of 10 within the chapter",
+   "devices": [
+    "record_and_telling",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "family.final_fact"
+   ]
+  }
+ ]
+}

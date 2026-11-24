@@ -121,6 +121,54 @@ class TestSequencing(unittest.TestCase):
         self.assertNotIn("This is the stub page for question q002",
                          page_prompts[2])
 
+    def test_resume_repairs_missing_synopsis(self):
+        """The interruption defect, as a regression test: a build
+        that stops between a chapter's last page save and its
+        synopsis write leaves pages without a synopsis, and the
+        resumed build used to skip the finished pages and ship the
+        gap (memoir chapter 9, biography chapter 7). A resumed
+        build must regenerate the missing synopsis from the saved
+        pages, without regenerating any page."""
+        import json
+        answers = {
+            "q001": "First answer.",
+            "q002": "Second answer.",
+            "q003": "Third answer.",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            state_path = Path(tmp) / "state.json"
+            first = BookBuilder(tiny_pack(), answers, RecordingStub(),
+                                state_path)
+            report = first.build()
+            self.assertEqual(report["pages_built"], 3)
+            self.assertIn("ch01", first.state["synopses"])
+            page_texts = {qid: p["text"] for qid, p in
+                          first.state["pages"].items()}
+
+            # Simulate the interruption: chapter 1's pages survive,
+            # its synopsis does not.
+            state = json.loads(state_path.read_text(encoding="utf-8"))
+            del state["synopses"]["ch01"]
+            state_path.write_text(json.dumps(state), encoding="utf-8")
+
+            resumed_model = RecordingStub()
+            resumed = BookBuilder(tiny_pack(), answers, resumed_model,
+                                  state_path)
+            report = resumed.build()
+            self.assertEqual(report["pages_built"], 3)
+            # The synopsis was regenerated from the saved pages...
+            self.assertIn("Stub synopsis of chapter ch01",
+                          resumed.state["synopses"]["ch01"])
+            # ...and no page was regenerated to do it: the only
+            # model call of the resumed build is the synopsis call,
+            # and every page text is byte-identical.
+            self.assertEqual(len(resumed_model.prompts), 1)
+            self.assertIn("TASK: SUMMARIZE_CHAPTER",
+                          resumed_model.prompts[0])
+            self.assertEqual(
+                {qid: p["text"] for qid, p in
+                 resumed.state["pages"].items()}, page_texts)
+
     def test_empty_answer_produces_no_page(self):
         answers = {
             "q001": "First answer.",

@@ -8,6 +8,26 @@ conditioned on the accumulated state of the book so far, and a
 genre-specific framework controls how each answer is converted into
 the literary form of its genre.
 
+## Method
+
+The survey is the origin of everything the book legitimately
+contains; the model's role is transformation of supplied material
+into book form. Each genre has its own survey, written to draw out
+the material a real book in that genre is made of — scenes, facts,
+voices, turning points, and the who, what, when, where, and how of
+its subject — in the respondent's own substance. The model performs
+the editorial work on that material: assembly into pages under the
+genre framework, continuity against the accumulated state, and
+polish of expression. It does not originate the book's facts,
+people, or events: the engine's prompts state this role explicitly,
+the story bible's typed facts each carry the id of the survey
+answer they were extracted from, and a fact with no source answer
+fails validation before generation. A pack is therefore judged by
+how completely its questions elicit the book; when a needed fact
+has to be obtained outside the survey, that is a defect of the
+survey, and the correction is a new question (see the
+completeness gate in `DEFECTS.md`, entry E6).
+
 ## Mechanism
 
 The pipeline has four components.
@@ -121,7 +141,7 @@ build continues from the first ungenerated page.
 
 ## Genre packs
 
-Two packs ship in this release:
+Three packs ship in this release:
 
 - **memoir** (v1.0.0): 100 questions in 10 chapters of 10, ordered as
   a life arc (origins, childhood home, family, early world, first
@@ -146,6 +166,26 @@ Two packs ship in this release:
   birthplace, mother, father, partner, death year). Refrain default:
   off; in a third-person chronological life, recurrence reads as
   error rather than voice.
+
+- **family-history** (v1.0.0): 100 questions in 10 chapters of 10,
+  whose subject is a family across generations rather than one
+  life. The pack models two family lines — the respondent's
+  mother's line and father's line — each traced separately
+  (founding ancestor, origin place, migration, matriarch,
+  patriarch, trades, records) and converging in the parents'
+  joining and in the respondent. Framework: first-person voice,
+  thirteen-device library (including the doctrine: a family saying
+  carried as an explicit device), and eighteen typed fact slots —
+  two line names, the respondent's name, both parents' names, five
+  facts per line (founding ancestor, origin place, migration year,
+  matriarch, patriarch), the respondent's birth year and
+  birthplace, and the partner's name. Every fact slot is elicited
+  by a direct question, and the pack's test suite proves each
+  extracted fact traces to its source answer (18 of 18).
+  Refrain default: on; a family saying returning across
+  generations, developed in each era, is this genre's native
+  structure, bounded by the verbatim guard and the development
+  check.
 
 Additional genre packs are added one at a time as updates to this
 same application; the engine is genre-agnostic and loads any pack
@@ -259,7 +299,9 @@ respondent is a separate fictional persona, as its entry states.)
   sentence.
 
 Each future genre pack will ship with its own first book in the same
-way, as evidence of the pack in operation.
+way, as evidence of the pack in operation. Every defect found in
+any book, and the correction applied to the code for each, is
+recorded in [`DEFECTS.md`](DEFECTS.md).
 
 ## Running it
 
@@ -303,9 +345,13 @@ material.
 - `engine/` — the genre-agnostic engine (pack validation, story
   bible, prompt assembly and sequential generation, continuity
   checking, Markdown export, CLI).
-- `packs/` — genre packs. `packs/memoir.json` and
-  `packs/biography.json` are generated from the builders in
-  `tools/`.
+- `packs/` — genre packs. `packs/memoir.json`,
+  `packs/biography.json`, and `packs/family-history.json` are
+  generated from the builders in `tools/`.
+- `DEFECTS.md` — the defect-and-correction log: every defect found
+  per genre and per book, as measured, with its root cause, the
+  correction applied, and the control that now prevents or bounds
+  it.
 - `demo/` — the demonstration answer sets, and the canonical
   character record (`frozen-in-flames-character.json`) they are
   drawn from.

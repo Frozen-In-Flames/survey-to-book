@@ -13,11 +13,23 @@ from those answers.
 The demonstration subject is the series' demonstration user, the
 fictional persona Frozen In Flames. A canonical character record
 (demo/frozen-in-flames-character.json) holds the invented facts of
-the character's life exactly once; the demo answers are drawn from
-it, and this suite proves the bible extracted from the answers
-agrees with the record fact for fact. The character is living, so
-the pack's death_year slot is declared but deliberately
+the character's life exactly once; the demo answers were drawn from
+it, and this suite proves the bible extracted from the answers is
+internally the values the shipped book carries. The character is
+living, so the pack's death_year slot is declared but deliberately
 unestablished by the demo answers.
+
+Canon supersession (2026-11-24): the biography build invented the
+character's core facts because the survey never asked the author.
+The author has since set the canon himself (born 2000 in Dallas;
+mother Ruby Flames; father Onyx Frozen; partner Amber Flames),
+and the canonical record now carries the corrected values. The
+shipped biography book and its demo answers retain the earlier
+invented values -- they are the book as published, and a corrected
+edition is queued separately -- so the record-agreement test below
+pins the supersession mechanically: the answers and the record
+must diverge in exactly the author-corrected fields, no more and
+no fewer.
 """
 
 import json
@@ -121,14 +133,29 @@ class TestBiographyPack(unittest.TestCase):
         # The character is living: no death fact may be established.
         self.assertNotIn("death_year", extracted)
 
+    # The fields the author corrected on 2026-11-24. The shipped
+    # book's answers carry the biography build's invented values;
+    # the record carries the author's canon.
+    CORRECTED_FIELDS = {"birth_year", "birthplace", "mother_name",
+                        "father_name", "partner_name"}
+
     def test_character_record_agrees_with_answers(self):
-        """One canonical character: the bible extracted from the
-        demo answers must equal the character record's facts."""
+        """Supersession, pinned: the bible extracted from the
+        shipped book's demo answers and the corrected canonical
+        record must diverge in exactly the author-corrected
+        fields. Any other divergence means the record and the
+        shipped book have drifted apart unrecorded."""
         record_facts = {k: str(v)
                         for k, v in self.character["facts"].items()}
-        self.assertEqual(self._extracted_facts(), record_facts)
+        extracted = self._extracted_facts()
+        self.assertEqual(set(extracted), set(record_facts))
+        divergent = {k for k in extracted
+                     if extracted[k] != record_facts[k]}
+        self.assertEqual(divergent, self.CORRECTED_FIELDS)
         self.assertEqual(self.character["character"]["name"],
                          "Frozen In Flames")
+        self.assertEqual(record_facts["birth_year"], "2000")
+        self.assertEqual(record_facts["birthplace"], "Dallas")
 
     def test_stub_build_produces_full_book(self):
         """End-to-end plumbing: 100 answers in, 100 pages out."""

@@ -49,6 +49,16 @@ One page is produced per non-empty answer. Empty answers produce no
 page and are recorded in the build report; they are never padded or
 invented. Build state is persisted after every page, so a build can
 be interrupted and resumed without regenerating finished pages.
+
+One interruption window is repaired explicitly: if a build stops
+between a chapter's last page being saved and its synopsis being
+written, the saved state holds the chapter's pages without its
+synopsis, and a resumed build would otherwise skip the finished
+pages and never revisit the chapter -- both of the first two books
+shipped with exactly one such loss (memoir chapter 9, biography
+chapter 7). On resume, before any new page is generated, chapters
+whose answered pages are all present but whose synopsis is missing
+have the synopsis regenerated from the saved pages.
 """
 
 from __future__ import annotations
@@ -180,7 +190,11 @@ class BookBuilder:
             f"Tense: {fw['tense']}. "
             f"Write exactly one page of prose, about "
             f"{fw['page_target_words']} words. Output only the page's "
-            f"prose: no title, no heading, no commentary about the task."
+            f"prose: no title, no heading, no commentary about the task. "
+            f"Your role is transformation, not origination: everything "
+            f"the page contains must come from the source answer and "
+            f"the established state supplied below; do not invent "
+            f"facts, people, places, or events beyond them."
         )
         refrain_block = ""
         if self.refrain:
@@ -229,10 +243,37 @@ class BookBuilder:
 
     # -- build -------------------------------------------------------------
 
+    def _repair_missing_synopses(self, grouped: dict) -> None:
+        """Regenerate synopses for chapters whose pages all exist
+        but whose synopsis is missing (the interruption window
+        between a chapter's last page save and its synopsis write).
+        Runs on resume, before any new page is generated, so later
+        chapters are never conditioned on a rolling synopsis with a
+        silent gap."""
+        for chapter in self.pack["chapters"]:
+            chapter_id = chapter["id"]
+            if chapter_id in self.state["synopses"]:
+                continue
+            answered = [q for q in grouped[chapter_id]
+                        if self.answers.get(q["id"], "").strip()]
+            if not answered:
+                continue
+            if not all(q["id"] in self.state["pages"]
+                       for q in answered):
+                continue
+            chapter_pages = [self.state["pages"][q["id"]]
+                             for q in answered]
+            syn = self.model.complete(
+                self.synopsis_prompt(chapter, chapter_pages),
+                max_tokens=220)
+            self.state["synopses"][chapter_id] = syn
+            self._save_state()
+
     def build(self) -> dict:
         questions = self.pack["questions"]
         grouped = questions_by_chapter(self.pack)
         chapter_of = {q["id"]: q["chapter"] for q in questions}
+        self._repair_missing_synopses(grouped)
 
         for index, question in enumerate(questions):
             qid = question["id"]
