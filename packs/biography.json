@@ -1,0 +1,1585 @@
+{
+ "genre": "biography",
+ "version": "1.0.0",
+ "framework": {
+  "voice": "Third-person retrospective: a narrator outside the life, writing after the fact, who keeps what the record shows distinct from what witnesses remember. Plain, exact, and warm without worship; the subject is rendered as a person, not a monument, and judgment is earned by evidence.",
+  "pov": "third person",
+  "tense": "past tense for the life, present tense for the record and the legacy",
+  "page_target_words": 250,
+  "global_instructions": "Transform the respondent's answers about the subject into biography prose in the third person. Never contradict the story bible or the fixed facts. Do not invent named people, places, or dates that are not in the supplied material. Where the material is thin, expand by rendering its documented implications as scene and context, not by fabricating events. Attribute memory as memory and record as record.",
+  "devices": {
+   "scene_reconstruction": {
+    "name": "Scene reconstruction",
+    "instruction": "Reconstruct a documented moment as a scene unfolding in time. Stay inside what the material supports: setting, gesture, and sequence may be rendered, but no event, person, or date may be added that the material does not contain."
+   },
+   "period_detail": {
+    "name": "Period detail",
+    "instruction": "Anchor the page in two or three concrete period details drawn from the material (tools, prices, clothing, sounds, the weather of the era)."
+   },
+   "documentary_anchor": {
+    "name": "Documentary anchor",
+    "instruction": "Fix the page to a datable record: a year, a document, a public event, or an artifact named in the material, and let the narrative hang from it."
+   },
+   "voice_of_record": {
+    "name": "Voice of the record",
+    "instruction": "Distinguish the record from the memory: where the material gives documents, dates, or official fact, present them as record; where it gives recollection, present it as recollection, attributed to who remembers."
+   },
+   "subjects_own_words": {
+    "name": "The subject's own words",
+    "instruction": "Where the material supplies the subject's own recorded words (a letter, a saying, a written note), bring them onto the page as the subject's voice, clearly theirs, not the narrator's."
+   },
+   "contextual_frame": {
+    "name": "Contextual frame",
+    "instruction": "Place the life against the era's public events for a paragraph at most, then return to the person; the era explains the life, it does not replace it."
+   },
+   "character_portrait": {
+    "name": "Character portrait",
+    "instruction": "Build the subject through observed habit: how the subject worked, spoke, dressed, decided. One page should leave one trait standing."
+   },
+   "testimony_weave": {
+    "name": "Testimony weave",
+    "instruction": "Bring in what others said about the subject (family, colleagues, rivals), attributed to them, and let agreement or disagreement with the record stand visible."
+   },
+   "object_evidence": {
+    "name": "Object evidence",
+    "instruction": "Let a surviving object carry the page: a tool, a photograph, a patent, a house. Describe it exactly and let it testify."
+   },
+   "turning_point": {
+    "name": "Turning point",
+    "instruction": "Mark the decision or event the life pivots on. Show the state of things before it and the first consequence after it."
+   },
+   "reputation_vs_record": {
+    "name": "Reputation against record",
+    "instruction": "Set the legend about the subject beside the documented fact and weigh them openly; where they differ, say so and follow the record."
+   },
+   "legacy_lens": {
+    "name": "Legacy lens",
+    "instruction": "Trace one consequence of the subject's life or work forward into the present: what still exists, is still used, is still told."
+   },
+   "chapter_turn": {
+    "name": "Chapter turn",
+    "instruction": "End the page on a turn: a question the next chapter answers, an image that points forward, or a fact that reframes what came before."
+   }
+  }
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "title": "Before the Beginning",
+   "act": "Act I: The Ground"
+  },
+  {
+   "id": "ch02",
+   "title": "Birth and First Years",
+   "act": "Act I: The Ground"
+  },
+  {
+   "id": "ch03",
+   "title": "The Making of the Child",
+   "act": "Act I: The Ground"
+  },
+  {
+   "id": "ch04",
+   "title": "Apprenticeship",
+   "act": "Act II: The Trade"
+  },
+  {
+   "id": "ch05",
+   "title": "The Young Adult",
+   "act": "Act II: The Trade"
+  },
+  {
+   "id": "ch06",
+   "title": "The Work",
+   "act": "Act III: The Achievement"
+  },
+  {
+   "id": "ch07",
+   "title": "Love and Household",
+   "act": "Act III: The Achievement"
+  },
+  {
+   "id": "ch08",
+   "title": "Standing and Struggle",
+   "act": "Act III: The Achievement"
+  },
+  {
+   "id": "ch09",
+   "title": "Late Years and Death",
+   "act": "Act IV: The Reckoning"
+  },
+  {
+   "id": "ch10",
+   "title": "Legacy",
+   "act": "Act IV: The Reckoning"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "chapter": "ch01",
+   "prompt": "What is the subject's full name, and by what name was the subject known in daily life?",
+   "narrative_job": "Open the book by naming the subject and fixing the fact.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 1 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "character_portrait"
+   ],
+   "bible_keys": [
+    "subject.name"
+   ],
+   "fact": {
+    "slot": "subject_name",
+    "kind": "person_name",
+    "triggers": [
+     "the subject"
+    ]
+   }
+  },
+  {
+   "id": "q002",
+   "chapter": "ch01",
+   "prompt": "Where did the subject's family come from, and how did they arrive in the place where the subject's life begins?",
+   "narrative_job": "Establish the ancestral ground the life grows from.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 2 of 10 within the chapter",
+   "devices": [
+    "contextual_frame",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "family.origins"
+   ]
+  },
+  {
+   "id": "q003",
+   "chapter": "ch01",
+   "prompt": "What was the subject's mother's name, and what was she called?",
+   "narrative_job": "Name the first of the two people who made the subject, and fix the fact.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 3 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "people.mother"
+   ],
+   "fact": {
+    "slot": "mother_name",
+    "kind": "person_name",
+    "triggers": [
+     "his mother",
+     "her mother",
+     "the subject's mother"
+    ]
+   }
+  },
+  {
+   "id": "q004",
+   "chapter": "ch01",
+   "prompt": "What did the subject's mother do, in work and in the household, and what was she known for?",
+   "narrative_job": "Define the mother through her labor and her reputation.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 4 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "people.mother_work"
+   ]
+  },
+  {
+   "id": "q005",
+   "chapter": "ch01",
+   "prompt": "What was the subject's father's name, and what was he called?",
+   "narrative_job": "Name the second maker of the subject, and fix the fact.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 5 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "people.father"
+   ],
+   "fact": {
+    "slot": "father_name",
+    "kind": "person_name",
+    "triggers": [
+     "his father",
+     "her father",
+     "the subject's father"
+    ]
+   }
+  },
+  {
+   "id": "q006",
+   "chapter": "ch01",
+   "prompt": "What did the subject's father do for a living, and what did the work make of him?",
+   "narrative_job": "Define the father through his trade and its effects.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 6 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "people.father_work"
+   ]
+  },
+  {
+   "id": "q007",
+   "chapter": "ch01",
+   "prompt": "How did the subject's parents meet, and what did each bring to the marriage?",
+   "narrative_job": "State the founding union of the subject's world.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 7 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "family.parents_meeting"
+   ]
+  },
+  {
+   "id": "q008",
+   "chapter": "ch01",
+   "prompt": "What did the family believe about itself: the story it told about who they were?",
+   "narrative_job": "State the family myth the subject's life will test.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 8 of 10 within the chapter",
+   "devices": [
+    "voice_of_record",
+    "reputation_vs_record"
+   ],
+   "bible_keys": [
+    "family.myth"
+   ]
+  },
+  {
+   "id": "q009",
+   "chapter": "ch01",
+   "prompt": "What were the family's material circumstances in the generation before the subject: property, debts, standing?",
+   "narrative_job": "Ground the book in the family's material reality.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 9 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "family.circumstances"
+   ]
+  },
+  {
+   "id": "q010",
+   "chapter": "ch01",
+   "prompt": "What object, document, or place survives from the family's earlier generation, and what does it show?",
+   "narrative_job": "Choose the book's first piece of physical evidence.",
+   "position": "Act I: The Ground, Chapter: Before the Beginning; page 10 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "motifs.heirloom_object"
+   ]
+  },
+  {
+   "id": "q011",
+   "chapter": "ch02",
+   "prompt": "In what year was the subject born, and what was happening in the world that year?",
+   "narrative_job": "Fix the subject in historical time, and fix the fact.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 1 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "contextual_frame"
+   ],
+   "bible_keys": [
+    "subject.birth"
+   ],
+   "fact": {
+    "slot": "birth_year",
+    "kind": "year",
+    "triggers": [
+     "He was born",
+     "She was born",
+     "the subject was born"
+    ]
+   }
+  },
+  {
+   "id": "q012",
+   "chapter": "ch02",
+   "prompt": "In what place was the subject born: the town or city, and the specific setting, a house, a hospital, a farm?",
+   "narrative_job": "Fix the birthplace as fact and as scene.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 2 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "places.birthplace"
+   ],
+   "fact": {
+    "slot": "birthplace",
+    "kind": "place_name",
+    "triggers": [
+     "He was born in",
+     "She was born in",
+     "the subject was born in"
+    ]
+   }
+  },
+  {
+   "id": "q013",
+   "chapter": "ch02",
+   "prompt": "What is recorded or remembered about the day of the birth itself?",
+   "narrative_job": "Render the first day from record and memory, keeping the two distinct.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 3 of 10 within the chapter",
+   "devices": [
+    "voice_of_record",
+    "scene_reconstruction"
+   ],
+   "bible_keys": [
+    "subject.birth_day"
+   ]
+  },
+  {
+   "id": "q014",
+   "chapter": "ch02",
+   "prompt": "Who was present in the household at the subject's birth: siblings, grandparents, others under the roof?",
+   "narrative_job": "Populate the world the subject entered.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 4 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "people.household_at_birth"
+   ]
+  },
+  {
+   "id": "q015",
+   "chapter": "ch02",
+   "prompt": "What was the subject named for, and who chose the name?",
+   "narrative_job": "Explain the name as the family's first statement about the child.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 5 of 10 within the chapter",
+   "devices": [
+    "subjects_own_words",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "subject.name_origin"
+   ]
+  },
+  {
+   "id": "q016",
+   "chapter": "ch02",
+   "prompt": "What did the home the subject was born into look, sound, and smell like?",
+   "narrative_job": "Establish the first place through the senses.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 6 of 10 within the chapter",
+   "devices": [
+    "period_detail",
+    "scene_reconstruction"
+   ],
+   "bible_keys": [
+    "places.first_home"
+   ]
+  },
+  {
+   "id": "q017",
+   "chapter": "ch02",
+   "prompt": "What hardship or good fortune marked the family's circumstances in the subject's first years?",
+   "narrative_job": "Set the material weather of the early chapters.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 7 of 10 within the chapter",
+   "devices": [
+    "contextual_frame",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "family.early_circumstances"
+   ]
+  },
+  {
+   "id": "q018",
+   "chapter": "ch02",
+   "prompt": "What is the earliest surviving record of the subject: a photograph, a registry entry, an object?",
+   "narrative_job": "Introduce the archive the biography will draw on.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 8 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "record.earliest_artifact"
+   ]
+  },
+  {
+   "id": "q019",
+   "chapter": "ch02",
+   "prompt": "What did the people around the subject expect the child to become?",
+   "narrative_job": "State the first prediction the life will answer.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 9 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "subject.expectations"
+   ]
+  },
+  {
+   "id": "q020",
+   "chapter": "ch02",
+   "prompt": "What story about the subject's infancy did the family retell most often, and what does it claim about the child?",
+   "narrative_job": "Close the chapter on the family's first legend of the subject.",
+   "position": "Act I: The Ground, Chapter: Birth and First Years; page 10 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "reputation_vs_record"
+   ],
+   "bible_keys": [
+    "subject.infancy_story"
+   ]
+  },
+  {
+   "id": "q021",
+   "chapter": "ch03",
+   "prompt": "Describe the home the subject grew up in, room by room if the record allows.",
+   "narrative_job": "Establish the central place of the childhood.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 1 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "places.childhood_home"
+   ]
+  },
+  {
+   "id": "q022",
+   "chapter": "ch03",
+   "prompt": "What work did the child see done every day, and by whom?",
+   "narrative_job": "Show the child the world's labor at close range.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 2 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "childhood.work_seen"
+   ]
+  },
+  {
+   "id": "q023",
+   "chapter": "ch03",
+   "prompt": "What was the subject's schooling: where, how far, and with what distinction or difficulty?",
+   "narrative_job": "Fix the formal education as record.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 3 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "subject.schooling"
+   ]
+  },
+  {
+   "id": "q024",
+   "chapter": "ch03",
+   "prompt": "Which teacher, elder, or neighbor first treated the subject as capable, and what happened?",
+   "narrative_job": "Introduce the first adult outside the family who mattered.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 4 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "people.first_recognizer"
+   ]
+  },
+  {
+   "id": "q025",
+   "chapter": "ch03",
+   "prompt": "What did the child make, collect, take apart, or practice until it was a known trait?",
+   "narrative_job": "Plant the first sign of the adult's craft.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 5 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "object_evidence"
+   ],
+   "bible_keys": [
+    "identity.first_craft"
+   ]
+  },
+  {
+   "id": "q026",
+   "chapter": "ch03",
+   "prompt": "Who was the subject's closest childhood friend, and what did the two do together?",
+   "narrative_job": "Introduce the first chosen attachment.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 6 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "character_portrait"
+   ],
+   "bible_keys": [
+    "people.childhood_friend"
+   ]
+  },
+  {
+   "id": "q027",
+   "chapter": "ch03",
+   "prompt": "What illness, accident, loss, or fright marked the childhood?",
+   "narrative_job": "Place the childhood's dividing event.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 7 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "childhood.marking_event"
+   ]
+  },
+  {
+   "id": "q028",
+   "chapter": "ch03",
+   "prompt": "What did the family require of the child: chores, faith, silence, achievement?",
+   "narrative_job": "State the household's demands as the child's first law.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 8 of 10 within the chapter",
+   "devices": [
+    "voice_of_record",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "family.requirements"
+   ]
+  },
+  {
+   "id": "q029",
+   "chapter": "ch03",
+   "prompt": "What trait did adults remark on in the child, in praise or in complaint?",
+   "narrative_job": "State the child's public identity as others recorded it.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 9 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "reputation_vs_record"
+   ],
+   "bible_keys": [
+    "identity.remarked_trait"
+   ]
+  },
+  {
+   "id": "q030",
+   "chapter": "ch03",
+   "prompt": "When did the child first show the direction of the adult life, and who noticed?",
+   "narrative_job": "Close the childhood on its first visible turning.",
+   "position": "Act I: The Ground, Chapter: The Making of the Child; page 10 of 10 within the chapter",
+   "devices": [
+    "turning_point",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "identity.first_direction"
+   ]
+  },
+  {
+   "id": "q031",
+   "chapter": "ch04",
+   "prompt": "What was the subject's first paid or formal work, and how was it obtained?",
+   "narrative_job": "Open the working life with its first transaction.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 1 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "scene_reconstruction"
+   ],
+   "bible_keys": [
+    "work.first_job"
+   ]
+  },
+  {
+   "id": "q032",
+   "chapter": "ch04",
+   "prompt": "Who taught the subject the trade or discipline, and what was the teacher's method?",
+   "narrative_job": "Identify the master the apprenticeship answers to.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 2 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "people.mentor"
+   ]
+  },
+  {
+   "id": "q033",
+   "chapter": "ch04",
+   "prompt": "Describe one working day of the apprenticeship in sequence, from start to finish.",
+   "narrative_job": "Establish the baseline rhythm of the learning years.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 3 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "work.apprentice_day"
+   ]
+  },
+  {
+   "id": "q034",
+   "chapter": "ch04",
+   "prompt": "What did the subject's hands, or mind, learn in those years that never left?",
+   "narrative_job": "Render mastery as physical knowledge acquired early.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 4 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "object_evidence"
+   ],
+   "bible_keys": [
+    "work.early_mastery"
+   ]
+  },
+  {
+   "id": "q035",
+   "chapter": "ch04",
+   "prompt": "What mistake, failure, or humiliation of the apprenticeship is still part of the record?",
+   "narrative_job": "Give the learning years their documented wound.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 5 of 10 within the chapter",
+   "devices": [
+    "voice_of_record",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "work.early_failure"
+   ]
+  },
+  {
+   "id": "q036",
+   "chapter": "ch04",
+   "prompt": "What did the subject earn, and what did the first earnings buy or make possible?",
+   "narrative_job": "Convert wages into the first independence.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 6 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "work.first_earnings"
+   ]
+  },
+  {
+   "id": "q037",
+   "chapter": "ch04",
+   "prompt": "Who were the subject's rivals or companions in learning the trade, and where did they end?",
+   "narrative_job": "Populate the trade's world and measure the subject against it.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 7 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "character_portrait"
+   ],
+   "bible_keys": [
+    "people.trade_companions"
+   ]
+  },
+  {
+   "id": "q038",
+   "chapter": "ch04",
+   "prompt": "What tool, instrument, or book of the apprenticeship did the subject keep for life?",
+   "narrative_job": "Choose the object that carries the trade's meaning.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 8 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "legacy_lens"
+   ],
+   "bible_keys": [
+    "motifs.kept_tool"
+   ]
+  },
+  {
+   "id": "q039",
+   "chapter": "ch04",
+   "prompt": "What did the subject decide, during the apprenticeship, never to do or never to become?",
+   "narrative_job": "State the refusal the mature work will honor.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 9 of 10 within the chapter",
+   "devices": [
+    "turning_point",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "identity.refusal"
+   ]
+  },
+  {
+   "id": "q040",
+   "chapter": "ch04",
+   "prompt": "When did the apprenticeship end, and what marked the subject as ready?",
+   "narrative_job": "Close the learning years on the sign of readiness.",
+   "position": "Act II: The Trade, Chapter: Apprenticeship; page 10 of 10 within the chapter",
+   "devices": [
+    "turning_point",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "work.apprenticeship_end"
+   ]
+  },
+  {
+   "id": "q041",
+   "chapter": "ch05",
+   "prompt": "What did the subject look like, dress like, and sound like on entering adult life?",
+   "narrative_job": "Fix the young adult in concrete detail.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 1 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "identity.young_adult"
+   ]
+  },
+  {
+   "id": "q042",
+   "chapter": "ch05",
+   "prompt": "What was the first independent decision the subject made that the family opposed or doubted?",
+   "narrative_job": "Show the break toward self-direction.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 2 of 10 within the chapter",
+   "devices": [
+    "turning_point",
+    "scene_reconstruction"
+   ],
+   "bible_keys": [
+    "turning_points.first_independence"
+   ]
+  },
+  {
+   "id": "q043",
+   "chapter": "ch05",
+   "prompt": "What public events of the era (war, depression, migration, law) pressed on the subject's choices in these years?",
+   "narrative_job": "Give the young life its historical weather.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 3 of 10 within the chapter",
+   "devices": [
+    "contextual_frame",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "era.pressures"
+   ]
+  },
+  {
+   "id": "q044",
+   "chapter": "ch05",
+   "prompt": "Where did the subject live as a young adult, and what did the place demand and allow?",
+   "narrative_job": "Define the first self-chosen ground.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 4 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "places.young_adult_home"
+   ]
+  },
+  {
+   "id": "q045",
+   "chapter": "ch05",
+   "prompt": "What risk did the subject take in these years that could have ended the story early?",
+   "narrative_job": "Test the young adult against real danger.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 5 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "turning_points.early_risk"
+   ]
+  },
+  {
+   "id": "q046",
+   "chapter": "ch05",
+   "prompt": "Who believed in the subject before there was evidence, and what did that belief cost them?",
+   "narrative_job": "Identify the early believer and the price of believing.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 6 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "character_portrait"
+   ],
+   "bible_keys": [
+    "people.early_believer"
+   ]
+  },
+  {
+   "id": "q047",
+   "chapter": "ch05",
+   "prompt": "What did the subject want, stated as plainly as the record allows?",
+   "narrative_job": "State the ambition the achievement chapters will judge.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 7 of 10 within the chapter",
+   "devices": [
+    "voice_of_record",
+    "subjects_own_words"
+   ],
+   "bible_keys": [
+    "identity.ambition"
+   ]
+  },
+  {
+   "id": "q048",
+   "chapter": "ch05",
+   "prompt": "What early work of the subject survives, and what does it show about the mature manner?",
+   "narrative_job": "Read the mature style in its first surviving evidence.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 8 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "legacy_lens"
+   ],
+   "bible_keys": [
+    "work.early_surviving"
+   ]
+  },
+  {
+   "id": "q049",
+   "chapter": "ch05",
+   "prompt": "What did the subject give up, or refuse, in these years, and was it ever recovered?",
+   "narrative_job": "Account for the young life's chosen loss.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 9 of 10 within the chapter",
+   "devices": [
+    "turning_point",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "turning_points.given_up"
+   ]
+  },
+  {
+   "id": "q050",
+   "chapter": "ch05",
+   "prompt": "What question was the subject's life asking, by the end of the young adult years?",
+   "narrative_job": "Close the act on the question the work must answer.",
+   "position": "Act II: The Trade, Chapter: The Young Adult; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "reputation_vs_record"
+   ],
+   "bible_keys": [
+    "identity.open_question"
+   ]
+  },
+  {
+   "id": "q051",
+   "chapter": "ch06",
+   "prompt": "What is the work the subject is known for, stated in one plain sentence?",
+   "narrative_job": "State the achievement the book exists to examine.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 1 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "reputation_vs_record"
+   ],
+   "bible_keys": [
+    "work.known_for"
+   ]
+  },
+  {
+   "id": "q052",
+   "chapter": "ch06",
+   "prompt": "How did that work begin: the occasion, the problem, the first attempt?",
+   "narrative_job": "Place the achievement's origin scene.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 2 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "work.beginning"
+   ]
+  },
+  {
+   "id": "q053",
+   "chapter": "ch06",
+   "prompt": "Describe the subject's mature working method: where, when, with what tools or habits?",
+   "narrative_job": "Render mastery as routine, not inspiration.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 3 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "work.method"
+   ]
+  },
+  {
+   "id": "q054",
+   "chapter": "ch06",
+   "prompt": "What did the subject make, build, found, or publish that carries the name into the present?",
+   "narrative_job": "Identify the signature work and its survival.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 4 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "legacy_lens"
+   ],
+   "bible_keys": [
+    "work.signature"
+   ]
+  },
+  {
+   "id": "q055",
+   "chapter": "ch06",
+   "prompt": "Who worked with the subject at the height of the powers, and what did they say about it?",
+   "narrative_job": "Let the collaborators testify to the prime.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 5 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "character_portrait"
+   ],
+   "bible_keys": [
+    "people.collaborators"
+   ]
+  },
+  {
+   "id": "q056",
+   "chapter": "ch06",
+   "prompt": "What did the work cost: money, health, years, other people's claims?",
+   "narrative_job": "State the achievement's price without flinching.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 6 of 10 within the chapter",
+   "devices": [
+    "voice_of_record",
+    "contextual_frame"
+   ],
+   "bible_keys": [
+    "work.cost"
+   ]
+  },
+  {
+   "id": "q057",
+   "chapter": "ch06",
+   "prompt": "What was the subject's relation to money and ownership in the work: wages, patents, shares, credit?",
+   "narrative_job": "Fix the economics of the achievement as record.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 7 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "work.money"
+   ]
+  },
+  {
+   "id": "q058",
+   "chapter": "ch06",
+   "prompt": "What is the best-documented single day or episode of the mature work?",
+   "narrative_job": "Prove the portrait of the prime with one documented episode.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 8 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "work.best_documented_episode"
+   ]
+  },
+  {
+   "id": "q059",
+   "chapter": "ch06",
+   "prompt": "What did the subject refuse to make, do, or sign, even at a price?",
+   "narrative_job": "Give the achievement its ethical boundary.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 9 of 10 within the chapter",
+   "devices": [
+    "subjects_own_words",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "work.refusal"
+   ]
+  },
+  {
+   "id": "q060",
+   "chapter": "ch06",
+   "prompt": "What did the subject understand about the work that contemporaries did not?",
+   "narrative_job": "Close the achievement on the subject's singular insight.",
+   "position": "Act III: The Achievement, Chapter: The Work; page 10 of 10 within the chapter",
+   "devices": [
+    "reputation_vs_record",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "work.understanding"
+   ]
+  },
+  {
+   "id": "q061",
+   "chapter": "ch07",
+   "prompt": "What was the partner's name, and how did the subject and the partner meet? Begin the answer with the partner's full name.",
+   "narrative_job": "Introduce the partner, fix the fact, and render the meeting from the record.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 1 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "people.partner"
+   ],
+   "fact": {
+    "slot": "partner_name",
+    "kind": "person_name",
+    "triggers": [
+     "his wife",
+     "her husband",
+     "his husband",
+     "her wife",
+     "his partner",
+     "her partner",
+     "the subject's wife",
+     "the subject's husband"
+    ]
+   }
+  },
+  {
+   "id": "q062",
+   "chapter": "ch07",
+   "prompt": "What did the partner bring to the life that the subject could not supply alone?",
+   "narrative_job": "State the partnership's division of gifts.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 2 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "people.partner_contribution"
+   ]
+  },
+  {
+   "id": "q063",
+   "chapter": "ch07",
+   "prompt": "Describe the household the two made: its rooms, routines, and economy.",
+   "narrative_job": "Establish the domestic world of the prime years.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 3 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "places.household"
+   ]
+  },
+  {
+   "id": "q064",
+   "chapter": "ch07",
+   "prompt": "What children were there, or what filled that place in the life, and how did the subject meet it?",
+   "narrative_job": "Account for what the partnership produced or chose.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 4 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "family.children"
+   ]
+  },
+  {
+   "id": "q065",
+   "chapter": "ch07",
+   "prompt": "What was the subject like in private, according to those who lived with the subject?",
+   "narrative_job": "Correct the public portrait with the household's testimony.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 5 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "reputation_vs_record"
+   ],
+   "bible_keys": [
+    "identity.private_self"
+   ]
+  },
+  {
+   "id": "q066",
+   "chapter": "ch07",
+   "prompt": "What strain did the work place on the household, and how was it answered?",
+   "narrative_job": "Name the domestic price of the achievement.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 6 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "family.strain"
+   ]
+  },
+  {
+   "id": "q067",
+   "chapter": "ch07",
+   "prompt": "What did the partner and the subject argue about, underneath the stated reasons?",
+   "narrative_job": "Name the partnership's true fault line.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 7 of 10 within the chapter",
+   "devices": [
+    "subjects_own_words",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "family.conflict"
+   ]
+  },
+  {
+   "id": "q068",
+   "chapter": "ch07",
+   "prompt": "What object, place, or ritual belonged to the partnership itself?",
+   "narrative_job": "Choose the partnership's enduring emblem.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 8 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "motifs.partnership_object"
+   ]
+  },
+  {
+   "id": "q069",
+   "chapter": "ch07",
+   "prompt": "What did the partner's own work or life amount to, apart from the subject?",
+   "narrative_job": "Restore the partner as a person, not an appendage.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 9 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "people.partner_life"
+   ]
+  },
+  {
+   "id": "q070",
+   "chapter": "ch07",
+   "prompt": "What remained unresolved in the household when the prime years closed?",
+   "narrative_job": "Leave the household honestly unfinished.",
+   "position": "Act III: The Achievement, Chapter: Love and Household; page 10 of 10 within the chapter",
+   "devices": [
+    "chapter_turn",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "family.unresolved"
+   ]
+  },
+  {
+   "id": "q071",
+   "chapter": "ch08",
+   "prompt": "What was the subject's public standing at its height, and who conferred it?",
+   "narrative_job": "Fix the reputation's peak as record.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 1 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "reputation_vs_record"
+   ],
+   "bible_keys": [
+    "standing.height"
+   ]
+  },
+  {
+   "id": "q072",
+   "chapter": "ch08",
+   "prompt": "Who opposed the subject, and on what grounds, stated fairly?",
+   "narrative_job": "Give the opposition its honest hearing.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 2 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "standing.opposition"
+   ]
+  },
+  {
+   "id": "q073",
+   "chapter": "ch08",
+   "prompt": "What was the subject's greatest public failure or reversal, and how was it recorded at the time?",
+   "narrative_job": "Place the standing's central wound, as the record kept it.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 3 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "scene_reconstruction"
+   ],
+   "bible_keys": [
+    "standing.failure"
+   ]
+  },
+  {
+   "id": "q074",
+   "chapter": "ch08",
+   "prompt": "What did the subject do in the year after that failure?",
+   "narrative_job": "Show the character of the recovery, or its absence.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 4 of 10 within the chapter",
+   "devices": [
+    "turning_point",
+    "character_portrait"
+   ],
+   "bible_keys": [
+    "standing.after_failure"
+   ]
+  },
+  {
+   "id": "q075",
+   "chapter": "ch08",
+   "prompt": "What controversy, dispute, or lawsuit attaches to the name, and what does the record show?",
+   "narrative_job": "Examine the name's contested ground on the evidence.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 5 of 10 within the chapter",
+   "devices": [
+    "voice_of_record",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "standing.controversy"
+   ]
+  },
+  {
+   "id": "q076",
+   "chapter": "ch08",
+   "prompt": "What did the newspapers, journals, or official records of the day say about the subject?",
+   "narrative_job": "Let the period's record speak in its own voice.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 6 of 10 within the chapter",
+   "devices": [
+    "voice_of_record",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "record.press"
+   ]
+  },
+  {
+   "id": "q077",
+   "chapter": "ch08",
+   "prompt": "What did the subject say, in public or in writing, that is still quoted?",
+   "narrative_job": "Select the words the present still uses.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 7 of 10 within the chapter",
+   "devices": [
+    "subjects_own_words",
+    "legacy_lens"
+   ],
+   "bible_keys": [
+    "record.quoted_words"
+   ]
+  },
+  {
+   "id": "q078",
+   "chapter": "ch08",
+   "prompt": "Where does the legend about the subject most clearly part from the documented record?",
+   "narrative_job": "Perform the biography's central act of correction.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 8 of 10 within the chapter",
+   "devices": [
+    "reputation_vs_record",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "standing.legend_vs_record"
+   ]
+  },
+  {
+   "id": "q079",
+   "chapter": "ch08",
+   "prompt": "What did standing cost the subject's private life or health?",
+   "narrative_job": "Carry the reputation's price back into the household.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 9 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "contextual_frame"
+   ],
+   "bible_keys": [
+    "standing.cost"
+   ]
+  },
+  {
+   "id": "q080",
+   "chapter": "ch08",
+   "prompt": "What did the subject do with honors, money, or fame once they arrived?",
+   "narrative_job": "Close the standing on the use made of it.",
+   "position": "Act III: The Achievement, Chapter: Standing and Struggle; page 10 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "standing.use_of_fame"
+   ]
+  },
+  {
+   "id": "q081",
+   "chapter": "ch09",
+   "prompt": "When did the subject's powers begin to change, and how did the subject meet the change?",
+   "narrative_job": "Open the final movement on the first diminishment.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 1 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "late_years.change"
+   ]
+  },
+  {
+   "id": "q082",
+   "chapter": "ch09",
+   "prompt": "What was the subject's last work, and how does it stand against the prime work?",
+   "narrative_job": "Judge the last work beside the best.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 2 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "reputation_vs_record"
+   ],
+   "bible_keys": [
+    "work.last"
+   ]
+  },
+  {
+   "id": "q083",
+   "chapter": "ch09",
+   "prompt": "Who gathered around the subject in the late years, and who was absent?",
+   "narrative_job": "Take roll of the final circle.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 3 of 10 within the chapter",
+   "devices": [
+    "testimony_weave",
+    "character_portrait"
+   ],
+   "bible_keys": [
+    "late_years.circle"
+   ]
+  },
+  {
+   "id": "q084",
+   "chapter": "ch09",
+   "prompt": "What did the subject settle, forgive, or leave deliberately unsettled?",
+   "narrative_job": "Account for the final reckonings.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 4 of 10 within the chapter",
+   "devices": [
+    "subjects_own_words",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "late_years.settlements"
+   ]
+  },
+  {
+   "id": "q085",
+   "chapter": "ch09",
+   "prompt": "Describe the place of the late years, through the senses, as the childhood home was described.",
+   "narrative_job": "Mirror the childhood home chapter to measure the life.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 5 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "period_detail"
+   ],
+   "bible_keys": [
+    "places.late_home"
+   ]
+  },
+  {
+   "id": "q086",
+   "chapter": "ch09",
+   "prompt": "What illness, decline, or accident framed the final period?",
+   "narrative_job": "State the body's final terms as record.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 6 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "late_years.decline"
+   ]
+  },
+  {
+   "id": "q087",
+   "chapter": "ch09",
+   "prompt": "In what year did the subject die, and what were the circumstances, as recorded? Begin the answer with the year.",
+   "narrative_job": "Record the death as fact, with its circumstances, plainly.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 7 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "subject.death"
+   ],
+   "fact": {
+    "slot": "death_year",
+    "kind": "year",
+    "triggers": [
+     "He died",
+     "She died",
+     "the subject died"
+    ]
+   }
+  },
+  {
+   "id": "q088",
+   "chapter": "ch09",
+   "prompt": "Who was present at the end, or who received the news, and how?",
+   "narrative_job": "Render the death's witnesses from the record.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 8 of 10 within the chapter",
+   "devices": [
+    "scene_reconstruction",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "subject.death_witnesses"
+   ]
+  },
+  {
+   "id": "q089",
+   "chapter": "ch09",
+   "prompt": "What were the subject's last recorded words or acts, and how reliable is the record of them?",
+   "narrative_job": "Weigh the final testimony as evidence.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 9 of 10 within the chapter",
+   "devices": [
+    "subjects_own_words",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "record.last_words"
+   ]
+  },
+  {
+   "id": "q090",
+   "chapter": "ch09",
+   "prompt": "How was the death marked: funeral, obituary, memorial, silence?",
+   "narrative_job": "Close the life on its public marking.",
+   "position": "Act IV: The Reckoning, Chapter: Late Years and Death; page 10 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "subject.funeral"
+   ]
+  },
+  {
+   "id": "q091",
+   "chapter": "ch10",
+   "prompt": "What of the subject's work is still in use, standing, or read today?",
+   "narrative_job": "Open the legacy on survival, not sentiment.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 1 of 10 within the chapter",
+   "devices": [
+    "legacy_lens",
+    "object_evidence"
+   ],
+   "bible_keys": [
+    "legacy.work_surviving"
+   ]
+  },
+  {
+   "id": "q092",
+   "chapter": "ch10",
+   "prompt": "What happened to the subject's house, tools, papers, and effects after the death?",
+   "narrative_job": "Account for the material remains.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 2 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "legacy.effects"
+   ]
+  },
+  {
+   "id": "q093",
+   "chapter": "ch10",
+   "prompt": "How did the partner's and the children's lives run after the subject's death?",
+   "narrative_job": "Follow the household past the life's end.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 3 of 10 within the chapter",
+   "devices": [
+    "character_portrait",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "legacy.family_after"
+   ]
+  },
+  {
+   "id": "q094",
+   "chapter": "ch10",
+   "prompt": "What did the obituaries and first assessments get right, and what did they miss?",
+   "narrative_job": "Audit the first draft of the reputation.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 4 of 10 within the chapter",
+   "devices": [
+    "reputation_vs_record",
+    "voice_of_record"
+   ],
+   "bible_keys": [
+    "legacy.first_assessments"
+   ]
+  },
+  {
+   "id": "q095",
+   "chapter": "ch10",
+   "prompt": "Which later figure, firm, or school took up the subject's work, and what did they change?",
+   "narrative_job": "Trace the work's descent into other hands.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 5 of 10 within the chapter",
+   "devices": [
+    "legacy_lens",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "legacy.successors"
+   ]
+  },
+  {
+   "id": "q096",
+   "chapter": "ch10",
+   "prompt": "What is the strongest claim made for the subject's importance, and does the record support it?",
+   "narrative_job": "Test the largest claim against the evidence.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 6 of 10 within the chapter",
+   "devices": [
+    "reputation_vs_record",
+    "documentary_anchor"
+   ],
+   "bible_keys": [
+    "legacy.importance_claim"
+   ]
+  },
+  {
+   "id": "q097",
+   "chapter": "ch10",
+   "prompt": "What is the strongest criticism of the subject, and does the record support it?",
+   "narrative_job": "Test the hardest criticism against the evidence.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 7 of 10 within the chapter",
+   "devices": [
+    "reputation_vs_record",
+    "testimony_weave"
+   ],
+   "bible_keys": [
+    "legacy.criticism"
+   ]
+  },
+  {
+   "id": "q098",
+   "chapter": "ch10",
+   "prompt": "What single object should a stranger hold to understand the subject, and why?",
+   "narrative_job": "Choose the legacy's one piece of evidence.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 8 of 10 within the chapter",
+   "devices": [
+    "object_evidence",
+    "legacy_lens"
+   ],
+   "bible_keys": [
+    "motifs.legacy_object"
+   ]
+  },
+  {
+   "id": "q099",
+   "chapter": "ch10",
+   "prompt": "What would the subject make of the present standing of the work, judging by the recorded words?",
+   "narrative_job": "Let the subject's own words judge the legacy.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 9 of 10 within the chapter",
+   "devices": [
+    "subjects_own_words",
+    "legacy_lens"
+   ],
+   "bible_keys": [
+    "legacy.subjects_view"
+   ]
+  },
+  {
+   "id": "q100",
+   "chapter": "ch10",
+   "prompt": "End the book: what is the single documented fact about the subject that should outlast every legend?",
+   "narrative_job": "Close on the fact that survives the legend.",
+   "position": "Act IV: The Reckoning, Chapter: Legacy; page 10 of 10 within the chapter",
+   "devices": [
+    "documentary_anchor",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "legacy.final_fact"
+   ]
+  }
+ ]
+}
