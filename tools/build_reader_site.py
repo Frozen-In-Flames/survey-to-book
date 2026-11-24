@@ -1,17 +1,29 @@
 #!/usr/bin/env python3
-"""Build the GitHub Pages reader site for a finished book.
+"""Build the GitHub Pages library site for the proof-of-works books.
 
-Reads a book's manuscript.md and report.json and emits a self-contained
-reader page under docs/:
+The site is a library, not a single book page. It is data-driven over
+every published book in the repo (books/*/manuscript.md together with
+books/*/report.json):
 
-- docs/index.html          the reader (no external requests; the full
-                           book text is embedded at build time)
-- docs/<slug>.md           verbatim manuscript copy, for download
-- docs/<slug>.txt          plain-text rendering, for download
-- docs/.nojekyll           keeps Pages from running Jekyll over the tree
+- docs/index.html            the library index: every book listed with
+                             its title, genre, demonstration character,
+                             page and word counts, a Read button and a
+                             Download button
+- docs/<slug>/index.html     that book's reader: the entire book online,
+                             page by page, with chapter navigation and
+                             per-book position memory
+- docs/<slug>/<slug>.md      verbatim manuscript copy, for download
+                             (byte-identical to the book's manuscript)
+- docs/<slug>/<slug>.txt     plain-text rendering, for download
+- docs/.nojekyll             keeps Pages from running Jekyll
 
-Usage: python3 tools/build_reader_site.py [book-dir] [slug]
-Defaults: books/memoir-first-book, the-porch-light.
+All pages are self-contained and make zero external requests. Adding
+a book is a data entry: drop the finished book under books/ and, for
+a curated slug and character line, add one BOOK_META entry below;
+unregistered books are still listed with derived defaults.
+
+Usage: python3 tools/build_reader_site.py [docs-dir]
+Defaults: docs/ under the repo root.
 """
 
 import html
@@ -21,6 +33,34 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+# Curated per-book metadata, keyed by the book's directory name under
+# books/. Publication order is the dict order.
+BOOK_META = {
+    "memoir-first-book": {
+        "slug": "the-porch-light",
+        "genre": "Memoir",
+        "character": ("June Calloway, a fictional demonstration "
+                      "persona"),
+    },
+    "biography-first-book": {
+        "slug": "the-cold-room",
+        "genre": "Biography",
+        "character": ("Frozen In Flames, a fictional demonstration "
+                      "persona: the series' demonstration user"),
+    },
+}
+
+SERIES_NOTE = (
+    "Each book in this library was generated locally and offline by "
+    "survey-to-book from one fictional respondent's answers to a "
+    "genre survey: proof of works for the genre pack named on the "
+    "book. From the second book onward the respondent is the "
+    "series' demonstration user, the fictional persona Frozen In "
+    "Flames, drawn from one canonical character record, so the same "
+    "character headlines every book. The first book's respondent is "
+    "the fictional persona June Calloway."
+)
 
 
 def inline(text: str) -> str:
@@ -89,7 +129,36 @@ def parse_manuscript(md: str):
     return title, subtitle, sections
 
 
-def build(book_dir: Path, slug: str):
+def discover_books() -> list[dict]:
+    """All published books: books/*/ with manuscript.md + report.json,
+    curated entries first (in BOOK_META order), then any others."""
+    books_dir = ROOT / "books"
+    found = {}
+    for book_dir in sorted(books_dir.iterdir()):
+        if not book_dir.is_dir():
+            continue
+        if not (book_dir / "manuscript.md").exists():
+            continue
+        if not (book_dir / "report.json").exists():
+            continue
+        meta = BOOK_META.get(book_dir.name, {})
+        found[book_dir.name] = {
+            "dir": book_dir,
+            "slug": meta.get("slug", book_dir.name),
+            "genre": meta.get(
+                "genre", book_dir.name.split("-")[0].capitalize()),
+            "character": meta.get(
+                "character", "a fictional demonstration persona"),
+        }
+    ordered = [found[name] for name in BOOK_META if name in found]
+    ordered += [book for name, book in found.items()
+                if name not in BOOK_META]
+    return ordered
+
+
+def build_book(book: dict, docs: Path) -> dict:
+    """Emit one book's reader + downloads; return its library entry."""
+    book_dir, slug = book["dir"], book["slug"]
     manuscript = (book_dir / "manuscript.md").read_text(encoding="utf-8")
     report = json.loads((book_dir / "report.json").read_text(encoding="utf-8"))
     title, subtitle, sections = parse_manuscript(manuscript)
@@ -117,10 +186,9 @@ def build(book_dir: Path, slug: str):
                 "html": md_to_html(parts[i + 1]),
             })
 
-    docs = ROOT / "docs"
-    docs.mkdir(exist_ok=True)
-    (docs / ".nojekyll").write_text("", encoding="utf-8")
-    (docs / (slug + ".md")).write_text(manuscript, encoding="utf-8")
+    out = docs / slug
+    out.mkdir(parents=True, exist_ok=True)
+    (out / (slug + ".md")).write_text(manuscript, encoding="utf-8")
 
     # Plain-text rendering for download.
     txt = [title]
@@ -134,7 +202,8 @@ def build(book_dir: Path, slug: str):
         text = text.replace("---", "")
         text = re.sub(r"\*", "", text)
         txt.append(text.strip())
-    (docs / (slug + ".txt")).write_text("\n".join(txt) + "\n", encoding="utf-8")
+    (out / (slug + ".txt")).write_text("\n".join(txt) + "\n",
+                                       encoding="utf-8")
 
     data = {
         "title": title,
@@ -146,15 +215,115 @@ def build(book_dir: Path, slug: str):
         "screens": screens,
         "slug": slug,
     }
-    page = TEMPLATE.replace("%%DATA%%", json.dumps(data, ensure_ascii=False)
-                            .replace("</", "<\\/"))
+    page = READER_TEMPLATE.replace(
+        "%%DATA%%", json.dumps(data, ensure_ascii=False)
+        .replace("</", "<\\/"))
     page = page.replace("%%TITLE%%", html.escape(title))
+    (out / "index.html").write_text(page, encoding="utf-8")
+    print(f"{slug}: {len(screens)} screens ({len(chapters)} chapters), "
+          f"reader {(out / 'index.html').stat().st_size} bytes")
+    return {
+        "slug": slug,
+        "title": title,
+        "subtitle": subtitle,
+        "genre": book["genre"],
+        "character": book["character"],
+        "pages": report["pages_built"],
+        "words": report["total_words"],
+    }
+
+
+def build_library(entries: list[dict], docs: Path) -> None:
+    cards = []
+    for e in entries:
+        cards.append(
+            '<article class="book">'
+            f"<h2>{html.escape(e['title'])}</h2>"
+            + (f"<p class=\"subtitle\">{html.escape(e['subtitle'])}</p>"
+               if e["subtitle"] else "")
+            + f"<p class=\"meta\">{html.escape(e['genre'])} · "
+              f"{e['pages']} pages · {e['words']:,} words</p>"
+            + f"<p class=\"character\">Demonstration character: "
+              f"{html.escape(e['character'])}.</p>"
+            + '<p class="actions">'
+              f"<a class=\"read\" href=\"{e['slug']}/\">Read</a>"
+              f"<a class=\"download\" href=\"{e['slug']}/{e['slug']}.md\" "
+              f"download>↓ Download (.md)</a>"
+              f"<a class=\"txt\" href=\"{e['slug']}/{e['slug']}.txt\" "
+              f"download>plain text (.txt)</a>"
+              "</p></article>"
+        )
+    page = LIBRARY_TEMPLATE.replace("%%CARDS%%", "\n".join(cards))
+    page = page.replace("%%SERIES_NOTE%%", html.escape(SERIES_NOTE))
+    page = page.replace("%%COUNT%%", str(len(entries)))
     (docs / "index.html").write_text(page, encoding="utf-8")
-    print(f"screens: {len(screens)} ({len(chapters)} chapters), "
-          f"index.html: {(docs / 'index.html').stat().st_size} bytes")
+    print(f"library index: {len(entries)} book(s), "
+          f"{(docs / 'index.html').stat().st_size} bytes")
 
 
-TEMPLATE = r"""<!DOCTYPE html>
+def build(docs: Path) -> None:
+    docs.mkdir(parents=True, exist_ok=True)
+    (docs / ".nojekyll").write_text("", encoding="utf-8")
+    books = discover_books()
+    if not books:
+        raise SystemExit("no published books found under books/")
+    entries = [build_book(book, docs) for book in books]
+    build_library(entries, docs)
+
+
+LIBRARY_TEMPLATE = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>survey-to-book — proof-of-works library</title>
+<style>
+  :root { --ink:#1d1a16; --paper:#faf7f1; --accent:#7a4416; --muted:#6d655b; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+         font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; }
+  main { max-width:44rem; margin:0 auto; padding:2rem 1.1rem 3rem; }
+  h1 { font-size:1.9rem; margin:.2rem 0 .4rem; }
+  .series { color:var(--muted); font-size:1.02rem; line-height:1.6;
+            margin:0 0 2rem; }
+  .book { border:1px solid #ddd3c3; border-radius:.6rem; background:#fff;
+          padding:1.2rem 1.3rem 1.3rem; margin:0 0 1.4rem; }
+  .book h2 { margin:.1rem 0 .2rem; font-size:1.45rem; }
+  .book .subtitle { margin:0 0 .5rem; font-style:italic; color:var(--muted); }
+  .book .meta { margin:0 0 .4rem; font-family:system-ui, sans-serif;
+                font-size:.92rem; color:var(--muted);
+                text-transform:uppercase; letter-spacing:.05em; }
+  .book .character { margin:0 0 1rem; line-height:1.55; }
+  .actions { display:flex; flex-wrap:wrap; gap:.6rem; align-items:center;
+             margin:0; font-family:system-ui, sans-serif; }
+  .actions a.read, .actions a.download { display:inline-block;
+      text-decoration:none; font-weight:700; border-radius:.5rem;
+      padding:.8rem 1.4rem; font-size:1.05rem; }
+  .actions a.read { background:var(--accent); color:#fff; }
+  .actions a.read:hover { background:#5f3410; }
+  .actions a.download { background:transparent; color:var(--accent);
+      border:2px solid var(--accent); padding:.68rem 1.2rem; }
+  .actions a.txt { color:var(--accent); font-size:.95rem; }
+  footer { border-top:1px solid #ddd3c3; padding:1rem; text-align:center;
+           font-family: system-ui, sans-serif; font-size:.82rem;
+           color:var(--muted); }
+  footer a { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>survey-to-book: the proof-of-works library</h1>
+  <p class="series">%%SERIES_NOTE%%</p>
+  %%CARDS%%
+</main>
+<footer>%%COUNT%% book(s) published · Generated locally and offline ·
+  <a href="https://github.com/Frozen-In-Flames/survey-to-book">Source repository</a></footer>
+</body>
+</html>
+"""
+
+
+READER_TEMPLATE = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -174,14 +343,13 @@ TEMPLATE = r"""<!DOCTYPE html>
   header .book { font-size:1.05rem; font-weight:bold; }
   header .book span { display:block; font-size:.78rem; font-weight:normal;
                       color:var(--muted); font-style:italic; }
+  header .lib { font-family:system-ui, sans-serif; font-size:.9rem;
+                color:var(--accent); text-decoration:none; }
   .download { display:inline-block; background:var(--accent); color:#fff;
               font-family: system-ui, sans-serif; font-weight:700;
               font-size:1.05rem; text-decoration:none;
               padding:.8rem 1.4rem; border-radius:.5rem; }
   .download:active, .download:hover { background:#5f3410; }
-  .download.alt { background:transparent; color:var(--accent);
-                  border:2px solid var(--accent); padding:.55rem 1rem;
-                  font-size:.9rem; }
   main { max-width:40rem; margin:0 auto; padding:1.2rem 1.1rem 2rem;
          font-size:1.13rem; line-height:1.65; }
   main h2 { font-size:1.35rem; margin:.4rem 0 .2rem; }
@@ -214,6 +382,7 @@ TEMPLATE = r"""<!DOCTYPE html>
 <div id="progress"></div>
 <header>
   <div class="book">%%TITLE%%<span id="subtitle"></span></div>
+  <a class="lib" href="../index.html">← Library</a>
   <a class="download" id="dl-top" href="#" download>↓ Download the book</a>
 </header>
 <main id="main"></main>
@@ -239,6 +408,7 @@ const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 const sel = document.getElementById('chapter');
 const endEl = document.getElementById('endmatter');
+const POSKEY = 'reader-pos-' + DATA.slug;
 document.getElementById('subtitle').textContent = DATA.subtitle;
 for (const id of ['dl-top', 'dl-end']) {
   const a = document.getElementById(id);
@@ -250,6 +420,7 @@ document.getElementById('footer').innerHTML =
   ' pages, ' + DATA.words.toLocaleString() + ' words, produced locally and ' +
   'offline (' + DATA.model + '). The respondent is a fictional ' +
   'demonstration persona; see the front matter. ' +
+  '<a href="../index.html">Back to the library</a> · ' +
   '<a href="https://github.com/Frozen-In-Flames/survey-to-book">Source repository</a>';
 const opt0 = document.createElement('option');
 opt0.value = 0; opt0.textContent = 'Front matter';
@@ -263,7 +434,7 @@ const optEnd = document.createElement('option');
 optEnd.value = DATA.screens.length - 1; optEnd.textContent = 'Colophon';
 sel.appendChild(optEnd);
 let i = 0;
-try { i = Math.min(parseInt(localStorage.getItem('reader-pos') || '0', 10) || 0,
+try { i = Math.min(parseInt(localStorage.getItem(POSKEY) || '0', 10) || 0,
                    DATA.screens.length - 1); } catch (e) { i = 0; }
 function render() {
   const s = DATA.screens[i];
@@ -287,7 +458,7 @@ function render() {
   sel.value = v;
   document.getElementById('progress').style.width =
     (100 * i / (DATA.screens.length - 1)) + '%';
-  try { localStorage.setItem('reader-pos', String(i)); } catch (e) {}
+  try { localStorage.setItem(POSKEY, String(i)); } catch (e) {}
   window.scrollTo(0, 0);
 }
 prevBtn.onclick = () => { if (i > 0) { i--; render(); } };
@@ -305,6 +476,5 @@ render();
 
 
 if __name__ == "__main__":
-    book = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "books/memoir-first-book"
-    slug = sys.argv[2] if len(sys.argv) > 2 else "the-porch-light"
-    build(book if book.is_absolute() else ROOT / book, slug)
+    docs = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "docs"
+    build(docs if docs.is_absolute() else ROOT / docs)
