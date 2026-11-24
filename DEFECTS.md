@@ -252,7 +252,38 @@ context.
   18 facts traced to survey answers; no fact was needed during
   answer-writing or generation that no question elicits.
 
-### F2. Defects during generation
+### F2. Main character implied by the pack, not asked
+
+- **Measured:** the pack's central-identity fact (subject_name)
+  was elicited by q003, but as a name field ("What is your full
+  name, and how does it come from the two lines?"): the survey
+  nowhere asked, in terms, who the book's main character is. The
+  identity the whole book hangs on was therefore implied by the
+  pack's structure rather than stated as respondent data — the
+  same class of gap as B4, one level up.
+- **Root cause:** the five-interrogative audit checked the book's
+  facts for a who, but did not check the book's premise: that the
+  respondent is the central figure is itself a fact, and it was
+  the one fact the build, not the respondent, was supplying.
+- **Correction:** q003 now asks the identity question explicitly,
+  in the genre's form: who is the main character of this family
+  history, the person in whom the two lines join, through whose
+  life the family's story is told. Question id, fact slot,
+  narrative job, and the demo answer are unchanged; the answer
+  still comes from the canonical record, and subject_name still
+  traces to q003. (The correction is to the survey prompt only;
+  generation does not consume prompt text, so the in-progress
+  build was not disturbed.)
+- **Control:** test
+  `test_identity_question_asks_for_main_character` in
+  `tests/test_family_history_pack.py` requires the question
+  declaring subject_name to sit in the first chapter and to ask
+  for the main character in terms. Standing pattern for every
+  pack: an explicit identity question early in the survey, in the
+  genre's form (main character, subject, whose family), with the
+  central-identity fact tracing to its answer.
+
+### F3. Defects during generation
 
 Recorded at build completion; see the book's entry in the README
 and its `report.json`. (Updated as part of the v0.3.0 delivery.)

@@ -163,8 +163,8 @@
   {
    "id": "q003",
    "chapter": "ch01",
-   "prompt": "What is your full name, and how does it come from the two lines? Begin the answer with your full name.",
-   "narrative_job": "Introduce the respondent as the union of the two lines, and fix the fact.",
+   "prompt": "Who is the main character of this family history -- the person in whom the two lines join, through whose life the family's story is told? Give that person's full name, and say how the name comes from the two lines. Begin the answer with the full name.",
+   "narrative_job": "Establish the book's central identity as respondent data: the main character is whoever the respondent names here, introduced as the union of the two lines, and the fact is fixed from this answer alone.",
    "position": "Act I: The Two Lines, Chapter: Two Names; page 3 of 10 within the chapter",
    "devices": [
     "generation_portrait",

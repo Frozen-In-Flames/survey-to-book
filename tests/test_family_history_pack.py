@@ -140,6 +140,24 @@ class TestFamilyHistoryPack(unittest.TestCase):
                          "patriarch"):
                 self.assertIn(f"{line}_{kind}", PACK_FACT_SLOTS)
 
+    def test_identity_question_asks_for_main_character(self):
+        """Clean-proof corollary: who the main character is is
+        respondent data, elicited by an explicit identity question
+        early in the survey -- never a fact the build supplies.
+        The question declaring the subject_name fact must sit in
+        the first chapter and must ask, in terms, who the book's
+        main character is; its demo answer names the series'
+        demonstration user, from the canonical record."""
+        identity = [q for q in self.pack["questions"]
+                    if q.get("fact", {}).get("slot") == "subject_name"]
+        self.assertEqual(len(identity), 1)
+        question = identity[0]
+        self.assertEqual(question["chapter"],
+                         self.pack["questions"][0]["chapter"])
+        self.assertIn("main character", question["prompt"].lower())
+        self.assertTrue(
+            self.answers[question["id"]].startswith("Frozen In Flames"))
+
     def test_demo_answers_labeled_fabricated(self):
         self.assertIn("Frozen In Flames", self.demo["persona"])
         self.assertIn("fictional", self.demo["persona"].lower())

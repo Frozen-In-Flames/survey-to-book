@@ -30,6 +30,14 @@ questions, the naming-tradition question (where the family's
 gem-name law comes from, in-world), and the per-line founder,
 origin, and migration questions that the five-interrogative audit
 (who, what, when, where, how) found missing for a two-line family.
+The rule's identity corollary (adopted 2026-11-24): who the main
+character is is itself respondent data, elicited by an explicit
+identity question early in the survey (q003), never a fact the
+build supplies; in the demonstration answers that question is
+answered from the canonical record, and the story bible's
+subject_name fact traces to it under the traceability gate. Every
+future pack carries an equivalent identity question in its
+genre-appropriate form.
 
 Refrain default: ON, chosen deliberately. A family history is
 organized by generations, and the genre's characteristic device is
@@ -278,10 +286,15 @@ Q["ch01"] = [
      "Name the father's line, and fix the fact.",
      ["generation_portrait", "record_and_telling"],
      ["family.frozen_name"], FACT_FROZEN_NAME),
-    ("What is your full name, and how does it come from the two "
-     "lines? Begin the answer with your full name.",
-     "Introduce the respondent as the union of the two lines, "
-     "and fix the fact.",
+    ("Who is the main character of this family history -- the "
+     "person in whom the two lines join, through whose life the "
+     "family's story is told? Give that person's full name, and "
+     "say how the name comes from the two lines. Begin the "
+     "answer with the full name.",
+     "Establish the book's central identity as respondent data: "
+     "the main character is whoever the respondent names here, "
+     "introduced as the union of the two lines, and the fact "
+     "is fixed from this answer alone.",
      ["generation_portrait", "namesake_echo"],
      ["respondent.identity"], FACT_RESPONDENT),
     ("Does your family have a naming tradition -- a rule or custom "
