@@ -103,7 +103,7 @@ class TestSequencing(unittest.TestCase):
         # And chapter 1's pages were written before any synopsis existed.
         self.assertNotIn("Stub synopsis", page_prompts[0])
 
-    def test_recent_pages_window_present(self):
+    def test_recent_page_excerpt_present(self):
         answers = {
             "q001": "First answer.",
             "q002": "Second answer.",
@@ -112,9 +112,13 @@ class TestSequencing(unittest.TestCase):
         model, builder, report = self._build(answers)
         page_prompts = [p for p in model.prompts
                         if "TASK: SUMMARIZE_CHAPTER" not in p]
-        # Page 3's prompt contains the full text of page 2 (stub pages
-        # identify themselves by question id).
-        self.assertIn("stub page for question q002", page_prompts[2])
+        # Page 3's prompt carries the closing lines of page 2 as
+        # background (the stub page's final sentence), but not page 2
+        # in full: its opening sentence must be absent. Feeding whole
+        # pages forward is what taught the first book to repeat them.
+        self.assertIn("The page for q002 ends here", page_prompts[2])
+        self.assertNotIn("This is the stub page for question q002",
+                         page_prompts[2])
 
     def test_empty_answer_produces_no_page(self):
         answers = {

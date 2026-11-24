@@ -9,9 +9,21 @@ prompt from five components:
 2. the story bible (structured state folded from all answers so far),
 3. the rolling synopsis (one model-written summary per finished
    chapter),
-4. a sliding window of the most recent pages, in full,
+4. a short closing excerpt of the most recent page only, supplied as
+   background so the prose can continue from where it stopped,
 5. the respondent's answer to the current question, presented as the
    source material for this page.
+
+Earlier pages reach the prompt as compressed state (bible and
+synopses), not as raw text: the first book this system produced
+showed that handing the model previous pages in full leads it to
+re-emit their sentences verbatim (90 of 100 pages shared a full
+sentence with the previous page). As a second guard, each generated
+page is measured for verbatim sentence overlap against all earlier
+pages (see engine/duplication.py); a page that repeats earlier
+sentences is treated as failed and regenerated with the overlap
+named in the retry prompt, a bounded number of times, and the
+outcome is recorded in the build report.
 
 One page is produced per non-empty answer. Empty answers produce no
 page and are recorded in the build report; they are never padded or
@@ -26,10 +38,29 @@ from pathlib import Path
 
 from .bible import Bible
 from .continuity import check_continuity
+from .duplication import check_duplication, page_overlap
 from .pack import questions_by_chapter
 
-WINDOW_PAGES = 2
+WINDOW_PAGES = 1
+WINDOW_EXCERPT_WORDS = 60
 PAGE_MAX_TOKENS = 480
+MAX_DUP_RETRIES = 2
+
+
+def _overlap_fails(overlap: dict) -> bool:
+    """A page fails the duplication guard if it repeats any full
+    sentence from the immediately previous page, or if more than a
+    fifth of its sentences appear anywhere earlier in the book."""
+    if overlap["shared_with_previous"] > 0:
+        return True
+    total = overlap["sentences"]
+    return total > 0 and overlap["shared_with_any_earlier"] / total > 0.2
+
+
+def _overlap_score(overlap: dict) -> int:
+    """Lower is better; previous-page repetition weighs most."""
+    return (overlap["shared_with_previous"] * 1000
+            + overlap["shared_with_any_earlier"])
 
 
 def _chat(system: str, user: str) -> str:
@@ -85,9 +116,15 @@ class BookBuilder:
         pages = self.ordered_pages()
         if not pages:
             return "(this is the first page of the book)"
-        recent = pages[-WINDOW_PAGES:]
-        return "\n\n".join(
-            f"[Page {p['index'] + 1}]\n{p['text']}" for p in recent)
+        last = pages[-WINDOW_PAGES:]
+        page = last[-1]
+        words = page["text"].split()
+        excerpt = " ".join(words[-WINDOW_EXCERPT_WORDS:])
+        return (f"[Closing lines of page {page['index'] + 1}. These "
+                f"lines are background only, supplied so the prose "
+                f"can continue from where it stopped. Do not repeat "
+                f"them, or any earlier sentence, verbatim.]\n"
+                f"... {excerpt}")
 
     def ordered_pages(self) -> list[dict]:
         pages = list(self.state["pages"].values())
@@ -95,7 +132,8 @@ class BookBuilder:
 
     # -- prompt construction ----------------------------------------------
 
-    def page_prompt(self, question: dict, index: int, bible: Bible) -> str:
+    def page_prompt(self, question: dict, index: int, bible: Bible,
+                    retry_note: str | None = None) -> str:
         fw = self.pack["framework"]
         device_lines = []
         for dev_id in question["devices"]:
@@ -117,7 +155,8 @@ class BookBuilder:
             f"{bible.render_facts()}\n\n"
             f"ROLLING SYNOPSIS (chapters so far):\n"
             f"{self._synopsis_text(question['chapter'])}\n\n"
-            f"MOST RECENT PAGES:\n{self._window_text()}\n\n"
+            f"PREVIOUS PAGE, CLOSING LINES (background only):\n"
+            f"{self._window_text()}\n\n"
             f"QUESTION_ID: {question['id']}\n"
             f"NARRATIVE JOB OF THIS PAGE: {question['narrative_job']}\n"
             f"POSITION IN THE BOOK: {question['position']}\n"
@@ -125,7 +164,8 @@ class BookBuilder:
             f"SOURCE ANSWER (the respondent's own words; transform this "
             f"material into the page, do not quote it verbatim at "
             f"length):\n{self.answers[question['id']]}\n\n"
-            f"Write the page now."
+            + (f"{retry_note}\n\n" if retry_note else "")
+            + f"Write the page now."
         )
         return _chat(system, user)
 
@@ -160,12 +200,49 @@ class BookBuilder:
             if len(text.split()) < 50:
                 text = self.model.complete(
                     prompt, max_tokens=PAGE_MAX_TOKENS)
+            # Duplication guard: a page that re-emits earlier
+            # sentences verbatim is treated as failed and regenerated
+            # with the overlap named, up to MAX_DUP_RETRIES times.
+            # The least-duplicative attempt is kept; the outcome is
+            # recorded on the page and in the build report.
+            earlier = self.ordered_pages()
+            earlier_texts = [p["text"] for p in earlier]
+            previous_text = earlier[-1]["text"] if earlier else None
+            best_overlap = page_overlap(text, earlier_texts,
+                                        previous_text)
+            retries = 0
+            while _overlap_fails(best_overlap) and retries < MAX_DUP_RETRIES:
+                retries += 1
+                named = "; ".join(
+                    f'"{s[:120]}"'
+                    for s in best_overlap["shared_sentences"][:3])
+                retry_note = (
+                    f"RETRY {retries}: the previous attempt at this "
+                    f"page repeated sentences verbatim from earlier "
+                    f"in the book, including: {named}. Write the page "
+                    f"again from the source answer in entirely fresh "
+                    f"sentences. Do not repeat any sentence that has "
+                    f"already appeared in the book, and do not restart "
+                    f"the previous page's wording.")
+                candidate = self.model.complete(
+                    self.page_prompt(question, index, bible,
+                                     retry_note=retry_note),
+                    max_tokens=PAGE_MAX_TOKENS)
+                cand_overlap = page_overlap(candidate, earlier_texts,
+                                            previous_text)
+                if _overlap_score(cand_overlap) < _overlap_score(best_overlap):
+                    text, best_overlap = candidate, cand_overlap
             self.state["pages"][qid] = {
                 "question_id": qid,
                 "chapter": question["chapter"],
                 "index": len(self.state["pages"]),
                 "text": text,
                 "word_count": len(text.split()),
+                "duplication_retries": retries,
+                "shared_with_previous":
+                    best_overlap["shared_with_previous"],
+                "shared_with_any_earlier":
+                    best_overlap["shared_with_any_earlier"],
             }
             self._save_state()
 
@@ -199,6 +276,7 @@ class BookBuilder:
             "pages_built": len(pages),
             "total_words": sum(p["word_count"] for p in pages),
             "continuity_issues": issues,
+            "duplication": check_duplication(pages),
             "model": getattr(self.model, "name", "unknown"),
         })
         self._save_state()

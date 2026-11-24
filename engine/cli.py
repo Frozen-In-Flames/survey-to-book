@@ -87,6 +87,8 @@ def cmd_build(args: argparse.Namespace) -> int:
         "total_words": report["total_words"],
         "skipped_empty": report["skipped_empty"],
         "continuity_issues": len(report["continuity_issues"]),
+        "pages_sharing_sentence_with_previous":
+            report["duplication"]["pages_sharing_sentence_with_previous"],
         "manuscript": str(book_path),
     }, indent=1))
     return 0

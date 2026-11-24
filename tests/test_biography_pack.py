@@ -106,6 +106,9 @@ class TestBiographyPack(unittest.TestCase):
         self.assertEqual(report["pages_built"], 100)
         self.assertEqual(report["skipped_empty"], [])
         self.assertEqual(report["continuity_issues"], [])
+        self.assertEqual(
+            report["duplication"]["pages_sharing_sentence_with_previous"],
+            0)
 
 
 if __name__ == "__main__":

@@ -85,5 +85,11 @@ def export_markdown(pack: dict, state: dict, report: dict, meta: dict) -> str:
     else:
         lines.append("- Continuity check: no candidate contradictions "
                      "found against the story bible's fixed facts.")
+    dup = report.get("duplication")
+    if dup:
+        lines.append(
+            f"- Duplication check: {dup['pages_sharing_sentence_with_previous']}"
+            f" of {dup['total_pages']} pages share a full sentence "
+            f"verbatim with the previous page.")
     lines.append("")
     return "\n".join(lines)

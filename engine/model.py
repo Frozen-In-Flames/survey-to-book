@@ -34,17 +34,22 @@ class StubModel:
         # Echo a sentinel proving which bible/synopsis state was present.
         sentinels = re.findall(r"SENTINEL_[A-Z0-9_]+", prompt)
         seen = ", ".join(sorted(set(sentinels))) or "none"
+        # Every sentence names its question, so stub pages never share
+        # a full sentence with each other: the duplication guard must
+        # see a well-behaved model as clean.
         body = (
-            f"This is the stub page for question {qid}. It was generated "
-            f"with full knowledge of the story bible and synopsis supplied "
-            f"in its prompt, and it continues the narrative in the "
-            f"framework's voice without contradicting any established "
-            f"fact. Sentinels observed in context: {seen}. The page holds "
-            f"to roughly the target length by developing the answer's "
-            f"material through the devices assigned to this slot: a scene "
-            f"is rendered rather than summarized, concrete details carry "
-            f"the emotion, and the closing line turns the page toward "
-            f"what comes next in the arc of the book as a whole."
+            f"This is the stub page for question {qid}. The page for "
+            f"{qid} was generated with full knowledge of the story "
+            f"bible and synopsis supplied in its prompt. In the page "
+            f"for {qid}, the narrative continues in the framework's "
+            f"voice without contradicting any established fact. "
+            f"Sentinels observed in the context for {qid}: {seen}. "
+            f"The page for {qid} develops its answer's material "
+            f"through the devices assigned to its own slot, rendering "
+            f"a scene rather than summarizing one. Concrete details "
+            f"carry the emotion on the page for {qid}, and its "
+            f"closing line turns toward what comes next in the arc. "
+            f"The page for {qid} ends here."
         )
         return body
 
