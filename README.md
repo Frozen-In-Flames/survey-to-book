@@ -117,6 +117,14 @@ set in `demo/`:
   the page and word counts and the continuity check outcome for the
   run.
 
+- Live reader: the full text of the book can be read in a browser at
+  https://frozen-in-flames.github.io/survey-to-book/, page by page
+  with chapter navigation. The same page carries a download button
+  that saves the book file (Markdown, or plain text) for offline
+  reading. The site is static and self-contained; it is generated
+  from the manuscript by `tools/build_reader_site.py` and served
+  from `docs/`.
+
 - Continuity: the first check of the finished book flagged 17
   candidate issues. Inspection against the source answers showed all
   17 were false positives of the checker's trigger matching, not
