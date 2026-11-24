@@ -24,6 +24,7 @@ def tiny_pack() -> dict:
         "framework": {
             "voice": "test voice",
             "pov": "first person",
+            "refrain": False,
             "tense": "past",
             "page_target_words": 250,
             "global_instructions": "test instructions",

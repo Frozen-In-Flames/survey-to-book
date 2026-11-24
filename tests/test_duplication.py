@@ -9,6 +9,7 @@ generator must treat a duplicating page as failed and regenerate it
 a bounded number of times, recording the outcome either way.
 """
 
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -16,6 +17,8 @@ from pathlib import Path
 from engine.duplication import check_duplication, page_overlap, \
     split_sentences
 from engine.generate import BookBuilder
+
+ROOT = Path(__file__).resolve().parent.parent
 
 
 def page(index, qid, text):
@@ -101,6 +104,7 @@ def tiny_pack() -> dict:
         "framework": {
             "voice": "test voice",
             "pov": "third person",
+            "refrain": False,
             "tense": "past",
             "page_target_words": 250,
             "global_instructions": "test instructions",
@@ -182,6 +186,100 @@ class TestGeneratorDuplicationGuard(unittest.TestCase):
         self.assertEqual(
             report["duplication"]["pages_sharing_sentence_with_previous"],
             1)
+
+
+def refrain_pack() -> dict:
+    pack = tiny_pack()
+    pack["framework"]["refrain"] = True
+    return pack
+
+
+class RecordingModel:
+    """Records prompts; writes PAGE_A then a distinct page."""
+
+    name = "recording-test-model"
+
+    def __init__(self):
+        self.prompts: list[str] = []
+
+    def complete(self, prompt: str, max_tokens: int = 512) -> str:
+        self.prompts.append(prompt)
+        if "TASK: SUMMARIZE_CHAPTER" in prompt:
+            return "Synopsis of the chapter."
+        if "QUESTION_ID: q001" in prompt:
+            return PAGE_A
+        return PAGE_B_DISTINCT
+
+
+class TestRefrainOn(unittest.TestCase):
+    """Refrain on: recurrence is the selected device. The overlap is
+    still measured and reported, but no page is regenerated for it,
+    and previous pages reach the prompt in full."""
+
+    def test_recurrence_kept_without_retries(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            builder = BookBuilder(refrain_pack(), ANSWERS,
+                                  StubbornModel(),
+                                  Path(tmp) / "state.json")
+            report = builder.build()
+        kept = builder.state["pages"]["q002"]
+        self.assertEqual(kept["text"], PAGE_B_REPEATING)
+        self.assertEqual(kept["duplication_retries"], 0)
+        self.assertEqual(kept["shared_with_previous"], 1)
+        self.assertIs(report["refrain"], True)
+        self.assertEqual(
+            report["duplication"]["pages_sharing_sentence_with_previous"],
+            1)
+
+    def test_full_previous_pages_fed_forward(self):
+        model = RecordingModel()
+        with tempfile.TemporaryDirectory() as tmp:
+            builder = BookBuilder(refrain_pack(), ANSWERS, model,
+                                  Path(tmp) / "state.json")
+            builder.build()
+        page_prompts = [p for p in model.prompts
+                        if "TASK: SUMMARIZE_CHAPTER" not in p]
+        # Page 2's prompt carries page 1 in full, opening sentence
+        # included -- the opposite of the refrain-off excerpt rule.
+        self.assertIn("The harbor bell rang over the water at dawn",
+                      page_prompts[1])
+
+
+class TestRefrainCliOverride(unittest.TestCase):
+    """The build-time CLI flag overrides the pack default, and the
+    report records the effective setting."""
+
+    def _run_cli(self, tmp: str, *extra: str) -> dict:
+        from engine.cli import main as cli_main
+        out = Path(tmp) / "book"
+        rc = cli_main([
+            "build",
+            "--pack", str(ROOT / "packs" / "biography.json"),
+            "--answers",
+            str(ROOT / "demo" / "biography-demo-answers.json"),
+            "--model", "stub",
+            "--out", str(out),
+            "--title", "T", "--persona-note", "P", "--colophon", "C",
+            *extra,
+        ])
+        self.assertEqual(rc, 0)
+        with open(out / "report.json", encoding="utf-8") as fh:
+            return json.load(fh)
+
+    def test_pack_default_applies_without_flag(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            report = self._run_cli(tmp)
+        self.assertIs(report["refrain"], False)
+
+    def test_refrain_flag_overrides_pack_default(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            report = self._run_cli(tmp, "--refrain")
+        self.assertIs(report["refrain"], True)
+
+    def test_no_refrain_flag_keeps_off(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            report = self._run_cli(tmp, "--no-refrain")
+        self.assertIs(report["refrain"], False)
 
 
 if __name__ == "__main__":

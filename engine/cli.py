@@ -52,6 +52,8 @@ def cmd_build(args: argparse.Namespace) -> int:
     except PackError as exc:
         print(exc)
         return 1
+    if getattr(args, "refrain", None) is not None:
+        pack.setdefault("framework", {})["refrain"] = args.refrain
     answers = _load_answers(args.answers)
     known = {q["id"] for q in pack["questions"]}
     unknown = set(answers) - known
@@ -86,6 +88,7 @@ def cmd_build(args: argparse.Namespace) -> int:
         "pages_built": report["pages_built"],
         "total_words": report["total_words"],
         "skipped_empty": report["skipped_empty"],
+        "refrain": report.get("refrain", False),
         "continuity_issues": len(report["continuity_issues"]),
         "pages_sharing_sentence_with_previous":
             report["duplication"]["pages_sharing_sentence_with_previous"],
@@ -116,6 +119,10 @@ def main(argv: list[str] | None = None) -> int:
     p_build.add_argument("--subtitle", default="")
     p_build.add_argument("--persona-note", required=True)
     p_build.add_argument("--colophon", required=True)
+    p_build.add_argument(
+        "--refrain", action=argparse.BooleanOptionalAction, default=None,
+        help="override the pack framework's refrain setting for this "
+             "build (--refrain / --no-refrain)")
     p_build.set_defaults(func=cmd_build)
 
     args = parser.parse_args(argv)

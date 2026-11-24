@@ -16,6 +16,7 @@ FRAMEWORK = {
         "applied as decoration."
     ),
     "pov": "first person",
+    "refrain": True,
     "tense": "past tense for scenes, present tense for reflection",
     "page_target_words": 250,
     "global_instructions": (

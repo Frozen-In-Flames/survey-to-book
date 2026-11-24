@@ -91,5 +91,10 @@ def export_markdown(pack: dict, state: dict, report: dict, meta: dict) -> str:
             f"- Duplication check: {dup['pages_sharing_sentence_with_previous']}"
             f" of {dup['total_pages']} pages share a full sentence "
             f"verbatim with the previous page.")
+    if "refrain" in report:
+        setting = "on" if report["refrain"] else "off"
+        lines.append(
+            f"- Refrain setting: {setting} (recurrence of anchor "
+            f"material is {'a selected device under this setting' if report['refrain'] else 'not selected; repeated sentences are treated as defects'}).")
     lines.append("")
     return "\n".join(lines)

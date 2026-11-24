@@ -62,6 +62,9 @@ def validate_pack(pack: dict) -> list[str]:
     for dev_id, dev in devices.items():
         if not isinstance(dev, dict) or "name" not in dev or "instruction" not in dev:
             errors.append(f"device {dev_id!r} must define name and instruction")
+    refrain = framework.get("refrain")
+    if refrain is not None and not isinstance(refrain, bool):
+        errors.append("framework.refrain must be a boolean when present")
 
     chapter_ids = set()
     for chapter in pack.get("chapters", []):

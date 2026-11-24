@@ -4,6 +4,7 @@
  "framework": {
   "voice": "Third-person retrospective: a narrator outside the life, writing after the fact, who keeps what the record shows distinct from what witnesses remember. Plain, exact, and warm without worship; the subject is rendered as a person, not a monument, and judgment is earned by evidence.",
   "pov": "third person",
+  "refrain": false,
   "tense": "past tense for the life, present tense for the record and the legacy",
   "page_target_words": 250,
   "global_instructions": "Transform the respondent's answers about the subject into biography prose in the third person. Never contradict the story bible or the fixed facts. Do not invent named people, places, or dates that are not in the supplied material. Where the material is thin, expand by rendering its documented implications as scene and context, not by fabricating events. Attribute memory as memory and record as record.",

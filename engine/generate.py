@@ -25,6 +25,16 @@ sentences is treated as failed and regenerated with the overlap
 named in the retry prompt, a bounded number of times, and the
 outcome is recorded in the build report.
 
+Recurrence is also available as a selected device. The pack
+framework's ``refrain`` parameter (boolean, default off, overridable
+at build time) controls it. With refrain on, the previous pages
+reach the prompt in full and their recurring anchor material is
+allowed to return as a refrain; the duplication guard does not
+regenerate. With refrain off, the compressed feed-forward above
+applies and the guard is enforced. Either way the overlap is
+measured and reported alongside the setting, so both behaviors are
+verified rather than assumed.
+
 One page is produced per non-empty answer. Empty answers produce no
 page and are recorded in the build report; they are never padded or
 invented. Build state is persisted after every page, so a build can
@@ -43,6 +53,7 @@ from .pack import questions_by_chapter
 
 WINDOW_PAGES = 1
 WINDOW_EXCERPT_WORDS = 60
+REFRAIN_WINDOW_PAGES = 2
 PAGE_MAX_TOKENS = 480
 MAX_DUP_RETRIES = 2
 
@@ -77,7 +88,9 @@ class BookBuilder:
         self.model = model
         self.state_path = Path(state_path)
         self.state = self._load_state()
-        self.report: dict = {"skipped_empty": [], "pages_built": 0}
+        self.refrain = bool(pack.get("framework", {}).get("refrain", False))
+        self.report: dict = {"skipped_empty": [], "pages_built": 0,
+                             "refrain": self.refrain}
 
     # -- state -----------------------------------------------------------
 
@@ -116,6 +129,15 @@ class BookBuilder:
         pages = self.ordered_pages()
         if not pages:
             return "(this is the first page of the book)"
+        if self.refrain:
+            last = pages[-REFRAIN_WINDOW_PAGES:]
+            blocks = [f"[Page {p['index'] + 1}]\n{p['text']}"
+                      for p in last]
+            return ("\n\n".join(blocks)
+                    + "\n[The pages above carry the book's recurring "
+                      "anchor material. Where the framework calls for "
+                      "the refrain, let the anchor lines return; "
+                      "otherwise continue the narrative forward.]")
         last = pages[-WINDOW_PAGES:]
         page = last[-1]
         words = page["text"].split()
@@ -155,7 +177,7 @@ class BookBuilder:
             f"{bible.render_facts()}\n\n"
             f"ROLLING SYNOPSIS (chapters so far):\n"
             f"{self._synopsis_text(question['chapter'])}\n\n"
-            f"PREVIOUS PAGE, CLOSING LINES (background only):\n"
+            f"{'MOST RECENT PAGES (the book so far; the refrain may return)' if self.refrain else 'PREVIOUS PAGE, CLOSING LINES (background only)'}:\n"
             f"{self._window_text()}\n\n"
             f"QUESTION_ID: {question['id']}\n"
             f"NARRATIVE JOB OF THIS PAGE: {question['narrative_job']}\n"
@@ -200,18 +222,22 @@ class BookBuilder:
             if len(text.split()) < 50:
                 text = self.model.complete(
                     prompt, max_tokens=PAGE_MAX_TOKENS)
-            # Duplication guard: a page that re-emits earlier
-            # sentences verbatim is treated as failed and regenerated
-            # with the overlap named, up to MAX_DUP_RETRIES times.
-            # The least-duplicative attempt is kept; the outcome is
-            # recorded on the page and in the build report.
+            # Duplication guard (refrain off only): a page that
+            # re-emits earlier sentences verbatim is treated as
+            # failed and regenerated with the overlap named, up to
+            # MAX_DUP_RETRIES times. The least-duplicative attempt
+            # is kept; the outcome is recorded on the page and in
+            # the build report. With refrain on, recurrence is the
+            # selected device: pages are measured and recorded but
+            # never regenerated for overlap.
             earlier = self.ordered_pages()
             earlier_texts = [p["text"] for p in earlier]
             previous_text = earlier[-1]["text"] if earlier else None
             best_overlap = page_overlap(text, earlier_texts,
                                         previous_text)
             retries = 0
-            while _overlap_fails(best_overlap) and retries < MAX_DUP_RETRIES:
+            while (not self.refrain and _overlap_fails(best_overlap)
+                   and retries < MAX_DUP_RETRIES):
                 retries += 1
                 named = "; ".join(
                     f'"{s[:120]}"'

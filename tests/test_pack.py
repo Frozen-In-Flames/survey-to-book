@@ -68,6 +68,17 @@ class TestValidatorControls(unittest.TestCase):
         errors = validate_pack(broken)
         self.assertTrue(any("duplicate" in e for e in errors))
 
+    def test_memoir_refrain_default_on(self):
+        # The memoir book was generated with recurrence in effect;
+        # its pack records that setting explicitly.
+        self.assertIs(self.pack["framework"]["refrain"], True)
+
+    def test_nonboolean_refrain_rejected(self):
+        broken = copy.deepcopy(self.pack)
+        broken["framework"]["refrain"] = "yes"
+        errors = validate_pack(broken)
+        self.assertTrue(any("refrain" in e for e in errors))
+
 
 if __name__ == "__main__":
     unittest.main()

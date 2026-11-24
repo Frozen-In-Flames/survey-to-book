@@ -4,6 +4,7 @@
  "framework": {
   "voice": "First-person retrospective: an older narrator looking back at a younger self, with warmth and unsparing honesty in equal measure. Concrete and plain-spoken; lyricism is earned by detail, never applied as decoration.",
   "pov": "first person",
+  "refrain": true,
   "tense": "past tense for scenes, present tense for reflection",
   "page_target_words": 250,
   "global_instructions": "Transform the respondent's answer into memoir prose. Never contradict the story bible or the fixed facts. Do not invent named people, places, or dates that are not in the supplied material. Where the answer is brief, expand by rendering its implications as scene and detail, not by fabricating events.",

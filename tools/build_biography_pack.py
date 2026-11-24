@@ -24,6 +24,7 @@ FRAMEWORK = {
         "monument, and judgment is earned by evidence."
     ),
     "pov": "third person",
+    "refrain": False,
     "tense": "past tense for the life, present tense for the record "
              "and the legacy",
     "page_target_words": 250,
