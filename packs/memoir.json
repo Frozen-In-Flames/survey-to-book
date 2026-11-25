@@ -1,6 +1,6 @@
 {
  "genre": "memoir",
- "version": "1.0.0",
+ "version": "1.1.0",
  "framework": {
   "voice": "First-person retrospective: an older narrator looking back at a younger self, with warmth and unsparing honesty in equal measure. Concrete and plain-spoken; lyricism is earned by detail, never applied as decoration.",
   "pov": "first person",
@@ -112,6 +112,28 @@
   }
  ],
  "questions": [
+  {
+   "id": "q000",
+   "chapter": "ch01",
+   "prompt": "Who is the main character of this memoir -- whose life is this book? Give your full name, and say how you came by it. Begin the answer with your full name.",
+   "narrative_job": "Establish the book's central identity as respondent data: the main character is whoever the respondent names here -- in a memoir the narrator and the subject are the same person -- and the fact is fixed from this answer alone.",
+   "position": "Act I: Roots, Chapter: Origins; the survey's opening question, before page 1 of 10 within the chapter (added in pack v1.1.0)",
+   "devices": [
+    "character_voice",
+    "reflection_voice"
+   ],
+   "bible_keys": [
+    "narrator.identity"
+   ],
+   "fact": {
+    "slot": "subject_name",
+    "kind": "person_name",
+    "triggers": [
+     "my name is",
+     "My name is"
+    ]
+   }
+  },
   {
    "id": "q001",
    "chapter": "ch01",

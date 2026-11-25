@@ -6,12 +6,30 @@ in these answers is fabricated for demonstration. The answers are
 internally consistent with the pack's fixed facts: birth year 1962,
 mother Rosa Calloway, father Henry Calloway, hometown Saltmarsh,
 partner Daniel Reyes.
+
+The q000 answer was added with memoir pack v1.1.0 (2026-11-25),
+when the clean-proof audit put the identity question into the
+survey: before that, the narrator's name existed only as this
+file's persona metadata. The shipped book ("The Porch Light",
+v0.1.0) was generated under pack v1.0.0 and does not contain the
+identity question's page; the answer is recorded here so the pack
+and its demonstration answers stay paired for future builds.
 """
 
 import json
 from pathlib import Path
 
 A = {}
+A["q000"] = (
+    "June Calloway. That is my full name, and the main character "
+    "of this memoir is me: the life in this book is my own. "
+    "Calloway is my father's name, Louisiana people who repaired "
+    "engines along the coast; my mother was a Delgado from "
+    "Veracruz before she was a Calloway, so both of the family's "
+    "coasts are in the name I sign. I married a Reyes and kept "
+    "Calloway, which tells you something about me that the rest "
+    "of this book will spend a hundred pages confirming."
+)
 A["q001"] = (
     "I was born in 1962, in Beaumont, Texas, in the spring. The world "
     "that year was holding its breath over Cuba, and my father said the "

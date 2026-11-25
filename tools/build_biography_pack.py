@@ -10,6 +10,14 @@ that life in the third person. Fact triggers are therefore phrased
 from the subject ("his mother", "He was born") rather than from a
 first-person narrator ("my mother", "I was born"), and both pronoun
 sets are declared so the pack serves a subject of any gender.
+
+The survey opens with an explicit identity question (q001), under
+the clean-proof rule: who the book's subject is is respondent data,
+asked in terms in the first chapter, never a fact the build
+supplies. The question originally asked only for the subject's name
+as a field; the audit for the corrected edition (DEFECTS.md, B5)
+put the identity question in terms, on the family-history pattern.
+Question id, fact slot, devices, and bible key are unchanged.
 """
 
 import json
@@ -172,9 +180,13 @@ FACT_DEATH_YEAR = {"slot": "death_year", "kind": "year",
 
 Q = {}
 Q["ch01"] = [
-    ("What is the subject's full name, and by what name was the "
-     "subject known in daily life?",
-     "Open the book by naming the subject and fixing the fact.",
+    ("Who is the subject of this biography -- the person whose "
+     "life this book tells? Give the subject's full name, and the "
+     "name the subject is known by in daily life. Begin the "
+     "answer with the full name.",
+     "Establish the book's central identity as respondent data: "
+     "the subject is whoever the respondent names here, and the "
+     "fact is fixed from this answer alone.",
      ["documentary_anchor", "character_portrait"], ["subject.name"],
      FACT_SUBJECT),
     ("Where did the subject's family come from, and how did they "

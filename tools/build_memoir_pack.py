@@ -1,8 +1,20 @@
-"""Builds packs/memoir.json: the memoir genre pack (100 questions).
+"""Builds packs/memoir.json: the memoir genre pack.
 
 Each question is authored as a tuple:
     (prompt, narrative_job, [device_ids], [bible_keys], fact_or_None)
 and expanded here with its chapter and generated position string.
+
+Pack v1.1.0 adds one question the original survey never asked: who
+the main character is. The first survey moved straight to the
+narrator's birth year, and the narrator's identity entered the
+build only as answer-file metadata -- build data, not respondent
+data, the defect class the clean-proof rule exists to close (see
+DEFECTS.md, M7). The identity question opens chapter 1 and declares
+the subject_name fact. Published question ids are never renumbered
+(the E3 lesson), so the added question takes the unused id q000 and
+stands first in the question list; the original 100 questions keep
+their ids, order, and pairing with the shipped book, which was
+generated under pack v1.0.0 and stands as published.
 """
 
 import json
@@ -121,6 +133,33 @@ FACT_BIRTH_YEAR = {"slot": "birth_year", "kind": "year",
                    "triggers": ["I was born"]}
 FACT_PARTNER = {"slot": "partner_name", "kind": "person_name",
                 "triggers": ["my husband", "my wife", "my partner"]}
+FACT_SUBJECT = {"slot": "subject_name", "kind": "person_name",
+                "triggers": ["my name is", "My name is"]}
+
+# The identity question added in pack v1.1.0 (see the module
+# docstring). It is a literal question dict, prepended in main(),
+# because the tuple expansion assigns ids sequentially and the
+# published ids must not move.
+IDENTITY_QUESTION = {
+    "id": "q000",
+    "chapter": "ch01",
+    "prompt": ("Who is the main character of this memoir -- whose "
+               "life is this book? Give your full name, and say how "
+               "you came by it. Begin the answer with your full "
+               "name."),
+    "narrative_job": ("Establish the book's central identity as "
+                      "respondent data: the main character is "
+                      "whoever the respondent names here -- in a "
+                      "memoir the narrator and the subject are the "
+                      "same person -- and the fact is fixed from "
+                      "this answer alone."),
+    "position": ("Act I: Roots, Chapter: Origins; the survey's "
+                 "opening question, before page 1 of 10 within the "
+                 "chapter (added in pack v1.1.0)"),
+    "devices": ["character_voice", "reflection_voice"],
+    "bible_keys": ["narrator.identity"],
+    "fact": FACT_SUBJECT,
+}
 
 Q = {}
 Q["ch01"] = [
@@ -564,9 +603,10 @@ def main() -> None:
             if fact is not None:
                 q["fact"] = fact
             questions.append(q)
+    questions.insert(0, IDENTITY_QUESTION)
     pack = {
         "genre": "memoir",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "framework": FRAMEWORK,
         "chapters": [
             {"id": cid, "title": title, "act": act}

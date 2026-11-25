@@ -119,8 +119,8 @@
   {
    "id": "q001",
    "chapter": "ch01",
-   "prompt": "What is the subject's full name, and by what name was the subject known in daily life?",
-   "narrative_job": "Open the book by naming the subject and fixing the fact.",
+   "prompt": "Who is the subject of this biography -- the person whose life this book tells? Give the subject's full name, and the name the subject is known by in daily life. Begin the answer with the full name.",
+   "narrative_job": "Establish the book's central identity as respondent data: the subject is whoever the respondent names here, and the fact is fixed from this answer alone.",
    "position": "Act I: The Ground, Chapter: Before the Beginning; page 1 of 10 within the chapter",
    "devices": [
     "documentary_anchor",

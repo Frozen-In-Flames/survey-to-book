@@ -143,14 +143,22 @@ build continues from the first ungenerated page.
 
 Three packs ship in this release:
 
-- **memoir** (v1.0.0): 100 questions in 10 chapters of 10, ordered as
-  a life arc (origins, childhood home, family, early world, first
-  wounds, becoming, work and calling, love and partnership, losses
-  and turning points, present day and legacy). Framework: first-person
-  retrospective voice, twelve-device library, five typed facts.
-  Refrain default: on (its first book was generated with recurrence
-  in effect, before the parameter existed; the pack now records the
-  setting explicitly).
+- **memoir** (v1.1.0): 101 questions in 10 chapters (chapter 1
+  carries 11), ordered as a life arc (origins, childhood home,
+  family, early world, first wounds, becoming, work and calling,
+  love and partnership, losses and turning points, present day
+  and legacy). Framework: first-person retrospective voice,
+  twelve-device library, six typed facts. Refrain default: on
+  (its first book was generated with recurrence in effect, before
+  the parameter existed; the pack now records the setting
+  explicitly). Version 1.1.0, added in the biography
+  corrected-edition audit, opens the survey with an explicit
+  identity question (who is the main character of this memoir)
+  declaring the narrator's name as a typed fact: the original
+  survey never asked, and the narrator's identity had entered
+  the build only as answer-file metadata (see `DEFECTS.md`, M7).
+  The pack's first book was generated under v1.0.0 and stands as
+  published.
 
 - **biography** (v1.0.0): 100 questions in 10 chapters of 10, ordered
   cradle to present (before the beginning, birth and first years,
@@ -165,7 +173,10 @@ Three packs ship in this release:
   seven typed fact slots kept about the subject (name, birth year,
   birthplace, mother, father, partner, death year). Refrain default:
   off; in a third-person chronological life, recurrence reads as
-  error rather than voice.
+  error rather than voice. The survey opens by asking, in terms,
+  who the biography's subject is: the identity question the
+  clean-proof rule requires, put in terms by the corrected-edition
+  audit (see `DEFECTS.md`, B5).
 
 - **family-history** (v1.0.0): 100 questions in 10 chapters of 10,
   whose subject is a family across generations rather than one
@@ -215,27 +226,41 @@ respondent is a separate fictional persona, as its entry states.)
   run.
 
 - **The Cold Room** (`books/biography-first-book/`) — the biography
-  pack's first book: 100 pages, one per question, 28,415 words,
-  generated locally with the same model and settings as the first
-  book (Qwen2.5-3B-Instruct Q4_K_M GGUF via llama.cpp build b12651;
+  pack's first book, corrected edition (survey-to-book v0.2.1):
+  100 pages, one per question, 30,356 words, generated locally
+  with the same model and settings as the other books
+  (Qwen2.5-3B-Instruct Q4_K_M GGUF via llama.cpp build b12651;
   temperature 0.8, top-p 0.95, repeat penalty 1.1, 480-token page
   budget, single inference slot). The subject is Frozen In Flames,
   the series' demonstration user: a fictional persona whose
   fabricated survey answers are drawn from the canonical character
-  record in `demo/frozen-in-flames-character.json`, and the book's
-  front matter states this. The story bible extracted from the
-  answers agrees with the character record fact for fact (subject
-  Frozen In Flames, born 1960 in Memphis; mother Evelyn Flames,
-  father Harold Flames, partner Alice Flames; the character is
-  living, so the pack's death-year slot is declared but
-  unestablished). Continuity check: 0 issues. The pack's refrain
-  parameter was off for this build. Duplication: 2 of 100 pages
-  share a full sentence verbatim with the previous page, against
-  90 of 100 in the first book; the two exceptions (pages 38 and 39)
-  are the pages where the bounded regeneration was exhausted and
-  the least-duplicative attempt was kept, as recorded in
-  `report.json`, which also records 27 regeneration retries across
-  22 pages.
+  record in `demo/frozen-in-flames-character.json` (record version
+  2.0.0, carrying the author's canon: born 2000 in Dallas; mother
+  Ruby Flames; father Onyx Frozen; partner Amber Flames), and the
+  book's front matter states this. The story bible extracted from
+  the answers agrees with the character record fact for fact, and
+  every one of the pack's six established facts traces to its
+  source survey answer (6 of 6; the death-year slot is declared
+  but unestablished, the character living). This edition
+  supersedes the edition released as v0.2.0 (28,415 words), which
+  was generated from answers carrying a character canon the
+  biography build had invented (born 1960 in Memphis; mother
+  Evelyn Flames; father Harold Flames; partner Alice Flames)
+  because the survey had never asked the author; v0.2.0 stands
+  unchanged in the release history, and the correction is
+  recorded in `DEFECTS.md` (B4, B5). The pack's refrain parameter
+  was off for this build. Duplication: 1 of 100 pages shares a
+  full sentence verbatim with the previous page (page 68, where
+  the bounded regeneration was exhausted and the least-duplicative
+  attempt was kept, as recorded in `report.json`), against 2 of
+  100 in the first edition and 90 of 100 in the first book. All
+  10 chapter synopses are present, across the five interruptions
+  the build survived (see `DEFECTS.md`, B5). Continuity check:
+  4 candidate issues flagged at build time; inspection against
+  the source answers showed all 4 were checker false positives
+  (kinship triggers matching the parents' own parents, whose
+  names the text states correctly), and reader-level sampling
+  found the genuine errors recorded in the deviations below.
 
 - **The Keeping Book** (`books/family-history-first-book/`) — the
   family-history pack's first book: 100 pages, one per question,
@@ -311,21 +336,23 @@ respondent is a separate fictional persona, as its entry states.)
   the engine accepts a page that meets the minimum length rather than
   extending it to a sentence boundary.
 
-- Known deviations in the second book, recorded on the same terms:
-  (1) the chapter-7 rolling synopsis is absent. Generation was
-  interrupted between that chapter's final page being saved and its
-  synopsis being written, and the resumable build does not revisit
-  completed chapters; chapters 8–10 were therefore generated without
-  that chapter's synopsis in their rolling context (the story bible
-  and fixed facts were unaffected, and the continuity check still
-  reports 0 issues). (2) Pages 38 and 39 each share one full
-  sentence with the previous page after the bounded duplication
-  retries were exhausted; the least-duplicative attempts were kept
-  and the outcome is recorded in the report, as the metric's
-  exceptions. (3) The opening page carries a meta-narrative
-  mannerism (it describes its own act of introduction); the
-  remaining 99 pages do not. The final page ends on a complete
-  sentence.
+- Known deviations in the second book (corrected edition),
+  recorded on the same terms: (1) the final page writes the
+  subject's death ("By 2023, when he died"), contradicting the
+  living-subject frame and page 87 of the same book; the checker
+  could not flag it, the death-year slot being unestablished.
+  (2) Page 20 misassigns a relation ("Onyx Frozen, her father",
+  of Ruby; he is her husband and the subject's father).
+  (3) Page 17 places John Glenn's 1962 orbital flight in the
+  subject's birth year, 2000; page 96 dates a passage to 2034, a
+  year the record does not support; page 2 sends Flint Frozen to
+  Dallas "to join his father", a relation the record does not
+  contain. (4) Ten pages (10, 45, 47, 61, 71, 72, 77, 93, 96,
+  97) end mid-sentence at the 480-token page budget; the final
+  page's prose ends on a complete sentence. (5) Page 68 shares
+  one full sentence with the previous page after the bounded
+  duplication retries were exhausted. The first edition's
+  deviations are recorded at `DEFECTS.md` B1–B3.
 
 - Known deviations in the third book, recorded on the same terms:
   (1) page 28 calls the paternal grandparents by the parents'

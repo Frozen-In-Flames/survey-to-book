@@ -131,7 +131,10 @@ occur.
   asserting, for every extracted fact, that its source question
   exists, declares that fact's slot, and has a non-empty answer;
   coverage (facts traced / total facts) must be 1.0 before
-  generation. Family history: 18 of 18 facts traced.
+  generation. Family history: 18 of 18 facts traced. Biography
+  (corrected edition): 6 of 6 established facts traced, the
+  death_year slot declared and unestablished. Memoir (pack
+  v1.1.0): 6 of 6 facts traced.
 
 ## Memoir — "The Porch Light" (v0.1.0)
 
@@ -179,6 +182,41 @@ and was not edited.
 ### M6. Pack/answer ID misalignment in the first commit
 
 See E3.
+
+### M7. Identity never asked: the narrator's name was build data
+
+- **Measured:** the memoir pack (v1.0.0) contained no identity
+  question and no narrator-name fact slot: none of its 100
+  questions asks who the memoir's main character is. The
+  narrator's name existed only as the demo answers file's
+  persona metadata -- supplied by the build, not elicited from
+  the respondent. The five-interrogative audit of the pack's
+  core facts found every other fact elicited by a direct
+  question (birth year q001, hometown q013, mother q021,
+  father q024, partner q071); the single gap was the who of
+  the book itself.
+- **Root cause:** the survey was authored as if the respondent's
+  identity were given by the act of responding. In this system
+  identity is content, and content the survey does not elicit
+  the build must supply -- the B4 mechanism, one level up (see
+  F2, the same gap found in the family-history pack).
+- **Correction:** pack v1.1.0 adds the identity question at the
+  head of chapter 1, in the genre's form (who is the main
+  character of this memoir, whose life is this book), declaring
+  a subject_name fact. Published question ids are never
+  renumbered (E3), so the added question takes the unused id
+  q000 and stands first in the question list; the original 100
+  questions are unchanged. The demo answers gained the
+  corresponding answer, drawn from the persona the file already
+  recorded (June Calloway). The shipped book was generated
+  under pack v1.0.0 and stands as published; it does not
+  contain the identity question's page.
+- **Control:** tests in `tests/test_pack.py`: the identity
+  question asks for the main character in terms, sits in
+  chapter 1, and stands first in the list; the original 100
+  question ids follow it unchanged and in order; pack and
+  answers align exactly; traceability measures 6 of 6 facts
+  traced to survey answers.
 
 ## Biography — "The Cold Room" (v0.2.0)
 
@@ -232,8 +270,129 @@ context.
   answers and the corrected record must diverge in exactly the
   five author-corrected fields.
 - **Status of the shipped book:** "The Cold Room" and release
-  v0.2.0 are unchanged; a corrected edition is a separate,
-  queued decision.
+  v0.2.0 are unchanged in the release history. The corrected
+  edition decided on 2026-11-24 shipped as v0.2.1 (see B5): the
+  demo answers were regenerated from record version 2.0.0, and
+  the library's copy of the book is the corrected edition.
+
+### B5. Corrected edition and pack audit (v0.2.1)
+
+The corrected edition decided on 2026-11-24, executed under the
+clean-proof rule in the same pass as a five-interrogative audit
+of the biography and memoir packs (for the memoir findings, see
+M7).
+
+- **Canon supersession resolved.** The demo answers were
+  regenerated from the canonical record (version 2.0.0) by
+  `tools/build_biography_demo_answers.py`, whose consistency
+  checks now enforce the correction mechanically: every recorded
+  fact must appear in its designated answer, the birth-year
+  answer's first year must be the record's year, every year
+  mentioned in any answer must be a year the record supports
+  (an explicit whitelist drawn from the record), and no token of
+  the superseded canon (Memphis, Evelyn, Harold, Alice, the 1960
+  timeline) may appear. The bible extracted from the corrected
+  answers equals the record fact for fact: 6 of 6 established
+  facts (subject Frozen In Flames, born 2000 in Dallas; mother
+  Ruby Flames; father Onyx Frozen; partner Amber Flames), the
+  death_year slot declared and unestablished, the subject
+  living. The biography test suite's supersession pin is
+  inverted accordingly: answers and record must now agree
+  exactly, and any future divergence fails the suite.
+- **Five-interrogative audit of the pack.** Every core fact the
+  book depends on is elicited by a direct question: who (subject
+  q001, mother q003, father q005, partner q061), when (birth
+  year q011, death year q087), where (birthplace q012), how
+  (the parents' meeting q007, the making-of questions
+  throughout). No fact was needed during answer-writing or
+  generation that no question elicits.
+- **Identity gap (the F2 class, found and closed).** q001 asked
+  for the subject's full name as a name field; the survey
+  nowhere asked, in terms, who the biography's subject is. The
+  identity the book hangs on was therefore implied by the
+  pack's structure rather than stated as respondent data.
+  Correction, on the family-history pattern: q001 now asks the
+  identity question explicitly in the genre's form (who is the
+  subject of this biography, the person whose life this book
+  tells). Question id, fact slot, devices, bible key, and the
+  demo answer are unchanged in role; the pack diff is the
+  prompt and narrative job of q001 alone. Control:
+  `test_identity_question_asks_for_subject` in
+  `tests/test_biography_pack.py`, with the traceability test
+  beside it (6 of 6 facts traced, coverage 1.0).
+- **Refrain unchanged:** off for this pack, per the author's
+  explicit call of 2026-11-24.
+- **Generation results.** The corrected edition: 100 pages, one
+  per question, 30,356 words, 0 skipped, generated locally with
+  the same model and settings as the other books. Duplication:
+  1 of 100 pages (page 68) shares a full sentence verbatim with
+  the previous page, against 2 of 100 in the first edition and
+  90 of 100 in the memoir. All 10 chapter synopses are present.
+  The build was interrupted five times (three runtime kills of
+  build and server together, one dropped server connection, and
+  one wedged server slot -- the orphaned request of a crashed
+  build -- that required a server restart before a resume would
+  generate); every resume continued from `state.json` with no
+  pages regenerated and no progress lost. The defects found in
+  the finished book are:
+
+**B5a. Continuity flags: 4 candidates, all false positives.**
+- **Measured:** the build-time continuity check flagged 4
+  candidate issues: mother_name on pages 18, 20, and 85 (found
+  "Opal Reyes", "Opal Reyes", and "Onyx" against the expected
+  "Ruby Flames") and father_name on page 17 (found "Slate
+  Flames" against "Onyx Frozen").
+- **Inspection:** all four are checker false positives of the
+  E4 family. On pages 18 and 85 the text names the subject's
+  maternal grandmother correctly ("her mother Opal Reyes" --
+  Ruby's mother, born Opal Reyes); on page 17 it names Ruby's
+  father correctly ("her father, Slate Flames"); on page 20
+  the flagged "Onyx" begins the clause after "her mother," and
+  names no relation. The kinship triggers ("her mother", "her
+  father") cannot distinguish the subject's parents from the
+  parents' own parents, and the text states the grandparents'
+  names correctly in each case. The book text was not edited.
+- **Status:** recorded. No checker change was made in this
+  build: separating the two readings requires antecedent
+  resolution, not a matching rule, and a wider scan would trade
+  these flags for false positives elsewhere (the F3g trade).
+
+**B5b. Genuine errors found by reader sampling (recorded, not
+edited).**
+- **Page 100** closes the life by writing the subject's death:
+  "By 2023, when he died, he left instructions for The Cold
+  Room's future." The subject is living; the record establishes
+  no death year, and page 87 of the same book states he has not
+  died. The checker did not flag it: with death_year
+  unestablished there is no value to contradict, and the
+  lowercase "he died" falls outside the trigger set's casing.
+  This is the largest single error in the book.
+- **Page 20** misassigns a relation: "Onyx Frozen, her father"
+  (of Ruby) -- Onyx is Ruby's husband and the subject's father.
+  The checker's flag on this page (B5a) was on a different
+  sentence.
+- **Page 17** misplaces an era event: John Glenn's orbital
+  flight (1962) is given as the backdrop of the subject's birth
+  year, 2000. The continuity checker constrains bible facts
+  only; public-era detail is outside its scope.
+- **Page 96** dates a passage to 2034, a year the record does
+  not support; **page 2** sends Flint Frozen to Dallas "to join
+  his father", a relation the record does not contain.
+
+**B5c. Mid-sentence truncation, 10 of 100 pages.**
+- **Measured:** pages 10, 45, 47, 61, 71, 72, 77, 93, 96, and
+  97 end mid-sentence at the 480-token page budget -- the M3
+  class, at ten times the rate of the two previous books (1 of
+  100 each). The final page's prose ends on a complete
+  sentence.
+- **Status:** recorded as known deviations; the engine's page
+  budget behavior is unchanged.
+
+**B5d. Duplication residue, 1 of 100 pages.**
+- **Measured:** page 68 shares one full sentence with page 67
+  after the bounded regeneration was exhausted; the
+  least-duplicative attempt was kept, per the standing policy
+  recorded at B1.
 
 ## Family history — v0.3.0
 
