@@ -109,7 +109,9 @@ occur.
   deletes a chapter synopsis from a completed build's state,
   resumes, and asserts the synopsis is regenerated, no page is
   regenerated, and all page texts are byte-identical. Landed with
-  the family-history build (v0.3.0).
+  the family-history build (v0.3.0). Production verification in
+  that build: four interruptions, all 10 chapter synopses present
+  in the finished book (see F3f).
 
 ### E6. Untraced bible facts (completeness gate)
 
@@ -285,5 +287,119 @@ context.
 
 ### F3. Defects during generation
 
-Recorded at build completion; see the book's entry in the README
-and its `report.json`. (Updated as part of the v0.3.0 delivery.)
+The build ran 100 pages in 29,655 words with 0 of 100 pages
+sharing a full sentence verbatim with the previous page (against
+90 of 100 in the memoir and 2 of 100 in the biography) and all 10
+chapter synopses present. The defects found are:
+
+**F3a. Continuity checker false positives (8 of 10 flags).**
+- **Measured:** the build-time continuity check flagged 10
+  issues. Eight were checker false positives: seven flagged the
+  ordinary English word "Yet" as a one-letter drift of the
+  established name "Jet" (pages 2, 3, 9, 67, 94, 96, 97), and one
+  flagged "Flame" as a drift of "Flames" (page 15, "This is the
+  Flame family line").
+- **Root cause:** the name-drift scan flagged any capitalized
+  token at edit distance 1 from an established name token. "Yet"
+  is capitalized only because it opens a sentence, and "Flame" is
+  the singular of the plural established name, used as an
+  attributive noun.
+- **Correction:** two rules in `engine/continuity.py`. A token is
+  the same name in singular form when it is an established name
+  minus its plural "s" (mirroring the existing plural rule), and a
+  token counts as a near-miss spelling only when it shares the
+  established name's first letter or appears capitalized
+  mid-sentence. The drift excerpt now shows the flagged
+  occurrence's context instead of the page's first 120 characters.
+- **Control:** four regression tests in
+  `tests/test_continuity.py` (sentence-initial common word,
+  singular family name, genuine drift still flagged, mid-sentence
+  drift with a different first letter still flagged). Re-running
+  the repaired checker over the finished book's pages reports 2
+  issues, both genuine (F3b).
+
+**F3b. Genuine continuity errors on page 28 (recorded, not edited).**
+- **Measured:** page 28 (q028, the doctrine page) calls Jasper
+  Frozen "my father Jasper" and Coral Frozen "My mother Coral".
+  Jasper and Coral are the narrator's paternal grandparents; his
+  father is Onyx Frozen and his mother is Ruby Flames. The same
+  page elsewhere states the relations correctly ("Jasper's
+  doctrine taught my father Onyx"), so the page contradicts
+  itself. The checker caught both; the book text was not edited,
+  per the standing rule.
+- **Status:** recorded as known deviations in the README and in
+  this log.
+
+**F3c. Refrain development check failed.**
+- **Measured:** with the refrain on, the development check
+  recorded 13 recurrences of the anchor theme: 6 developed, 6
+  thematic but undeveloped (pages 2, 4, 5, 54, 78), and 1 verbatim
+  copy (page 4). Verdict: FAIL. Verbatim sentence overlap against
+  the previous page stayed 0 of 100; the failure is in
+  development, not in looping.
+- **Root cause:** the anchor returns partly as instruction echo
+  rather than developed restatement. Page 4 quotes the prompt's
+  refrain block verbatim ("The book's anchor theme was first
+  stated thusly: ..."); pages 2 and 5 frame the return as "The
+  book's anchor theme ..."; pages 53–54 echo the instruction's own
+  wording ("carrying the newer facts and shifting understanding
+  in fresh wording that means something new").
+- **Status:** recorded as a known deviation. The refrain
+  parameter's measurement worked as designed (the failure is
+  visible in the report and colophon); the generation-side
+  correction — keeping the anchor out of the model's quotable
+  text, or instructing against meta-commentary on the theme — is
+  open work for a later build, not applied to the shipped book.
+
+**F3d. Page 4 ends mid-sentence.**
+- **Measured:** page 4 is truncated mid-sentence at the 480-token
+  page budget ("...carry a legacy from Mississippi to"). Same
+  truncation class as the memoir's final page (M3), here mid-book.
+- **Status:** recorded as a known deviation; the engine's page
+  budget behavior is unchanged.
+
+**F3e. Intra-page paragraph duplication on page 28.**
+- **Measured:** one paragraph on page 28 ("Jasper's doctrine
+  taught my father Onyx patience and skill ...") appears twice
+  verbatim within the same page.
+- **Root cause:** the duplication checker measures sharing
+  between pages only; repetition inside one page is outside its
+  scope. This is a metric blind spot, not a missed flag.
+- **Status:** recorded as a known deviation.
+
+**F3f. Generation interrupted four times; no data lost.**
+- **Measured:** the build was killed four times before completion
+  (runtime restarts and process reaping; twice the model server
+  died with it, once the build crashed on a dropped server
+  connection). Each resume continued from `state.json` with no
+  pages regenerated and no progress lost. All 10 chapter synopses
+  are present in the finished book, including chapters completed
+  across interruptions — the first production evidence for the
+  E5 resume-repair.
+- **Root cause (environmental):** the interruptions were runtime
+  restarts and sandbox teardown, not engine defects. One
+  contributing pattern was established by measurement:
+  builds started from a cron worker's session died within ~30
+  minutes (twice) or ~67 seconds (once), while builds started
+  from an interactive session survived for hours; the completed
+  build ran in the foreground from an interactive session, with
+  the watchdog cron as backstop only.
+- **Control:** the resumable build plus the E5 repair pass; the
+  watchdog cron (temporary, removed at cleanup). A diagnostic gap
+  was also logged: the build prints nothing until its final
+  report, so a stalled build is indistinguishable from a dead one
+  by its log alone; `state.json` is the only progress signal.
+  Per-page progress output is open work for a later engine pass.
+
+**F3g. Unflagged date slip on page 4.**
+- **Measured:** page 4 says "My parents chose to unite their
+  families in 2000"; the record has the parents married in 1999
+  and the respondent born in 2000. The year 2000 is the birth,
+  not the joining.
+- **Root cause:** the year-contradiction scan only checks years
+  appearing next to its triggers ("born in", "I was born"); a
+  year attached to another verb is outside its scope.
+- **Status:** recorded as a known deviation; no checker change
+  was made in this build, since widening the year scan to every
+  year in the text would trade this one catch for false positives
+  on every legitimate year.

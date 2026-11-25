@@ -237,7 +237,36 @@ respondent is a separate fictional persona, as its entry states.)
   `report.json`, which also records 27 regeneration retries across
   22 pages.
 
-- Live library: both books can be read in a browser at
+- **The Keeping Book** (`books/family-history-first-book/`) — the
+  family-history pack's first book: 100 pages, one per question,
+  29,655 words, generated locally with the same model and settings
+  as the first two books (Qwen2.5-3B-Instruct Q4_K_M GGUF via
+  llama.cpp build b12651; temperature 0.8, top-p 0.95, repeat
+  penalty 1.1, 480-token page budget, single inference slot). The
+  respondent is Frozen In Flames, the series' demonstration user:
+  a fictional persona whose fabricated survey answers are drawn
+  from the canonical character record in
+  `demo/frozen-in-flames-character.json` (record version 2.0.0,
+  carrying the author's canon: born 2000 in Dallas; mother Ruby
+  Flames; father Onyx Frozen; partner Amber Flames), and the book's
+  front matter states this. The story bible extracted from the
+  answers agrees with the record fact for fact, and every one of
+  the pack's 18 typed facts traces to its source survey answer
+  (18 of 18). The pack's refrain parameter was on for this build.
+  Duplication: 0 of 100 pages share a full sentence verbatim with
+  the previous page, against 90 of 100 in the first book and 2 of
+  100 in the second. All 10 chapter synopses are present, including
+  chapters completed across the four interruptions the build
+  survived (see `DEFECTS.md`, F3f). Continuity check: 10 candidate
+  issues flagged at build time; a post-build checker repair showed
+  8 were checker false positives (seven "Yet" against "Jet", one
+  "Flame" against "Flames") and 2 were genuine text errors on page
+  28, recorded below. The refrain development check failed: 13
+  recurrences of the anchor theme, 6 developed, 6 thematic but
+  undeveloped (pages 2, 4, 5, 54, 78), and 1 verbatim copy (page
+  4); the verbatim-overlap measurement stayed at 0 of 100.
+
+- Live library: all three books can be read in a browser at
   https://frozen-in-flames.github.io/survey-to-book/, which is now a
   library index: every published book is listed with its title,
   genre, demonstration character, and page and word counts, a Read
@@ -297,6 +326,27 @@ respondent is a separate fictional persona, as its entry states.)
   mannerism (it describes its own act of introduction); the
   remaining 99 pages do not. The final page ends on a complete
   sentence.
+
+- Known deviations in the third book, recorded on the same terms:
+  (1) page 28 calls the paternal grandparents by the parents'
+  titles: "my father Jasper's words" (Jasper Frozen is the
+  narrator's grandfather; his father is Onyx Frozen) and "My
+  mother Coral's amendment" (Coral Frozen is his grandmother; his
+  mother is Ruby Flames). The continuity checker flagged both;
+  the text was not edited. (2) Page 28 repeats one paragraph
+  verbatim within the page ("Jasper's doctrine taught my father
+  Onyx patience and skill ..."); the duplication checker measures
+  sharing between pages only, so this intra-page repetition is
+  outside its scope. (3) The refrain development check failed
+  (see the book's entry above): the anchor theme returns partly as
+  instruction echo — page 4 quotes the prompt's refrain block
+  verbatim, pages 2 and 5 frame the return as "The book's anchor
+  theme ...", and pages 53–54 echo the instruction's wording about
+  "carrying the newer facts and shifting understanding in fresh
+  wording". (4) Page 4 ends mid-sentence at the 480-token page
+  budget. (5) Page 4 dates the parents' joining to 2000; the
+  record has the marriage in 1999 and the respondent's birth in
+  2000. The final page ends on a complete sentence.
 
 Each future genre pack will ship with its own first book in the same
 way, as evidence of the pack in operation. Every defect found in

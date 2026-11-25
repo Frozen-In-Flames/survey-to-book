@@ -49,6 +49,12 @@ BOOK_META = {
         "character": ("Frozen In Flames, a fictional demonstration "
                       "persona: the series' demonstration user"),
     },
+    "family-history-first-book": {
+        "slug": "the-keeping-book",
+        "genre": "Family History",
+        "character": ("Frozen In Flames, a fictional demonstration "
+                      "persona: the series' demonstration user"),
+    },
 }
 
 SERIES_NOTE = (

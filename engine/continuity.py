@@ -12,14 +12,22 @@ Two deterministic checks are applied:
    from a bible name by a small edit distance (a misspelling or a
    silently altered name) are flagged for review.
 
-Two matching rules keep the scans from producing false positives.
+Matching rules keep the scans from producing false positives.
 Trigger phrases are matched at word boundaries, so a trigger such as
 "Father" does not match inside "grandfather" and "Mother" does not
 match inside "grandmother": a name attached to a grandparent is a
-claim about the grandparent, not about the parent. And a token that
-is an established name plus a plural "s" (the family name "Calloways"
+claim about the grandparent, not about the parent. A token that is an
+established name plus a plural "s" (the family name "Calloways"
 against the established "Calloway") is the same name in plural form,
-not a misspelling.
+not a misspelling, and the reverse also holds: the singular form of
+a plural established name ("Flame" against "Flames", used as an
+attributive noun) is the same name. And a capitalized token is only
+treated as a near-miss spelling of an established name when it
+shares the name's first letter or appears capitalized somewhere
+other than the start of a sentence: an ordinary English word such
+as "Yet" is capitalized only because it opens a sentence, and it
+sits one edit from a short established name such as "Jet" by
+coincidence, not by misspelling.
 
 The checker is deliberately conservative: it flags candidate problems
 with page references and excerpts rather than asserting certainty.
@@ -152,16 +160,32 @@ def check_continuity(pages: list[dict], facts: dict[str, dict]) -> list[dict]:
     established = [t for t in established if len(t) > 2]
     if established:
         for page in pages:
-            seen_tokens = set(_NAME_TOKEN_RE.findall(page["text"]))
-            for token in seen_tokens:
+            text = page["text"]
+            occurrences: dict[str, list["re.Match[str]"]] = {}
+            for m in _NAME_TOKEN_RE.finditer(text):
+                occurrences.setdefault(m.group(0), []).append(m)
+            for token, matches in occurrences.items():
                 # A plural of an established name ("Calloways" for
-                # "Calloway") is the same name, not a misspelling.
+                # "Calloway") is the same name, not a misspelling;
+                # so is the singular of a plural established name
+                # ("Flame" for "Flames").
                 if any(token.lower() == ref.lower() + "s"
+                       or ref.lower() == token.lower() + "s"
                        for ref in established):
                     continue
+                # A token counts as name-capitalized only if it
+                # appears somewhere other than a sentence start: a
+                # common word is capitalized at a sentence start by
+                # position, not because it is a name.
+                mid_sentence = any(
+                    _is_mid_sentence(text, m.start())
+                    for m in matches)
                 for ref in established:
                     if token != ref and _levenshtein(token.lower(),
-                                                     ref.lower()) == 1:
+                                                     ref.lower()) == 1 \
+                            and (token[0].lower() == ref[0].lower()
+                                 or mid_sentence):
+                        first = matches[0]
                         issues.append({
                             "type": "name_drift",
                             "fact_slot": None,
@@ -169,9 +193,28 @@ def check_continuity(pages: list[dict], facts: dict[str, dict]) -> list[dict]:
                             "found": token,
                             "page_index": page["index"],
                             "question_id": page["question_id"],
-                            "excerpt": page["text"][:120],
+                            "excerpt": text[max(0, first.start() - 60):
+                                            first.end() + 60].strip(),
                         })
+    return _dedup_issues(issues)
 
+
+def _is_mid_sentence(text: str, start: int) -> bool:
+    """True if the token at ``start`` is capitalized mid-sentence.
+
+    Walk back over whitespace and closing punctuation; a token is
+    sentence-initial when nothing precedes it, or when the preceding
+    substantive character ends a sentence (``.``, ``!``, ``?``).
+    """
+    i = start - 1
+    while i >= 0 and text[i] in " \t\n\"'`)]}":
+        i -= 1
+    if i < 0:
+        return False
+    return text[i] not in ".!?"
+
+
+def _dedup_issues(issues: list[dict]) -> list[dict]:
     # Several triggers can match the same sentence; report each
     # distinct problem once.
     deduped: list[dict] = []
