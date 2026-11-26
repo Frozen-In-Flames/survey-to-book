@@ -562,3 +562,165 @@ chapter synopses present. The defects found are:
   was made in this build, since widening the year scan to every
   year in the text would trade this one catch for false positives
   on every legitimate year.
+
+## Cookbook — "The Keeping Table" (v0.4.0)
+
+The build ran 100 pages in 30,488 words with all 10 chapter
+synopses present. The pack's refrain parameter was off for this
+build, by the pack's deliberate default: a cookbook's pages are
+modular (one recipe or food memory per answer), and its native
+recurrence is the dish, technique, or house rule returning in
+new material — content carried by the answers, not an anchor
+theme the prompt restates. The family's doctrine appears in
+the book as answer content (planted at q009, restated by the
+respondent at q094). The verbatim duplication guard applied in
+full. The defects found are:
+
+### C1. Survey-completeness under the clean-proof rule (no gaps found)
+
+- **Measured:** the cookbook pack was authored under the
+  completeness gate from the start. The five-interrogative
+  audit (who, what, when, where, how) over the core facts the
+  book depends on found each elicited by a direct question:
+  who (the cook, by the identity question q003 in the genre's
+  form — who is the main character of this cookbook, the cook
+  whose kitchen this book comes from; the mother q004; the
+  father q005; the two lines' matriarchs q011, q021; the
+  partner q071), what (the practice itself: doctrine q009,
+  purpose q010, the dishes and techniques throughout), when
+  (birth year q006; the studio's founding year q061), where
+  (birthplace q007; the two lines' origin places q012, q022),
+  how (the techniques chapter and the method questions
+  throughout). The identity corollary was satisfied by
+  construction: q003 asks for the main character in terms,
+  sits in chapter 1, and declares subject_name.
+- **Control:** the traceability test measures coverage at 13
+  of 13 facts traced to survey answers; no fact was needed
+  during answer-writing or generation that no question
+  elicits. The studio_year fact (2022) traces to q061 and
+  agrees with the canonical record's defining events.
+
+### C2. Duplication residue, 5 of 100 pages
+
+- **Measured:** pages 7, 12, 48, 88, and 91 each share one
+  full sentence verbatim with the previous page (5 of 100,
+  against 0 of 100 in the family history, 1 of 100 in the
+  corrected biography, and 90 of 100 in the memoir). The
+  report records 20 regeneration retries across 15 pages.
+  The five surviving shared sentences are generic connective
+  sentences (one is a recipe-instruction fragment on page
+  48); none carries a fact.
+- **Root cause:** on those five pages the bounded
+  regeneration was exhausted; per policy the
+  least-duplicative attempt was kept rather than discarding
+  the page.
+- **Control:** the outcome is recorded per page in the
+  build's state and named here and in the README; the bound
+  (bounded retries, keep the least-duplicative attempt,
+  record the exception) is the standing policy recorded at
+  B1. A related measurement came back clean for the first
+  time in the series: no page repeats a sentence within
+  itself (0 of 100), so the intra-page blind spot recorded
+  at F3e did not occur in this book.
+
+### C3. Mid-sentence truncation, 25 of 100 pages
+
+- **Measured:** 25 of 100 pages end mid-sentence at the
+  480-token page budget (pages 9, 12, 13, 15, 21, 26, 28,
+  29, 45, 46, 47, 49, 54, 55, 59, 63, 65, 66, 75, 81, 82,
+  83, 93, 97, 98) — the M3 class, at the highest rate in the
+  series (memoir 1 of 100, corrected biography 10 of 100,
+  family history 1 of 100). The final page ends on a
+  complete sentence.
+- **Root cause:** the engine accepts a page that meets the
+  minimum length rather than extending generation to a
+  sentence boundary (as at M3); the cookbook's dense pages
+  — recipes with ingredient lists, inventories, technique
+  enumerations — consume the token budget faster than prose
+  pages, so this genre reaches the budget most often.
+- **Status:** recorded as known deviations; the engine's
+  page budget behavior is unchanged.
+
+### C4. Continuity checker false positive (1 of 1 flags)
+
+- **Measured:** the build-time continuity check flagged 1
+  candidate issue: name drift on page 53, expected "Ruby",
+  found "Rub" — the verb that opens the brisket recipe's
+  second step ("Rub the brisket with equal parts coarse
+  salt and pepper").
+- **Root cause:** the drift scan's near-miss rule (F3a)
+  admits a token that shares an established name's first
+  letter at edit distance 1; "Rub" is "Ruby" minus its
+  final letter, and it stands capitalized at a list step's
+  start. The text is correct; the flag is the checker's.
+- **Status:** recorded. No checker change was made in this
+  build: distinguishing an imperative verb from a name
+  requires part-of-speech context, not a matching rule, and
+  narrowing the rule would trade this flag for missed
+  genuine drift elsewhere (the B5a/F3g trade).
+
+### C5. Genuine errors found by reader sampling (recorded, not edited)
+
+- **Page 53 (the brisket recipe)** renders the rub as "6
+  pounds coarse salt, 6 pounds coarse black pepper" for a
+  twelve-pound brisket: the answer's "coarse salt and
+  coarse black pepper, equal by weight, and nothing else"
+  — equal to each other, as a rub — misread as halves of
+  the meat's weight. The same page substitutes an oven for
+  the answer's oak-fired pit, and appends an unrelated
+  section ("Technique Lesson: Knife Work", drawn from
+  q041's material) after the recipe's yield. The other
+  nine signature-dish pages render as single cookable
+  recipes.
+- **Page 100** attributes the closing dish, the pot beans,
+  to "Ruby Flames' teachings"; the dish is Pearl Frozen's,
+  established at q052 as the Frozen matriarch's recipe,
+  and the same page gives the narrator a "first memory
+  from her kitchen" although the record states Pearl died
+  in 1999, the year before the narrator was born. The
+  continuity checker did not flag either: dish attribution
+  and remembered acquaintance are not typed facts, the
+  same scope limit recorded at M2 and B5b.
+
+### C6. Meta-narrative openings, 20 of 100 pages
+
+- **Measured:** 20 of 100 pages open with chapter-or-book
+  meta phrasing ("In this chapter…", "In this book…",
+  "This chapter…"), including page 1 — the mannerism
+  recorded at B3 (there measured on 1 page of 100) at a
+  higher rate in this genre. Several such openings restate
+  the question's narrative job nearly verbatim (page 50:
+  "we close the techniques chapter with our family's
+  doctrine as kitchen method").
+- **Root cause:** the page prompt carries the slot's
+  narrative job and position, and the model echoes them as
+  an opening frame; recipe and technique pages, whose jobs
+  are the most formulaic, echo most.
+- **Status:** recorded as a known deviation; not edited.
+
+### C7. Generation interrupted five times; no data lost
+
+- **Measured:** the build was killed five times before
+  completion (runtime restarts killing build and server
+  together), at state checkpoints of 16, 41, 60, 69, and 90
+  pages. Each resume continued from `state.json` with no
+  pages regenerated and no progress lost; the state file's
+  page sequence was verified contiguous (q001–q100) at the
+  end. All 10 chapter synopses are present in the finished
+  book, including chapters completed across interruptions —
+  further production evidence for the E5 resume-repair. One
+  additional resume attempt failed before starting: the
+  first restart had wiped /tmp, taking the build's runner
+  script with it, and the relaunched command failed on the
+  missing file while the server sat healthy; the loss cost
+  one monitoring cycle (~28 minutes) and no data.
+- **Root cause (environmental):** the interruptions were
+  runtime restarts and sandbox teardown, not engine
+  defects. The /tmp failure is a placement defect: a
+  resumable build's runner is part of the build and belongs
+  in durable storage.
+- **Control:** the resumable build plus the E5 repair pass;
+  the runner script now lives in the goal workspace
+  (`~/workspace/goals/survey-to-book-generator/hidden_files/`),
+  outside /tmp, and this log records the rule for future
+  genre builds.

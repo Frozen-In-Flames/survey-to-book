@@ -55,6 +55,12 @@ BOOK_META = {
         "character": ("Frozen In Flames, a fictional demonstration "
                       "persona: the series' demonstration user"),
     },
+    "cookbook-first-book": {
+        "slug": "the-keeping-table",
+        "genre": "Cookbook",
+        "character": ("Frozen In Flames, a fictional demonstration "
+                      "persona: the series' demonstration user"),
+    },
 }
 
 SERIES_NOTE = (

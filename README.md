@@ -141,7 +141,7 @@ build continues from the first ungenerated page.
 
 ## Genre packs
 
-Three packs ship in this release:
+Four packs ship in this release:
 
 - **memoir** (v1.1.0): 101 questions in 10 chapters (chapter 1
   carries 11), ordered as a life arc (origins, childhood home,
@@ -197,6 +197,35 @@ Three packs ship in this release:
   generations, developed in each era, is this genre's native
   structure, bounded by the verbatim guard and the development
   check.
+
+- **cookbook** (v1.0.0): 100 questions in 10 chapters of 10,
+  whose subject is a practice rather than a life or a lineage:
+  one cook's cooking, inherited from two family lines' kitchens
+  and practiced in his household and in his recording studio.
+  The structure is the genre's own: the cook and the two
+  kitchens (their matriarchs, origins, and rules), the working
+  kitchen (pantry, techniques), the table (ten signature
+  dishes rendered whole as cookable recipes, the studio's
+  feeding, occasions), and keeping and handing on
+  (preservation, teaching). Framework: first-person cook's
+  voice, a thirteen-device library (recipe rendering,
+  technique lesson, provenance note, preservation method,
+  substitution craft, failure and repair, pantry inventory,
+  among them), and thirteen typed fact slots — the two line
+  names, the cook, both parents, the two matriarchs and the
+  two origin places, the cook's birth year and birthplace,
+  the studio's founding year, and the partner. Every fact
+  slot is elicited by a direct question, and the pack's test
+  suite proves each extracted fact traces to its source
+  answer (13 of 13). Refrain default: off, chosen
+  deliberately: a cookbook's pages are modular, one recipe or
+  food memory per answer, and its native recurrence is the
+  dish, the technique, or the house rule returning in new
+  material — content carried by the answers themselves, not
+  an anchor theme the prompt restates. The family's doctrine
+  appears in the book as answer content (planted at q009,
+  restated by the respondent at q094), and the verbatim
+  duplication guard applies in full.
 
 Additional genre packs are added one at a time as updates to this
 same application; the engine is genre-agnostic and loads any pack
@@ -291,7 +320,42 @@ respondent is a separate fictional persona, as its entry states.)
   undeveloped (pages 2, 4, 5, 54, 78), and 1 verbatim copy (page
   4); the verbatim-overlap measurement stayed at 0 of 100.
 
-- Live library: all three books can be read in a browser at
+- **The Keeping Table** (`books/cookbook-first-book/`) — the
+  cookbook pack's first book: 100 pages, one per question,
+  30,488 words, generated locally with the same model and
+  settings as the other books (Qwen2.5-3B-Instruct Q4_K_M
+  GGUF via llama.cpp build b12651; temperature 0.8, top-p
+  0.95, repeat penalty 1.1, 480-token page budget, single
+  inference slot). The respondent is Frozen In Flames, the
+  series' demonstration user: a fictional persona whose
+  fabricated survey answers are drawn from the canonical
+  character record in `demo/frozen-in-flames-character.json`
+  (record version 2.0.0, carrying the author's canon: born
+  2000 in Dallas; mother Ruby Flames; father Onyx Frozen;
+  partner Amber Flames), and the book's front matter states
+  this. The story bible extracted from the answers agrees
+  with the record fact for fact, and every one of the pack's
+  13 typed facts traces to its source survey answer (13 of
+  13; the studio's founding year, 2022, traces to the
+  record's defining events). The pack's refrain parameter
+  was off for this build. Duplication: 5 of 100 pages share
+  a full sentence verbatim with the previous page (pages 7,
+  12, 48, 88, 91, one sentence each, after the bounded
+  regeneration was exhausted; 20 regeneration retries across
+  15 pages), against 0 of 100 in the third book, 1 of 100 in
+  the second, and 90 of 100 in the first. No page repeats a
+  sentence within itself. All 10 chapter synopses are
+  present, across the five interruptions the build survived
+  (see `DEFECTS.md`, C7). Continuity check: 1 candidate
+  issue flagged at build time; inspection showed it was a
+  checker false positive (the verb "Rub" in the brisket
+  recipe, flagged as a drift of the name "Ruby"). The ten
+  signature-dish pages render as cookable recipes —
+  ingredients with quantities, method in order, yield — and
+  reader-level sampling found the genuine errors recorded
+  in the deviations below.
+
+- Live library: all four books can be read in a browser at
   https://frozen-in-flames.github.io/survey-to-book/, which is now a
   library index: every published book is listed with its title,
   genre, demonstration character, and page and word counts, a Read
@@ -375,6 +439,29 @@ respondent is a separate fictional persona, as its entry states.)
   record has the marriage in 1999 and the respondent's birth in
   2000. The final page ends on a complete sentence.
 
+- Known deviations in the fourth book, recorded on the same
+  terms: (1) 25 of 100 pages end mid-sentence at the 480-token
+  page budget (pages 9, 12, 13, 15, 21, 26, 28, 29, 45, 46,
+  47, 49, 54, 55, 59, 63, 65, 66, 75, 81, 82, 83, 93, 97, 98)
+  — the truncation class of the first book's M3 at the
+  highest rate in the series; the cookbook's dense recipe
+  and list pages reach the budget most often. The final page
+  ends on a complete sentence. (2) Page 53 renders the
+  brisket rub as six pounds of coarse salt and six pounds of
+  coarse black pepper for a twelve-pound brisket — the
+  answer's "equal parts" of salt and pepper misread as
+  halves of the meat's weight — substitutes an oven for the
+  answer's oak-fired pit, and appends an unrelated technique
+  section (knife work) after the recipe. (3) Page 100
+  attributes the pot beans to Ruby's teaching; the dish is
+  Pearl Frozen's, the Frozen line's matriarch, and the same
+  page gives the narrator a first memory from Pearl's
+  kitchen although the record states she died in 1999, the
+  year before he was born. (4) Twenty of 100 pages open with
+  chapter-or-book meta phrasing ("In this chapter…", "In
+  this book…"), the opening mannerism of the second book's
+  B3 at a higher rate.
+
 Each future genre pack will ship with its own first book in the same
 way, as evidence of the pack in operation. Every defect found in
 any book, and the correction applied to the code for each, is
@@ -423,7 +510,8 @@ material.
   bible, prompt assembly and sequential generation, continuity
   checking, Markdown export, CLI).
 - `packs/` — genre packs. `packs/memoir.json`,
-  `packs/biography.json`, and `packs/family-history.json` are
+  `packs/biography.json`, `packs/family-history.json`, and
+  `packs/cookbook.json` are
   generated from the builders in `tools/`.
 - `DEFECTS.md` — the defect-and-correction log: every defect found
   per genre and per book, as measured, with its root cause, the
