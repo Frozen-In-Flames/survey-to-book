@@ -141,7 +141,7 @@ build continues from the first ungenerated page.
 
 ## Genre packs
 
-Four packs ship in this release:
+Five packs ship in this release:
 
 - **memoir** (v1.1.0): 101 questions in 10 chapters (chapter 1
   carries 11), ordered as a life arc (origins, childhood home,
@@ -226,6 +226,43 @@ Four packs ship in this release:
   appears in the book as answer content (planted at q009,
   restated by the respondent at q094), and the verbatim
   duplication guard applies in full.
+
+- **short-story-collection** (v1.0.0): 100 questions in 10
+  chapters of 10, whose subject is a teller and his material:
+  one hundred standalone stories drawn from one life — the
+  front room where his mother taught, his father's repair
+  shop, the recording studio he founded, the road, the
+  family's inherited tales — each story answerable on its own
+  and the whole held together by cast, place, and voice
+  rather than by plot. The structure follows the telling:
+  the teller, the shop, and the front room; the work (first
+  work, the studio, the fire and the rebuilding); the world
+  (the road, strangers, the family telling); and last
+  stories. Framework: first-person storyteller's voice (past
+  tense for the stories, present for the teller's frame), a
+  thirteen-device library (story rendering, scene opening,
+  character sketch, dialogue beats, object anchor, turning
+  point, ending line, inherited tale, frame voice, sensory
+  palette, place portrait, time frame, chapter turn), and
+  ten typed fact slots — the two line names, the subject's
+  name, both parents' names, the subject's birth year and
+  birthplace, the sister's name, the partner's name, and the
+  studio's founding year. Every fact slot is elicited by a
+  direct question, and the pack's test suite proves each
+  extracted fact traces to its source answer (10 of 10). The
+  survey opens its first chapter by asking, in terms, who the
+  main character of the collection is (q003). Refrain
+  default: off, chosen deliberately: a collection's stories
+  stand alone, and its native recurrence is the cast, the
+  places, and the voice returning in new material — content
+  carried by the answers themselves. The engine's anchor
+  mechanism takes the first page's opening sentences as its
+  theme, and this pack's first page is a fact-fixing
+  family-name page, not a theme, so an imposed anchor would
+  weld standalone stories into a false arc. The family's
+  doctrine appears in the book as answer content (planted at
+  q010, restated by the respondent in chapter 10), and the
+  verbatim duplication guard applies in full.
 
 Additional genre packs are added one at a time as updates to this
 same application; the engine is genre-agnostic and loads any pack
@@ -355,7 +392,44 @@ respondent is a separate fictional persona, as its entry states.)
   reader-level sampling found the genuine errors recorded
   in the deviations below.
 
-- Live library: all four books can be read in a browser at
+- **The Day Book** (`books/short-story-collection-first-book/`) —
+  the short story collection pack's first book: 100 pages, one
+  per question, 30,972 words, generated locally with the same
+  model and settings as the other books (Qwen2.5-3B-Instruct
+  Q4_K_M GGUF via llama.cpp build b12651; temperature 0.8,
+  top-p 0.95, repeat penalty 1.1, 480-token page budget,
+  single inference slot). The respondent is Frozen In Flames,
+  the series' demonstration user: a fictional persona whose
+  fabricated survey answers are drawn from the canonical
+  character record in `demo/frozen-in-flames-character.json`
+  (record version 2.0.0, carrying the author's canon: born
+  2000 in Dallas; mother Ruby Flames; father Onyx Frozen;
+  partner Amber Flames), and the book's front matter states
+  this. The story bible extracted from the answers agrees
+  with the record fact for fact, and every one of the pack's
+  10 typed facts traces to its source survey answer (10 of
+  10). The pack's refrain parameter was off for this build,
+  deliberately (see the pack entry above). Duplication: 0 of
+  100 pages share a full sentence verbatim with the previous
+  page, against 5 of 100 in the fourth book, 0 of 100 in the
+  third, 1 of 100 in the second, and 90 of 100 in the first;
+  measured against any earlier page, 7 pages share at least
+  one sentence with an earlier page (the front-room setting
+  description recurring), and 3 pages repeat a sentence
+  within the page (see `DEFECTS.md`, S2). 10 regeneration
+  retries across 10 pages. All 10 chapter synopses are
+  present, across the five interruptions the build survived
+  (see `DEFECTS.md`, S8). Continuity check: 0 candidate
+  issues flagged at build time, the first book in the series
+  with none. Subject-gender audit (the new permanent check
+  recorded at `DEFECTS.md`, S7): of 458 sentences carrying a
+  female pronoun or role word, 1 refers to the narrator with
+  a female role word (page 100) and 2 more are probable
+  instances; the rest refer to the female cast or other
+  women. Reader-level sampling found the genuine errors
+  recorded in the deviations below.
+
+- Live library: all five books can be read in a browser at
   https://frozen-in-flames.github.io/survey-to-book/, which is now a
   library index: every published book is listed with its title,
   genre, demonstration character, and page and word counts, a Read
@@ -461,6 +535,36 @@ respondent is a separate fictional persona, as its entry states.)
   chapter-or-book meta phrasing ("In this chapter…", "In
   this book…"), the opening mannerism of the second book's
   B3 at a higher rate.
+
+- Known deviations in the fifth book, recorded on the same
+  terms: (1) 25 of 100 pages end mid-sentence at the
+  480-token page budget (pages 2, 3, 6, 8, 9, 15, 16, 23, 24,
+  39, 41, 44, 50, 54, 55, 58, 60, 61, 70, 71, 90, 91, 92, 98,
+  99), tying the fourth book's rate as the highest in the
+  series; the final page ends on a complete sentence.
+  (2) Seven pages share at least one full sentence with some
+  earlier page (the front-room setting description recurring
+  on non-adjacent pages, which the previous-page duplication
+  guard cannot see), and 3 pages repeat a sentence within
+  the page. (3) Page 100 genders the narrator female once —
+  "Ruby's son and Onyx's daughter" — the instance class the
+  author found in the third book, caught here by the new
+  subject-gender audit (`DEFECTS.md`, S7), which also records
+  2 probable instances (pages 76 and 94). (4) Page 24 places
+  the narrator, aged three, at the 1998 pedal incident, two
+  years before his birth; page 100 brings him to the same
+  evening and scrambles his parents' relation ("my mother
+  played the organ again, this time as her wife"). (5)
+  Page 30 gives the narrator a daughter the record does not
+  contain (the answer's pupil, a drummer's daughter, becomes
+  "my daughter"); page 46 reassigns Amber's line about the
+  room to the narrator and invents a proposal scene; page 51
+  inverts the fire's survival facts (the office and the metal
+  cabinet the answers say stood and saved the record are
+  rendered as taken by the fire). (6) Page 10 echoes the
+  build's framing language ("This sentence is planted as
+  content in every story of this book…"), and page 1 invents
+  a year (a fire in 1916) the record does not contain.
 
 Each future genre pack will ship with its own first book in the same
 way, as evidence of the pack in operation. Every defect found in

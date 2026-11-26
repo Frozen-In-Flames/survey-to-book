@@ -724,3 +724,229 @@ full. The defects found are:
   (`~/workspace/goals/survey-to-book-generator/hidden_files/`),
   outside /tmp, and this log records the rule for future
   genre builds.
+
+## Short story collection — "The Day Book" (v0.5.0)
+
+The fifth book was audited on completion (Nov 26, 2026) the
+same way as the first four: report figures first, then
+reader-level sampling of pages against their source answers,
+then the new subject-gender audit recorded at S7. The refrain
+parameter was off for this build, deliberately: a short story
+collection's stories stand alone, and its native recurrence is
+the shared cast, the shared places, and the teller's voice,
+all carried by the answers themselves; the engine's anchor
+mechanism takes the first page's opening sentences as the
+theme, and this book's first page is a fact-fixing family-name
+page, not a theme, so an imposed anchor would have welded
+standalone stories into a false arc. The family's doctrine
+appears in the book as answer content (planted at q010,
+restated by the respondent in chapter 10) and surfaces in the
+generated text on 4 pages (q010, q056, q085, q099) without any
+anchor being imposed. No generated page was edited; the
+genuine errors found are recorded, not fixed.
+
+- **S1. Completeness audit: no gaps.** The five-W audit of the
+  pack found every W covered by direct questions: who (the
+  teller's identity and family in chapter 1, the cast of the
+  front room, shop, and studio across chapters 2–5), what (the
+  telling and the work, carried by the thirteen-device
+  library), when (story-time frames in chapters 1, 6, and 9
+  and the record's years throughout), where (the Dallas house,
+  the repair shop, the Cold Room studio, the road, Chicago,
+  Fort Worth), and how (the device library and the frame
+  voice). No question had to be asked outside the survey, so
+  the clean-proof rule added nothing. The identity question
+  the rule requires is q003 in chapter 1, asking who the main
+  character of the collection is, in terms. Traceability gate:
+  the pack declares ten typed facts (the two line names, the
+  subject's name, both parents' names, the subject's birth
+  year and birthplace, the sister's name, the partner's name,
+  the studio's founding year), each elicited by a direct
+  question, and the pack's test suite proves each extracted
+  fact traces to its source answer: 10 of 10. The story bible
+  extracted from the answers agrees with the character record
+  (v2.0.0) fact for fact, and the 100 demonstration answers
+  passed their own consistency check against the record
+  (names, record-supported years only, the crystal/gem naming
+  law, the doctrine verbatim) before generation.
+
+- **S2. Duplication: the previous-page measure is clean; the
+  non-adjacent measure is not.** 0 of 100 pages share a full
+  sentence verbatim with the previous page — the headline
+  measure, against 90 of 100 in the first book, 1 of 100 in
+  the second (corrected edition), 0 of 100 in the third, and
+  5 of 100 in the fourth. Measured against any earlier page
+  rather than only the previous one, 7 pages share at least
+  one full sentence with an earlier page (q045: 1, q056: 1,
+  q060: 4, q070: 1, q078: 1, q093: 2, q099: 2; 12 shared
+  instances in all). The recurrent material is the front-room
+  setting description, the collection's shared place: two
+  sentences each appear on 3 pages ("My mother inherited the
+  room where she fed pupils like me while teaching them, her
+  hands steady as if carved from stone against the rhythmic
+  keys." and "Ruby Flames set this layout when she taught
+  generations of children, ensuring teaching and feeding were
+  interwoven."). This is the non-adjacent form of the
+  repetition the verbatim guard was built against: the guard
+  compares each page to its predecessor only, so a setting
+  re-described in the same words twenty pages later passes.
+  Bounded regeneration: 10 duplication retries across 10
+  pages (the cookbook needed 20 across 15). Intra-page
+  repetition, the F3e blind spot, recurs: 3 pages repeat a
+  sentence within the page (q022 repeats two sentences twice
+  each; q027 and q032 repeat one each). The cookbook had
+  none; the family history had one page. **Control:**
+  recorded, not repaired in the text. The candidate engine
+  control — extend the duplication measurement to any earlier
+  page and to within-page repetition, with bounded
+  regeneration keyed to both — is noted for the engine
+  backlog and was not built in this release.
+
+- **S3. Truncation: 25 of 100 pages end mid-sentence.** The
+  M3/F3d/C3 class, unchanged: pages 2, 3, 6, 8, 9, 15, 16, 23,
+  24, 39, 41, 44, 50, 54, 55, 58, 60, 61, 70, 71, 90, 91, 92,
+  98, and 99 end without terminal punctuation at the
+  480-token page budget (verified by reading the page ends;
+  page 2 ends "each story's details se", page 99 ends "As").
+  The rate ties the cookbook's 25 of 100 as the highest in
+  the series (memoir 1, corrected biography 10, family
+  history 1). The final page ends on a complete sentence.
+  The budget was left at 480 tokens for series comparability.
+  **Control:** none applied in this release beyond recording;
+  the class remains the top open engine defect, and its
+  candidate controls (sentence-boundary completion at the
+  budget, or a larger budget with the comparability cost
+  stated) stay as recorded at C3.
+
+- **S4. Continuity: no flags, and the scope limit stated.**
+  The build's continuity check flagged 0 candidate issues —
+  the first book in the series with none (memoir 17 flagged
+  pre-repair, biography 4, family history 10, cookbook 1; all
+  but two of those, across the series, were checker false
+  positives). There were therefore no flags to inspect. The
+  clean report is not evidence of a clean book: the checker
+  constrains typed facts and kinship triggers, and the
+  reader sampling at S5 found genuine errors of classes
+  outside its scope — timeline presence, invented relations,
+  inverted survival facts — as did the new gender audit at
+  S7. **Control:** no checker change in this release; the
+  scope statement is the control, so no future release reads
+  a zero-flag report as a correctness claim.
+
+- **S5. Genuine errors found by reader sampling (recorded,
+  not edited).** Sampling read pages against their source
+  answers across all ten chapters, and the S7 extraction read
+  doubled as a whole-book skim. Genuine deviations: (1)
+  page 10 echoes the build's own framing language ("This
+  sentence is planted as content in every story of this
+  book…") — an instruction echo of the same class as the
+  family history's refrain echoes. (2) Page 24 places the
+  narrator at the pedal incident "only three years old"; the
+  record dates the incident to 1998, two years before his
+  birth in 2000, and the answer frames it as the founding
+  story of his parents' meeting, before he existed. Page 100
+  repeats the error, bringing him to the social "later" that
+  same evening. (3) Page 30 turns the drummer's daughter,
+  enrolled for lessons in the answer, into "my daughter" —
+  the narrator is given a child the record does not contain.
+  (4) Page 46 gives the narrator the line the answer gives
+  Amber (that the room "had a face"), renders her dismissive
+  of it, and invents a proposal scene at the first session's
+  end; the answer's courtship is gradual, the marriage the
+  following year. (5) Page 51 inverts the fire's survival
+  facts: the page has the fire take the office and the metal
+  cabinet; the answers and the record have the office stand
+  and the cabinet save the log and the gospel tape. (6)
+  Page 82 merges the founder's arrival into the narrator's
+  ("she began the family Bible in 1949, the year of my
+  arrival"); page 84 garbles Pearl Frozen's dates ("I was
+  born after she died in the same year"; the record: she
+  died in 1999, he was born in 2000). (7) Page 100 scrambles
+  the parents' relation ("my mother played the organ again,
+  this time as her wife"). (8) Page 1's grandmother's tale
+  mentions "that big fire in 1916", a year the record does
+  not contain: the answers' year discipline does not bind
+  the generated text. Against these, many pages track their
+  answers closely — pages 77, 95, and 99 follow theirs
+  nearly word for word — and the deviations concentrate in
+  the frame and retelling pages, where the model composes
+  transitions the answers do not supply.
+
+- **S6. Meta-narrative openings: absent in the strict form.**
+  0 of 100 pages open with the chapter-or-book meta formula
+  ("In this chapter…", "This chapter…") that marked 20 of
+  100 cookbook pages (see C-section deviations and the second
+  book's B3). A broader scan finds 3 first sentences that
+  mention the collection at all: page 10's mention is a
+  subordinate clause inside a scene opening ("…I remember
+  why this collection exists"), page 96 opens "In 2023, as
+  we neared the end of our collection, …" (the year is also
+  unsupported by its answer, which dates the story only to
+  the studio's first year), and page 99's opening mirrors
+  its own answer's stated frame ("What This Collection Is
+  For"), by the answer's design. **Control:** none needed;
+  recorded so the mannerism's rate is on the series record
+  book by book.
+
+- **S7. Subject pronoun/gender consistency: a new permanent
+  failsafe, and this book does not clear it at zero.** Origin:
+  the author read the third book, The Keeping Book, and found
+  the text gendering the subject Frozen In Flames female in
+  places (Nov 25, 2026). The canonical record is unambiguous
+  that the character is male (record v2.0.0; the family-
+  history book's own front matter says "his"), and the
+  continuity checker has no subject-gender check, which is
+  how the instances shipped; the same class in reverse was
+  recorded in the first book (the model rendered its narrator
+  male against a female source answer) as outside the
+  checker's scope. The check, now permanent for the series:
+  extract every sentence of the finished manuscript that
+  contains a female pronoun (she, her, hers, herself) or a
+  female role word (daughter, sister, wife, mother, woman,
+  girl, and their kin), classify each by referent against the
+  book's cast, and report how many attach a female reference
+  to the subject or narrator, with samples. The extractor
+  lives with the build tooling
+  (`~/workspace/goals/survey-to-book-generator/hidden_files/audit_subject_gender.py`);
+  classification is the auditor's, sentence by sentence. This
+  book: 458 marker sentences extracted across 100 pages; 455
+  refer to the female cast (the mother, the sister, the
+  partner, the lines' matriarchs) or to other women in the
+  stories. Definite subject instances: 1 — page 100: "When I,
+  Ruby's son and Onyx's daughter, arrived later at the social
+  to see what damage my mother had caused, she smiled with
+  pride…" The narrator names himself his father's daughter
+  in the same breath as his mother's son, on the book's
+  final page. Probable instances: 2 — page 76: "In the
+  studio, where she was known for dates kept, I learned the
+  hard way that not everything could be fixed in a day or
+  even a week." (being known for dates kept is the narrator's
+  own established trait, from his answer; no female referent
+  in the passage fits it); page 94: "That night, I sat at my
+  father's bench in the front room of our house, a piano
+  teacher and church organist herself." (the appositive
+  grammatically attaches the mother's female-marked roles to
+  "I"). **Control:** the audit runs on every future book
+  before release and its result is a required line in the
+  release report alongside duplication, continuity, and
+  traceability; no generated text is edited under it. The
+  follow-up the check prescribes for the third book: run the
+  same extraction and full classification over The Keeping
+  Book (extraction yields 394 marker sentences; targeted
+  scans did not isolate the author's instances, which sit in
+  mixed company among the legitimately female cast, so the
+  full classification is the required next step; the author's
+  reader finding stands as this failsafe's origin).
+
+- **S8. The build was interrupted five times; nothing was
+  lost.** The generation process was killed by runtime
+  restarts at saved-state checkpoints of 30, 55, 77, 91, and
+  99 pages — the last one page short of completion. Each
+  resume reloaded `state.json` and continued with the next
+  unanswered question; no page was generated twice, no
+  chapter synopsis is missing, and the final book is complete
+  at 100 pages. The runner script lived in the goal workspace
+  throughout, per the C7 rule, and the only scratch at risk
+  was the S7 extraction in /tmp, which the audit tool
+  regenerates from the manuscript. **Control:** the C7
+  control held under five interruptions; no change.

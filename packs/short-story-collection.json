@@ -1,0 +1,1597 @@
+{
+ "genre": "short-story-collection",
+ "version": "1.0.0",
+ "framework": {
+  "voice": "First-person storyteller's voice: the respondent telling stories from his own life and his family's telling, plain and concrete, led by objects and places, exact about years and names. A story page must be a story whole: an opening situation, the incident, the turn, and the ending the story actually had -- not a summary of one, and not a scene that stops where the story should start. A frame page must know the difference between what the teller witnessed and what the telling hands down, and say which is which.",
+  "pov": "first person",
+  "refrain": false,
+  "tense": "past tense for the stories themselves, present tense for the teller's frame -- where he stands now, telling them",
+  "page_target_words": 250,
+  "global_instructions": "Transform the respondent's answers into a story collection in the first person: one story or one frame page per answer, each standing on its own. The collection's continuity is its cast and its places -- the storyteller, his two family lines (the Flames line of his mother, the Frozen line of his father), the repair shop, the front room, and the Cold Room studio -- not a plot carried between stories. Never contradict the story bible or the fixed facts. Do not invent named people, places, or dates that are not in the supplied material. Where an answer gives a story, render it whole: the opening situation, the incident, the turn, and the ending it actually had; do not improve the ending, and do not append a moral the answer does not state. Where the material is thin, expand by rendering its documented implications as scene and context, not by fabricating events.",
+  "devices": {
+   "story_rendering": {
+    "name": "Story rendering",
+    "instruction": "Render the answer as a complete story: the opening situation, the incident that disturbs it, the turn, and the ending the story actually had, in that order. A reader should be able to retell the story from the page alone."
+   },
+   "scene_opening": {
+    "name": "Scene opening",
+    "instruction": "Open inside the moment: the place, the light, the object in hand, the sound in the room -- before any explanation of how the teller comes to be telling this."
+   },
+   "character_sketch": {
+    "name": "Character sketch",
+    "instruction": "Render one person through gesture, habit, and one line of speech: what the hands do, what the person always says, what they never say."
+   },
+   "dialogue_beats": {
+    "name": "Dialogue beats",
+    "instruction": "Let the story's exchange carry the turn: who said what, in order, with the silences kept. Speech in this book is evidence, not decoration."
+   },
+   "object_anchor": {
+    "name": "Object anchor",
+    "instruction": "Hang the story on its object -- the radio, the guitar, the toolbox, the tape, the book -- and let the object's state be the plot's clock: what is broken, carried, fixed, or lost, and when that changes."
+   },
+   "turning_point": {
+    "name": "Turning point",
+    "instruction": "Isolate the moment the story changes direction and slow down for it: the sentence, the sound, the arrival, after which the ending became the one it had."
+   },
+   "ending_line": {
+    "name": "Ending line",
+    "instruction": "Close on the story's own last fact or last line of speech, unadorned. No moral appended, no summary after the ending."
+   },
+   "inherited_tale": {
+    "name": "Inherited tale",
+    "instruction": "Retell a story the teller did not witness: name whose telling it comes in, mark where the record ends and the telling begins, and keep the dead in their own time -- the teller was not there, and the page must not pretend he was."
+   },
+   "frame_voice": {
+    "name": "Frame voice",
+    "instruction": "Let the teller step forward: why this story is told, what telling it settles or costs, and what he knows about his own telling of it."
+   },
+   "sensory_palette": {
+    "name": "Sensory palette",
+    "instruction": "Render the scene through sound first -- this teller is an engineer of sound -- then sight, smell, and touch: the hum, the static, the room's tone before anyone speaks."
+   },
+   "place_portrait": {
+    "name": "Place portrait",
+    "instruction": "Render one place whole: its furniture, its light, its working sounds, who stands where in it. One page should leave one place standing as a place."
+   },
+   "time_frame": {
+    "name": "Time frame",
+    "instruction": "Fix the story in its year and season plainly, early, and let the date do its work without commentary: the reader should always know when they are."
+   },
+   "chapter_turn": {
+    "name": "Chapter turn",
+    "instruction": "End the page turning toward the next subject: a person, a place, or an object the coming pages take up."
+   }
+  }
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "title": "The Storyteller",
+   "act": "Act I: The Teller"
+  },
+  {
+   "id": "ch02",
+   "title": "The Repair Shop",
+   "act": "Act I: The Teller"
+  },
+  {
+   "id": "ch03",
+   "title": "The Front Room",
+   "act": "Act I: The Teller"
+  },
+  {
+   "id": "ch04",
+   "title": "First Work",
+   "act": "Act II: The Work"
+  },
+  {
+   "id": "ch05",
+   "title": "The Cold Room",
+   "act": "Act II: The Work"
+  },
+  {
+   "id": "ch06",
+   "title": "The Fire and the Rebuilding",
+   "act": "Act II: The Work"
+  },
+  {
+   "id": "ch07",
+   "title": "The Road",
+   "act": "Act III: The World"
+  },
+  {
+   "id": "ch08",
+   "title": "Strangers at the Counter",
+   "act": "Act III: The World"
+  },
+  {
+   "id": "ch09",
+   "title": "The Family Telling",
+   "act": "Act III: The World"
+  },
+  {
+   "id": "ch10",
+   "title": "Last Stories",
+   "act": "Act IV: The Telling"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "chapter": "ch01",
+   "prompt": "What is the family name of your mother's line -- the line whose telling you first heard stories in? Begin the answer with the name.",
+   "narrative_job": "Open the collection by naming the mother's line, the first of the teller's two inheritances, and fix the fact.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 1 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "family.flames_name"
+   ],
+   "fact": {
+    "slot": "flames_line_name",
+    "kind": "person_name",
+    "triggers": [
+     "the Flames family name",
+     "the Flames line's name"
+    ]
+   }
+  },
+  {
+   "id": "q002",
+   "chapter": "ch01",
+   "prompt": "What is the family name of your father's line -- the line that taught you a story is a thing kept and entered? Begin the answer with the name.",
+   "narrative_job": "Name the father's line, the second inheritance, and fix the fact.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 2 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "family.frozen_name"
+   ],
+   "fact": {
+    "slot": "frozen_line_name",
+    "kind": "person_name",
+    "triggers": [
+     "the Frozen family name",
+     "the Frozen line's name"
+    ]
+   }
+  },
+  {
+   "id": "q003",
+   "chapter": "ch01",
+   "prompt": "Who is the main character of this story collection -- the storyteller whose stories these are, who tells them and stands inside most of them? Give that storyteller's full name, and say how the name comes from the two lines. Begin the answer with the full name.",
+   "narrative_job": "Establish the book's central identity as respondent data: the main character is the storyteller the respondent names here, and the fact is fixed from this answer alone.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 3 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "respondent.identity"
+   ],
+   "fact": {
+    "slot": "subject_name",
+    "kind": "person_name",
+    "triggers": [
+     "the respondent"
+    ]
+   }
+  },
+  {
+   "id": "q004",
+   "chapter": "ch01",
+   "prompt": "What is your mother's full name, and what is her place in your storytelling -- what did she teach you about how a story is told, and which of her stories is still told in your house? Begin the answer with her full name.",
+   "narrative_job": "Name the first teller directly, with her front room, and fix the fact.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 4 of 10 within the chapter",
+   "devices": [
+    "character_sketch",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "people.mother"
+   ],
+   "fact": {
+    "slot": "mother_name",
+    "kind": "person_name",
+    "triggers": [
+     "my mother",
+     "the respondent's mother"
+    ]
+   }
+  },
+  {
+   "id": "q005",
+   "chapter": "ch01",
+   "prompt": "What is your father's full name, and what is his place in your storytelling -- what did the repair bench and the day book teach you about what a story must contain? Begin the answer with his full name.",
+   "narrative_job": "Name the second teller directly, with his bench, and fix the fact.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 5 of 10 within the chapter",
+   "devices": [
+    "character_sketch",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "people.father"
+   ],
+   "fact": {
+    "slot": "father_name",
+    "kind": "person_name",
+    "triggers": [
+     "my father",
+     "the respondent's father"
+    ]
+   }
+  },
+  {
+   "id": "q006",
+   "chapter": "ch01",
+   "prompt": "In what year were you born, and what stories were already old in the family when you arrived? Begin the answer with the year.",
+   "narrative_job": "Fix the teller's birth year as fact, set inside the family's stock of stories at his arrival.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 6 of 10 within the chapter",
+   "devices": [
+    "time_frame",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "respondent.birth"
+   ],
+   "fact": {
+    "slot": "birth_year",
+    "kind": "year",
+    "triggers": [
+     "I was born"
+    ]
+   }
+  },
+  {
+   "id": "q007",
+   "chapter": "ch01",
+   "prompt": "In what place were you born, and what does that place sound like in your earliest memory of it? Begin the answer with the place.",
+   "narrative_job": "Fix the teller's birthplace as fact and as his first soundscape.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 7 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "places.birthplace"
+   ],
+   "fact": {
+    "slot": "birthplace",
+    "kind": "place_name",
+    "triggers": [
+     "I was born in"
+    ]
+   }
+  },
+  {
+   "id": "q008",
+   "chapter": "ch01",
+   "prompt": "What is your sister's full name, and what is her place in the telling -- what stories does she keep that you do not, and how does her version differ from yours? Begin the answer with her full name.",
+   "narrative_job": "Name the collection's second keeper of the family stories, and fix the fact.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 8 of 10 within the chapter",
+   "devices": [
+    "character_sketch",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "people.sister"
+   ],
+   "fact": {
+    "slot": "sister_name",
+    "kind": "person_name",
+    "triggers": [
+     "my sister",
+     "the respondent's sister"
+    ]
+   }
+  },
+  {
+   "id": "q009",
+   "chapter": "ch01",
+   "prompt": "What is your wife's full name, and what is her place in the telling -- she photographs the sessions your stories come from: what does her camera keep that your telling misses? Begin the answer with her full name.",
+   "narrative_job": "Name the collection's witness, and fix the fact.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 9 of 10 within the chapter",
+   "devices": [
+    "character_sketch",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "people.partner"
+   ],
+   "fact": {
+    "slot": "partner_name",
+    "kind": "person_name",
+    "triggers": [
+     "my wife",
+     "the respondent's wife"
+    ]
+   }
+  },
+  {
+   "id": "q010",
+   "chapter": "ch01",
+   "prompt": "What saying, rule, or doctrine does your family hand down -- the sentence quoted when a thing is broken, kept, or told -- which line brought it, and how does it govern the way a story gets told in your house?",
+   "narrative_job": "State the family's doctrine as this collection's law of telling, planted as content the stories themselves may draw on.",
+   "position": "Act I: The Teller, Chapter: The Storyteller; page 10 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "inherited_tale"
+   ],
+   "bible_keys": [
+    "telling.doctrine"
+   ]
+  },
+  {
+   "id": "q011",
+   "chapter": "ch02",
+   "prompt": "Tell the story of the first radio you ever fixed alone in your father's shop: whose radio it was, what was wrong with it, what you did at the bench, and how the story ended when its owner came back for it.",
+   "narrative_job": "Open the shop's stories with the teller's first solo repair, the bench's rite of passage.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 1 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "object_anchor"
+   ],
+   "bible_keys": [
+    "stories.first_radio"
+   ]
+  },
+  {
+   "id": "q012",
+   "chapter": "ch02",
+   "prompt": "Tell the story of the guitar with the broken neck: who brought it in, how the break happened, what your father said a neck repair could and could not promise, and what the guitar's owner decided.",
+   "narrative_job": "Render a repair whose honest verdict mattered more than the work.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 2 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "dialogue_beats"
+   ],
+   "bible_keys": [
+    "stories.broken_neck"
+   ]
+  },
+  {
+   "id": "q013",
+   "chapter": "ch02",
+   "prompt": "Tell the story of the customer who paid for a repair in something other than money: what they brought, what they offered, what your father entered in the day book, and what became of the payment.",
+   "narrative_job": "Render the shop's economy at its most human: barter, entered and honored.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 3 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.barter"
+   ]
+  },
+  {
+   "id": "q014",
+   "chapter": "ch02",
+   "prompt": "Tell the story of the repair your father refused to charge for: what the thing was, whose it was, why the bench would not take money for it, and what the customer did with that refusal.",
+   "narrative_job": "Render the shop's standard as an act, not a slogan.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 4 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.free_repair"
+   ]
+  },
+  {
+   "id": "q015",
+   "chapter": "ch02",
+   "prompt": "Tell the story of the day book entry your father still reads aloud: what repair it records, what the entry says and leaves out, and why that page of the book is the one that gets retold.",
+   "narrative_job": "Render the shop's written record as a story about storytelling itself.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 5 of 10 within the chapter",
+   "devices": [
+    "object_anchor",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.day_book_entry"
+   ]
+  },
+  {
+   "id": "q016",
+   "chapter": "ch02",
+   "prompt": "Tell the story of the radio that came back three times: what the fault was, why it hid through two repairs, what finally exposed it, and what your father wrote in the day book the third time.",
+   "narrative_job": "Render a fault that taught the bench its patience.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 6 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "stories.third_return"
+   ]
+  },
+  {
+   "id": "q017",
+   "chapter": "ch02",
+   "prompt": "Tell the story of your first paid repair, the year you began working after school: what the job was, what you were paid, what your father checked before he let it leave the shop, and what you did with the money.",
+   "narrative_job": "Render the teller's entry into the trade, wages and all.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 7 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "time_frame"
+   ],
+   "bible_keys": [
+    "stories.first_wage"
+   ]
+  },
+  {
+   "id": "q018",
+   "chapter": "ch02",
+   "prompt": "Tell the story of the instrument you could not fix: what it was, what you tried, the moment you knew, and what your father said when you carried it to him.",
+   "narrative_job": "Render an honest failure at the bench, and what the bench does with failure.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 8 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "stories.unfixable"
+   ]
+  },
+  {
+   "id": "q019",
+   "chapter": "ch02",
+   "prompt": "Tell the story your father tells only after hours, when the shop is shut and the bench is clear: what it is about, why it is not a daytime story, and what part of it you are still not sure you believe.",
+   "narrative_job": "Render the bench's private canon, told in its own conditions.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 9 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "scene_opening"
+   ],
+   "bible_keys": [
+    "stories.after_hours"
+   ]
+  },
+  {
+   "id": "q020",
+   "chapter": "ch02",
+   "prompt": "Tell the story of your grandfather Flint's toolbox in the shop: how it came to be there, what is in it, the day it was opened in your hearing, and what your father said the tools were for now.",
+   "narrative_job": "Close the chapter on the inherited object that joins the shop to the line behind it.",
+   "position": "Act I: The Teller, Chapter: The Repair Shop; page 10 of 10 within the chapter",
+   "devices": [
+    "object_anchor",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "stories.toolbox"
+   ]
+  },
+  {
+   "id": "q021",
+   "chapter": "ch03",
+   "prompt": "Describe your mother's front room as a place stories happen: the piano, the pupils, what was served to children who came for lessons, and the room's rule about who was fed.",
+   "narrative_job": "Open the front room's stories by standing the room itself up as a place.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 1 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "places.front_room"
+   ]
+  },
+  {
+   "id": "q022",
+   "chapter": "ch03",
+   "prompt": "Tell the story of the pupil who could not pay: who the child was, what your mother charged her instead of money, and where that arrangement ended years later.",
+   "narrative_job": "Render the front room's economy: teaching and feeding as one act.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 2 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.unpaid_pupil"
+   ]
+  },
+  {
+   "id": "q023",
+   "chapter": "ch03",
+   "prompt": "Tell the story of the church social your mother's playing held together: the occasion, what went wrong with the program or the food, what she played, and how the evening ended.",
+   "narrative_job": "Render the mother's musicianship as the room's load-bearing wall.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 3 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "stories.church_social"
+   ]
+  },
+  {
+   "id": "q024",
+   "chapter": "ch03",
+   "prompt": "Tell the story of the broken piano pedal: the church social where your mother was playing, the repairman the church called, what passed between them over the instrument, and how that evening is told in your family now.",
+   "narrative_job": "Render the parents' meeting as the front room's founding story.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 4 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "inherited_tale"
+   ],
+   "bible_keys": [
+    "stories.pedal"
+   ]
+  },
+  {
+   "id": "q025",
+   "chapter": "ch03",
+   "prompt": "Tell the story of the pupil who went on: the child from the front room who became a working musician -- what your mother heard in them first, and the day their road and the room's road parted.",
+   "narrative_job": "Render the room's success story, and its limit.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 5 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "stories.pupil_who_went_on"
+   ]
+  },
+  {
+   "id": "q026",
+   "chapter": "ch03",
+   "prompt": "Tell the story of the recital where something went wrong: the hall, the child, the failure in the middle of the program, and what your mother did from the piano bench while it happened.",
+   "narrative_job": "Render the teacher's craft under public failure.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 6 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "stories.recital"
+   ]
+  },
+  {
+   "id": "q027",
+   "chapter": "ch03",
+   "prompt": "Tell the story of the song your mother plays when the house is empty: what the song is, when you first understood it was not for an audience, and what she said the one time you asked about it.",
+   "narrative_job": "Render the room's quietest story: music with no one to feed.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 7 of 10 within the chapter",
+   "devices": [
+    "scene_opening",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "stories.empty_house"
+   ]
+  },
+  {
+   "id": "q028",
+   "chapter": "ch03",
+   "prompt": "Tell the story of your grandmother Jet's family Bible: when she began it, what she entered in its flyleaf and for how long, and the entry -- a birth, a marriage, a death -- whose writing you can still see in her hand.",
+   "narrative_job": "Render the written record of the mother's line as an object with a story.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 8 of 10 within the chapter",
+   "devices": [
+    "object_anchor",
+    "inherited_tale"
+   ],
+   "bible_keys": [
+    "stories.bible"
+   ]
+  },
+  {
+   "id": "q029",
+   "chapter": "ch03",
+   "prompt": "Tell the story of your sister at the piano: her lessons in the front room, what kind of pupil she was beside you, and the piece or the day that settled what music would be for each of you.",
+   "narrative_job": "Render the siblings' division of the inheritance at the keyboard.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 9 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.sister_piano"
+   ]
+  },
+  {
+   "id": "q030",
+   "chapter": "ch03",
+   "prompt": "Tell the story of the front room now: what the room is for in the present day, who still comes to it, and the most recent evening that proved the room had not changed its mind about feeding people.",
+   "narrative_job": "Close the chapter in the present tense of the telling, on the room's continuity.",
+   "position": "Act I: The Teller, Chapter: The Front Room; page 10 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "places.front_room_now"
+   ]
+  },
+  {
+   "id": "q031",
+   "chapter": "ch04",
+   "prompt": "Tell the story of your first wages: the after-school work in your father's shop, the first pay you were handed as a worker rather than a son, and what you bought with it.",
+   "narrative_job": "Open the work act with the teller's first standing as a paid hand.",
+   "position": "Act II: The Work, Chapter: First Work; page 1 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "time_frame"
+   ],
+   "bible_keys": [
+    "stories.first_wages"
+   ]
+  },
+  {
+   "id": "q032",
+   "chapter": "ch04",
+   "prompt": "Tell the story of the first guitar you restrung for a stranger: whose it was, what state it arrived in, what the owner said while you worked, and what they played before they left the shop.",
+   "narrative_job": "Render a small job whole, the kind the trade is built from.",
+   "position": "Act II: The Work, Chapter: First Work; page 2 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "object_anchor"
+   ],
+   "bible_keys": [
+    "stories.first_restring"
+   ]
+  },
+  {
+   "id": "q033",
+   "chapter": "ch04",
+   "prompt": "Tell the story of the mistake at the bench that cost money: what you broke or misjudged, what it cost and who paid, and what your father entered in the day book about it.",
+   "narrative_job": "Render the price of learning, honestly kept.",
+   "position": "Act II: The Work, Chapter: First Work; page 3 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "stories.costly_mistake"
+   ]
+  },
+  {
+   "id": "q034",
+   "chapter": "ch04",
+   "prompt": "Tell the story of the working musician who taught you something at the counter: who they were, what they brought in, the thing they said or showed you that you still use, and when you last saw them.",
+   "narrative_job": "Render the counter as a school with one unforgettable teacher.",
+   "position": "Act II: The Work, Chapter: First Work; page 4 of 10 within the chapter",
+   "devices": [
+    "character_sketch",
+    "dialogue_beats"
+   ],
+   "bible_keys": [
+    "stories.counter_teacher"
+   ]
+  },
+  {
+   "id": "q035",
+   "chapter": "ch04",
+   "prompt": "Tell the story of your first recording session: the year, the studio in Dallas, who ran the session, what an unpaid assistant was given to do, and the moment you understood what the work was.",
+   "narrative_job": "Render the record's hinge: the teller's first sight of his trade.",
+   "position": "Act II: The Work, Chapter: First Work; page 5 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "time_frame"
+   ],
+   "bible_keys": [
+    "stories.first_session"
+   ]
+  },
+  {
+   "id": "q036",
+   "chapter": "ch04",
+   "prompt": "Tell the story of the tape you were paid in: what was on it, why the studio paid in tape and lessons instead of money, what you did with that tape, and where it is now.",
+   "narrative_job": "Render the session years' currency, and what it bought.",
+   "position": "Act II: The Work, Chapter: First Work; page 6 of 10 within the chapter",
+   "devices": [
+    "object_anchor",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.tape_payment"
+   ]
+  },
+  {
+   "id": "q037",
+   "chapter": "ch04",
+   "prompt": "Tell the story of the session that went wrong in your assistant years: what failed, whose fault the room decided it was, and the lesson that session left in your hands for good.",
+   "narrative_job": "Render a failure in the learning years, with its tuition.",
+   "position": "Act II: The Work, Chapter: First Work; page 7 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "stories.session_gone_wrong"
+   ]
+  },
+  {
+   "id": "q038",
+   "chapter": "ch04",
+   "prompt": "Tell the story of the first night you were left alone with the board: who trusted you with it, what the session was, what you did when something in the room surprised you, and how the night ended.",
+   "narrative_job": "Render trust arriving, and being met.",
+   "position": "Act II: The Work, Chapter: First Work; page 8 of 10 within the chapter",
+   "devices": [
+    "scene_opening",
+    "story_rendering"
+   ],
+   "bible_keys": [
+    "stories.alone_at_board"
+   ]
+  },
+  {
+   "id": "q039",
+   "chapter": "ch04",
+   "prompt": "Tell the story of the recording you studied until it taught you your trade: what it is, where you heard it first, what you took apart in it, and what of it is in your own work now.",
+   "narrative_job": "Render an education by ear, one record deep.",
+   "position": "Act II: The Work, Chapter: First Work; page 9 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "stories.studied_record"
+   ]
+  },
+  {
+   "id": "q040",
+   "chapter": "ch04",
+   "prompt": "Tell the story of the decision to found your own studio: the day or the session that settled it, who you told first, what they said, and what you understood the decision would cost.",
+   "narrative_job": "Close the chapter on the decision the next act builds on.",
+   "position": "Act II: The Work, Chapter: First Work; page 10 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "stories.decision"
+   ]
+  },
+  {
+   "id": "q041",
+   "chapter": "ch05",
+   "prompt": "In what year did you found the Cold Room, and what was the building before it was a studio? Begin the answer with the year.",
+   "narrative_job": "Fix the studio's founding year as fact, and open its stories with the icehouse it was made from.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 1 of 10 within the chapter",
+   "devices": [
+    "time_frame",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "studio.founding"
+   ],
+   "fact": {
+    "slot": "studio_year",
+    "kind": "year",
+    "triggers": [
+     "I founded the Cold Room in",
+     "the Cold Room opened in"
+    ]
+   }
+  },
+  {
+   "id": "q042",
+   "chapter": "ch05",
+   "prompt": "Tell the story of the first session in the Cold Room: who recorded first, what they brought, what the unfinished room did to the sound, and how the session ended.",
+   "narrative_job": "Render the studio's first day of work, in its raw state.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 2 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "scene_opening"
+   ],
+   "bible_keys": [
+    "stories.first_cold_room_session"
+   ]
+  },
+  {
+   "id": "q043",
+   "chapter": "ch05",
+   "prompt": "Tell the story of the session the kitchen corner saved: the hour, the hunger, what got cooked between takes, and what the food did to the rest of the session.",
+   "narrative_job": "Render the studio's second inheritance: a session is fed like a table.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 3 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "stories.kitchen_corner"
+   ]
+  },
+  {
+   "id": "q044",
+   "chapter": "ch05",
+   "prompt": "Tell the story of the singer who could not find the note: the song, the note, what the room tried, and how the take that finally stood was got.",
+   "narrative_job": "Render the engineer's patience as a plot.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 4 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "stories.missing_note"
+   ]
+  },
+  {
+   "id": "q045",
+   "chapter": "ch05",
+   "prompt": "Tell the story of the band that fought in the studio: what the fight was about, where in the session it broke, what you did from the board, and what the band left with.",
+   "narrative_job": "Render conflict inside the room's small weather.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 5 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "dialogue_beats"
+   ],
+   "bible_keys": [
+    "stories.band_fight"
+   ]
+  },
+  {
+   "id": "q046",
+   "chapter": "ch05",
+   "prompt": "Tell the story of the first time your wife came to the Cold Room: she was hired to photograph a session -- what she shot, what she said about the room, and what passed between you that the session's music covered.",
+   "narrative_job": "Render the meeting the record dates to a working day, as the studio remembers it.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 6 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.photographer"
+   ]
+  },
+  {
+   "id": "q047",
+   "chapter": "ch05",
+   "prompt": "Tell the story of the session log entry that became the studio's legend: what the entry records, how it is retold to new assistants, and what the retelling has added that the entry does not say.",
+   "narrative_job": "Render the studio's written record growing its myth, honestly marked.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 7 of 10 within the chapter",
+   "devices": [
+    "object_anchor",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.log_legend"
+   ]
+  },
+  {
+   "id": "q048",
+   "chapter": "ch05",
+   "prompt": "Tell the story of the machine that failed in the middle of a take: what failed, what the take was, what the room did in the next sixty seconds, and whether the take survived.",
+   "narrative_job": "Render the repairman's inheritance arriving inside the engineer's emergency.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 8 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "stories.machine_failure"
+   ]
+  },
+  {
+   "id": "q049",
+   "chapter": "ch05",
+   "prompt": "Tell the story of the recording nobody was supposed to hear about: who asked for the secrecy, what was recorded, how the secret was kept, and whether it is still kept.",
+   "narrative_job": "Render the studio's discretion as a kept promise.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 9 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "stories.secret_session"
+   ]
+  },
+  {
+   "id": "q050",
+   "chapter": "ch05",
+   "prompt": "Tell the story of how the Cold Room got its standing rule: the session that forced it, the rule's exact words, and the first time you had to enforce it.",
+   "narrative_job": "Close the chapter on the room's law, earned the way laws are.",
+   "position": "Act II: The Work, Chapter: The Cold Room; page 10 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "stories.studio_rule"
+   ]
+  },
+  {
+   "id": "q051",
+   "chapter": "ch06",
+   "prompt": "Tell the story of the night of the fire: how the word reached you, what you saw when you arrived, what the fire did and did not take, and where you stood when it was over.",
+   "narrative_job": "Open the fire's stories at the night itself, whole and in order.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 1 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "scene_opening"
+   ],
+   "bible_keys": [
+    "stories.fire_night"
+   ]
+  },
+  {
+   "id": "q052",
+   "chapter": "ch06",
+   "prompt": "Tell the story of what was lost and what was saved: the inventory you made afterward, the one object pulled out that you still have, and the one loss you still name first.",
+   "narrative_job": "Render the arithmetic of ruin, object by object.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 2 of 10 within the chapter",
+   "devices": [
+    "object_anchor",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.inventory"
+   ]
+  },
+  {
+   "id": "q053",
+   "chapter": "ch06",
+   "prompt": "Tell the story of the morning after: the first person who showed up at the ruin, what they brought, what they did before they said anything, and what was said.",
+   "narrative_job": "Render help arriving in its true order: hands before words.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 3 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.morning_after"
+   ]
+  },
+  {
+   "id": "q054",
+   "chapter": "ch06",
+   "prompt": "Tell the story of the ledger of the loss: how the day book habit met the ruin -- what you entered, what the insurance and the accounts required, and the entry that was hardest to write.",
+   "narrative_job": "Render the Frozen line's bookkeeping applied to disaster.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 4 of 10 within the chapter",
+   "devices": [
+    "object_anchor",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.loss_ledger"
+   ]
+  },
+  {
+   "id": "q055",
+   "chapter": "ch06",
+   "prompt": "Tell the story of the decision to rebuild rather than close: who argued for closing, what the argument was, the moment the decision settled, and what you said when it did.",
+   "narrative_job": "Render the collection's hinge decision in the open.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 5 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "dialogue_beats"
+   ],
+   "bible_keys": [
+    "stories.rebuild_decision"
+   ]
+  },
+  {
+   "id": "q056",
+   "chapter": "ch06",
+   "prompt": "Tell the story of your father's part in the rebuilding: the first repair he made at the site, what he brought from the shop, and what passed between you over that work.",
+   "narrative_job": "Render the bench's doctrine at the ruin: what can be fixed, fixed.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 6 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.fathers_repair"
+   ]
+  },
+  {
+   "id": "q057",
+   "chapter": "ch06",
+   "prompt": "Tell the story of your mother's part in the rebuilding: how the front room extended itself to a worksite, who got fed and when, and the meal that marked the rebuilding's hardest week.",
+   "narrative_job": "Render the fire line's answer to ruin: everybody fed.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 7 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "stories.mothers_feeding"
+   ]
+  },
+  {
+   "id": "q058",
+   "chapter": "ch06",
+   "prompt": "Tell the story of the borrowed room: where you recorded while the Cold Room was rebuilt, whose space it was, what working in another's room taught you, and the session there you would not trade.",
+   "narrative_job": "Render the exile's studio, and its gifts.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 8 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "story_rendering"
+   ],
+   "bible_keys": [
+    "stories.borrowed_room"
+   ]
+  },
+  {
+   "id": "q059",
+   "chapter": "ch06",
+   "prompt": "Tell the story of your wife's photographs of the ruin and the rebuilding: what she shot and when, the photograph you cannot look at and the one you keep, and what her record shows that yours does not.",
+   "narrative_job": "Render the witness's archive beside the teller's.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 9 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "object_anchor"
+   ],
+   "bible_keys": [
+    "stories.wifes_photographs"
+   ]
+  },
+  {
+   "id": "q060",
+   "chapter": "ch06",
+   "prompt": "Tell the story of the first session in the rebuilt room: how long the rebuilding took, who recorded, what the new room sounded like on its first night, and what you entered in the log.",
+   "narrative_job": "Close the fire's arc on the room working again, two years on.",
+   "position": "Act II: The Work, Chapter: The Fire and the Rebuilding; page 10 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "stories.first_session_rebuilt"
+   ]
+  },
+  {
+   "id": "q061",
+   "chapter": "ch07",
+   "prompt": "Tell the story of your first session away from home: where you were sent, who sent you, what the strange room asked of you, and what you brought back besides the work.",
+   "narrative_job": "Open the road's stories with the first leaving.",
+   "position": "Act III: The World, Chapter: The Road; page 1 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "stories.first_road_session"
+   ]
+  },
+  {
+   "id": "q062",
+   "chapter": "ch07",
+   "prompt": "Tell the story of the Chicago branch: the visit to your great-aunt Topaz's household, who was at her table, what the Dallas line and the Chicago line made of each other, and the story exchanged that night that you still carry.",
+   "narrative_job": "Render the family's spread geography at one table.",
+   "position": "Act III: The World, Chapter: The Road; page 2 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "inherited_tale"
+   ],
+   "bible_keys": [
+    "stories.chicago"
+   ]
+  },
+  {
+   "id": "q063",
+   "chapter": "ch07",
+   "prompt": "Tell the story of the Fort Worth kitchen: a meal or a repair at your aunt Jade's household, the nursing schedule the house runs on, and what of the Frozen line's kitchen survives inside it.",
+   "narrative_job": "Render the second line's present geography, one county over.",
+   "position": "Act III: The World, Chapter: The Road; page 3 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "story_rendering"
+   ],
+   "bible_keys": [
+    "stories.fort_worth"
+   ]
+  },
+  {
+   "id": "q064",
+   "chapter": "ch07",
+   "prompt": "Tell the story of the church far from home: the service or session you played or recorded in a strange church, what its room did to the music, and the person there who treated you as kin before they knew your name.",
+   "narrative_job": "Render the road's hospitality, in the mother's line's own territory.",
+   "position": "Act III: The World, Chapter: The Road; page 4 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "stories.strange_church"
+   ]
+  },
+  {
+   "id": "q065",
+   "chapter": "ch07",
+   "prompt": "Tell the story of the breakdown on the road: what failed -- vehicle, instrument, or machine -- where you were, what the fix required, and whose hands besides yours were in it.",
+   "narrative_job": "Render the doctrine tested far from the bench.",
+   "position": "Act III: The World, Chapter: The Road; page 5 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "stories.breakdown"
+   ]
+  },
+  {
+   "id": "q066",
+   "chapter": "ch07",
+   "prompt": "Tell the story of working in another engineer's room: their rules against yours, the moment the two methods met, and the practice of theirs you brought home.",
+   "narrative_job": "Render craft compared at close quarters.",
+   "position": "Act III: The World, Chapter: The Road; page 6 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.other_engineer"
+   ]
+  },
+  {
+   "id": "q067",
+   "chapter": "ch07",
+   "prompt": "Tell the story of the song recorded in one night in a borrowed room: whose song, why one night was all there was, how the take was got, and where that recording lives now.",
+   "narrative_job": "Render the road's best argument: limits as an instrument.",
+   "position": "Act III: The World, Chapter: The Road; page 7 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "stories.one_night_song"
+   ]
+  },
+  {
+   "id": "q068",
+   "chapter": "ch07",
+   "prompt": "Tell the story of coming home: the return to Dallas after the longest of the road years' absences, what the city sounded like from the car or the door, and who was awake when you got in.",
+   "narrative_job": "Render homecoming by ear, the teller's first sense.",
+   "position": "Act III: The World, Chapter: The Road; page 8 of 10 within the chapter",
+   "devices": [
+    "scene_opening",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "stories.homecoming"
+   ]
+  },
+  {
+   "id": "q069",
+   "chapter": "ch07",
+   "prompt": "Tell the story of the detail in your best road story that is not strictly true: what the detail is, why the story grew it, and why you have let it stand every time you have told it since.",
+   "narrative_job": "Render the teller's honesty about his own telling, in the open.",
+   "position": "Act III: The World, Chapter: The Road; page 9 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "inherited_tale"
+   ],
+   "bible_keys": [
+    "stories.untrue_detail"
+   ]
+  },
+  {
+   "id": "q070",
+   "chapter": "ch07",
+   "prompt": "Tell the story of the practice the road gave the studio: the habit, rule, or piece of kit the Cold Room runs on now because a strange room taught it, and the session where it first proved itself at home.",
+   "narrative_job": "Close the road's chapter by bringing its wages home.",
+   "position": "Act III: The World, Chapter: The Road; page 10 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "stories.road_practice"
+   ]
+  },
+  {
+   "id": "q071",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the man with the radio older than the shop: what he carried in, what the radio had survived, what he asked the bench to promise, and how he left.",
+   "narrative_job": "Open the strangers' stories with the oldest object and its keeper.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 1 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "object_anchor"
+   ],
+   "bible_keys": [
+    "stories.old_radio"
+   ]
+  },
+  {
+   "id": "q072",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the woman who wanted a song recorded for someone gone: whose song, who it was for, how the session was run, and what she did when she heard it back.",
+   "narrative_job": "Render the studio as a place where grief books time.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 2 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "stories.memorial_song"
+   ]
+  },
+  {
+   "id": "q073",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the kid with the broken first guitar: how old, what the break was, what your father charged and what you added to the job, and what the kid played on the way out.",
+   "narrative_job": "Render the teller meeting his own beginning across the counter.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 3 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.kids_guitar"
+   ]
+  },
+  {
+   "id": "q074",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the preacher at the counter: what his church needed repaired or recorded, the bargain he proposed, and how the bench and the pulpit settled it.",
+   "narrative_job": "Render two kinds of keeping meeting over a price.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 4 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "dialogue_beats"
+   ],
+   "bible_keys": [
+    "stories.preacher"
+   ]
+  },
+  {
+   "id": "q075",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the musician who paid with a story: what work they needed, the story they traded, whether the bench judged it fair payment, and whether you have retold it since.",
+   "narrative_job": "Render the counter's oldest currency, exchanged in the open.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 5 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.paid_in_story"
+   ]
+  },
+  {
+   "id": "q076",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the argument at the counter: what the dispute was -- a price, a verdict, a promise -- how it ran, and how it ended, honestly, including the part that was your side's fault.",
+   "narrative_job": "Render a conflict without varnish, the teller's side included.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 6 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "dialogue_beats"
+   ],
+   "bible_keys": [
+    "stories.argument"
+   ]
+  },
+  {
+   "id": "q077",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the regular who stopped coming: who they were at the counter, the last ordinary visit, how you learned where they had gone, and what their absence changed in the shop's week.",
+   "narrative_job": "Render an absence as a story with an ordinary door.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 7 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "stories.regular_gone"
+   ]
+  },
+  {
+   "id": "q078",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the session booked under a false name: what name was given, what was recorded, when you understood the reason, and what the log says about that day.",
+   "narrative_job": "Render discretion tested, and kept.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 8 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "object_anchor"
+   ],
+   "bible_keys": [
+    "stories.false_name"
+   ]
+  },
+  {
+   "id": "q079",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the child who watched through the studio door: who they belonged to, what they saw, the question they asked, and what you let them do before they were called away.",
+   "narrative_job": "Render the next generation arriving the way this one did: by watching.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 9 of 10 within the chapter",
+   "devices": [
+    "scene_opening",
+    "story_rendering"
+   ],
+   "bible_keys": [
+    "stories.child_at_door"
+   ]
+  },
+  {
+   "id": "q080",
+   "chapter": "ch08",
+   "prompt": "Tell the story of the stranger who became a friend of the house: the first visit, the turn by which a customer became kin, and where they sit now when they come.",
+   "narrative_job": "Close the strangers' chapter on the counter's best outcome.",
+   "position": "Act III: The World, Chapter: Strangers at the Counter; page 10 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "stories.stranger_to_kin"
+   ]
+  },
+  {
+   "id": "q081",
+   "chapter": "ch09",
+   "prompt": "Tell the story of Garnet Flames's coming to Dallas: the year, what he carried from Holly Springs, the furnaces and boilers that were his trade, and how the Flames line tells its founder's arrival now.",
+   "narrative_job": "Open the inherited tales with the fire line's founder, in his line's own telling.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 1 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "time_frame"
+   ],
+   "bible_keys": [
+    "stories.garnet_arrival"
+   ]
+  },
+  {
+   "id": "q082",
+   "chapter": "ch09",
+   "prompt": "Tell the story of Jet Flames and the family Bible: the year she began it, what she entered first, how the book was kept through the line's changes, and whose hand keeps it now.",
+   "narrative_job": "Render the matriarch's record as the line's first story about itself.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 2 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "object_anchor"
+   ],
+   "bible_keys": [
+    "stories.jet_bible"
+   ]
+  },
+  {
+   "id": "q083",
+   "chapter": "ch09",
+   "prompt": "Tell the story of Flint Frozen's coming to Dallas: the year, the wartime service behind him, the toolbox he carried from Pittsburgh, and how the Frozen line tells its founder's arrival now.",
+   "narrative_job": "Set the iron line's founder beside the fire line's, in his line's own telling.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 3 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "time_frame"
+   ],
+   "bible_keys": [
+    "stories.flint_arrival"
+   ]
+  },
+  {
+   "id": "q084",
+   "chapter": "ch09",
+   "prompt": "Tell the story of Pearl Frozen's accounts: what she entered, what her standard against waste cost and saved, the occasion the family still cites when her name is used as an argument, and whose telling you have it in.",
+   "narrative_job": "Render the second matriarch's economics as the story the line argues with.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 4 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.pearl_accounts"
+   ]
+  },
+  {
+   "id": "q085",
+   "chapter": "ch09",
+   "prompt": "Tell the story of the doctrine's first saying: the occasion on which your grandfather Jasper Frozen first said the family's sentence, what had broken, who heard it, and how the sentence traveled from that day to your own mouth.",
+   "narrative_job": "Render the book's law at its moment of origin.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 5 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "turning_point"
+   ],
+   "bible_keys": [
+    "stories.doctrine_origin"
+   ]
+  },
+  {
+   "id": "q086",
+   "chapter": "ch09",
+   "prompt": "Tell the story of Slate Flames and Opal Reyes: how the heating-and-refrigeration man met the piano teacher, what each line made of the match, and the wedding as the Flames line tells it.",
+   "narrative_job": "Render the music's entry into the fire line, as a courtship.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 6 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.slate_and_opal"
+   ]
+  },
+  {
+   "id": "q087",
+   "chapter": "ch09",
+   "prompt": "Tell the story of the quarrel that estranged your great-uncle Zircon: the year, what Garnet's estate had to do with it, what each side said, and what it means that your telling has only one side's version.",
+   "narrative_job": "Render the family's open account, honestly one-sided.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 7 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.zircon_quarrel"
+   ]
+  },
+  {
+   "id": "q088",
+   "chapter": "ch09",
+   "prompt": "Tell the story of your parents' joining as the family tells it now: the meeting, the courtship, the wedding year, and the places where the official telling and the facts as you know them have quietly parted company.",
+   "narrative_job": "Render the set piece of the joined family, with its seams showing.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 8 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.joining_told"
+   ]
+  },
+  {
+   "id": "q089",
+   "chapter": "ch09",
+   "prompt": "Tell the story of Topaz Frozen's leaving: the year she left Dallas for Chicago, what she left and what she refused to leave, and how the Frozen line's telling of her going has changed across the years.",
+   "narrative_job": "Render the line's departure story, and its revisions.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 9 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "time_frame"
+   ],
+   "bible_keys": [
+    "stories.topaz_leaving"
+   ]
+  },
+  {
+   "id": "q090",
+   "chapter": "ch09",
+   "prompt": "Tell the story both lines tell differently: one event the Flames line and the Frozen line each claim as proof of their own way -- each version given fairly, and where you, the child of the joining, have come to stand between them.",
+   "narrative_job": "Close the inherited tales on the teller's double inheritance of the past.",
+   "position": "Act III: The World, Chapter: The Family Telling; page 10 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "stories.two_versions"
+   ]
+  },
+  {
+   "id": "q091",
+   "chapter": "ch10",
+   "prompt": "Tell the story you have never told in the studio: what it is, why it has been kept out of the room's telling, and what has changed that lets it be told here, at the end of the book.",
+   "narrative_job": "Open the closing chapter with the kept story, admitted at last.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 1 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "story_rendering"
+   ],
+   "bible_keys": [
+    "stories.kept_story"
+   ]
+  },
+  {
+   "id": "q092",
+   "chapter": "ch10",
+   "prompt": "Tell a story your sister tells better than you do: the story itself as she tells it, where her version beats yours, and what her keeping of it says about the two of you.",
+   "narrative_job": "Render the second keeper's title to the family's past.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 2 of 10 within the chapter",
+   "devices": [
+    "inherited_tale",
+    "character_sketch"
+   ],
+   "bible_keys": [
+    "stories.sisters_version"
+   ]
+  },
+  {
+   "id": "q093",
+   "chapter": "ch10",
+   "prompt": "Tell the story of your wife's photograph: the picture that tells a story your words have never managed -- what it shows, when she took it, and what it knows about its subject that the telling keeps missing.",
+   "narrative_job": "Render the witness's medium beside the teller's, and its victory.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 3 of 10 within the chapter",
+   "devices": [
+    "object_anchor",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "stories.wifes_photograph_story"
+   ]
+  },
+  {
+   "id": "q094",
+   "chapter": "ch10",
+   "prompt": "Tell the story of the doctrine tested in your own adult life: the occasion when the family's sentence was quoted at you or by you over something broken of your own, what it required, and what it cost to keep it.",
+   "narrative_job": "Give the doctrine its fullest statement in this book, as the respondent's own story rather than a frame.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 4 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "frame_voice"
+   ],
+   "bible_keys": [
+    "telling.doctrine_tested"
+   ]
+  },
+  {
+   "id": "q095",
+   "chapter": "ch10",
+   "prompt": "Tell the story of the first Cold Room's last session: the session that ran in the room before the fire, who was in it, what was recorded, and what became of that recording.",
+   "narrative_job": "Render the lost room's last working night, in hindsight's light.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 5 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "scene_opening"
+   ],
+   "bible_keys": [
+    "stories.last_session_before_fire"
+   ]
+  },
+  {
+   "id": "q096",
+   "chapter": "ch10",
+   "prompt": "Tell the story of a story you let go: one you used to tell and have stopped telling -- what it was, why it no longer earns its place, and what its retirement taught you about the ones you keep.",
+   "narrative_job": "Render the teller's standard by its negative: a story dismissed.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 6 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "telling.let_go"
+   ]
+  },
+  {
+   "id": "q097",
+   "chapter": "ch10",
+   "prompt": "Tell the story you tell a beginner: the first story you give a new assistant in the studio, what it is meant to teach before any technique, and the last time you told it.",
+   "narrative_job": "Render the collection's teaching instrument, in use.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 7 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "story_rendering"
+   ],
+   "bible_keys": [
+    "telling.beginners_story"
+   ]
+  },
+  {
+   "id": "q098",
+   "chapter": "ch10",
+   "prompt": "Tell the story of the stories that are not yours to tell: the kind you have heard in the shop and the studio that you keep untold, the rule you keep about them, and the one that presses hardest against the rule.",
+   "narrative_job": "Render the teller's ethics as a kept boundary.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 8 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "telling.not_his"
+   ]
+  },
+  {
+   "id": "q099",
+   "chapter": "ch10",
+   "prompt": "What is this collection for, at the end: what does its whole telling, told whole, show your family and your trade were doing with their stories -- and what should a reader's own telling do differently for this book existing?",
+   "narrative_job": "Test the book's declared purpose against its full record.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 9 of 10 within the chapter",
+   "devices": [
+    "frame_voice",
+    "chapter_turn"
+   ],
+   "bible_keys": [
+    "book.purpose_final"
+   ]
+  },
+  {
+   "id": "q100",
+   "chapter": "ch10",
+   "prompt": "End the book: what is the single story -- of the shop, the room, the road, or the lines -- that should outlast every other story in this collection, and tell it here as the last one?",
+   "narrative_job": "Close on the story that survives the telling.",
+   "position": "Act IV: The Telling, Chapter: Last Stories; page 10 of 10 within the chapter",
+   "devices": [
+    "story_rendering",
+    "ending_line"
+   ],
+   "bible_keys": [
+    "book.final_story"
+   ]
+  }
+ ]
+}

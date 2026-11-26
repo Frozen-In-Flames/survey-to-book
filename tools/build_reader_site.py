@@ -61,6 +61,12 @@ BOOK_META = {
         "character": ("Frozen In Flames, a fictional demonstration "
                       "persona: the series' demonstration user"),
     },
+    "short-story-collection-first-book": {
+        "slug": "the-day-book",
+        "genre": "Short Story Collection",
+        "character": ("Frozen In Flames, a fictional demonstration "
+                      "persona: the series' demonstration user"),
+    },
 }
 
 SERIES_NOTE = (
