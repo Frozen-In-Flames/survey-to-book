@@ -329,13 +329,14 @@ respondent is a separate fictional persona, as its entry states.)
   found the genuine errors recorded in the deviations below.
 
 - **The Keeping Book** (`books/family-history-first-book/`) — the
-  family-history pack's first book: 100 pages, one per question,
-  29,655 words, generated locally with the same model and settings
-  as the first two books (Qwen2.5-3B-Instruct Q4_K_M GGUF via
-  llama.cpp build b12651; temperature 0.8, top-p 0.95, repeat
-  penalty 1.1, 480-token page budget, single inference slot). The
-  respondent is Frozen In Flames, the series' demonstration user:
-  a fictional persona whose fabricated survey answers are drawn
+  family-history pack's first book, corrected edition
+  (survey-to-book v0.3.1): 100 pages, one per question, 29,037
+  words, generated locally with the same model and settings as
+  the other books (Qwen2.5-3B-Instruct Q4_K_M GGUF via llama.cpp
+  build b12651; temperature 0.8, top-p 0.95, repeat penalty 1.1,
+  480-token page budget, single inference slot). The respondent
+  is Frozen In Flames, the series' demonstration user: a
+  fictional persona whose fabricated survey answers are drawn
   from the canonical character record in
   `demo/frozen-in-flames-character.json` (record version 2.0.0,
   carrying the author's canon: born 2000 in Dallas; mother Ruby
@@ -343,19 +344,29 @@ respondent is a separate fictional persona, as its entry states.)
   front matter states this. The story bible extracted from the
   answers agrees with the record fact for fact, and every one of
   the pack's 18 typed facts traces to its source survey answer
-  (18 of 18). The pack's refrain parameter was on for this build.
-  Duplication: 0 of 100 pages share a full sentence verbatim with
-  the previous page, against 90 of 100 in the first book and 2 of
-  100 in the second. All 10 chapter synopses are present, including
-  chapters completed across the four interruptions the build
-  survived (see `DEFECTS.md`, F3f). Continuity check: 10 candidate
-  issues flagged at build time; a post-build checker repair showed
-  8 were checker false positives (seven "Yet" against "Jet", one
-  "Flame" against "Flames") and 2 were genuine text errors on page
-  28, recorded below. The refrain development check failed: 13
-  recurrences of the anchor theme, 6 developed, 6 thematic but
-  undeveloped (pages 2, 4, 5, 54, 78), and 1 verbatim copy (page
-  4); the verbatim-overlap measurement stayed at 0 of 100.
+  (18 of 18). This edition supersedes the edition released as
+  v0.3.0 (29,655 words), which the author read and found
+  gendering the subject female: the full classification of that
+  text (394 marker sentences; one definite subject instance, on
+  page 79) is recorded in `DEFECTS.md` (F4). The corrected
+  edition was regenerated from the same pack, the same answers,
+  and the same bible with a generation-time subject-gender gate
+  in the engine; the post-build audit of the new text (352
+  marker sentences) finds zero definite and zero probable
+  subject instances (F5). The pack's refrain parameter was on
+  for this build. Duplication: 3 of 100 pages share a full
+  sentence verbatim with the previous page (v0.3.0: 0 of 100),
+  5 pages share a sentence with some earlier page, and 2 pages
+  carry an intra-page duplicated sentence. All 10 chapter
+  synopses are present, across the six interruptions and one
+  wedged server slot the build survived (see `DEFECTS.md`,
+  F5). Continuity check: 7 candidate issues flagged at build
+  time; inspection showed 1 was a checker false positive and 6
+  were genuine surface garbles of the family name ("Flamers",
+  once "Flamels"). The refrain development check passes: 3
+  recurrences of the anchor theme, all 3 developed, and no
+  verbatim anchor copies (v0.3.0 failed it: 13 recurrences, 6
+  developed, 1 verbatim copy).
 
 - **The Keeping Table** (`books/cookbook-first-book/`) — the
   cookbook pack's first book: 100 pages, one per question,

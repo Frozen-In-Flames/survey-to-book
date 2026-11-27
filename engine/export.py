@@ -91,6 +91,21 @@ def export_markdown(pack: dict, state: dict, report: dict, meta: dict) -> str:
             f"- Duplication check: {dup['pages_sharing_sentence_with_previous']}"
             f" of {dup['total_pages']} pages share a full sentence "
             f"verbatim with the previous page.")
+    gate = report.get("gender_gate")
+    if gate is not None:
+        if gate["pages_flagged"]:
+            lines.append(
+                f"- Subject-gender gate: {gate['retries']} bounded "
+                f"regeneration(s) at generation time; "
+                f"{gate['pages_flagged']} page(s) kept with "
+                f"{gate['flagged_sentences']} unresolved screen "
+                f"flag(s), classified in the post-build audit "
+                f"recorded in DEFECTS.md.")
+        else:
+            lines.append(
+                f"- Subject-gender gate: {gate['retries']} bounded "
+                f"regeneration(s) at generation time; no page was "
+                f"kept with a flagged sentence.")
     if "refrain" in report:
         setting = "on" if report["refrain"] else "off"
         lines.append(

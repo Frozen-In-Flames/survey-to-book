@@ -563,6 +563,174 @@ chapter synopses present. The defects found are:
   year in the text would trade this one catch for false positives
   on every legitimate year.
 
+### F4. Subject gender: full classification of the published text
+
+- **Origin:** the follow-up the S7 audit prescribed for this
+  book. On 2026-11-25 the author read the published book and
+  found the text gendering the subject Frozen In Flames female
+  in places. The canonical record is unambiguous that the
+  character is male (record v2.0.0; this book's own front
+  matter says "his"), and the continuity checker has no
+  subject-gender check, which is how the instance shipped.
+- **Method:** the S7 extractor
+  (`~/workspace/goals/survey-to-book-generator/hidden_files/audit_subject_gender.py`)
+  run over the published manuscript yields 394 sentences
+  containing a female pronoun or a female role word. Every one
+  was classified by referent against the book's cast, sentence
+  by sentence, reading the full page wherever the sentence
+  alone did not settle the referent.
+- **Measured:** 391 of the 394 attach to the book's female
+  cast — the mother Ruby, the sister Opal, the partner Amber,
+  the matriarchs Jet, Pearl, Coral, and Topaz, the aunt Jade,
+  and the narrator's niece — correct references in a book
+  whose cast is mostly women. One is a generic reference to
+  no specific person (page 66: records "passed down in a
+  woman's careful hands"). One is garbled past assignment
+  (page 73: "her name entered solemnly by Jet", in a sentence
+  about Garnet's death entry; the pronoun's referent cannot
+  be cleanly assigned, and it does not attach to the
+  subject). **Definite subject instances: 1.** Page 79: "In
+  my lifetime, it falls to my mother and I—two women who have
+  embraced the same task." The narrator counts himself among
+  two women, and the next sentence confirms the grouping
+  includes him: "We are both record-keepers now, just as Jet
+  was." **Probable subject instances: 0.** Two candidates
+  were examined in full page context and resolved to the
+  cast: page 20's "Its expectations of a daughter were its
+  own: learn the music, keep the record, marry as you choose
+  but bring them to the table first" (the daughter is the
+  mother; the following paragraph has her fulfill the first
+  two expectations exactly and then marry), and page 51's
+  "Her presence brings fresh perspectives to this home, but
+  she carries with her Flint's legacy" (the referent is
+  Topaz, named in the sentence immediately before).
+- **Related cast-side garbles (not subject instances,
+  recorded for completeness):** page 55 gives Jet, the
+  mother's great-grandmother, as the mother's "father"
+  ("mirroring her father Jet's practice of record-keeping"),
+  and page 73 mixes pronouns inside one sentence about Jet
+  ("a girl's hand marking nothing but the columns he himself
+  had drawn"). Both misname female cast members; neither
+  touches the subject.
+- **Root cause:** composing a book whose cast and
+  record-keeping line are mostly women, the model let the
+  narrator's own reference drift with theirs on page 79; no
+  build-time check measured subject gender (the continuity
+  checker constrains typed facts and kinship triggers only),
+  so the instance shipped unmeasured.
+- **Control:** the corrected edition (F5) regenerates this
+  book with a generation-time subject-gender gate in the
+  engine (`engine/gendergate.py`): a page whose text
+  contains a definite-pattern subject-gender violation is
+  rejected and regenerated under bounded retries, every
+  retry counted in the build report, and the finished book
+  is re-audited with this same extraction and classification
+  before release. The published edition's text was not
+  edited.
+
+### F5. Corrected edition (v0.3.1): regeneration under the subject-gender gate
+
+- **Origin:** the control F4 prescribed. The corrected
+  edition was regenerated from the same pack (family-history
+  v1.0.0), the same demonstration answers, and the same story
+  bible as v0.3.0, with one engine change: the
+  generation-time subject-gender gate (`engine/gendergate.py`,
+  17 tests). The gate is a referent screen, not a pronoun
+  ban: four rules — group inclusion (a female group noun
+  with a first-person reference in the same sentence),
+  self-ascription (a female role word in the appositive
+  chain on "I", or predicated of "I am/was" within a
+  seven-word window), the "herself" appositive, and
+  unresolved "she" (a nominative "she" with a first-person
+  reference and no female cast name or kinship possessive in
+  the sentence; a high-recall screen whose overreach is
+  documented and pinned by a test). A flagged page is
+  regenerated with the flagged sentences named in the retry
+  note, up to two retries; acceptance is fewest flags, ties
+  broken by duplication score; every retry and kept flag is
+  recorded in the build report. Calibrated against the
+  v0.3.0 text before the build, the gate flagged 14 pages
+  and 19 sentences: 18 screen flags, all cast referents on
+  reading, and exactly one definite-pattern hit — the true
+  page-79 instance of F4.
+- **Build:** 100 pages, 29,037 words, 0 skipped, all 10
+  chapter synopses present. The build survived six runtime
+  restarts and one wedged server slot (a prompt evaluation
+  that stopped progressing under memory pressure; the
+  server was restarted and the build resumed from its saved
+  state); no page was lost at any interruption, and every
+  resume re-verified the checkpoint before generating.
+- **Gender gate outcome:** 23 bounded regenerations across
+  the build; 3 pages kept with one unresolved screen flag
+  each after their retries were exhausted (pages 20, 81,
+  94). Post-build audit with the F4 method: the S7
+  extractor yields 352 marker sentences (v0.3.0: 394). All
+  203 sentences carrying a first-person tie were classified
+  individually; the remaining 149 carry no first-person tie
+  and anchor their referent in-sentence. All 352 attach to
+  the female cast. The three kept screen flags classify to
+  the cast on their pages: page 20's "she also chose her
+  own path in marriage, bringing a repairman into our
+  home" is the mother choosing the father; page 81's "The
+  archives she brought into our home" is Amber, named
+  throughout the page; page 94's "Each photograph she
+  captures" is Amber, whose artistry opens the paragraph.
+  **Definite subject instances in the corrected text: 0.
+  Probable subject instances: 0.** The narrator is
+  male-coded wherever the text genders him ("her son",
+  page 45; "husband and wife", page 19; "his son, me",
+  page 7).
+- **Other measures, against v0.3.0:** duplication rose
+  slightly while staying in the corrected-edition band —
+  previous-page sharing 3 of 100 (v0.3.0: 0), any-earlier
+  sharing 5 pages (31, 54, 60, 85, 93; v0.3.0: 3),
+  intra-page duplicated sentences 2 pages (29, 85;
+  v0.3.0: 3 by the same sentence-level method). The
+  refrain development check **passes** (v0.3.0 failed it):
+  3 thematic recurrences, all 3 developed, 0 verbatim
+  anchor copies. Truncation, measured uniformly as pages
+  ending without terminal punctuation: 18 of 100, the
+  same count as v0.3.0 under the same method (F3's
+  stricter mid-sentence judgment recorded 1 for v0.3.0;
+  the uniform count is the comparable figure, and the
+  class remains the engine's standing token-budget
+  defect). Continuity: 7 candidate issues — 1 checker
+  false positive (page 20: "my mother, Jet Flames'
+  daughter" states the mother's parentage correctly; the
+  checker matched the name against the mother_name slot)
+  and 6 genuine surface garbles of the family name (pages
+  48, 64, 65, 82, 90, 93: "Flamers", once "Flamels"), a
+  drift class the first edition did not produce.
+  Traceability is unchanged: same bible, same answers,
+  18 of 18 typed facts traced at the pre-generation audit.
+- **Genuine errors found by reader sampling (recorded,
+  not edited):** the relation-garble class persists and
+  is this edition's largest defect family — the anchor
+  sentence itself says the mother "kept [the name] when
+  she married Amber" (page 1; she married Onyx — Amber is
+  the narrator's wife); Amber is called "my daughter"
+  (page 86); Ruby is called the narrator's "sister"
+  (page 58) and his "grandmother" (pages 66, 96); Slate
+  is promoted to "great-grandfather" (page 55) and Ruby
+  to "great-grandmother" (page 64); Jet is given a wife
+  (page 70; Garnet is her husband) and a male-line name
+  bearer called "my uncle" (page 94); the Chicago
+  name-bearers become "my second-born children" (page
+  94); and page 90 has the mother teach "until her
+  passing" although the record holds her living — the
+  death-of-the-living class the biography's corrected
+  edition also shipped (B5). None of these is a
+  subject-gender instance; all are recorded here under
+  the program rule that genuine errors regeneration does
+  not remove are documented, never hand-edited.
+- **Control:** the gate stays in the engine for every
+  later build, and the S7 classification audit remains
+  the prescribed post-build check for any book whose cast
+  could mask a subject instance. The relation-garble
+  family above is a candidate input to a future
+  kinship-relation checker; no such checker exists yet,
+  and none is claimed.
+
 ## Cookbook — "The Keeping Table" (v0.4.0)
 
 The build ran 100 pages in 30,488 words with all 10 chapter

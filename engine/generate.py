@@ -45,6 +45,24 @@ demonstrably differ and carry newer material, and a book whose
 refrain passages are near-identical copies fails that check by
 name in the report.
 
+A third guard runs after the duplication guard: the
+subject-gender gate (see engine/gendergate.py). The series'
+demonstration subject is male (canonical character record,
+v2.0.0), and a book whose cast is mostly women showed the model
+letting the narrator's own reference drift with theirs (The
+Keeping Book, v0.3.0, page 79: the narrator counts himself
+among "two women"). A page whose text trips the gate's
+definite-pattern screen is treated as failed and regenerated
+with the flagged sentences named, up to MAX_GENDER_RETRIES
+times; the attempt with the fewest flagged sentences is kept
+(ties broken by the duplication score), and the retry count
+and any unresolved flags are recorded on the page and in the
+build report. The gate is a referent screen, not a ban on
+female pronouns: the women's pronouns are correct and remain.
+The finished book is still audited after the build by
+extraction and classification (the S7 failsafe); the gate is
+the generation-time half of that control.
+
 One page is produced per non-empty answer. Empty answers produce no
 page and are recorded in the build report; they are never padded or
 invented. Build state is persisted after every page, so a build can
@@ -70,12 +88,14 @@ from .bible import Bible
 from .continuity import check_continuity
 from .duplication import check_duplication, check_refrain, \
     page_overlap, split_sentences
+from .gendergate import subject_gender_flags
 from .pack import questions_by_chapter
 
 WINDOW_PAGES = 1
 WINDOW_EXCERPT_WORDS = 60
 PAGE_MAX_TOKENS = 480
 MAX_DUP_RETRIES = 2
+MAX_GENDER_RETRIES = 2
 
 
 def _overlap_fails(overlap: dict) -> bool:
@@ -341,6 +361,50 @@ class BookBuilder:
                                             previous_text)
                 if _overlap_score(cand_overlap) < _overlap_score(best_overlap):
                     text, best_overlap = candidate, cand_overlap
+            # Subject-gender gate: a page whose text attaches a
+            # female pronoun or role word to the subject/narrator
+            # (definite-pattern screen, engine/gendergate.py) is
+            # treated as failed and regenerated with the flagged
+            # sentences named, up to MAX_GENDER_RETRIES times.
+            # The attempt with the fewest flagged sentences is
+            # kept, ties broken by the duplication score; the
+            # outcome is recorded on the page and in the report.
+            gender_flags = subject_gender_flags(text)
+            gender_retries = 0
+            while (gender_flags
+                   and gender_retries < MAX_GENDER_RETRIES):
+                gender_retries += 1
+                named = "; ".join(
+                    f'"{f["sentence"][:120]}"'
+                    for f in gender_flags[:3])
+                retry_note = (
+                    f"RETRY {gender_retries} (subject-gender gate): "
+                    f"the previous attempt at this page attached a "
+                    f"female pronoun or female role word to the "
+                    f"respondent himself, or left a female pronoun "
+                    f"without a named referent, in: {named}. The "
+                    f"respondent, Frozen In Flames, is a man: refer "
+                    f"to him only with male pronouns and male role "
+                    f"words (he, his, son, husband, father). The "
+                    f"women of his family — his mother Ruby, his "
+                    f"sister Opal, his wife Amber, and the "
+                    f"matriarchs Jet, Pearl, Coral, and Topaz — "
+                    f"keep their own pronouns, but name the woman "
+                    f"in the sentence itself wherever a pronoun "
+                    f"refers to her, so no female reference can be "
+                    f"read as the respondent's.")
+                candidate = self.model.complete(
+                    self.page_prompt(question, index, bible,
+                                     retry_note=retry_note),
+                    max_tokens=PAGE_MAX_TOKENS)
+                cand_flags = subject_gender_flags(candidate)
+                cand_overlap = page_overlap(candidate, earlier_texts,
+                                            previous_text)
+                if (len(cand_flags), _overlap_score(cand_overlap)) < \
+                        (len(gender_flags),
+                         _overlap_score(best_overlap)):
+                    text, gender_flags, best_overlap = \
+                        candidate, cand_flags, cand_overlap
             self.state["pages"][qid] = {
                 "question_id": qid,
                 "chapter": question["chapter"],
@@ -348,6 +412,8 @@ class BookBuilder:
                 "text": text,
                 "word_count": len(text.split()),
                 "duplication_retries": retries,
+                "gender_retries": gender_retries,
+                "gender_flags": len(gender_flags),
                 "shared_with_previous":
                     best_overlap["shared_with_previous"],
                 "shared_with_any_earlier":
@@ -386,6 +452,14 @@ class BookBuilder:
             "total_words": sum(p["word_count"] for p in pages),
             "continuity_issues": issues,
             "duplication": check_duplication(pages),
+            "gender_gate": {
+                "retries": sum(p.get("gender_retries", 0)
+                               for p in pages),
+                "pages_flagged": sum(1 for p in pages
+                                     if p.get("gender_flags", 0)),
+                "flagged_sentences": sum(p.get("gender_flags", 0)
+                                         for p in pages),
+            },
             "model": getattr(self.model, "name", "unknown"),
         })
         if self.refrain:

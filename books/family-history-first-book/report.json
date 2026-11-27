@@ -2,113 +2,90 @@
  "skipped_empty": [],
  "pages_built": 100,
  "refrain": true,
- "total_words": 29655,
+ "total_words": 29037,
  "continuity_issues": [
   {
    "type": "fact_contradiction",
    "fact_slot": "mother_name",
    "expected": "Ruby Flames",
-   "found": "Coral",
-   "page_index": 27,
-   "question_id": "q028",
-   "excerpt": "e it can still be understood. My mother Coral\u2019s amendment preserved by the telling alone was that p"
-  },
-  {
-   "type": "fact_contradiction",
-   "fact_slot": "father_name",
-   "expected": "Onyx Frozen",
-   "found": "Jasper",
-   "page_index": 27,
-   "question_id": "q028",
-   "excerpt": "es for lack of small repairs, my father Jasper\u2019s words \u2014 a family keeps what it can fix, and fixes"
-  },
-  {
-   "type": "name_drift",
-   "fact_slot": null,
-   "expected": "Jet",
-   "found": "Yet",
-   "page_index": 1,
-   "question_id": "q002",
-   "excerpt": "Frozen. The family name of my father's line is Frozen, carrying it from Pennsylvania to Texas through the heart of the l"
-  },
-  {
-   "type": "name_drift",
-   "fact_slot": null,
-   "expected": "Jet",
-   "found": "Yet",
-   "page_index": 2,
-   "question_id": "q003",
-   "excerpt": "Frozen In Flames. My name declares the union of our two lines: the Frozen from my father's side and the Flames from my m"
-  },
-  {
-   "type": "name_drift",
-   "fact_slot": null,
-   "expected": "Jet",
-   "found": "Yet",
-   "page_index": 8,
-   "question_id": "q009",
-   "excerpt": "What the joined family believes about itself, when told in full, is that we are the people Dallas sends for: the Frozens"
+   "found": "Jet Flames",
+   "page_index": 19,
+   "question_id": "q020",
+   "excerpt": "lineage.\n\nThe expectations of my mother, Jet Flames' daughter, were clear: learn to play music and"
   },
   {
    "type": "name_drift",
    "fact_slot": null,
    "expected": "Flames",
-   "found": "Flame",
-   "page_index": 14,
-   "question_id": "q015",
-   "excerpt": "Garnet's trade was fire: he kept furnaces and boilers \u2014 at the mill in Holly Springs, then at heating plants and laundri"
+   "found": "Flamels",
+   "page_index": 47,
+   "question_id": "q048",
+   "excerpt": "ng broken instruments mirrors Flint\u2019s work ethic, while the Flamels\u2019 meticulous record-keeping echoes Jet\u2019s approach to keeping"
   },
   {
    "type": "name_drift",
    "fact_slot": null,
-   "expected": "Jet",
-   "found": "Yet",
-   "page_index": 66,
-   "question_id": "q067",
-   "excerpt": "The record of my own generation's practices are inscribed in every session log from the Cold Room: a minute-by-minute ac"
+   "expected": "Flames",
+   "found": "Flamers",
+   "page_index": 63,
+   "question_id": "q064",
+   "excerpt": "ice.\n\nI inherited this grand instrument, a testament to the Flamers' dedication to music. When money was shortest during Amber"
   },
   {
    "type": "name_drift",
    "fact_slot": null,
-   "expected": "Jet",
-   "found": "Yet",
-   "page_index": 93,
-   "question_id": "q094",
-   "excerpt": "Across generations, the names we bear have always carried their weight: Jet's name, held by my uncle, reminds us of his "
+   "expected": "Flames",
+   "found": "Flamers",
+   "page_index": 64,
+   "question_id": "q065",
+   "excerpt": "rine that keeps both lines alive\u2014the Frozens' iron work and Flamers' musical lessons\u2014are practiced in each room of this success"
   },
   {
    "type": "name_drift",
    "fact_slot": null,
-   "expected": "Jet",
-   "found": "Yet",
-   "page_index": 95,
-   "question_id": "q096",
-   "excerpt": "The family's unfinished business is etched deep within our lineage, visible on the pages of my mother Ruby Flames' famil"
+   "expected": "Flames",
+   "found": "Flamers",
+   "page_index": 81,
+   "question_id": "q082",
+   "excerpt": "en table, where we combine the Frozens' bench work with the Flamers' meticulous record-keeping. The house combines both familie"
   },
   {
    "type": "name_drift",
    "fact_slot": null,
-   "expected": "Jet",
-   "found": "Yet",
-   "page_index": 96,
-   "question_id": "q097",
-   "excerpt": "The founding myth said our purpose has always been to keep: from the moment we came into this world's embrace, as two li"
+   "expected": "Flames",
+   "found": "Flamers",
+   "page_index": 89,
+   "question_id": "q090",
+   "excerpt": "Our lineage continues strong with topaz Frozens and zircon Flamers who left without correspondence for decades. Each page of t"
+  },
+  {
+   "type": "name_drift",
+   "fact_slot": null,
+   "expected": "Flames",
+   "found": "Flamers",
+   "page_index": 92,
+   "question_id": "q093",
+   "excerpt": "ries in her family Bible passed down through generations of Flamers. She kept meticulous records from Jet\u2019s passing until Coral"
   }
  ],
  "duplication": {
-  "pages_sharing_sentence_with_previous": 0,
+  "pages_sharing_sentence_with_previous": 3,
   "total_pages": 100,
   "most_repeated_sentences": [
    {
-    "sentence": "this name\u2014flames\u2014is etched deep within our lineage, visible on the pages of her family bible and carried proudly by each of us as we go about our lives.",
+    "sentence": "both taught patience, discipline, and care.",
+    "pages": 3
+   },
+   {
+    "sentence": "it combined two families and their traditions, weaving them together in dallas.",
     "pages": 2
    },
    {
-    "sentence": "across town, my mother writes down her thoughts and feelings every day to keep chaos at bay, a practice inherited from her father.",
+    "sentence": "the family reunion is not an event; it is gravity: gathering around this table where we've counted each other year after year, a ritual that marks the passing of time in the hands of our ancestors and ensures no line loses its identity.",
     "pages": 2
    },
    {
-    "sentence": "each generation updates these records\u2014my father's steady hands in my day book complement mine as i train my own children in record-keeping.",
+    "sentence": "the family\u2019s rule is to distribute keeping while the keeper can still explain the columns.",
     "pages": 2
    }
   ],
@@ -116,35 +93,35 @@
    {
     "page_index": 0,
     "question_id": "q001",
-    "sentences": 4,
+    "sentences": 2,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 1,
     "question_id": "q002",
-    "sentences": 8,
+    "sentences": 7,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 2,
     "question_id": "q003",
-    "sentences": 7,
+    "sentences": 10,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 3,
     "question_id": "q004",
-    "sentences": 16,
+    "sentences": 10,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 4,
     "question_id": "q005",
-    "sentences": 13,
+    "sentences": 4,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
@@ -158,133 +135,133 @@
    {
     "page_index": 6,
     "question_id": "q007",
-    "sentences": 13,
+    "sentences": 20,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 7,
     "question_id": "q008",
-    "sentences": 8,
+    "sentences": 19,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 8,
     "question_id": "q009",
-    "sentences": 16,
+    "sentences": 4,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 9,
     "question_id": "q010",
-    "sentences": 9,
+    "sentences": 11,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 10,
     "question_id": "q011",
-    "sentences": 5,
+    "sentences": 11,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 11,
     "question_id": "q012",
-    "sentences": 11,
+    "sentences": 14,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 12,
     "question_id": "q013",
-    "sentences": 16,
+    "sentences": 10,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 13,
     "question_id": "q014",
-    "sentences": 10,
+    "sentences": 3,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 14,
     "question_id": "q015",
-    "sentences": 15,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 15,
     "question_id": "q016",
-    "sentences": 8,
+    "sentences": 12,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 16,
     "question_id": "q017",
-    "sentences": 8,
+    "sentences": 14,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 17,
     "question_id": "q018",
-    "sentences": 9,
+    "sentences": 15,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 18,
     "question_id": "q019",
-    "sentences": 14,
+    "sentences": 12,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 19,
     "question_id": "q020",
-    "sentences": 15,
+    "sentences": 11,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 20,
     "question_id": "q021",
-    "sentences": 14,
+    "sentences": 19,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 21,
     "question_id": "q022",
-    "sentences": 12,
+    "sentences": 11,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 22,
     "question_id": "q023",
-    "sentences": 13,
+    "sentences": 8,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 23,
     "question_id": "q024",
-    "sentences": 10,
+    "sentences": 7,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 24,
     "question_id": "q025",
-    "sentences": 10,
+    "sentences": 17,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
@@ -298,252 +275,252 @@
    {
     "page_index": 26,
     "question_id": "q027",
-    "sentences": 7,
+    "sentences": 15,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 27,
     "question_id": "q028",
-    "sentences": 15,
+    "sentences": 6,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 28,
     "question_id": "q029",
-    "sentences": 15,
+    "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 29,
     "question_id": "q030",
-    "sentences": 16,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
-   },
-   {
-    "page_index": 30,
-    "question_id": "q031",
-    "sentences": 11,
+    "sentences": 9,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
+    "page_index": 30,
+    "question_id": "q031",
+    "sentences": 12,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 1
+   },
+   {
     "page_index": 31,
     "question_id": "q032",
-    "sentences": 12,
+    "sentences": 11,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 32,
     "question_id": "q033",
-    "sentences": 17,
+    "sentences": 14,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 33,
     "question_id": "q034",
-    "sentences": 22,
+    "sentences": 12,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 34,
     "question_id": "q035",
-    "sentences": 13,
+    "sentences": 17,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 35,
     "question_id": "q036",
-    "sentences": 11,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 36,
     "question_id": "q037",
-    "sentences": 13,
+    "sentences": 9,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 37,
     "question_id": "q038",
-    "sentences": 17,
+    "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 38,
     "question_id": "q039",
-    "sentences": 19,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 39,
     "question_id": "q040",
-    "sentences": 10,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 40,
     "question_id": "q041",
-    "sentences": 13,
+    "sentences": 14,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 41,
     "question_id": "q042",
-    "sentences": 11,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 42,
     "question_id": "q043",
-    "sentences": 10,
+    "sentences": 11,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 43,
     "question_id": "q044",
-    "sentences": 11,
+    "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 44,
     "question_id": "q045",
-    "sentences": 13,
+    "sentences": 14,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 45,
     "question_id": "q046",
-    "sentences": 9,
+    "sentences": 14,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 46,
     "question_id": "q047",
-    "sentences": 15,
+    "sentences": 18,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 47,
     "question_id": "q048",
-    "sentences": 18,
+    "sentences": 12,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 48,
     "question_id": "q049",
-    "sentences": 11,
+    "sentences": 9,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 49,
     "question_id": "q050",
-    "sentences": 16,
+    "sentences": 10,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 50,
     "question_id": "q051",
-    "sentences": 16,
+    "sentences": 21,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 51,
     "question_id": "q052",
-    "sentences": 11,
+    "sentences": 10,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 52,
     "question_id": "q053",
-    "sentences": 12,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 53,
     "question_id": "q054",
-    "sentences": 16,
+    "sentences": 13,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 0
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 54,
     "question_id": "q055",
-    "sentences": 10,
+    "sentences": 11,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 55,
     "question_id": "q056",
-    "sentences": 11,
+    "sentences": 12,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 56,
     "question_id": "q057",
-    "sentences": 9,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 57,
     "question_id": "q058",
-    "sentences": 10,
+    "sentences": 14,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 58,
     "question_id": "q059",
-    "sentences": 16,
+    "sentences": 19,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 59,
     "question_id": "q060",
-    "sentences": 14,
+    "sentences": 18,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 0
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 60,
     "question_id": "q061",
-    "sentences": 20,
+    "sentences": 15,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 61,
     "question_id": "q062",
-    "sentences": 21,
+    "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
@@ -557,361 +534,299 @@
    {
     "page_index": 63,
     "question_id": "q064",
-    "sentences": 12,
+    "sentences": 8,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 64,
     "question_id": "q065",
-    "sentences": 6,
+    "sentences": 17,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 65,
     "question_id": "q066",
-    "sentences": 14,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 66,
     "question_id": "q067",
-    "sentences": 10,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 67,
     "question_id": "q068",
-    "sentences": 14,
+    "sentences": 10,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 68,
     "question_id": "q069",
-    "sentences": 18,
+    "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 69,
     "question_id": "q070",
-    "sentences": 11,
+    "sentences": 17,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 70,
     "question_id": "q071",
-    "sentences": 16,
+    "sentences": 12,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 71,
     "question_id": "q072",
-    "sentences": 8,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 72,
     "question_id": "q073",
-    "sentences": 18,
+    "sentences": 20,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 73,
     "question_id": "q074",
-    "sentences": 18,
+    "sentences": 10,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 74,
     "question_id": "q075",
-    "sentences": 16,
+    "sentences": 8,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 75,
     "question_id": "q076",
-    "sentences": 15,
+    "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 76,
     "question_id": "q077",
-    "sentences": 18,
+    "sentences": 19,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 77,
     "question_id": "q078",
-    "sentences": 17,
+    "sentences": 5,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 78,
     "question_id": "q079",
-    "sentences": 13,
+    "sentences": 18,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 79,
     "question_id": "q080",
-    "sentences": 11,
+    "sentences": 19,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 80,
     "question_id": "q081",
-    "sentences": 17,
+    "sentences": 15,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 81,
     "question_id": "q082",
-    "sentences": 12,
+    "sentences": 20,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 82,
     "question_id": "q083",
-    "sentences": 17,
+    "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 83,
     "question_id": "q084",
-    "sentences": 14,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 84,
     "question_id": "q085",
-    "sentences": 18,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 0
+    "sentences": 17,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 85,
     "question_id": "q086",
-    "sentences": 14,
+    "sentences": 21,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 86,
     "question_id": "q087",
-    "sentences": 7,
+    "sentences": 15,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 87,
     "question_id": "q088",
-    "sentences": 13,
+    "sentences": 12,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 88,
     "question_id": "q089",
-    "sentences": 16,
+    "sentences": 21,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 89,
     "question_id": "q090",
-    "sentences": 20,
+    "sentences": 21,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 90,
     "question_id": "q091",
-    "sentences": 18,
+    "sentences": 17,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 91,
     "question_id": "q092",
-    "sentences": 13,
+    "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 92,
     "question_id": "q093",
-    "sentences": 13,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 0
+    "sentences": 18,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 93,
     "question_id": "q094",
-    "sentences": 17,
+    "sentences": 19,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 94,
     "question_id": "q095",
-    "sentences": 21,
+    "sentences": 20,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 95,
     "question_id": "q096",
-    "sentences": 8,
+    "sentences": 18,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 96,
     "question_id": "q097",
-    "sentences": 19,
+    "sentences": 23,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 97,
     "question_id": "q098",
-    "sentences": 11,
+    "sentences": 24,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 98,
     "question_id": "q099",
-    "sentences": 14,
+    "sentences": 15,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 99,
     "question_id": "q100",
-    "sentences": 13,
+    "sentences": 9,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
+    "shared_with_any_earlier": 0
    }
   ]
+ },
+ "gender_gate": {
+  "retries": 23,
+  "pages_flagged": 3,
+  "flagged_sentences": 3
  },
  "model": "Qwen2.5-3B-Instruct (Q4_K_M GGUF) via llama.cpp, local",
  "refrain_analysis": {
   "anchor_sentences": [
-   "the family name of my mother's line is flames, a legacy that traced back generations from mississippi to texas, and finally settled into dallas where she was born.",
-   "this name\u2014flames\u2014is etched deep within our lineage, visible on the pages of her family bible and carried proudly by each of us as we go about our lives.",
-   "it was my father's birthright and his grandfather\u2019s resting place; a sacred tradition that both he and his kin upheld, even as they welcomed me into their fold through marriage."
+   "the family name of my line is flames, carried by our people from mississippi to texas and into dallas, where i was born to it.",
+   "it is the name on the family bible kept by my mother ruby, the name her father worked under as a carpenter and her grandfather was buried under in his plot at oak lawn cemetery, and the name she kept when she married amber \u2014 ensuring neither line lost its identity, keeping flames close."
   ],
   "recurrences": [
    {
-    "page_index": 1,
-    "question_id": "q002",
+    "page_index": 6,
+    "question_id": "q007",
     "kind": "thematic",
     "developed": true
    },
    {
-    "page_index": 1,
-    "question_id": "q002",
-    "kind": "thematic",
-    "developed": false
-   },
-   {
-    "page_index": 3,
-    "question_id": "q004",
+    "page_index": 7,
+    "question_id": "q008",
     "kind": "thematic",
     "developed": true
    },
    {
-    "page_index": 3,
-    "question_id": "q004",
-    "kind": "verbatim_copy",
-    "developed": false
-   },
-   {
-    "page_index": 4,
-    "question_id": "q005",
+    "page_index": 79,
+    "question_id": "q080",
     "kind": "thematic",
     "developed": true
-   },
-   {
-    "page_index": 4,
-    "question_id": "q005",
-    "kind": "thematic",
-    "developed": false
-   },
-   {
-    "page_index": 4,
-    "question_id": "q005",
-    "kind": "thematic",
-    "developed": false
-   },
-   {
-    "page_index": 8,
-    "question_id": "q009",
-    "kind": "thematic",
-    "developed": true
-   },
-   {
-    "page_index": 10,
-    "question_id": "q011",
-    "kind": "thematic",
-    "developed": true
-   },
-   {
-    "page_index": 11,
-    "question_id": "q012",
-    "kind": "thematic",
-    "developed": true
-   },
-   {
-    "page_index": 53,
-    "question_id": "q054",
-    "kind": "thematic",
-    "developed": false
-   },
-   {
-    "page_index": 77,
-    "question_id": "q078",
-    "kind": "thematic",
-    "developed": false
-   },
-   {
-    "page_index": 77,
-    "question_id": "q078",
-    "kind": "thematic",
-    "developed": false
    }
   ],
-  "thematic_recurrences": 12,
-  "developed_recurrences": 6,
-  "verbatim_anchor_copies": 1,
-  "failing_pages": [
-   1,
-   3,
-   4,
-   53,
-   77
-  ],
-  "development_pass": false
+  "thematic_recurrences": 3,
+  "developed_recurrences": 3,
+  "verbatim_anchor_copies": 0,
+  "failing_pages": [],
+  "development_pass": true
  }
 }
