@@ -141,7 +141,7 @@ build continues from the first ungenerated page.
 
 ## Genre packs
 
-Five packs ship in this release:
+Six packs ship in this release:
 
 - **memoir** (v1.1.0): 101 questions in 10 chapters (chapter 1
   carries 11), ordered as a life arc (origins, childhood home,
@@ -263,6 +263,46 @@ Five packs ship in this release:
   doctrine appears in the book as answer content (planted at
   q010, restated by the respondent in chapter 10), and the
   verbatim duplication guard applies in full.
+
+- **devotional** (v1.0.0): 100 questions in 10 chapters of
+  10, whose subject is a practice kept daily: one keeper's
+  disciplines of naming, gratitude, work, hardship,
+  intercession, silence, and the night watch, drawn from his
+  household, his family lines, and his recording studio.
+  The structure follows the keeping: the keeper and the
+  first light; the kept table; work as practice; the hard
+  hours; other people; gratitude counted; silence and
+  listening; the night watch; and the practice handed on.
+  The pack is religion-agnostic in structure: the questions
+  ask about the respondent's own practices, sources of
+  strength, gratitude, hardship, hope, and daily disciplines
+  in the respondent's own terms, never presuming a tradition
+  or correcting the respondent's vocabulary, and a pack test
+  enforces that no question prompt contains a
+  tradition-presuming term. Framework: first-person keeper's
+  voice, a thirteen-device library (anchor return, practice
+  rendering, moment opening, gratitude naming, hardship
+  witness, intercession, silence rendering, listening, day
+  examen, kept object, place portrait, sensory palette,
+  sending), and ten typed fact slots — the two line names,
+  the subject's name, both parents' names, the subject's
+  birth year and birthplace, the sister's name, the
+  partner's name, and the studio's founding year. Every fact
+  slot is elicited by a direct question, and the pack's test
+  suite proves each extracted fact traces to its source
+  answer (10 of 10). The survey opens its first chapter by
+  asking, in terms, who the main character of the devotional
+  is (q003). Refrain default: on, chosen deliberately — the
+  opposite call from the story collection, and for the
+  genre's own reason: a devotional is refrain-shaped, one
+  anchor sentence returned to daily and changed by the day,
+  where a collection's standalone stories made the same
+  mechanism a false arc. The family's doctrine appears in
+  the book as answer content (planted at q010, restated by
+  the respondent in chapter 10), and the verbatim
+  duplication guard applies in full. What the refrain cost
+  this book in practice is recorded without softening in
+  `DEFECTS.md` (V2, V4, V5, V6).
 
 Additional genre packs are added one at a time as updates to this
 same application; the engine is genre-agnostic and loads any pack
@@ -440,7 +480,58 @@ respondent is a separate fictional persona, as its entry states.)
   women. Reader-level sampling found the genuine errors
   recorded in the deviations below.
 
-- Live library: all five books can be read in a browser at
+- **The Kept Hours** (`books/devotional-first-book/`) — the
+  devotional pack's first book: 100 pages, one per question,
+  31,962 words, generated locally with the same model and
+  settings as the other books (Qwen2.5-3B-Instruct Q4_K_M
+  GGUF via llama.cpp build b12651; temperature 0.8, top-p
+  0.95, repeat penalty 1.1, 480-token page budget, single
+  inference slot). The respondent is Frozen In Flames, the
+  series' demonstration user: a fictional persona whose
+  fabricated survey answers are drawn from the canonical
+  character record in `demo/frozen-in-flames-character.json`
+  (record version 2.0.0, carrying the author's canon: born
+  2000 in Dallas; mother Ruby Flames; father Onyx Frozen;
+  partner Amber Flames), and the book's front matter states
+  this. The story bible extracted from the answers agrees
+  with the record fact for fact, and every one of the pack's
+  10 typed facts traces to its source survey answer (10 of
+  10). The pack's refrain parameter was on for this build,
+  deliberately (see the pack entry above). This is the first
+  book in the series whose headline results are failures,
+  and they are reported here as plainly as the earlier books'
+  passes. The generated narrator is cast as a wife from page
+  1 ("The family name of my husband's line is Flames"),
+  against the record's male respondent with a wife: "my
+  husband" appears on 62 of 100 pages, and because the
+  refrain takes its anchor from the first page, the error
+  recurs through the whole book (see `DEFECTS.md`, V2).
+  Duplication: 53 of 100 pages share a full sentence verbatim
+  with the previous page, against 0 of 100 in the fifth book,
+  5 of 100 in the fourth, 0 of 100 in the corrected third,
+  1 of 100 in the second, and 90 of 100 in the first; measured
+  against any earlier page, 76 pages share at least one
+  sentence with an earlier page, and 10 pages repeat a
+  sentence within the page (see `DEFECTS.md`, V5). The
+  refrain analysis records 20 recurrences, 12 developed, and
+  its development check fails (see `DEFECTS.md`, V4). All 10
+  chapter synopses are present, across the eight interruptions
+  the build survived (see `DEFECTS.md`, V10). Continuity
+  check: 0 candidate issues flagged at build time, the second
+  book in the series with none; its scope does not cover the
+  narrator inversion (see `DEFECTS.md`, V8). Subject-gender:
+  the generation-time gate recorded its heaviest activity in
+  the series (23 retries, 7 pages flagged, 12 flagged
+  sentences), and the post-build audit classified all 218
+  female-marker sentences in the finished text with 0
+  definite and 0 probable instances referring to the narrator
+  — while the book's actual gender failure, recorded at V2,
+  uses a spouse-term construction neither check screens. The
+  gap is named, and the prescribed screen extension is
+  recorded, at `DEFECTS.md`, V3. Reader-level sampling found
+  the further genuine errors recorded in the deviations below.
+
+- Live library: all six books can be read in a browser at
   https://frozen-in-flames.github.io/survey-to-book/, which is now a
   library index: every published book is listed with its title,
   genre, demonstration character, and page and word counts, a Read
@@ -576,6 +667,31 @@ respondent is a separate fictional persona, as its entry states.)
   build's framing language ("This sentence is planted as
   content in every story of this book…"), and page 1 invents
   a year (a fire in 1916) the record does not contain.
+
+- Known deviations in the sixth book, recorded on the same
+  terms: (1) The narrator is cast as a wife from page 1 —
+  "The family name of my husband's line is Flames" — against
+  the record's male respondent with a wife; "my husband"
+  appears on 62 of 100 pages (about 109 instances), the
+  refrain's anchor is drawn from the corrupted page, and the
+  book contradicts itself elsewhere ("my wife" on pages 9,
+  17, and 54). Neither the generation-time subject-gender
+  gate nor the post-build audit screens this construction;
+  the gap and the prescribed fix are recorded at
+  `DEFECTS.md`, V2–V3. (2) The refrain's development check
+  fails: 20 recurrences, 12 developed, 4 verbatim anchor
+  copies (V4). (3) Duplication is the heaviest since the
+  first book: 53 of 100 pages share a sentence with the
+  previous page, 76 with some earlier page, and 10 repeat a
+  sentence within the page, the late chapters saturating
+  with refrain boilerplate (V5). (4) The generation
+  machinery's vocabulary saturates the prose — "anchor
+  sentence" named on 60 pages (V6). (5) 22 of 100 pages end
+  mid-sentence at the 480-token page budget (V7). (6) Pages
+  31 and 46 date the studio's third year against the book's
+  own later timeline; page 45 opens on other material before
+  the ruin; one sentence lowercases the Flames line into a
+  common noun (V9).
 
 Each future genre pack will ship with its own first book in the same
 way, as evidence of the pack in operation. Every defect found in

@@ -67,6 +67,12 @@ BOOK_META = {
         "character": ("Frozen In Flames, a fictional demonstration "
                       "persona: the series' demonstration user"),
     },
+    "devotional-first-book": {
+        "slug": "the-kept-hours",
+        "genre": "Devotional",
+        "character": ("Frozen In Flames, a fictional demonstration "
+                      "persona: the series' demonstration user"),
+    },
 }
 
 SERIES_NOTE = (

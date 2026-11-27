@@ -1118,3 +1118,181 @@ genuine errors found are recorded, not fixed.
   was the S7 extraction in /tmp, which the audit tool
   regenerates from the manuscript. **Control:** the C7
   control held under five interruptions; no change.
+
+## Devotional — "The Kept Hours" (v0.6.0)
+
+- **V1. Completeness, five-W audit, and traceability.** The
+  book is complete: 100 pages generated, none skipped as
+  empty, all 10 chapter synopses present, 31,962 words. The
+  pack's five-W audit is complete: who (the identity question
+  at q003 names the main character in terms), what, where,
+  when, and why are each elicited by direct questions, and
+  every fact the narrative needs is asked, per the
+  clean-proof rule. The story bible extracted from the
+  answers agrees with the canonical character record fact for
+  fact, and every one of the pack's 10 typed facts traces to
+  its source survey answer (10 of 10, proved by the pack's
+  test suite pre-generation; an unsourced fact fails the
+  build). The pack is religion-agnostic in structure: no
+  question presumes a tradition, and the demonstration
+  answers keep belief language in the record's own generic
+  terms; a pack test enforces that no question prompt
+  contains a tradition-presuming term.
+
+- **V2. The narrator is cast as a wife from page 1, and the
+  refrain carries the error through the book. (Largest
+  defect of this book.)** The respondent of record is male,
+  with a wife. Page 1 opens: "Flames. The family name of my
+  husband's line is Flames." The generated narrator has a
+  husband on 62 of 100 pages (about 109 instances of "my
+  husband"), while "my wife" appears on only 3 pages (9, 17,
+  54) and the narrator is once correctly called a son ("being
+  her son"). The book contradicts the record and itself on
+  who the narrator is married to. The mechanism is the
+  refrain's: the engine takes the first page's opening
+  sentences as the book's anchor, so the corrupted page-1
+  sentences became the anchor, and the anchor's returns
+  carried the inversion into every chapter (20 recorded
+  recurrences). The anchor's "development" at times mutates
+  the family name itself: "the family name of my husband's
+  line is frozen." No generated text was edited; the error
+  stands in the published book as generated, recorded here.
+  **Control:** none applied to this book. The failure class
+  is named at V3, whose prescribed screen is the corrective
+  for future books; a corrected edition of this book, if one
+  is ever commissioned, would be a regeneration under that
+  screen, never an edit.
+
+- **V3. The subject-gender gate fired throughout generation
+  and still missed the book's gender failure, which uses a
+  construction outside its patterns.** At generation time the
+  gate (engine/gendergate.py) recorded 23 retries across 7
+  flagged pages and 12 flagged sentences — the heaviest gate
+  activity in the series, in a first-person book with a large
+  female cast. The post-build audit extracted 218 sentences
+  carrying a female pronoun or role word from the finished
+  text and classified every one by referent: definite
+  instances referring to the narrator, 0; probable, 0. Every
+  narrative marker sentence resolves to the cast (the mother,
+  the sister, the wife, the grandmother who kept the family
+  Bible, the aunt in Fort Worth, clients) or to a generic
+  figure. The V2 inversion is invisible to both the gate and
+  this audit because it attaches no female marker to the
+  narrator at all: "husband" is a male role word, and it is
+  the narrator's possession of one that miscasts her. A
+  first-person narrator's spouse term is a narrator-gender
+  signal of the same definite class the gate already screens.
+  **Control (prescribed, not yet built):** extend the
+  subject-gender screen with spouse-term patterns keyed to
+  the subject's recorded gender — in a book whose subject is
+  male, a first-person "my husband" is a definite flag, and
+  symmetrically for a female subject — enforced at generation
+  time with the same bounded retries, and add the spouse-term
+  scan to the post-build audit so the two checks cover the
+  same ground. Until that screen exists, no future book's
+  gender result should be reported as clean on the strength
+  of the pronoun/role-word audit alone.
+
+- **V4. Refrain: on by design; the development check
+  fails.** The pack's refrain parameter was on, deliberately:
+  a devotional is refrain-shaped, one anchor sentence
+  returned to daily and changed by the day, where the story
+  collection's standalone pages made the same mechanism a
+  false arc (see S-series reasoning in the pack entry). The
+  engine's analysis records 20 recurrences: 16 thematic and
+  4 verbatim anchor copies; 12 developed and 8 not; failing
+  pages 3, 9, 13, 20, and 31; development_pass: false. The
+  result is reported as failed, not edited into passing. The
+  failure is compounded by V2: what returned and developed
+  was a corrupted anchor, so even the 12 developed returns
+  develop an error.
+
+- **V5. Duplication is the heaviest since the memoir, and
+  it is refrain boilerplate.** Measured by the build report:
+  53 of 100 pages share at least one full sentence verbatim
+  with the previous page (110 shared instances), against 0 of
+  100 in the fifth book, 5 in the fourth, 0 in the corrected
+  third, 1 in the second, and 90 in the first. Measured
+  against any earlier page, 76 of 100 pages share at least
+  one sentence (292 instances), and 10 pages repeat a
+  sentence within the page. The most repeated sentences are
+  the refrain family: the front-room naming sentence on 18
+  pages, "Hardship reveals hard hours: burned rooms, broken
+  hands, doubt, and sickness." on 17, and an intercession
+  sentence ("Intercession changes me as I hold my mother's
+  kindness toward Onyx's work — every act, whether feeding or
+  writing, is a gift in itself.") recurring near-verbatim
+  through the final chapters until whole late pages are
+  assembled from returns. The duplication guard's refrain
+  allowance permits the anchor family to recur; the model
+  filled the allowance with near-verbatim boilerplate rather
+  than the development V4 measures. **Control:** the V4
+  development check already names this failure honestly; the
+  engine-level question it leaves open is whether the refrain
+  allowance should shrink as a book proceeds, since the
+  saturation is concentrated in the final third.
+
+- **V6. The generation machinery's own vocabulary saturates
+  the prose.** The pages talk about their mechanism: the
+  phrase "anchor sentence" appears on 60 pages, "anchor
+  theme" on 7, "the theme returns" on 5, "refrain" on 3, and
+  the formula "As I write today's entry, carrying the newer
+  facts..." on 19 pages; page 9 reproduces prompt instruction
+  language outright ("Carry this theme changed:"). A
+  devotional's reader is offered the practice's scaffolding
+  as often as the practice. This is the refrain prompt's
+  leakage, distinct from V5's duplication: the sentences are
+  frequently new while their subject is the bookkeeping.
+  **Control:** none applied; recorded as the refrain
+  mechanism's second cost, after V4, for the engine's next
+  revision to weigh (the anchor instruction can name the
+  return without naming the apparatus).
+
+- **V7. Truncation: 22 of 100 pages end mid-sentence,**
+  measured by the series' uniform method (the page's final
+  character is not terminal punctuation): pages 10, 11, 16,
+  17, 25, 35, 41, 47, 53, 56, 58, 71, 76, 78, 80, 88, 90,
+  91, 93, 94, 95, and 96. Within the series' recent range
+  (10 in the corrected second book, 18 in the corrected
+  third, 25 in the fourth and fifth); the 480-token page
+  budget remains the standing cause.
+
+- **V8. Continuity: 0 candidate issues flagged at build
+  time,** the second book in the series with none (after the
+  fifth). Scope statement, as in prior sections: the checker
+  verifies the name and relation classes it knows; the V2
+  narrator inversion and the V9 timeline softness are outside
+  those classes, so a clean continuity result here does not
+  contradict them and should not be read as covering them.
+
+- **V9. Genuine errors found by reader-level sampling,**
+  beyond V2. (a) Timeline: pages 31 and 46 each announce
+  "Today marks three years since founding Cold Room Studio"
+  (founded 2022), while the book's own later pages keep the
+  2024 fire's anniversary in both years since and treat the
+  two-year rebuilding as complete — by the book's present the
+  studio is in its fourth year. The demonstration answers
+  deliberately name no present year; the model supplied one
+  inconsistently. (b) Name drift: "The flames line of my
+  mother taught me to name privately" lowercases and garbles
+  the Flames line into a common noun. (c) Topical drift:
+  page 45, the fire chapter's opening page, leads with the
+  keeping of the dead before it reaches the ruin. Sampling
+  also found the record kept where the model is strongest:
+  page 87's "my father has come both years" matches the two
+  anniversaries of record, and the flyleaf keeper's
+  fifty-two years of entries are attributed correctly.
+
+- **V10. The build was interrupted eight times; nothing was
+  lost.** Runtime restarts killed the model server and the
+  build at saved-state checkpoints of 3, 29, 44, 53, 63, 86,
+  88, and 98 pages; one further relaunch died instantly
+  against a server still loading (HTTP 503), and one kill
+  landed mid-request (RemoteDisconnected at 53 pages). Each
+  resume re-verified state.json before relaunching and
+  continued with the next unanswered question; no completed
+  page was lost or regenerated, and the final book is
+  complete at 100 pages with all 10 synopses. The runner
+  script lived in the goal workspace throughout, per the C7
+  rule. **Control:** the C7 control held under eight
+  interruptions; no change.

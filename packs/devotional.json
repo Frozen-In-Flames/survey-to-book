@@ -1,0 +1,1597 @@
+{
+ "genre": "devotional",
+ "version": "1.0.0",
+ "framework": {
+  "voice": "First-person devotional voice: the respondent at his practice, plain and concrete, speaking of belief the way he speaks of work -- by what the hands do, what the words are, what the day required. An entry must be an entry whole: one matter taken up, the practice brought to bear on it, and the entry's own honest close -- not a sermon, not a summary, and never a lesson the answer does not teach. What he holds sacred is stated only in his own terms, and what happened is kept distinct from what he understands it to mean.",
+  "pov": "first person",
+  "refrain": true,
+  "tense": "present tense for the practice itself -- the day being kept -- past tense for the remembered events the practice carries",
+  "page_target_words": 250,
+  "global_instructions": "Transform the respondent's answers into a devotional book in the first person: one reflective entry per answer, each standing on its own and each returning, as the day's practice returns, to the book's anchor. The book's continuity is the keeper and his practice -- the respondent, his two family lines (the Flames line of his mother, the Frozen line of his father), the front room, the repair bench, the Cold Room studio, and the daily disciplines the answers describe -- not a plot carried between entries. Never contradict the story bible or the fixed facts. Do not invent named people, places, or dates that are not in the supplied material. The respondent's belief is rendered only in his own terms: name no religion, scripture, rite, or name for the divine that the answers do not themselves use, and never translate his vocabulary into another tradition's. Keep what happened distinct from what he understands it to mean. Where an answer gives an event, render it whole and in order; where it gives a discipline, render the discipline as it is actually performed -- the place, the hour, the words, the hands. Do not append consolation or a moral the answer does not state. Where the material is thin, expand by rendering its documented implications as scene and reflection, not by fabricating events.",
+  "devices": {
+   "anchor_return": {
+    "name": "Anchor return",
+    "instruction": "Return to the book's anchor -- the sentence the practice keeps -- as the intervening days have changed it: carry the newer facts into it, in fresh wording that means something the first statement could not have meant."
+   },
+   "practice_rendering": {
+    "name": "Practice rendering",
+    "instruction": "Render a discipline as it is actually performed, in order: the place, the hour, the posture, the words said or withheld, what the hands do. A practice page should let a reader perform the practice from the page alone."
+   },
+   "moment_opening": {
+    "name": "Moment opening",
+    "instruction": "Open inside one moment of the day: the light, the sound in the room, the object in hand -- before any reflection on what the moment means."
+   },
+   "gratitude_naming": {
+    "name": "Gratitude naming",
+    "instruction": "Name the gifts one by one, concretely -- the thing itself, not the feeling about it. Thanks in this book is counting, not mood."
+   },
+   "hardship_witness": {
+    "name": "Hardship witness",
+    "instruction": "Render a hard season plainly: what it cost, what the practice did, and what it did not do. No easy consolation, no suffering redeemed before its time."
+   },
+   "intercession": {
+    "name": "Intercession",
+    "instruction": "Hold another person in the practice: who they are, what is carried for them and in what words, and what the carrying changes in the keeper."
+   },
+   "silence_rendering": {
+    "name": "Silence rendering",
+    "instruction": "Render stillness: what is not said, how long the quiet lasts, what it is for, and what it leaves room for. The silence is the event."
+   },
+   "listening": {
+    "name": "Listening",
+    "instruction": "Render attention for guidance in the respondent's own terms: what was heard or noticed, and what he understands it to mean -- the two kept distinct on the page."
+   },
+   "day_examen": {
+    "name": "Day examen",
+    "instruction": "Review the day honestly: where the practice was kept, where it failed, and what is handed over at the day's end. Nothing varnished."
+   },
+   "kept_object": {
+    "name": "Kept object",
+    "instruction": "Hang the entry on the practice's object -- the book of names, the day book, the bench, the cup -- and let the object's state be the entry's clock: what is opened, entered, carried, or closed, and when."
+   },
+   "place_portrait": {
+    "name": "Place portrait",
+    "instruction": "Render one place of the practice whole: its furniture, its light, its working sounds, who stands where in it. One page should leave one place standing as a place."
+   },
+   "sensory_palette": {
+    "name": "Sensory palette",
+    "instruction": "Render the scene through sound first -- this keeper is an engineer of sound -- then sight, smell, and touch: the room's tone before anyone speaks."
+   },
+   "sending": {
+    "name": "Sending",
+    "instruction": "Close the entry by handing its matter onward: a word of release, resolve, or thanks in the respondent's own terms. No sermon after the sending."
+   }
+  }
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "title": "The Keeper",
+   "act": "Act I: The Practice"
+  },
+  {
+   "id": "ch02",
+   "title": "First Light",
+   "act": "Act I: The Practice"
+  },
+  {
+   "id": "ch03",
+   "title": "The Kept Table",
+   "act": "Act I: The Practice"
+  },
+  {
+   "id": "ch04",
+   "title": "Work as Practice",
+   "act": "Act II: The Day"
+  },
+  {
+   "id": "ch05",
+   "title": "The Hard Hours",
+   "act": "Act II: The Day"
+  },
+  {
+   "id": "ch06",
+   "title": "Other People",
+   "act": "Act II: The Day"
+  },
+  {
+   "id": "ch07",
+   "title": "Gratitude Counted",
+   "act": "Act III: The Turning"
+  },
+  {
+   "id": "ch08",
+   "title": "Silence and Listening",
+   "act": "Act III: The Turning"
+  },
+  {
+   "id": "ch09",
+   "title": "The Night Watch",
+   "act": "Act III: The Turning"
+  },
+  {
+   "id": "ch10",
+   "title": "The Practice Kept",
+   "act": "Act IV: The Return"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "chapter": "ch01",
+   "prompt": "What is the family name of your mother's line -- the line whose keeping you first saw practiced? Begin the answer with the name.",
+   "narrative_job": "Open the book by naming the mother's line, the first school of the keeper's practice, and fix the fact.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 1 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "family.flames_name"
+   ],
+   "fact": {
+    "slot": "flames_line_name",
+    "kind": "person_name",
+    "triggers": [
+     "the Flames family name",
+     "the Flames line's name"
+    ]
+   }
+  },
+  {
+   "id": "q002",
+   "chapter": "ch01",
+   "prompt": "What is the family name of your father's line -- the line that taught you a kept thing is a thing entered honestly in a book? Begin the answer with the name.",
+   "narrative_job": "Name the father's line, the second school of the practice, and fix the fact.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 2 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "family.frozen_name"
+   ],
+   "fact": {
+    "slot": "frozen_line_name",
+    "kind": "person_name",
+    "triggers": [
+     "the Frozen family name",
+     "the Frozen line's name"
+    ]
+   }
+  },
+  {
+   "id": "q003",
+   "chapter": "ch01",
+   "prompt": "Who is the main character of this devotional -- the keeper whose practice these entries record, who keeps it and stands inside every entry? Give that keeper's full name, and say how the name comes from the two lines. Begin the answer with the full name.",
+   "narrative_job": "Establish the book's central identity as respondent data: the main character is the keeper the respondent names here, and the fact is fixed from this answer alone.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 3 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "anchor_return"
+   ],
+   "bible_keys": [
+    "respondent.identity"
+   ],
+   "fact": {
+    "slot": "subject_name",
+    "kind": "person_name",
+    "triggers": [
+     "the respondent"
+    ]
+   }
+  },
+  {
+   "id": "q004",
+   "chapter": "ch01",
+   "prompt": "What is your mother's full name, and what is her place in your practice -- what did she teach you about how a day is kept, and what of hers do you still do every day? Begin the answer with her full name.",
+   "narrative_job": "Name the first teacher of the practice directly, and fix the fact.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 4 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "people.mother"
+   ],
+   "fact": {
+    "slot": "mother_name",
+    "kind": "person_name",
+    "triggers": [
+     "my mother",
+     "the respondent's mother"
+    ]
+   }
+  },
+  {
+   "id": "q005",
+   "chapter": "ch01",
+   "prompt": "What is your father's full name, and what is his place in your practice -- what did the day book and the bench teach you about what a kept day must contain? Begin the answer with his full name.",
+   "narrative_job": "Name the second teacher of the practice directly, and fix the fact.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 5 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "people.father"
+   ],
+   "fact": {
+    "slot": "father_name",
+    "kind": "person_name",
+    "triggers": [
+     "my father",
+     "the respondent's father"
+    ]
+   }
+  },
+  {
+   "id": "q006",
+   "chapter": "ch01",
+   "prompt": "In what year were you born, and what keepings were already old in the house when you arrived? Begin the answer with the year.",
+   "narrative_job": "Fix the keeper's birth year as fact, set inside the house's stock of practices at his arrival.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 6 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "anchor_return"
+   ],
+   "bible_keys": [
+    "respondent.birth"
+   ],
+   "fact": {
+    "slot": "birth_year",
+    "kind": "year",
+    "triggers": [
+     "I was born"
+    ]
+   }
+  },
+  {
+   "id": "q007",
+   "chapter": "ch01",
+   "prompt": "In what place were you born, and what does that place sound like at the hour you now keep? Begin the answer with the place.",
+   "narrative_job": "Fix the keeper's birthplace as fact and as his first soundscape.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 7 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "places.birthplace"
+   ],
+   "fact": {
+    "slot": "birthplace",
+    "kind": "place_name",
+    "triggers": [
+     "I was born in"
+    ]
+   }
+  },
+  {
+   "id": "q008",
+   "chapter": "ch01",
+   "prompt": "What is your sister's full name, and what is her place in the keeping -- what does she keep that you do not, and how does her keeping differ from yours? Begin the answer with her full name.",
+   "narrative_job": "Name the book's second keeper, and fix the fact.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 8 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "anchor_return"
+   ],
+   "bible_keys": [
+    "people.sister"
+   ],
+   "fact": {
+    "slot": "sister_name",
+    "kind": "person_name",
+    "triggers": [
+     "my sister",
+     "the respondent's sister"
+    ]
+   }
+  },
+  {
+   "id": "q009",
+   "chapter": "ch01",
+   "prompt": "What is your wife's full name, and what is her place in the keeping -- she photographs the practice's rooms: what does her camera keep that your entries miss? Begin the answer with her full name.",
+   "narrative_job": "Name the practice's witness, and fix the fact.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 9 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "people.partner"
+   ],
+   "fact": {
+    "slot": "partner_name",
+    "kind": "person_name",
+    "triggers": [
+     "my wife",
+     "the respondent's wife"
+    ]
+   }
+  },
+  {
+   "id": "q010",
+   "chapter": "ch01",
+   "prompt": "What sentence does your practice return to -- the saying your family hands down that you have made the anchor of your own keeping -- which line brought it, and how do you actually use it: when is it said, and what is it for?",
+   "narrative_job": "Plant the anchor: the family's doctrine stated as this book's law of keeping, in the respondent's own words, as content the entries themselves return to.",
+   "position": "Act I: The Practice, Chapter: The Keeper; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "practice_rendering"
+   ],
+   "bible_keys": [
+    "practice.anchor"
+   ]
+  },
+  {
+   "id": "q011",
+   "chapter": "ch02",
+   "prompt": "Describe the first moment of your kept day: what you do before your feet touch the floor, the first words if there are words, and what the moment is for.",
+   "narrative_job": "Open the practice at its first act, before the day begins.",
+   "position": "Act I: The Practice, Chapter: First Light; page 1 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "practice_rendering"
+   ],
+   "bible_keys": [
+    "practice.first_moment"
+   ]
+  },
+  {
+   "id": "q012",
+   "chapter": "ch02",
+   "prompt": "Describe the table in the dark: the book of your family's names opened to its first pages, what you read there and in what order, and what reading names does that reading a lesson would not.",
+   "narrative_job": "Render the morning's central act: the names kept by being read.",
+   "position": "Act I: The Practice, Chapter: First Light; page 2 of 10 within the chapter",
+   "devices": [
+    "kept_object",
+    "practice_rendering"
+   ],
+   "bible_keys": [
+    "practice.names"
+   ]
+  },
+  {
+   "id": "q013",
+   "chapter": "ch02",
+   "prompt": "Describe saying the anchor aloud: where you stand, how it is spoken, what has to be true of the room, and what the saying does that thinking it would not.",
+   "narrative_job": "Render the anchor as a performed act, not a thought.",
+   "position": "Act I: The Practice, Chapter: First Light; page 3 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "anchor_return"
+   ],
+   "bible_keys": [
+    "practice.anchor_spoken"
+   ]
+  },
+  {
+   "id": "q014",
+   "chapter": "ch02",
+   "prompt": "Describe the silence before the house wakes: how long it lasts, what fills it, what you are not allowed to do inside it, and what it is for.",
+   "narrative_job": "Render the morning's stillness as a discipline with rules.",
+   "position": "Act I: The Practice, Chapter: First Light; page 4 of 10 within the chapter",
+   "devices": [
+    "silence_rendering",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "practice.morning_silence"
+   ]
+  },
+  {
+   "id": "q015",
+   "chapter": "ch02",
+   "prompt": "Describe the coffee and the window: the day's weather received standing up, what you look for first outside, and what the looking settles before work.",
+   "narrative_job": "Render the day's first receiving: weather as given, not chosen.",
+   "position": "Act I: The Practice, Chapter: First Light; page 5 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "practice.window"
+   ]
+  },
+  {
+   "id": "q016",
+   "chapter": "ch02",
+   "prompt": "Describe a morning the practice failed: the oversleeping or the emergency, what the day did without its keeping, and what you learned from the day going unkept.",
+   "narrative_job": "Render the discipline by its absence: a failure kept honestly.",
+   "position": "Act I: The Practice, Chapter: First Light; page 6 of 10 within the chapter",
+   "devices": [
+    "day_examen",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "practice.failed_morning"
+   ]
+  },
+  {
+   "id": "q017",
+   "chapter": "ch02",
+   "prompt": "Describe your mother's morning as you saw it from a child's doorway: her hour, her sounds, what she did before the house was fed, and what of it you understood only later.",
+   "narrative_job": "Render the inherited morning, witnessed before it was understood.",
+   "position": "Act I: The Practice, Chapter: First Light; page 7 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "practice.mothers_morning"
+   ]
+  },
+  {
+   "id": "q018",
+   "chapter": "ch02",
+   "prompt": "Describe your father's morning: the shop opened in the dark, the bench uncovered, the first entry made -- what did his keeping look like from outside it?",
+   "narrative_job": "Render the second inherited morning, at the bench.",
+   "position": "Act I: The Practice, Chapter: First Light; page 8 of 10 within the chapter",
+   "devices": [
+    "kept_object",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "practice.fathers_morning"
+   ]
+  },
+  {
+   "id": "q019",
+   "chapter": "ch02",
+   "prompt": "Describe the practice on the road: a morning kept in a strange room, without its table or its book -- what you carried, what you did instead, and what the makeshift taught you about the furniture.",
+   "narrative_job": "Render the practice portable: what survives the loss of its setting.",
+   "position": "Act I: The Practice, Chapter: First Light; page 9 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "practice.road_morning"
+   ]
+  },
+  {
+   "id": "q020",
+   "chapter": "ch02",
+   "prompt": "What is the morning for, at the end of this chapter: state what the first hour of a kept day is meant to accomplish, and what a day is that begins any other way.",
+   "narrative_job": "State the chapter's doctrine in the respondent's own terms.",
+   "position": "Act I: The Practice, Chapter: First Light; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "practice.morning_why"
+   ]
+  },
+  {
+   "id": "q021",
+   "chapter": "ch03",
+   "prompt": "Describe the words before eating in your house: who says them, their shape and length, the rule about who is named, and what happens on the nights nobody wants to say them.",
+   "narrative_job": "Render the table's spoken keeping, with its rules.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 1 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "gratitude_naming"
+   ],
+   "bible_keys": [
+    "table.words"
+   ]
+  },
+  {
+   "id": "q022",
+   "chapter": "ch03",
+   "prompt": "Describe your mother's rule that everybody is fed: where it came from in her line, how it runs the kitchen in practice, and what it has cost and bought over the years.",
+   "narrative_job": "Render feeding as the house's first devotion.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 2 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "table.everybody_fed"
+   ]
+  },
+  {
+   "id": "q023",
+   "chapter": "ch03",
+   "prompt": "Describe gratitude named at supper: each person at the table names one thing, in turn -- and the hardest night you remember for naming one, and what got named in the end.",
+   "narrative_job": "Render thanks as a counted discipline at the table.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 3 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "moment_opening"
+   ],
+   "bible_keys": [
+    "table.naming"
+   ]
+  },
+  {
+   "id": "q024",
+   "chapter": "ch03",
+   "prompt": "Describe the empty chair: who is missing from the table in this season of the family's life, how the table keeps them anyway, and what is not done about the chair.",
+   "narrative_job": "Render absence kept at the table, without remedy.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 4 of 10 within the chapter",
+   "devices": [
+    "kept_object",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "table.chair"
+   ]
+  },
+  {
+   "id": "q025",
+   "chapter": "ch03",
+   "prompt": "Describe feeding a stranger: the pupil, the customer, or the one who came to the counter hungry -- who was fed at your table or your mother's, and what the feeding settled that words had not.",
+   "narrative_job": "Render the table extended past the family.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 5 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "table.stranger"
+   ]
+  },
+  {
+   "id": "q026",
+   "chapter": "ch03",
+   "prompt": "Describe the fast you keep: the going-without you practice on purpose -- what is given up, how often, and what the hunger is for.",
+   "narrative_job": "Render the deliberate empty place in the keeping.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 6 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "silence_rendering"
+   ],
+   "bible_keys": [
+    "table.fast"
+   ]
+  },
+  {
+   "id": "q027",
+   "chapter": "ch03",
+   "prompt": "Describe the meal where a quarrel ended: who had been at odds, what was cooked, who sat down first, and what the eating did that the talking had not managed.",
+   "narrative_job": "Render reconciliation as a table act.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 7 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "intercession"
+   ],
+   "bible_keys": [
+    "table.quarrel"
+   ]
+  },
+  {
+   "id": "q028",
+   "chapter": "ch03",
+   "prompt": "Describe cooking as practice: your hands in the work, what the kitchen's disciplines are, and what the stove teaches that the bench and the board do not.",
+   "narrative_job": "Render the kitchen as a school of the same keeping.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 8 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "table.cooking"
+   ]
+  },
+  {
+   "id": "q029",
+   "chapter": "ch03",
+   "prompt": "Describe the table inside the studio: the kitchen corner, who eats there and when, and what a session fed is that a session unfed is not.",
+   "narrative_job": "Render the kept table carried into the workplace.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 9 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "gratitude_naming"
+   ],
+   "bible_keys": [
+    "table.studio"
+   ]
+  },
+  {
+   "id": "q030",
+   "chapter": "ch03",
+   "prompt": "What is the table for, at the end of this chapter: state what a kept table accomplishes in a house, and what a house is whose table is only furniture.",
+   "narrative_job": "State the chapter's doctrine in the respondent's own terms.",
+   "position": "Act I: The Practice, Chapter: The Kept Table; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "table.why"
+   ]
+  },
+  {
+   "id": "q031",
+   "chapter": "ch04",
+   "prompt": "In what year did you found the Cold Room, and what keeping did you carry into the room on its first day -- what was done before any work was done? Begin the answer with the year.",
+   "narrative_job": "Fix the studio's founding year as fact, and open its working keeping with the rite of its first day.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 1 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "studio.founding"
+   ],
+   "fact": {
+    "slot": "studio_year",
+    "kind": "year",
+    "triggers": [
+     "I founded the Cold Room in",
+     "the Cold Room opened in"
+    ]
+   }
+  },
+  {
+   "id": "q032",
+   "chapter": "ch04",
+   "prompt": "Describe opening the workplace: the first acts of the working day in the studio and at the bench, in order, and what makes them a keeping rather than a routine.",
+   "narrative_job": "Render the workday's threshold as a practice.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 2 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "work.opening"
+   ]
+  },
+  {
+   "id": "q033",
+   "chapter": "ch04",
+   "prompt": "Describe the midday pause: the radio off, the board quiet, the length of one song with nothing done in it -- what the pause is for, and what breaks when it is skipped.",
+   "narrative_job": "Render the kept stop inside the working day.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 3 of 10 within the chapter",
+   "devices": [
+    "silence_rendering",
+    "practice_rendering"
+   ],
+   "bible_keys": [
+    "work.pause"
+   ]
+  },
+  {
+   "id": "q034",
+   "chapter": "ch04",
+   "prompt": "Describe what your hands know: the knowledge in the bench work and the board work that your words do not have, and why work you can do with your hands is the keeping you can perform on the days you cannot perform any other.",
+   "narrative_job": "Render work as the practice of last resort, honestly kept.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 4 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "work.hands"
+   ]
+  },
+  {
+   "id": "q035",
+   "chapter": "ch04",
+   "prompt": "Describe the honest entry at work: the day book habit applied to the studio log -- what gets entered when a session fails, and why the failure is written in the same hand as the success.",
+   "narrative_job": "Render record-keeping as a moral discipline.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 5 of 10 within the chapter",
+   "devices": [
+    "kept_object",
+    "day_examen"
+   ],
+   "bible_keys": [
+    "work.honest_entry"
+   ]
+  },
+  {
+   "id": "q036",
+   "chapter": "ch04",
+   "prompt": "Describe a repair done as a carrying: a stranger's radio or guitar fixed in the knowledge of what it meant to them -- what you knew of their trouble, what the fixing held, and what you charged.",
+   "narrative_job": "Render the bench's work as intercession by hand.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 6 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "work.repair_carried"
+   ]
+  },
+  {
+   "id": "q037",
+   "chapter": "ch04",
+   "prompt": "Describe the session held for someone grieving: who booked it, what was recorded, how the room's keeping changed for them, and what you did from the board that was not engineering.",
+   "narrative_job": "Render the studio as a place where grief books time, and the keeper as witness.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 7 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "work.grief_session"
+   ]
+  },
+  {
+   "id": "q038",
+   "chapter": "ch04",
+   "prompt": "Describe money under the practice: how a price is set honestly, the repair you did not charge for and why, and what the day book says about both.",
+   "narrative_job": "Render the shop's economy under the keeping.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 8 of 10 within the chapter",
+   "devices": [
+    "day_examen",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "work.money"
+   ]
+  },
+  {
+   "id": "q039",
+   "chapter": "ch04",
+   "prompt": "Describe the kept day away from work: the one day in seven the bench stays covered and the studio dark -- what is done instead, what is refused, and what the refusal protects.",
+   "narrative_job": "Render rest as a discipline with edges.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 9 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "silence_rendering"
+   ],
+   "bible_keys": [
+    "work.rest_day"
+   ]
+  },
+  {
+   "id": "q040",
+   "chapter": "ch04",
+   "prompt": "What is work for, at the end of this chapter: state what kept work accomplishes that unkept work does not, and what a trade is that is only a living.",
+   "narrative_job": "State the chapter's doctrine in the respondent's own terms.",
+   "position": "Act II: The Day, Chapter: Work as Practice; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "work.why"
+   ]
+  },
+  {
+   "id": "q041",
+   "chapter": "ch05",
+   "prompt": "Describe the night of the fire as a keeping: where you stood when it was over, what words were said or could not be said, and what the practice did in the first hour of the ruin.",
+   "narrative_job": "Open the hard hours at the ruin itself, whole and in order.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 1 of 10 within the chapter",
+   "devices": [
+    "hardship_witness",
+    "moment_opening"
+   ],
+   "bible_keys": [
+    "hardship.fire_night"
+   ]
+  },
+  {
+   "id": "q042",
+   "chapter": "ch05",
+   "prompt": "Describe the morning after the fire: the first person who came, what was done before anything was said, and the first kept act of the rebuilding whether you knew it then or not.",
+   "narrative_job": "Render help and keeping arriving in their true order: hands before words.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 2 of 10 within the chapter",
+   "devices": [
+    "hardship_witness",
+    "intercession"
+   ],
+   "bible_keys": [
+    "hardship.morning_after"
+   ]
+  },
+  {
+   "id": "q043",
+   "chapter": "ch05",
+   "prompt": "Describe the practice thinned: across the two years of rebuilding, what the keeping shrank to on the worst days -- the one sentence, the one act -- and what it means that it shrank instead of stopping.",
+   "narrative_job": "Render the discipline at its minimum viable form.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 3 of 10 within the chapter",
+   "devices": [
+    "hardship_witness",
+    "anchor_return"
+   ],
+   "bible_keys": [
+    "hardship.thinned"
+   ]
+  },
+  {
+   "id": "q044",
+   "chapter": "ch05",
+   "prompt": "Describe the season of doubt: when the words felt empty and the practice felt like nothing -- how long it lasted, what you did inside it, and what you do not claim about how it ended.",
+   "narrative_job": "Render doubt without varnish and without a tidy exit.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 4 of 10 within the chapter",
+   "devices": [
+    "hardship_witness",
+    "silence_rendering"
+   ],
+   "bible_keys": [
+    "hardship.doubt"
+   ]
+  },
+  {
+   "id": "q045",
+   "chapter": "ch05",
+   "prompt": "Describe keeping the dead of your father's line: your grandfather Jasper, who made the family's sentence -- how he is held in the practice now, what is asked for the dead, and what is simply remembered.",
+   "narrative_job": "Render grief for the doctrine's author, in the practice he authored.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 5 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "hardship.jasper"
+   ]
+  },
+  {
+   "id": "q046",
+   "chapter": "ch05",
+   "prompt": "Describe keeping the dead of your mother's line: your grandmother Jet, who began the book of names the year you were not yet born to read -- how a keeper holds someone he knows only through her own keeping.",
+   "narrative_job": "Render grief at one remove: the matriarch known through her record.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 6 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "hardship.jet"
+   ]
+  },
+  {
+   "id": "q047",
+   "chapter": "ch05",
+   "prompt": "Describe holding the one who will not come back: your great-uncle Zircon, estranged from the family since before you were born -- what the practice requires toward a man who refuses the table, and what it does not require.",
+   "narrative_job": "Render the keeping extended to the refuser, with its limits stated.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 7 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "hardship.zircon"
+   ]
+  },
+  {
+   "id": "q048",
+   "chapter": "ch05",
+   "prompt": "Describe the body's limit: the season your hands and your strength gave out under the rebuilding -- what the practice does when the keeper himself is the broken thing, and who kept it for you then.",
+   "narrative_job": "Render the keeper as the kept, in the body's worst season.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 8 of 10 within the chapter",
+   "devices": [
+    "hardship_witness",
+    "intercession"
+   ],
+   "bible_keys": [
+    "hardship.body"
+   ]
+  },
+  {
+   "id": "q049",
+   "chapter": "ch05",
+   "prompt": "Describe sitting up with the sick: a night you kept watch beside someone ill in your family -- the room, the hours, what was said at the worst of it, and what the watching was for.",
+   "narrative_job": "Render the night watch in its original form: beside a bed, not a book.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 9 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "silence_rendering"
+   ],
+   "bible_keys": [
+    "hardship.sick_watch"
+   ]
+  },
+  {
+   "id": "q050",
+   "chapter": "ch05",
+   "prompt": "What is hardship for, at the end of this chapter -- and what is it not for: state honestly what the hard hours are claimed to do in a kept life, and the claim you refuse to make for them.",
+   "narrative_job": "State the chapter's doctrine, including its refusal, in the respondent's own terms.",
+   "position": "Act II: The Day, Chapter: The Hard Hours; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "hardship.why"
+   ]
+  },
+  {
+   "id": "q051",
+   "chapter": "ch06",
+   "prompt": "Describe holding your mother in the practice: what you carry for her in this season of her life, in what words, and what the carrying asks of you that being her son does not already ask.",
+   "narrative_job": "Render intercession for the first teacher.",
+   "position": "Act II: The Day, Chapter: Other People; page 1 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "gratitude_naming"
+   ],
+   "bible_keys": [
+    "people.held_mother"
+   ]
+  },
+  {
+   "id": "q052",
+   "chapter": "ch06",
+   "prompt": "Describe holding your father: what the bench's keeper needs carried that he would never enter in his own book, and how you carry a man whose keeping is silence about himself.",
+   "narrative_job": "Render intercession for the second teacher, in his own idiom.",
+   "position": "Act II: The Day, Chapter: Other People; page 2 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "silence_rendering"
+   ],
+   "bible_keys": [
+    "people.held_father"
+   ]
+  },
+  {
+   "id": "q053",
+   "chapter": "ch06",
+   "prompt": "Describe holding your sister: what you hope for her keeping and her life that you cannot do for her, and what it is to carry someone whose keeping differs from your own.",
+   "narrative_job": "Render intercession across two kinds of keeping.",
+   "position": "Act II: The Day, Chapter: Other People; page 3 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "anchor_return"
+   ],
+   "bible_keys": [
+    "people.held_sister"
+   ]
+  },
+  {
+   "id": "q054",
+   "chapter": "ch06",
+   "prompt": "Describe holding your wife: what marriage asks of the practice that the practice does not ask of itself, and what you carry for the woman who photographs your rooms.",
+   "narrative_job": "Render intercession inside the marriage.",
+   "position": "Act II: The Day, Chapter: Other People; page 4 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "people.held_wife"
+   ]
+  },
+  {
+   "id": "q055",
+   "chapter": "ch06",
+   "prompt": "Describe holding a stranger: the one who came to the studio or the shop with a grief or a need and left as a name in your keeping -- who they were, what you carried, and for how long.",
+   "narrative_job": "Render intercession past the family's edge.",
+   "position": "Act II: The Day, Chapter: Other People; page 5 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "moment_opening"
+   ],
+   "bible_keys": [
+    "people.held_stranger"
+   ]
+  },
+  {
+   "id": "q056",
+   "chapter": "ch06",
+   "prompt": "Describe forgiving the one who wronged the shop: the dispute at the counter, your side's fault included -- what forgiveness required in practice, what it cost, and what it did not restore.",
+   "narrative_job": "Render forgiveness as an act with a price, honestly kept.",
+   "position": "Act II: The Day, Chapter: Other People; page 6 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "day_examen"
+   ],
+   "bible_keys": [
+    "people.forgiven"
+   ]
+  },
+  {
+   "id": "q057",
+   "chapter": "ch06",
+   "prompt": "Describe the hardest person to hold: someone you will not name, whose name the practice requires you to carry anyway -- what the requirement is, what you actually do, and where you fail at it.",
+   "narrative_job": "Render intercession at its point of failure, unnamed and honest.",
+   "position": "Act II: The Day, Chapter: Other People; page 7 of 10 within the chapter",
+   "devices": [
+    "intercession",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "people.held_hardest"
+   ]
+  },
+  {
+   "id": "q058",
+   "chapter": "ch06",
+   "prompt": "Describe being held: a morning or a season when someone else's keeping carried you -- who it was, what they did, and what receiving it taught you that carrying never had.",
+   "narrative_job": "Render the keeper as the carried: intercession received.",
+   "position": "Act II: The Day, Chapter: Other People; page 8 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "intercession"
+   ],
+   "bible_keys": [
+    "people.being_held"
+   ]
+  },
+  {
+   "id": "q059",
+   "chapter": "ch06",
+   "prompt": "Describe the gathered hour: the practice done with others, in the room where your mother plays -- what the singing and the company do that the table and the bench cannot, and what they cannot do either.",
+   "narrative_job": "Render the practice in company, with its powers and limits.",
+   "position": "Act II: The Day, Chapter: Other People; page 9 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "people.gathered"
+   ]
+  },
+  {
+   "id": "q060",
+   "chapter": "ch06",
+   "prompt": "What are other people for, at the end of this chapter: state what the keeping owes those outside the keeper, and what a practice is that keeps only itself.",
+   "narrative_job": "State the chapter's doctrine in the respondent's own terms.",
+   "position": "Act II: The Day, Chapter: Other People; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "people.why"
+   ]
+  },
+  {
+   "id": "q061",
+   "chapter": "ch07",
+   "prompt": "Describe the counting itself: the discipline of naming gifts one by one -- where you learned it, where it is done, and why a counted thanks differs from a felt one.",
+   "narrative_job": "Render gratitude as a practice with a method, not a mood.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 1 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "practice_rendering"
+   ],
+   "bible_keys": [
+    "gratitude.counting"
+   ]
+  },
+  {
+   "id": "q062",
+   "chapter": "ch07",
+   "prompt": "Describe gratitude for the unglamorous: the boiler, the roof, the truck that starts -- the gifts nobody sings about, named one by one, and what naming them does to a keeper.",
+   "narrative_job": "Render thanks at the level of infrastructure.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 2 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "gratitude.unglamorous"
+   ]
+  },
+  {
+   "id": "q063",
+   "chapter": "ch07",
+   "prompt": "Describe gratitude in the fire's year: what could honestly be thanked for in the year of the ruin -- the list as it actually stood then, not as it reads now.",
+   "narrative_job": "Render thanks inside the worst year, without revision.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 3 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "gratitude.fire_year"
+   ]
+  },
+  {
+   "id": "q064",
+   "chapter": "ch07",
+   "prompt": "Describe gratitude for the hard gift: the failure or the loss that taught what success had not -- the instrument that could not be fixed, or its like -- and how thanks is said for a thing you would never choose again.",
+   "narrative_job": "Render thanks for the unwished-for teacher.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 4 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "gratitude.hard_gift"
+   ]
+  },
+  {
+   "id": "q065",
+   "chapter": "ch07",
+   "prompt": "Describe gratitude for your mother's hands: the music and the feeding as one gift, named in its parts -- the lessons, the organ, the table -- and what of it is in your own hands now.",
+   "narrative_job": "Render thanks for the first teacher's gift, in detail.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 5 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "gratitude.mother"
+   ]
+  },
+  {
+   "id": "q066",
+   "chapter": "ch07",
+   "prompt": "Describe gratitude for your father's plainness: the day book, the honest price, the unsaid things -- what his way of keeping gave you that a warmer way would not have.",
+   "narrative_job": "Render thanks for the second teacher's gift, in his idiom.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 6 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "gratitude.father"
+   ]
+  },
+  {
+   "id": "q067",
+   "chapter": "ch07",
+   "prompt": "Describe gratitude for your wife's seeing: what her photographs keep that your entries and your ears miss, and what being seen accurately by another person does to a keeper.",
+   "narrative_job": "Render thanks for the witness's gift.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 7 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "gratitude.wife"
+   ]
+  },
+  {
+   "id": "q068",
+   "chapter": "ch07",
+   "prompt": "Describe gratitude withheld: the thing you cannot yet thank for -- what it is, why the thanks will not come, and what the practice does with an unnamable gift in the meantime.",
+   "narrative_job": "Render the counting's honest gap: a thanks that fails, kept as a failure.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 8 of 10 within the chapter",
+   "devices": [
+    "hardship_witness",
+    "day_examen"
+   ],
+   "bible_keys": [
+    "gratitude.withheld"
+   ]
+  },
+  {
+   "id": "q069",
+   "chapter": "ch07",
+   "prompt": "Describe gratitude paid aloud: a thanks owed to a person, spoken to their face -- who it was, what was owed, what saying it cost, and what it repaired that silence had left broken.",
+   "narrative_job": "Render thanks as a debt entered and paid, in person.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 9 of 10 within the chapter",
+   "devices": [
+    "gratitude_naming",
+    "intercession"
+   ],
+   "bible_keys": [
+    "gratitude.paid_aloud"
+   ]
+  },
+  {
+   "id": "q070",
+   "chapter": "ch07",
+   "prompt": "What is gratitude for, at the end of this chapter: state what counted thanks accomplishes in a kept life, and what a keeper is who only receives.",
+   "narrative_job": "State the chapter's doctrine in the respondent's own terms.",
+   "position": "Act III: The Turning, Chapter: Gratitude Counted; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "gratitude.why"
+   ]
+  },
+  {
+   "id": "q071",
+   "chapter": "ch08",
+   "prompt": "Describe the silence you keep on purpose: when it falls, where, how long it lasts, what is set aside to make it, and what it is for.",
+   "narrative_job": "Render chosen silence as a discipline with edges.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 1 of 10 within the chapter",
+   "devices": [
+    "silence_rendering",
+    "practice_rendering"
+   ],
+   "bible_keys": [
+    "silence.kept"
+   ]
+  },
+  {
+   "id": "q072",
+   "chapter": "ch08",
+   "prompt": "Describe listening for guidance in your own terms: how direction comes to a keeper like you -- what you attend to, what you discount, and how a heard thing is tested before it is obeyed.",
+   "narrative_job": "Render discernment as a method, in the respondent's own vocabulary.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 2 of 10 within the chapter",
+   "devices": [
+    "listening",
+    "practice_rendering"
+   ],
+   "bible_keys": [
+    "silence.guidance"
+   ]
+  },
+  {
+   "id": "q073",
+   "chapter": "ch08",
+   "prompt": "Describe the sentence that would not leave: a line -- your mother's, the doctrine's, a stranger's -- that followed you through a season, where it met you, and what it was doing there.",
+   "narrative_job": "Render a carried sentence as a season's companion.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 3 of 10 within the chapter",
+   "devices": [
+    "listening",
+    "kept_object"
+   ],
+   "bible_keys": [
+    "silence.sentence"
+   ]
+  },
+  {
+   "id": "q074",
+   "chapter": "ch08",
+   "prompt": "Describe a dream you still keep: the night your grandfather's shop, or its like, came to you in sleep -- what happened in it, exactly, and separately what you understand it to mean.",
+   "narrative_job": "Render a dream with the event and the meaning kept distinct on the page.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 4 of 10 within the chapter",
+   "devices": [
+    "listening",
+    "moment_opening"
+   ],
+   "bible_keys": [
+    "silence.dream"
+   ]
+  },
+  {
+   "id": "q075",
+   "chapter": "ch08",
+   "prompt": "Describe discernment tested: the decision to rebuild rather than close, weighed in the practice -- what spoke for closing, what spoke for rebuilding, and how the weighing actually settled.",
+   "narrative_job": "Render the book's hinge decision as an act of listening.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 5 of 10 within the chapter",
+   "devices": [
+    "listening",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "silence.rebuild_decision"
+   ]
+  },
+  {
+   "id": "q076",
+   "chapter": "ch08",
+   "prompt": "Describe the answer that was no: a hope the practice carried that was refused -- what was hoped, how the refusal became clear, and how a keeper keeps a no.",
+   "narrative_job": "Render refusal received and kept, without varnish.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 6 of 10 within the chapter",
+   "devices": [
+    "listening",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "silence.no"
+   ]
+  },
+  {
+   "id": "q077",
+   "chapter": "ch08",
+   "prompt": "Describe the noise: a sound man's temptation to fill every silence with the radio, the board, the room's tone -- what the noise protects you from, and what it costs.",
+   "narrative_job": "Render the keeper's native resistance to his own discipline.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 7 of 10 within the chapter",
+   "devices": [
+    "silence_rendering",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "silence.noise"
+   ]
+  },
+  {
+   "id": "q078",
+   "chapter": "ch08",
+   "prompt": "Describe listening to people: the counter and the studio door as places where you are told things -- what being listened to does for the teller, and what the listening requires of the keeper.",
+   "narrative_job": "Render attention to people as a practice beside attention to guidance.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 8 of 10 within the chapter",
+   "devices": [
+    "listening",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "silence.people"
+   ]
+  },
+  {
+   "id": "q079",
+   "chapter": "ch08",
+   "prompt": "Describe your mother's music as listening: the song she plays when the house is empty -- what it is, what playing with no audience is an act of, and what you learned about attention from overhearing it.",
+   "narrative_job": "Render the inherited form of listening: music as attention with no one to feed.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 9 of 10 within the chapter",
+   "devices": [
+    "listening",
+    "sensory_palette"
+   ],
+   "bible_keys": [
+    "silence.mothers_music"
+   ]
+  },
+  {
+   "id": "q080",
+   "chapter": "ch08",
+   "prompt": "What is listening for, at the end of this chapter: state what attention accomplishes in a kept life that effort cannot, and what a keeper is who only speaks.",
+   "narrative_job": "State the chapter's doctrine in the respondent's own terms.",
+   "position": "Act III: The Turning, Chapter: Silence and Listening; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "silence.why"
+   ]
+  },
+  {
+   "id": "q081",
+   "chapter": "ch09",
+   "prompt": "Describe the day entered: the closing of the day book at night -- what gets written, in what order, in whose hand's tradition, and what the writing finishes that the day left open.",
+   "narrative_job": "Render the examen as a written act, inherited from the bench.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 1 of 10 within the chapter",
+   "devices": [
+    "kept_object",
+    "day_examen"
+   ],
+   "bible_keys": [
+    "night.entry"
+   ]
+  },
+  {
+   "id": "q082",
+   "chapter": "ch09",
+   "prompt": "Describe where the day was kept: in tonight's review, or in the review as you usually make it -- the one kept thing you name first, and what naming it does to the rest of the account.",
+   "narrative_job": "Render the examen's credit side, concretely.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 2 of 10 within the chapter",
+   "devices": [
+    "day_examen",
+    "gratitude_naming"
+   ],
+   "bible_keys": [
+    "night.kept"
+   ]
+  },
+  {
+   "id": "q083",
+   "chapter": "ch09",
+   "prompt": "Describe where the day was lost: the failure you enter without varnish -- the kind that recurs, what it cost, and what an entered failure is for that a hidden one is not.",
+   "narrative_job": "Render the examen's debit side, unvarnished.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 3 of 10 within the chapter",
+   "devices": [
+    "day_examen",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "night.lost"
+   ]
+  },
+  {
+   "id": "q084",
+   "chapter": "ch09",
+   "prompt": "Describe handing the day over: the last words of the night, said where and how, and what is given up in them that the day book's closing does not give up.",
+   "narrative_job": "Render surrender in the respondent's own terms, as an act with an address.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 4 of 10 within the chapter",
+   "devices": [
+    "sending",
+    "silence_rendering"
+   ],
+   "bible_keys": [
+    "night.handing"
+   ]
+  },
+  {
+   "id": "q085",
+   "chapter": "ch09",
+   "prompt": "Describe the house at night: the rounds -- doors, stove, the sleeping rooms, the studio dark -- what is checked and in what order, and what the rounds say that no words are needed for.",
+   "narrative_job": "Render the keeper's patrol as a wordless entry.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 5 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "practice_rendering"
+   ],
+   "bible_keys": [
+    "night.rounds"
+   ]
+  },
+  {
+   "id": "q086",
+   "chapter": "ch09",
+   "prompt": "Describe the three o'clock waking: what wakes you in the deep night in this season of your life, what you do in the hour that follows, and what the practice has made of that hour that fear had made before.",
+   "narrative_job": "Render the night watch at its hardest hour.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 6 of 10 within the chapter",
+   "devices": [
+    "moment_opening",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "night.waking"
+   ]
+  },
+  {
+   "id": "q087",
+   "chapter": "ch09",
+   "prompt": "Describe the fire's anniversary kept at night: how the ruin's date is marked after dark -- what is done, what is read or said, and who is there.",
+   "narrative_job": "Render the year's darkest date as a kept night.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 7 of 10 within the chapter",
+   "devices": [
+    "kept_object",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "night.anniversary"
+   ]
+  },
+  {
+   "id": "q088",
+   "chapter": "ch09",
+   "prompt": "Describe rest received: sleep taken as a gift rather than a collapse -- what has to be finished before it comes, what unfinished thing most often delays it, and what a keeper dreams of being forgiven for at the door of sleep.",
+   "narrative_job": "Render rest as the practice's last daily act.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 8 of 10 within the chapter",
+   "devices": [
+    "silence_rendering",
+    "day_examen"
+   ],
+   "bible_keys": [
+    "night.rest"
+   ]
+  },
+  {
+   "id": "q089",
+   "chapter": "ch09",
+   "prompt": "Describe your father's night: the day book closed, the shop dark, the bench covered -- the keeping's old form at the day's end, as you saw it growing up.",
+   "narrative_job": "Render the inherited night, the examen's source.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 9 of 10 within the chapter",
+   "devices": [
+    "kept_object",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "night.fathers"
+   ]
+  },
+  {
+   "id": "q090",
+   "chapter": "ch09",
+   "prompt": "What is the night for, at the end of this chapter: state what the dark half of a kept day accomplishes, and what a keeper is who keeps only the daylight.",
+   "narrative_job": "State the chapter's doctrine in the respondent's own terms.",
+   "position": "Act III: The Turning, Chapter: The Night Watch; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "night.why"
+   ]
+  },
+  {
+   "id": "q091",
+   "chapter": "ch10",
+   "prompt": "Describe a year of mornings audited: what a year of the kept practice actually changed in you and your house -- and what it did not change, entered as plainly.",
+   "narrative_job": "Open the closing chapter with the practice's own account of itself, credits and debits together.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 1 of 10 within the chapter",
+   "devices": [
+    "day_examen",
+    "anchor_return"
+   ],
+   "bible_keys": [
+    "book.year"
+   ]
+  },
+  {
+   "id": "q092",
+   "chapter": "ch10",
+   "prompt": "Describe the practice in the rebuilt room: the first session back after the rebuilding -- what keeping was done before the work, and how the anchor sounded in the new room.",
+   "narrative_job": "Render the practice restored to its workplace, two years on from the ruin.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 2 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "place_portrait"
+   ],
+   "bible_keys": [
+    "book.rebuilt_room"
+   ]
+  },
+  {
+   "id": "q093",
+   "chapter": "ch10",
+   "prompt": "Describe teaching the practice: the first discipline you give a beginner in the studio or at the bench -- what it is, why it comes first, and the last time you watched someone take it up.",
+   "narrative_job": "Render the keeping handed on, as a taught act.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 3 of 10 within the chapter",
+   "devices": [
+    "practice_rendering",
+    "intercession"
+   ],
+   "bible_keys": [
+    "book.teaching"
+   ]
+  },
+  {
+   "id": "q094",
+   "chapter": "ch10",
+   "prompt": "Describe two keepers in one family: your sister's keeping and yours, set side by side at the end of the book -- where they agree, where they will never agree, and what the house gains by having both.",
+   "narrative_job": "Render the family's two keepings in their final relation.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 4 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "intercession"
+   ],
+   "bible_keys": [
+    "book.two_keepers"
+   ]
+  },
+  {
+   "id": "q095",
+   "chapter": "ch10",
+   "prompt": "Describe the doctrine tested in your own adult life: the occasion when the family's sentence was quoted at you or by you over something broken of your own -- what it required, and what it cost to keep it.",
+   "narrative_job": "Give the anchor its fullest test in the keeper's own story.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 5 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "hardship_witness"
+   ],
+   "bible_keys": [
+    "book.doctrine_tested"
+   ]
+  },
+  {
+   "id": "q096",
+   "chapter": "ch10",
+   "prompt": "Describe what you would tell your younger self at the first bench: the boy rewiring radios after school -- what the keeping will ask of him, in order, and the one thing you would not warn him about.",
+   "narrative_job": "Render the book's counsel backward, to its own beginning.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 6 of 10 within the chapter",
+   "devices": [
+    "sending",
+    "moment_opening"
+   ],
+   "bible_keys": [
+    "book.younger_self"
+   ]
+  },
+  {
+   "id": "q097",
+   "chapter": "ch10",
+   "prompt": "Describe the practice imagined at seventy: the old keeper you hope to be -- where he sits, what his hands can no longer do, what the keeping becomes when the work is taken away.",
+   "narrative_job": "Render the practice's far end, as hope rather than fact.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 7 of 10 within the chapter",
+   "devices": [
+    "place_portrait",
+    "silence_rendering"
+   ],
+   "bible_keys": [
+    "book.at_seventy"
+   ]
+  },
+  {
+   "id": "q098",
+   "chapter": "ch10",
+   "prompt": "Describe what the practice cannot do: its honest limits -- the grief it does not shorten, the answer it does not give, the day it does not save -- and why a keeper keeps it anyway.",
+   "narrative_job": "Render the keeping's limits as plainly as its powers were rendered.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 8 of 10 within the chapter",
+   "devices": [
+    "hardship_witness",
+    "day_examen"
+   ],
+   "bible_keys": [
+    "book.limits"
+   ]
+  },
+  {
+   "id": "q099",
+   "chapter": "ch10",
+   "prompt": "What is this devotional for, at the end: what does its whole keeping, kept whole, show a practice is and does -- and what should a reader's own keeping do differently for this book existing?",
+   "narrative_job": "Test the book's declared purpose against its full record.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 9 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "book.purpose_final"
+   ]
+  },
+  {
+   "id": "q100",
+   "chapter": "ch10",
+   "prompt": "End the book: state the anchor one last time, as it now stands after a hundred entries -- the family's sentence as the fire, the rebuilding, the griefs, and the gratitudes have rewritten it in you -- and say what keeping it will ask of you next.",
+   "narrative_job": "Close on the anchor developed: the refrain's final return, carrying the whole book in it.",
+   "position": "Act IV: The Return, Chapter: The Practice Kept; page 10 of 10 within the chapter",
+   "devices": [
+    "anchor_return",
+    "sending"
+   ],
+   "bible_keys": [
+    "book.final_anchor"
+   ]
+  }
+ ]
+}
