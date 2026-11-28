@@ -63,6 +63,65 @@ The finished book is still audited after the build by
 extraction and classification (the S7 failsafe); the gate is
 the generation-time half of that control.
 
+Two further screens run after the gender gate, added for the
+devotional's corrected edition (see DEFECTS.md, V11--V13).
+The spouse-term screen (engine/spousegate.py) is keyed to the
+subject's recorded gender, which the pack elicits as a typed
+fact (``subject_gender``) from the identity answer: a page
+whose narrator possesses the wrong spouse in the first person
+("my husband", for this series' male subject) is regenerated
+under the same bounded rule. That construction is the
+devotional's first edition's largest defect (62 of 100 pages)
+and is invisible to the pronoun gate, because it attaches no
+female marker to the narrator; the post-build audit now counts
+spouse-term instances with the same code, so a gender result
+is never reported clean on the pronoun audit alone. The
+meta-narrative screen (engine/metagate.py) flags pages whose
+prose names the generation machinery itself ("anchor
+sentence", "carrying the newer facts", "story bible"): the
+first devotional's prompts supplied those formulas, and the
+model quoted them back on 68 of 100 pages. The prompt-side
+half of that fix is below: the refrain block is now carried
+only by pages whose slot assigns the return device (in the
+first edition it was attached to all 100 prompts although
+only 21 slots assign the device -- the saturation mechanism
+behind that book's 53-of-100 duplication), and it directs the
+return without naming the apparatus or supplying a quotable
+formula.
+
+With refrain on, the duplication guard's failure condition
+also covers refrain development at generation time: a page
+whose sentences restate the book's first-page sentences
+without development -- verbatim copies, or thematic
+recurrences carrying no material from the story since --
+fails alongside verbatim duplication and is regenerated under
+the same bounded rule, classified by the same code the
+post-build development check (check_refrain) uses, so what
+the build accepts and what the report measures are the same
+judgement.
+
+One craft standard is stated in every page prompt, for every
+genre (set by the author, 2026-11-27): the beats of a page
+connect by causation and contrast -- therefore, but, yet,
+however, so -- never as a flat chain of "and then". The
+standard is an instruction and a measurement, not a gate: the
+build report counts chain markers against causal/contrast
+connectors for the finished book (engine/connectors.py), and
+the counts are reported as they fall.
+
+One repair is applied to every produced page before any guard
+runs: sentence completion. The 480-token page budget is the
+standing cause of the series' truncation defect (10--25 of
+100 pages per book ending mid-sentence). A page that does not
+end at terminal punctuation is continued once, from its own
+last token, with a small bounded budget, and only the words
+that finish its final sentence are kept; if the continuation
+does not reach a sentence end, the page stands as generated
+and is measured as truncated. The completion is the model's
+own continuation of its own sentence, never an editorial
+finish, and the count of repaired pages is recorded in the
+report alongside the truncation measurement.
+
 One page is produced per non-empty answer. Empty answers produce no
 page and are recorded in the build report; they are never padded or
 invented. Build state is persisted after every page, so a build can
@@ -85,17 +144,33 @@ import json
 from pathlib import Path
 
 from .bible import Bible
+from .connectors import check_connectors
 from .continuity import check_continuity
 from .duplication import check_duplication, check_refrain, \
-    page_overlap, split_sentences
+    page_anchor_recurrences, page_overlap, split_sentences, \
+    story_content_words
 from .gendergate import subject_gender_flags
+from .metagate import audit_meta_terms, meta_flags
 from .pack import questions_by_chapter
+from .spousegate import audit_spouse_terms, partner_term, \
+    spouse_flags, wrong_spouse_term
 
 WINDOW_PAGES = 1
 WINDOW_EXCERPT_WORDS = 60
 PAGE_MAX_TOKENS = 480
 MAX_DUP_RETRIES = 2
 MAX_GENDER_RETRIES = 2
+MAX_SPOUSE_RETRIES = 2
+MAX_META_RETRIES = 2
+CONTINUATION_MAX_TOKENS = 64
+_TERMINAL = '.!?"”’'
+
+
+def _ends_complete(text: str) -> bool:
+    """The series' uniform truncation test: a page is complete
+    when its final character is terminal punctuation."""
+    stripped = text.rstrip()
+    return bool(stripped) and stripped[-1] in _TERMINAL
 
 
 def _overlap_fails(overlap: dict) -> bool:
@@ -131,6 +206,25 @@ class BookBuilder:
         self.refrain = bool(pack.get("framework", {}).get("refrain", False))
         self.report: dict = {"skipped_empty": [], "pages_built": 0,
                              "refrain": self.refrain}
+        # The subject's recorded identity, folded from the full
+        # answer set rather than the incremental bible: the
+        # screens keyed to it (spouse-term, and the subject line
+        # every prompt carries) must hold from the first page,
+        # before the identity answers have been folded in page
+        # order. A pack that does not elicit a subject_gender
+        # fact leaves the spouse screen inert.
+        full_bible = Bible()
+        for q in pack["questions"]:
+            answer = answers.get(q["id"], "")
+            if answer.strip():
+                full_bible.update_from_answer(q, answer)
+        self.subject_facts = full_bible.facts
+        gender_fact = full_bible.facts.get("subject_gender")
+        self.subject_gender = (gender_fact["value"]
+                               if gender_fact else None)
+        partner_fact = full_bible.facts.get("partner_name")
+        self.partner_name = (partner_fact["value"]
+                             if partner_fact else None)
 
     # -- state -----------------------------------------------------------
 
@@ -194,6 +288,48 @@ class BookBuilder:
         pages = list(self.state["pages"].values())
         return sorted(pages, key=lambda p: p["index"])
 
+    # -- page production ---------------------------------------------------
+
+    def _produce(self, prompt: str) -> tuple[str, bool]:
+        """Generate one page candidate. Returns the text and
+        whether its final sentence had to be completed."""
+        text = self.model.complete(prompt, max_tokens=PAGE_MAX_TOKENS)
+        if len(text.split()) < 50:
+            text = self.model.complete(
+                prompt, max_tokens=PAGE_MAX_TOKENS)
+        return self._finish_sentence(text)
+
+    def _finish_sentence(self, text: str) -> tuple[str, bool]:
+        """Sentence completion: if the page's token budget ran
+        out mid-sentence, continue the page from its own last
+        token once, with a small bounded budget, and keep only
+        the words that finish the final sentence. If the
+        continuation never reaches a sentence end, the page
+        stands as generated and is measured as truncated. The
+        completion is the model's own continuation, never an
+        editorial finish."""
+        stripped = text.rstrip()
+        if not stripped or stripped[-1] in _TERMINAL:
+            return text, False
+        continue_text = getattr(self.model, "continue_text", None)
+        if continue_text is None:
+            return text, False
+        continuation = continue_text(
+            text, max_tokens=CONTINUATION_MAX_TOKENS)
+        if not continuation:
+            return text, False
+        end = -1
+        for i, ch in enumerate(continuation):
+            if ch in ".!?":
+                end = i
+                break
+        if end < 0:
+            return text, False
+        piece = continuation[:end + 1]
+        if not piece.strip(" .!?"):
+            return text, False
+        return text + piece, True
+
     # -- prompt construction ----------------------------------------------
 
     def page_prompt(self, question: dict, index: int, bible: Bible,
@@ -203,9 +339,25 @@ class BookBuilder:
         for dev_id in question["devices"]:
             dev = fw["devices"][dev_id]
             device_lines.append(f"- {dev['name']}: {dev['instruction']}")
+        subject_line = ""
+        if self.subject_gender in ("male", "female"):
+            who = ("man" if self.subject_gender == "male"
+                   else "woman")
+            poss = ("his" if self.subject_gender == "male"
+                    else "her")
+            role = partner_term(self.subject_gender)
+            subject_line = f"The respondent is a {who}."
+            if self.partner_name and role:
+                subject_line += (
+                    f" {self.partner_name} is {poss} {role}; the "
+                    f"respondent's spouse is always {poss} {role}, "
+                    f"never a "
+                    f"{wrong_spouse_term(self.subject_gender)}.")
+            subject_line += " "
         system = (
             f"You are the writing engine for a {self.pack['genre']} book. "
             f"{fw['global_instructions']} "
+            f"{subject_line}"
             f"Voice: {fw['voice']} Point of view: {fw['pov']}. "
             f"Tense: {fw['tense']}. "
             f"Write exactly one page of prose, about "
@@ -214,22 +366,43 @@ class BookBuilder:
             f"Your role is transformation, not origination: everything "
             f"the page contains must come from the source answer and "
             f"the established state supplied below; do not invent "
-            f"facts, people, places, or events beyond them."
+            f"facts, people, places, or events beyond them. "
+            f"Connect the beats of the page by causation and "
+            f"contrast, not by sequence alone: what happens should "
+            f"happen therefore, but, yet, however, or so -- never "
+            f"as a flat chain of \"and then\" following \"and "
+            f"then\", which makes a list instead of a story."
         )
         refrain_block = ""
-        if self.refrain:
+        # The return is carried only by pages whose slot assigns
+        # the return device. The first devotional attached this
+        # block, with the anchor quoted, to every one of its 100
+        # prompts although only 21 slots assign the device; the
+        # model, told on every page to consider a return, filled
+        # the book with near-verbatim boilerplate (53 of 100
+        # pages sharing a sentence with the previous page). The
+        # block also names no apparatus: it does not say
+        # "anchor", "theme", or "refrain", the words the first
+        # edition's prose then repeated on 68 pages (see
+        # engine/metagate.py). An earlier wording of this block
+        # did supply a quotable formula ("let it arrive changed
+        # by the days since...") and the corrected edition
+        # quoted it back as narration on pages 50, 53 and 94
+        # (DEFECTS V17); the directive below is worded as plain
+        # instruction, and the old formula's phrases are on the
+        # meta screen so an echo costs a retry.
+        if self.refrain and "anchor_return" in question["devices"]:
             anchor = self._anchor_text()
             if anchor:
                 refrain_block = (
-                    f"REFRAIN (a selected device of this book): the "
-                    f"book's anchor theme was first stated as: "
-                    f"\"{anchor}\" Where this page calls the theme "
-                    f"back, restate it as developed by everything "
-                    f"the story has established since: carry the "
-                    f"newer facts and the shifted understanding, in "
-                    f"fresh wording that means something new. A "
-                    f"refrain returns changed. Never copy an earlier "
-                    f"sentence verbatim.\n\n")
+                    f"The first page said: \"{anchor}\" Write "
+                    f"today's entry -- the day, the people, the "
+                    f"practice. Never copy an earlier sentence "
+                    f"word for word. Where today truly returns "
+                    f"to the first page's sentence, write it as "
+                    f"today has remade it, in today's own words, "
+                    f"and say nothing about the sentence itself "
+                    f"or its returning.\n\n")
         user = (
             f"STORY BIBLE (established state; do not contradict it):\n"
             f"{bible.render(question['bible_keys'])}\n\n"
@@ -306,69 +479,105 @@ class BookBuilder:
                 continue
             bible = self._bible_upto(index)
             prompt = self.page_prompt(question, index, bible)
-            text = self.model.complete(prompt, max_tokens=PAGE_MAX_TOKENS)
-            if len(text.split()) < 50:
-                text = self.model.complete(
-                    prompt, max_tokens=PAGE_MAX_TOKENS)
+            text, repaired = self._produce(prompt)
             # Duplication guard (both refrain settings): a page
             # that re-emits earlier sentences verbatim is treated
             # as failed and regenerated with the overlap named, up
             # to MAX_DUP_RETRIES times. Verbatim copying is never
-            # the mechanism: with refrain off the retry calls for
-            # entirely fresh sentences; with refrain on it calls
-            # for the anchor theme restated as developed. The
+            # the mechanism. With refrain on, the failure
+            # condition also covers development: a sentence that
+            # restates the book's first-page sentences without
+            # carrying anything the story has established since
+            # (classified by the same code as the post-build
+            # development check) fails alongside a verbatim copy,
+            # because in the first devotional exactly that
+            # near-verbatim boilerplate -- not the anchor alone
+            # -- saturated the book's final third. The
             # least-duplicative attempt is kept; the outcome is
-            # recorded on the page and in the build report.
+            # recorded on the page and in the build report. The
+            # retry note names the repeated sentences without
+            # supplying a quotable formula of its own (the first
+            # edition's note language, "carrying the newer
+            # facts", is itself among the phrases its prose
+            # leaked; see engine/metagate.py).
             earlier = self.ordered_pages()
             earlier_texts = [p["text"] for p in earlier]
             previous_text = earlier[-1]["text"] if earlier else None
             best_overlap = page_overlap(text, earlier_texts,
                                         previous_text)
+            anchor_sentences = (
+                split_sentences(earlier[0]["text"])
+                if self.refrain and earlier else [])
+            refrain_story_words = (
+                story_content_words(earlier_texts[1:])
+                if anchor_sentences else set())
+
+            def refrain_failures(candidate_text: str) -> list[dict]:
+                if not anchor_sentences:
+                    return []
+                return [r for r in page_anchor_recurrences(
+                    split_sentences(candidate_text), anchor_sentences,
+                    refrain_story_words) if not r["developed"]]
+
+            def dup_score(overlap: dict, failures: list) -> int:
+                return (_overlap_score(overlap)
+                        + 500 * len(failures))
+
+            best_refrain_failures = refrain_failures(text)
             retries = 0
-            while (_overlap_fails(best_overlap)
+            while ((_overlap_fails(best_overlap)
+                    or best_refrain_failures)
                    and retries < MAX_DUP_RETRIES):
                 retries += 1
-                named = "; ".join(
-                    f'"{s[:120]}"'
-                    for s in best_overlap["shared_sentences"][:3])
-                if self.refrain:
-                    retry_note = (
-                        f"RETRY {retries}: the previous attempt at "
-                        f"this page copied sentences verbatim from "
-                        f"earlier in the book, including: {named}. "
-                        f"Copying is not the refrain. If this page "
-                        f"calls the book's anchor theme back, restate "
-                        f"it as developed by what the story has "
-                        f"established since its first statement, "
-                        f"carrying the newer facts in fresh wording "
-                        f"that means something new. Do not repeat any "
-                        f"sentence that has already appeared in the "
-                        f"book.")
-                else:
-                    retry_note = (
-                        f"RETRY {retries}: the previous attempt at this "
-                        f"page repeated sentences verbatim from earlier "
-                        f"in the book, including: {named}. Write the page "
-                        f"again from the source answer in entirely fresh "
-                        f"sentences. Do not repeat any sentence that has "
-                        f"already appeared in the book, and do not restart "
-                        f"the previous page's wording.")
-                candidate = self.model.complete(
+                named_parts = []
+                if best_overlap["shared_sentences"]:
+                    named_parts.append(
+                        "sentences copied word for word from "
+                        "earlier in the book: " + "; ".join(
+                            f'"{s[:120]}"'
+                            for s in
+                            best_overlap["shared_sentences"][:3]))
+                if best_refrain_failures:
+                    named_parts.append(
+                        "sentences that restate the book's "
+                        "first-page sentences unchanged: "
+                        + "; ".join(
+                            f'"{r["sentence"][:120]}"'
+                            for r in best_refrain_failures[:3]))
+                retry_note = (
+                    f"RETRY {retries}: the previous attempt at "
+                    f"this page repeated earlier material -- "
+                    + "; ".join(named_parts)
+                    + ". Write the page again from the source "
+                    f"answer in entirely fresh sentences. A "
+                    f"sentence that comes back from earlier in "
+                    f"the book must come back changed by what "
+                    f"has happened since, in words of its own, "
+                    f"or not come back at all. Do not repeat any "
+                    f"sentence that has already appeared in the "
+                    f"book, and do not restart the previous "
+                    f"page's wording.")
+                candidate, cand_repaired = self._produce(
                     self.page_prompt(question, index, bible,
-                                     retry_note=retry_note),
-                    max_tokens=PAGE_MAX_TOKENS)
+                                     retry_note=retry_note))
                 cand_overlap = page_overlap(candidate, earlier_texts,
                                             previous_text)
-                if _overlap_score(cand_overlap) < _overlap_score(best_overlap):
-                    text, best_overlap = candidate, cand_overlap
+                cand_failures = refrain_failures(candidate)
+                if dup_score(cand_overlap, cand_failures) < \
+                        dup_score(best_overlap,
+                                  best_refrain_failures):
+                    text, best_overlap, best_refrain_failures, \
+                        repaired = candidate, cand_overlap, \
+                        cand_failures, cand_repaired
             # Subject-gender gate: a page whose text attaches a
             # female pronoun or role word to the subject/narrator
             # (definite-pattern screen, engine/gendergate.py) is
             # treated as failed and regenerated with the flagged
             # sentences named, up to MAX_GENDER_RETRIES times.
             # The attempt with the fewest flagged sentences is
-            # kept, ties broken by the duplication score; the
-            # outcome is recorded on the page and in the report.
+            # kept, ties broken by the duplication score and then
+            # the refrain-failure count; the outcome is recorded
+            # on the page and in the report.
             gender_flags = subject_gender_flags(text)
             gender_retries = 0
             while (gender_flags
@@ -393,18 +602,106 @@ class BookBuilder:
                     f"in the sentence itself wherever a pronoun "
                     f"refers to her, so no female reference can be "
                     f"read as the respondent's.")
-                candidate = self.model.complete(
+                candidate, cand_repaired = self._produce(
                     self.page_prompt(question, index, bible,
-                                     retry_note=retry_note),
-                    max_tokens=PAGE_MAX_TOKENS)
+                                     retry_note=retry_note))
                 cand_flags = subject_gender_flags(candidate)
                 cand_overlap = page_overlap(candidate, earlier_texts,
                                             previous_text)
-                if (len(cand_flags), _overlap_score(cand_overlap)) < \
+                if (len(cand_flags), _overlap_score(cand_overlap),
+                        len(refrain_failures(candidate))) < \
                         (len(gender_flags),
-                         _overlap_score(best_overlap)):
-                    text, gender_flags, best_overlap = \
-                        candidate, cand_flags, cand_overlap
+                         _overlap_score(best_overlap),
+                         len(best_refrain_failures)):
+                    text, gender_flags, best_overlap, repaired = \
+                        candidate, cand_flags, cand_overlap, \
+                        cand_repaired
+                    best_refrain_failures = refrain_failures(text)
+            # Spouse-term screen (engine/spousegate.py): a page
+            # whose narrator possesses the wrong spouse in the
+            # first person, keyed to the subject's recorded
+            # gender, is regenerated under the same bounded rule.
+            # Inert for packs that record no subject gender.
+            spouse_page_flags = spouse_flags(text, self.subject_gender)
+            spouse_retries = 0
+            while (spouse_page_flags
+                   and spouse_retries < MAX_SPOUSE_RETRIES):
+                spouse_retries += 1
+                named = "; ".join(
+                    f'"{f["sentence"][:120]}"'
+                    for f in spouse_page_flags[:3])
+                wrong = wrong_spouse_term(self.subject_gender)
+                right = partner_term(self.subject_gender)
+                who = ("man" if self.subject_gender == "male"
+                       else "woman")
+                poss = ("his" if self.subject_gender == "male"
+                        else "her")
+                if self.partner_name:
+                    marriage = (f"{self.partner_name} is {poss} "
+                                f"{right}")
+                else:
+                    marriage = f"{poss} spouse is {poss} {right}"
+                retry_note = (
+                    f"RETRY {spouse_retries} (spouse-term screen): "
+                    f"the previous attempt at this page gave the "
+                    f"respondent a {wrong}, in: {named}. The "
+                    f"respondent is a {who}: {marriage}, and the "
+                    f"respondent's spouse is always {poss} "
+                    f"{right}, never a {wrong}. Write the page "
+                    f"again with the respondent's marriage as "
+                    f"recorded.")
+                candidate, cand_repaired = self._produce(
+                    self.page_prompt(question, index, bible,
+                                     retry_note=retry_note))
+                cand_flags = spouse_flags(candidate,
+                                          self.subject_gender)
+                cand_overlap = page_overlap(candidate, earlier_texts,
+                                            previous_text)
+                if (len(cand_flags), _overlap_score(cand_overlap),
+                        len(refrain_failures(candidate))) < \
+                        (len(spouse_page_flags),
+                         _overlap_score(best_overlap),
+                         len(best_refrain_failures)):
+                    text, spouse_page_flags, best_overlap, \
+                        repaired = candidate, cand_flags, \
+                        cand_overlap, cand_repaired
+                    best_refrain_failures = refrain_failures(text)
+            # Meta-narrative screen (engine/metagate.py): a page
+            # whose prose names the generation machinery itself
+            # is regenerated under the same bounded rule.
+            meta_page_flags = meta_flags(text)
+            meta_retries = 0
+            while (meta_page_flags
+                   and meta_retries < MAX_META_RETRIES):
+                meta_retries += 1
+                phrases = "; ".join(sorted(
+                    {p for f in meta_page_flags
+                     for p in f["phrases"]}))
+                retry_note = (
+                    f"RETRY {meta_retries} (meta-narrative "
+                    f"screen): the previous attempt at this page "
+                    f"talked about the book's own construction, "
+                    f"in phrases including: {phrases}. Write the "
+                    f"page itself: the scene, the people, the "
+                    f"events, what was done and what was said. "
+                    f"Never mention sentences returning, "
+                    f"material supplied for the page, or the "
+                    f"bookkeeping behind the book.")
+                candidate, cand_repaired = self._produce(
+                    self.page_prompt(question, index, bible,
+                                     retry_note=retry_note))
+                cand_flags = meta_flags(candidate)
+                cand_overlap = page_overlap(candidate, earlier_texts,
+                                            previous_text)
+                if (len(cand_flags), _overlap_score(cand_overlap),
+                        len(refrain_failures(candidate))) < \
+                        (len(meta_page_flags),
+                         _overlap_score(best_overlap),
+                         len(best_refrain_failures)):
+                    text, meta_page_flags, best_overlap, \
+                        repaired = candidate, cand_flags, \
+                        cand_overlap, cand_repaired
+                    best_refrain_failures = refrain_failures(text)
             self.state["pages"][qid] = {
                 "question_id": qid,
                 "chapter": question["chapter"],
@@ -414,6 +711,13 @@ class BookBuilder:
                 "duplication_retries": retries,
                 "gender_retries": gender_retries,
                 "gender_flags": len(gender_flags),
+                "spouse_retries": spouse_retries,
+                "spouse_flags": len(spouse_page_flags),
+                "meta_retries": meta_retries,
+                "meta_flags": len(meta_page_flags),
+                "truncation_repaired": repaired,
+                "refrain_undeveloped":
+                    len(refrain_failures(text)),
                 "shared_with_previous":
                     best_overlap["shared_with_previous"],
                 "shared_with_any_earlier":
@@ -452,6 +756,7 @@ class BookBuilder:
             "total_words": sum(p["word_count"] for p in pages),
             "continuity_issues": issues,
             "duplication": check_duplication(pages),
+            "connectors": check_connectors(pages),
             "gender_gate": {
                 "retries": sum(p.get("gender_retries", 0)
                                for p in pages),
@@ -459,6 +764,33 @@ class BookBuilder:
                                      if p.get("gender_flags", 0)),
                 "flagged_sentences": sum(p.get("gender_flags", 0)
                                          for p in pages),
+            },
+            "spouse_gate": {
+                "retries": sum(p.get("spouse_retries", 0)
+                               for p in pages),
+                "pages_flagged": sum(1 for p in pages
+                                     if p.get("spouse_flags", 0)),
+                "flagged_sentences": sum(p.get("spouse_flags", 0)
+                                         for p in pages),
+            },
+            "meta_gate": {
+                "retries": sum(p.get("meta_retries", 0)
+                               for p in pages),
+                "pages_flagged": sum(1 for p in pages
+                                    if p.get("meta_flags", 0)),
+                "flagged_sentences": sum(p.get("meta_flags", 0)
+                                         for p in pages),
+            },
+            "spouse_audit": audit_spouse_terms(
+                pages, self.subject_gender),
+            "meta_audit": audit_meta_terms(pages),
+            "truncation": {
+                "pages_repaired": sum(
+                    1 for p in pages
+                    if p.get("truncation_repaired")),
+                "pages_ending_mid_sentence": sum(
+                    1 for p in pages
+                    if not _ends_complete(p["text"])),
             },
             "model": getattr(self.model, "name", "unknown"),
         })

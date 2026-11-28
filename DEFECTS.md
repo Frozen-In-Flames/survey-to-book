@@ -136,6 +136,32 @@ occur.
   death_year slot declared and unestablished. Memoir (pack
   v1.1.0): 6 of 6 facts traced.
 
+### E7. Beat connection: the causation-and-contrast craft standard
+
+- **Source:** the author, 2026-11-27, as a standing craft rule
+  for the whole program: a story's beats connect by causation
+  and contrast -- therefore, but, yet (also however, so) --
+  never by flat "and then" chains, so the stories stay
+  interesting. A page that advances by sequence alone is a
+  list, not a story.
+- **Correction:** the rule is stated in the system prompt of
+  every page the engine generates, for every genre
+  (`engine/generate.py`): the beats of the page connect by
+  causation and contrast, not by sequence alone, and never as
+  a flat chain of "and then" following "and then".
+- **Control:** a measurement in the standard audit set
+  (`engine/connectors.py`, recorded in every build report):
+  "and then" chain markers counted against causal/contrast
+  connectors (therefore, but, yet, however, thus, hence,
+  consequently, because, and "so" in its causal use only),
+  reported per book in this log with the other measures. The
+  standard is an instruction and a measurement, not a gate:
+  no page is regenerated on this count, and the numbers are
+  reported as they fall. First applied in the devotional's
+  corrected edition (v0.6.1), whose generation was restarted
+  at 8 of 100 pages to carry it; it applies to every genre
+  from that build onward.
+
 ## Memoir — "The Porch Light" (v0.1.0)
 
 ### M1. Verbatim looping, 90 of 100 pages
@@ -1296,3 +1322,215 @@ genuine errors found are recorded, not fixed.
   script lived in the goal workspace throughout, per the C7
   rule. **Control:** the C7 control held under eight
   interruptions; no change.
+
+- **V11. The spouse-term screen is built, and the survey now
+  asks the subject's gender (corrects V2--V3).** Root cause,
+  in two parts. The engine's subject-gender control screened
+  female pronouns and role words attached to the narrator;
+  the first edition's failure attached none -- it gave the
+  narrator a husband, and "husband" is a male role word, so
+  both the gate and the pronoun audit read the book as clean
+  while its narrator was a wife on 62 of 100 pages. And the
+  survey itself had never asked the subject's gender: the
+  fact the screens needed was nowhere in the respondent's
+  data, only in the character record the build consults
+  outside the survey -- the clean-proof rule's exact case.
+  **Solution, encoded in three places.** (1) The survey:
+  pack v1.1.0's identity question (q003) now asks whether
+  the keeper is a man or a woman, and declares a second
+  typed fact, subject_gender (new fact kind "gender",
+  engine/pack.py and engine/bible.py), extracted from the
+  identity answer beside subject_name; the demonstration
+  answer states it from the record ("I am a man"), and the
+  pack suite proves all eleven facts trace to their answers
+  (11 of 11). (2) The engine: engine/spousegate.py screens
+  the first-person possessive spouse term keyed to the
+  recorded gender -- for this subject, "my husband" is a
+  definite flag, and a cast member's spouse is never
+  flagged -- enforced at generation with the same bounded
+  retries as the gender gate, and the recorded gender and
+  the partner's identity are stated in every page's prompt
+  from the first page. (3) The audit: the post-build audit
+  counts spouse-term instances with the same code
+  (audit_spouse_terms), and its count is reported beside the
+  pronoun classification; no book's gender result is clean
+  on the pronoun audit alone again. Calibration: run against
+  the first edition's text before regeneration, the screen
+  finds exactly the measured defect -- 109 instances on 62
+  pages -- and none in the book's three correct "my wife"
+  passages; the unit suite pins both. In this edition the
+  screen recorded 0 retries across 0 flagged pages, and the
+  post-build audit finds 0 instances of "my husband" in the
+  finished text.
+
+- **V12. Meta-narrative leakage: the prompts stopped
+  supplying the machinery's vocabulary, and an output screen
+  now catches what remains (corrects V6).** Root cause: the
+  prompt surface itself. The refrain block named the
+  apparatus ("the book's anchor theme was first stated as",
+  "restate it as developed"), the return device's
+  instruction told the model to "carry the newer facts into
+  it", the pack's global instructions spoke of "the book's
+  anchor", and the duplication retry note repeated the same
+  formulas -- the model's most available phrasing for a
+  return was the instruction's own, and it quoted the
+  instruction back on 68 of 100 pages. **Solution, encoded
+  in three places.** (1) engine/generate.py: the return
+  block directs the return without naming the apparatus (it
+  does not say "anchor", "theme", or "refrain"), and the
+  duplication retry note was rewritten the same way. (2) The
+  pack (v1.1.0): the return device is renamed in display
+  ("The kept sentence") and its instruction rewritten; the
+  global instructions now speak of "the sentence the
+  practice keeps". (3) engine/metagate.py: an output screen
+  for the apparatus phrases themselves ("anchor sentence",
+  "anchor theme", "carrying the newer facts", "story bible",
+  and the rest of its measured list), enforced with bounded
+  retries. The bare word "anchor" is deliberately not
+  screened: it is the respondent's own word for his family's
+  saying, elicited by the survey as content. In this edition
+  the screen recorded 2 retries and no kept page carries a
+  listed phrase; the post-build count finds apparatus
+  phrases in 0 sentences on 0 pages, against 162 sentences
+  on 68 pages in the first edition. One formula the fix
+  itself introduced escaped the list; it is recorded at
+  V17.
+
+- **V13. Refrain saturation: the return is carried only
+  where the slot assigns it, and undeveloped recurrences
+  fail at generation (corrects V5, and the mechanism behind
+  V4).** Root cause: the first edition attached the return
+  block -- with the book's first sentences quoted -- to all
+  100 page prompts, although the pack assigns the return
+  device to only 21 slots. Told on every page to consider a
+  return, the model filled the allowance with near-verbatim
+  boilerplate; and the duplication guard measured only exact
+  sentence matches, so a restatement changed by one word
+  passed the guard while failing the development check that
+  only ran after the build. **Solution, encoded in
+  engine/generate.py and engine/duplication.py.** (1) The
+  return block is carried only by pages whose slot assigns
+  the return device. (2) The duplication guard's failure
+  condition now includes development: a page whose
+  sentences restate the book's first-page sentences without
+  carrying material the story has established since --
+  verbatim copies and undeveloped thematic recurrences
+  alike -- is regenerated under the same bounded rule,
+  classified by page_anchor_recurrences, the single
+  classification the post-build development check
+  (check_refrain) also uses, so verbatim anchor copies
+  count as duplication failures at generation, not as
+  refrain passes. This edition's measurements: duplication
+  previous-page 35 of 100 pages, 57 instances; any-earlier
+  64 pages, 195 instances; intra-page 5 pages (first
+  edition: previous-page 53 of 100 pages, 110 instances;
+  any-earlier 76 pages, 292 instances; intra-page 10
+  pages). The refrain development check FAILED again,
+  improved but not passing: 26 thematic recurrences, 25
+  developed, 5 verbatim anchor copies, failing pages 13,
+  53, 76, 80, 92, 97 (first edition: failed, 20
+  recurrences, 12 developed, 4 verbatim anchor copies).
+  The guard fired 123 duplication retries across the build
+  and still could not hold the last copies out within its
+  bounded attempts; the failure is recorded as it fell, and
+  no text was touched by hand.
+
+- **V14. Truncation: sentence completion at generation
+  (mitigates V7).** The standing cause is unchanged -- the
+  480-token page budget ends pages mid-sentence (22 of 100
+  in the first edition, series range 10--25) -- and the
+  budget itself is a series constant, not this book's to
+  move. The bounded mitigation the engine now applies: a
+  page that does not end at terminal punctuation is
+  continued once from its own last token
+  (LlamaServerModel.continue_text, at most 64 tokens), and
+  only the words that finish its final sentence are kept;
+  if the continuation reaches no sentence end, the page
+  stands as generated and is measured as truncated. The
+  completion is the model's own continuation of its own
+  sentence, never an editorial finish, and no sentence in
+  this book was completed by hand. In this edition 24 of
+  100 pages were completed this way, and 0 pages still end
+  mid-sentence by the uniform method -- the first zero in
+  the series, bought entirely by the completion step: the
+  budget still ends pages mid-sentence at the old rate,
+  and the continuation is what closes them.
+
+- **V15. The corrected edition's measurements, stated as
+  they fell.** 100 pages, 32,559 words (first edition:
+  31,962). Duplication and refrain as at V13; truncation as
+  at V14; continuity 0 flags; traceability 11 of 11 typed
+  facts to their survey answers. Gender audit: 164
+  sentences carry female markers; classified by referent,
+  definite 0, probable 0 -- every marker resolves to the
+  mother, the wife, the sister, the great-grandmother, the
+  aunt, or a woman of the day's scene (a singer, a client,
+  an old woman with a radio) -- and spouse-term instances
+  0, so the edition passes the V11 bar the first edition
+  failed invisibly. Gate activity: gender gate 24 retries
+  on 8 pages (9 sentences, each classified above as a cast
+  or scene referent), spouse screen 0 retries, meta screen
+  2 retries, duplication guard 123 retries. Genuine errors
+  found by reader-level sampling: page 46 calls Jet "my
+  grandmother" -- she is the great-grandmother, as pages 6
+  and 12 have her -- a relation-degree slip of the F5
+  class; page 49's "When her father finally ordered him to
+  sleep by a woman too sick to stay awake and unable to
+  stop giving orders" is a sentence fragment whose
+  referents do not recover (the woman is the mother, ill
+  that week; who "him" is, the page does not say). The
+  first edition's sampled minor defects did not recur: no
+  "three years since founding Cold Room Studio" (no
+  founding-duration claim appears), and no lowercase
+  "flames line". Beat connection (the E7 craft standard,
+  applied from this edition): 5 "and then" chain markers on
+  5 pages against 272 causal and contrast connectors, a
+  ratio of 0.018. The first edition was not measured for
+  beat connection; the standard and its metric date from
+  this edition.
+
+- **V16. The corrected edition's build interruptions.**
+  Generation was terminated by runtime process-tree kills
+  at least seven times, observed at saved checkpoints of 9,
+  49, 56, 65, 72, 79 and 99 pages, each kill taking the
+  model server and, when it was running, the watchdog with
+  it. A self-healing watchdog, relaunched by hand after
+  each full-tree kill, restarted the server and the build
+  from state.json; every resume re-verified the saved
+  state, and no completed page was lost or regenerated.
+  Separately, the first corrected generation was
+  deliberately discarded at 8 pages so this edition would
+  carry the E7 craft standard from its first page; that
+  discard was a decision, not an interruption. **Control:**
+  the C7 control held again; no change.
+
+- **V17. The refrain block's replacement wording was itself
+  quoted (found by this edition's own audit).** The V12 fix
+  removed the apparatus vocabulary from the refrain block
+  but left a two-clause instruction formula in it -- "If
+  this page comes back to that sentence, let it arrive
+  changed by the days since it was first said: what has
+  happened since must live inside it, in fresh words" --
+  and on pages where the return device fired, the model
+  narrated the instruction instead of obeying it. Measured
+  under the extended screen below: the formula or its
+  fragments appear in 21 sentences on 8 pages (40, 41, 50,
+  53, 80, 90, 94, 95), the full formula verbatim on pages
+  50, 53 and 94. The meta screen as built for this edition
+  did not list the formula's phrases, so the gate never
+  fired on it: V12's zero is a screen-coverage result, and
+  this entry corrects it. **Solution, encoded in
+  engine/metagate.py and engine/generate.py.** (1) The
+  screen's phrase list now carries the formula's
+  distinctive phrases -- "runs through this book", "first
+  said on its first page", "comes back to that sentence",
+  "let it arrive changed", "arrive changed by the days
+  since", "must live inside it", "must live inside them" --
+  pinned by unit tests against this edition's own leaked
+  sentences, with negative controls for innocent uses. (2)
+  The refrain block is reworded a second time, to a plain
+  directive with no reusable sentence pattern. The
+  instances in this edition's text stand as generated --
+  the no-hand-editing rule has no exception for defects
+  found late -- and the fix protects the next build that
+  uses the return device.

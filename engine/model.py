@@ -39,8 +39,9 @@ class StubModel:
         # see a well-behaved model as clean.
         body = (
             f"This is the stub page for question {qid}. The page for "
-            f"{qid} was generated with full knowledge of the story "
-            f"bible and synopsis supplied in its prompt. In the page "
+            f"{qid} was generated with full knowledge of the "
+            f"established state and synopsis supplied in its prompt. "
+            f"In the page "
             f"for {qid}, the narrative continues in the framework's "
             f"voice without contradicting any established fact. "
             f"Sentinels observed in the context for {qid}: {seen}. "
@@ -52,6 +53,12 @@ class StubModel:
             f"The page for {qid} ends here."
         )
         return body
+
+    def continue_text(self, text: str, max_tokens: int = 64) -> str:
+        """The stub cannot continue text: its pages are whole by
+        construction, so a truncated page under the stub stays
+        truncated and is measured as such."""
+        return ""
 
 
 class LlamaServerModel:
@@ -85,3 +92,28 @@ class LlamaServerModel:
         with urllib.request.urlopen(req, timeout=1800) as resp:
             data = json.loads(resp.read().decode("utf-8"))
         return data["content"].strip()
+
+    def continue_text(self, text: str, max_tokens: int = 64) -> str:
+        """Continue raw text (no chat template): the page itself
+        is the prompt, and the model writes on from its last
+        token. Used only to finish a page whose token budget ran
+        out mid-sentence. The result is returned unstripped: its
+        leading characters carry the spacing the model itself
+        emitted, so it joins the page exactly."""
+        payload = {
+            "prompt": text,
+            "n_predict": max_tokens,
+            "temperature": self.temperature,
+            "top_p": self.top_p,
+            "repeat_penalty": self.repeat_penalty,
+            "stop": ["</s>", "\nQUESTION_ID:", "\nTASK:"],
+            "cache_prompt": True,
+        }
+        req = urllib.request.Request(
+            f"{self.base_url}/completion",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=1800) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        return data["content"]

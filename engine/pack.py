@@ -29,7 +29,7 @@ REQUIRED_QUESTION_FIELDS = (
     "bible_keys",
 )
 
-FACT_KINDS = ("person_name", "place_name", "year")
+FACT_KINDS = ("person_name", "place_name", "year", "gender")
 
 
 class PackError(ValueError):
@@ -89,8 +89,21 @@ def validate_pack(pack: dict) -> list[str]:
                 errors.append(f"question {qid}: unknown device {dev_id!r}")
         if not isinstance(q.get("bible_keys", []), list):
             errors.append(f"question {qid}: bible_keys must be a list")
-        fact = q.get("fact")
-        if fact is not None:
+        # A question declares its typed facts through ``fact``
+        # (the common single-fact form) and may declare further
+        # facts through ``facts``, a list of the same shape --
+        # the identity question, for instance, fixes both the
+        # subject's name and the subject's recorded gender.
+        declared = []
+        if q.get("fact") is not None:
+            declared.append(q["fact"])
+        extra = q.get("facts")
+        if extra is not None:
+            if not isinstance(extra, list):
+                errors.append(f"question {qid}: facts must be a list")
+            else:
+                declared.extend(extra)
+        for fact in declared:
             for field in ("slot", "kind", "triggers"):
                 if field not in fact:
                     errors.append(f"question {qid}: fact missing field {field}")

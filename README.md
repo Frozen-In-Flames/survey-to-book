@@ -264,7 +264,7 @@ Six packs ship in this release:
   q010, restated by the respondent in chapter 10), and the
   verbatim duplication guard applies in full.
 
-- **devotional** (v1.0.0): 100 questions in 10 chapters of
+- **devotional** (v1.1.0): 100 questions in 10 chapters of
   10, whose subject is a practice kept daily: one keeper's
   disciplines of naming, gratitude, work, hardship,
   intercession, silence, and the night watch, drawn from his
@@ -284,13 +284,14 @@ Six packs ship in this release:
   rendering, moment opening, gratitude naming, hardship
   witness, intercession, silence rendering, listening, day
   examen, kept object, place portrait, sensory palette,
-  sending), and ten typed fact slots — the two line names,
-  the subject's name, both parents' names, the subject's
-  birth year and birthplace, the sister's name, the
-  partner's name, and the studio's founding year. Every fact
+  sending), and eleven typed fact slots — the two line names,
+  the subject's name, the subject's gender, both parents'
+  names, the subject's birth year and birthplace, the
+  sister's name, the partner's name, and the studio's
+  founding year. Every fact
   slot is elicited by a direct question, and the pack's test
   suite proves each extracted fact traces to its source
-  answer (10 of 10). The survey opens its first chapter by
+  answer (11 of 11). The survey opens its first chapter by
   asking, in terms, who the main character of the devotional
   is (q003). Refrain default: on, chosen deliberately — the
   opposite call from the story collection, and for the
@@ -302,7 +303,16 @@ Six packs ship in this release:
   the respondent in chapter 10), and the verbatim
   duplication guard applies in full. What the refrain cost
   this book in practice is recorded without softening in
-  `DEFECTS.md` (V2, V4, V5, V6).
+  `DEFECTS.md` (V2, V4, V5, V6). Pack v1.1.0 is the
+  corrected-edition revision: the identity question (q003)
+  now asks, in terms, whether the keeper is a man or a
+  woman — the question that carries the subject_gender
+  slot — and the return device is presented to the model
+  as "The kept sentence", in instructions that name no
+  apparatus. The engine screens that protect this pack's
+  failure classes (spouse terms, meta-narrative leakage,
+  undeveloped refrain recurrences) are recorded with their
+  root causes at `DEFECTS.md`, V11–V14 and V17.
 
 Additional genre packs are added one at a time as updates to this
 same application; the engine is genre-agnostic and loads any pack
@@ -481,8 +491,9 @@ respondent is a separate fictional persona, as its entry states.)
   recorded in the deviations below.
 
 - **The Kept Hours** (`books/devotional-first-book/`) — the
-  devotional pack's first book: 100 pages, one per question,
-  31,962 words, generated locally with the same model and
+  devotional pack's first book, corrected edition
+  (survey-to-book v0.6.1): 100 pages, one per question,
+  32,559 words, generated locally with the same model and
   settings as the other books (Qwen2.5-3B-Instruct Q4_K_M
   GGUF via llama.cpp build b12651; temperature 0.8, top-p
   0.95, repeat penalty 1.1, 480-token page budget, single
@@ -495,41 +506,54 @@ respondent is a separate fictional persona, as its entry states.)
   partner Amber Flames), and the book's front matter states
   this. The story bible extracted from the answers agrees
   with the record fact for fact, and every one of the pack's
-  10 typed facts traces to its source survey answer (10 of
-  10). The pack's refrain parameter was on for this build,
-  deliberately (see the pack entry above). This is the first
-  book in the series whose headline results are failures,
-  and they are reported here as plainly as the earlier books'
-  passes. The generated narrator is cast as a wife from page
-  1 ("The family name of my husband's line is Flames"),
-  against the record's male respondent with a wife: "my
-  husband" appears on 62 of 100 pages, and because the
-  refrain takes its anchor from the first page, the error
-  recurs through the whole book (see `DEFECTS.md`, V2).
-  Duplication: 53 of 100 pages share a full sentence verbatim
-  with the previous page, against 0 of 100 in the fifth book,
-  5 of 100 in the fourth, 0 of 100 in the corrected third,
-  1 of 100 in the second, and 90 of 100 in the first; measured
-  against any earlier page, 76 pages share at least one
-  sentence with an earlier page, and 10 pages repeat a
-  sentence within the page (see `DEFECTS.md`, V5). The
-  refrain analysis records 20 recurrences, 12 developed, and
-  its development check fails (see `DEFECTS.md`, V4). All 10
-  chapter synopses are present, across the eight interruptions
-  the build survived (see `DEFECTS.md`, V10). Continuity
-  check: 0 candidate issues flagged at build time, the second
-  book in the series with none; its scope does not cover the
-  narrator inversion (see `DEFECTS.md`, V8). Subject-gender:
-  the generation-time gate recorded its heaviest activity in
-  the series (23 retries, 7 pages flagged, 12 flagged
-  sentences), and the post-build audit classified all 218
-  female-marker sentences in the finished text with 0
-  definite and 0 probable instances referring to the narrator
-  — while the book's actual gender failure, recorded at V2,
-  uses a spouse-term construction neither check screens. The
-  gap is named, and the prescribed screen extension is
-  recorded, at `DEFECTS.md`, V3. Reader-level sampling found
-  the further genuine errors recorded in the deviations below.
+  11 typed facts traces to its source survey answer (11 of
+  11). The pack's refrain parameter was on for this build,
+  deliberately (see the pack entry above). This edition
+  supersedes the edition released as v0.6.0 (31,962 words),
+  whose generated narrator was cast as a wife from page 1
+  ("my husband" on 62 of 100 pages) against the record's
+  male respondent with a wife — a failure both of that
+  build's gender checks read as clean, because the
+  construction attaches no female marker to the narrator
+  (see `DEFECTS.md`, V2–V3). The corrected edition was
+  regenerated from scratch with pack v1.1.0 — whose survey
+  now asks the subject's gender outright — and with the
+  engine screens the failure prescribed: a spouse-term gate
+  keyed to the recorded gender, a meta-narrative output
+  screen, a duplication guard that also fails undeveloped
+  refrain recurrences, and a sentence-completion step for
+  pages the token budget cuts short (see `DEFECTS.md`,
+  V11–V14). Subject-gender: the post-build audit classified
+  all 164 female-marker sentences in the finished text with
+  0 definite and 0 probable instances referring to the
+  narrator, and the spouse-term count the new audit reports
+  beside it is 0 instances of "my husband" — the bar the
+  first edition failed invisibly. Duplication: 35 of 100
+  pages share a full sentence verbatim with the previous
+  page (v0.6.0: 53 of 100); measured against any earlier
+  page, 64 pages share at least one sentence with an
+  earlier page (v0.6.0: 76), and 5 pages repeat a sentence
+  within the page (v0.6.0: 10). The refrain analysis
+  records 26 recurrences, 25 developed, and its development
+  check fails again — improved from 12 of 20 developed, not
+  passing, and reported as it fell (see `DEFECTS.md`, V13).
+  Truncation: 0 pages end mid-sentence, the series' first
+  zero; 24 pages were completed by the engine's bounded
+  continuation of the model's own final sentence, none by
+  hand (see `DEFECTS.md`, V14). Meta-narrative apparatus
+  phrases: 0 sentences, against 162 on 68 pages in the
+  first edition — with one exception this edition's own
+  audit caught: the refrain instruction's replacement
+  wording was itself quoted on 8 pages, a defect recorded
+  at `DEFECTS.md`, V17 with its engine fix, which protects
+  the next build. Beat connection, measured for the first
+  time under the craft standard recorded at `DEFECTS.md`,
+  E7: 5 "and then" chain markers against 272 causal and
+  contrast connectors. All 10 chapter synopses are present,
+  across the build interruptions recorded at `DEFECTS.md`,
+  V16. Continuity check: 0 candidate issues flagged at
+  build time. Reader-level sampling found the further
+  genuine errors recorded at `DEFECTS.md`, V15.
 
 - Live library: all six books can be read in a browser at
   https://frozen-in-flames.github.io/survey-to-book/, which is now a

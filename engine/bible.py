@@ -21,6 +21,7 @@ import re
 CORE_PREFIXES = ("people.", "places.", "motifs.")
 _NAME_RE = re.compile(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\b")
 _YEAR_RE = re.compile(r"\b(1[89]\d\d|20\d\d)\b")
+_GENDER_RE = re.compile(r"\b(woman|female|man|male)\b", re.IGNORECASE)
 
 
 def _words(text: str) -> int:
@@ -45,8 +46,11 @@ class Bible:
                 "source_question": question["id"],
                 "chapter": question["chapter"],
             }
-        fact = question.get("fact")
-        if fact:
+        declared = []
+        if question.get("fact"):
+            declared.append(question["fact"])
+        declared.extend(question.get("facts") or [])
+        for fact in declared:
             value = self._extract_fact_value(fact["kind"], answer)
             if value:
                 self.facts[fact["slot"]] = {
@@ -69,6 +73,15 @@ class Bible:
         if kind == "year":
             match = _YEAR_RE.search(text)
             return match.group(1) if match else None
+        if kind == "gender":
+            # The identity answer states the subject's sex in
+            # terms ("I am a man"); the first gender word in the
+            # answer is the subject's own statement of it.
+            match = _GENDER_RE.search(text)
+            if not match:
+                return None
+            return ("female" if match.group(1).lower()
+                    in ("woman", "female") else "male")
         return None
 
     # -- rendering -------------------------------------------------------

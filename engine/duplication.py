@@ -133,6 +133,67 @@ def _content_words(sentence: str) -> set[str]:
             if w not in _STOPWORDS and len(w) > 2}
 
 
+def story_content_words(texts: list[str]) -> set[str]:
+    """The content words of a set of page texts: the pool a
+    recurrence must draw from to count as developed."""
+    words: set[str] = set()
+    for text in texts:
+        for sentence in split_sentences(text):
+            words |= _content_words(sentence)
+    return words
+
+
+def page_anchor_recurrences(sentences: list[str],
+                            anchor: list[str],
+                            story_words: set[str]) -> list[dict]:
+    """Classify one page's sentences against the book's anchor.
+
+    ``sentences`` are the page's normalized countable sentences
+    (see split_sentences), ``anchor`` the first page's, and
+    ``story_words`` the content words of the pages between the
+    anchor and this page. Returns one entry per recurrence:
+    {"sentence", "kind", "developed"}, where kind is
+    "verbatim_copy" (identical to an anchor sentence: a loop,
+    never a development) or "thematic" (content-word Jaccard >=
+    ANCHOR_JACCARD against an anchor sentence), and a thematic
+    recurrence is developed when it carries at least one
+    content word drawn from outside the anchor sentence itself
+    -- the story so far, or elsewhere on its own page.
+
+    This is the single classification the generation-time
+    refrain screen (engine/generate.py) and the post-build
+    development check (check_refrain) share, so a recurrence
+    the build accepted and a recurrence the report measures
+    are the same object judged the same way.
+    """
+    anchor_words = [_content_words(s) for s in anchor]
+    sentence_words = [_content_words(s) for s in sentences]
+    out = []
+    for si, sentence in enumerate(sentences):
+        words = sentence_words[si]
+        best_j, best_anchor = 0.0, -1
+        for ai, aw in enumerate(anchor_words):
+            if not aw or not words:
+                continue
+            j = len(words & aw) / len(words | aw)
+            if j > best_j:
+                best_j, best_anchor = j, ai
+        if best_anchor < 0:
+            continue
+        if sentence == anchor[best_anchor]:
+            out.append({"sentence": sentence,
+                        "kind": "verbatim_copy", "developed": False})
+        elif best_j >= ANCHOR_JACCARD:
+            new_words = words - anchor_words[best_anchor]
+            others = set().union(
+                *(w for j, w in enumerate(sentence_words)
+                  if j != si)) if len(sentence_words) > 1 else set()
+            pool = story_words | others
+            out.append({"sentence": sentence, "kind": "thematic",
+                        "developed": bool(new_words & pool)})
+    return out
+
+
 def check_refrain(pages: list[dict]) -> dict:
     """Measure refrain development against the book's anchor.
 
@@ -159,43 +220,18 @@ def check_refrain(pages: list[dict]) -> dict:
                 "verbatim_anchor_copies": 0, "failing_pages": [],
                 "development_pass": True}
     anchor = split_sentences(pages[0]["text"])
-    anchor_words = [_content_words(s) for s in anchor]
     recurrences = []
     story_words: set[str] = set()  # content words of pages[1..i-1]
     for page in pages[1:]:
         page_sentences = split_sentences(page["text"])
-        sentence_words = [_content_words(s) for s in page_sentences]
-        page_words = set().union(*sentence_words) if sentence_words \
-            else set()
-        for si, sentence in enumerate(page_sentences):
-            words = sentence_words[si]
-            best_j, best_anchor = 0.0, -1
-            for ai, aw in enumerate(anchor_words):
-                if not aw or not words:
-                    continue
-                j = len(words & aw) / len(words | aw)
-                if j > best_j:
-                    best_j, best_anchor = j, ai
-            if best_anchor < 0:
-                continue
-            if sentence == anchor[best_anchor]:
-                recurrences.append({
-                    "page_index": page["index"],
-                    "question_id": page["question_id"],
-                    "kind": "verbatim_copy", "developed": False})
-            elif best_j >= ANCHOR_JACCARD:
-                new_words = words - anchor_words[best_anchor]
-                others = set().union(
-                    *(w for j, w in enumerate(sentence_words)
-                      if j != si)) if len(sentence_words) > 1 else set()
-                pool = story_words | others
-                developed = bool(new_words & pool)
-                recurrences.append({
-                    "page_index": page["index"],
-                    "question_id": page["question_id"],
-                    "kind": "thematic",
-                    "developed": developed})
-        story_words |= page_words
+        for rec in page_anchor_recurrences(page_sentences, anchor,
+                                           story_words):
+            recurrences.append({
+                "page_index": page["index"],
+                "question_id": page["question_id"],
+                "kind": rec["kind"],
+                "developed": rec["developed"]})
+        story_words |= story_content_words([page["text"]])
     thematic = [r for r in recurrences if r["kind"] == "thematic"]
     verbatim = [r for r in recurrences if r["kind"] == "verbatim_copy"]
     failing = sorted({r["page_index"] for r in verbatim}

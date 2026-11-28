@@ -28,12 +28,13 @@ against the record's explicit list; the respondent is the
 sole exception, his name being the two family surnames
 joined.
 
-The pack's tenth fact, studio_year, is not one of the
-record's core facts: it is the founding year of the
-character's studio, carried in the record's defining events
-(2022, the Cold Room founded in a converted Dallas
-icehouse). The record-agreement test below checks it
-against that event.
+Two facts sit outside the record's fact fields: studio_year
+is the founding year of the character's studio, carried in
+the record's defining events (2022, the Cold Room founded in
+a converted Dallas icehouse), and subject_gender (added in
+pack v1.1.0) is the record's character sex, stated in the
+identity answer. The record-agreement test below checks each
+against its source.
 
 Religion-agnostic design: the pack's questions ask about
 the respondent's practices, strength, gratitude, hardship,
@@ -70,6 +71,7 @@ EXPECTED_FACTS = {
     "flames_line_name": "Flames",
     "frozen_line_name": "Frozen",
     "subject_name": "Frozen In Flames",
+    "subject_gender": "male",
     "mother_name": "Ruby Flames",
     "father_name": "Onyx Frozen",
     "birth_year": "2000",
@@ -111,7 +113,12 @@ class TestDevotionalPack(unittest.TestCase):
 
     def test_genre_and_version(self):
         self.assertEqual(self.pack["genre"], "devotional")
-        self.assertEqual(self.pack["version"], "1.0.0")
+        # v1.1.0 is the corrected-edition revision: the
+        # identity question elicits the subject's recorded
+        # gender as an eleventh typed fact, and the return
+        # device's wording no longer supplies the machinery's
+        # vocabulary (see DEFECTS.md, V11--V12).
+        self.assertEqual(self.pack["version"], "1.1.0")
 
     def test_first_person_framework(self):
         # A devotional is the keeper's own voice: first
@@ -168,9 +175,18 @@ class TestDevotionalPack(unittest.TestCase):
                 self.assertIn(field, q, f"{q.get('id')} missing {field}")
                 self.assertTrue(q[field], f"{q['id']} empty {field}")
 
+    def _declared_slots(self, question):
+        slots = set()
+        if "fact" in question:
+            slots.add(question["fact"]["slot"])
+        for fact in question.get("facts", []):
+            slots.add(fact["slot"])
+        return slots
+
     def test_fact_slots_present(self):
-        slots = {q["fact"]["slot"] for q in self.pack["questions"]
-                 if "fact" in q}
+        slots = set()
+        for q in self.pack["questions"]:
+            slots |= self._declared_slots(q)
         self.assertEqual(slots, PACK_FACT_SLOTS)
 
     def test_keeper_fixed_in_opening_chapter(self):
@@ -182,9 +198,10 @@ class TestDevotionalPack(unittest.TestCase):
         year opens the work chapter, where the kept work
         begins."""
         first_chapter = self.pack["questions"][0]["chapter"]
-        opening_slots = {
-            q["fact"]["slot"] for q in self.pack["questions"]
-            if "fact" in q and q["chapter"] == first_chapter}
+        opening_slots = set()
+        for q in self.pack["questions"]:
+            if q["chapter"] == first_chapter:
+                opening_slots |= self._declared_slots(q)
         self.assertEqual(opening_slots,
                          PACK_FACT_SLOTS - {"studio_year"})
         studio = [q for q in self.pack["questions"]
@@ -213,6 +230,20 @@ class TestDevotionalPack(unittest.TestCase):
         self.assertTrue(
             self.answers[question["id"]].startswith(
                 "Frozen In Flames"))
+        # Pack v1.1.0: the same question elicits the subject's
+        # recorded gender as a typed fact -- the first book's
+        # narrator was cast as a wife, and the survey had
+        # never asked the subject's gender at all (the
+        # clean-proof rule applied to the missing fact). The
+        # gender keys the engine's spouse-term screen.
+        self.assertIn("man or a woman",
+                      question["prompt"].lower())
+        gender_facts = [f for f in question.get("facts", [])
+                        if f["slot"] == "subject_gender"]
+        self.assertEqual(len(gender_facts), 1)
+        self.assertEqual(gender_facts[0]["kind"], "gender")
+        self.assertIn("I am a man",
+                      self.answers[question["id"]])
 
     def test_demo_answers_labeled_fabricated(self):
         self.assertIn("Frozen In Flames", self.demo["persona"])
@@ -266,6 +297,11 @@ class TestDevotionalPack(unittest.TestCase):
                          str(studio_events[0]["year"]))
         self.assertEqual(self.character["character"]["name"],
                          "Frozen In Flames")
+        # The eleventh fact is not one of the record's fact
+        # fields; it is the record's character sex, stated in
+        # the identity answer under the v1.1.0 survey.
+        self.assertEqual(extracted["subject_gender"],
+                         self.character["character"]["sex"])
 
     def test_corrected_canon_values(self):
         """The author's canon (2026-11-24), asserted so the
@@ -318,11 +354,14 @@ class TestDevotionalPack(unittest.TestCase):
                           f"{slot}: source question {qid} not "
                           "in pack")
             question = questions[qid]
-            self.assertIn("fact", question,
-                          f"{slot}: {qid} declares no fact")
-            self.assertEqual(question["fact"]["slot"], slot,
-                             f"{slot}: {qid} declares "
-                             f"{question['fact']['slot']}")
+            declared = set()
+            if "fact" in question:
+                declared.add(question["fact"]["slot"])
+            for extra in question.get("facts", []):
+                declared.add(extra["slot"])
+            self.assertIn(slot, declared,
+                          f"{slot}: {qid} declares {declared}, "
+                          f"not this slot")
             self.assertTrue(self.answers[qid].strip(),
                             f"{slot}: {qid} has an empty answer")
             traced += 1

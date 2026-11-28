@@ -191,6 +191,18 @@ class TestGeneratorDuplicationGuard(unittest.TestCase):
 def refrain_pack() -> dict:
     pack = tiny_pack()
     pack["framework"]["refrain"] = True
+    # The return is a device like any other: q002's slot assigns
+    # it, q001's does not. The builder carries the book's first
+    # sentence into a prompt only where the slot assigns the
+    # return (the saturation fix: the first devotional attached
+    # it to all 100 prompts although 21 slots assigned it).
+    pack["framework"]["devices"]["anchor_return"] = {
+        "name": "Anchor return",
+        "instruction": "return to the book's first sentence, "
+                       "changed by what has happened since",
+    }
+    pack["questions"][1]["devices"] = ["scene_reconstruction",
+                                       "anchor_return"]
     return pack
 
 
@@ -266,6 +278,24 @@ class TestRefrainChecker(unittest.TestCase):
         result = check_refrain(pages)
         self.assertTrue(result["development_pass"])
         self.assertEqual(result["thematic_recurrences"], 0)
+
+
+class LongModelRecorder:
+    """Records every prompt; page 1 is the long page, every
+    later page the distinct one."""
+
+    name = "long-recorder-test-model"
+
+    def __init__(self):
+        self.prompts: list[str] = []
+
+    def complete(self, prompt: str, max_tokens: int = 512) -> str:
+        self.prompts.append(prompt)
+        if "TASK: SUMMARIZE_CHAPTER" in prompt:
+            return "Synopsis of the chapter."
+        if "QUESTION_ID: q001" in prompt:
+            return PAGE_LONG_A
+        return PAGE_B_DISTINCT
 
 
 class AnchorCopyModel:
@@ -353,14 +383,83 @@ class TestRefrainOn(unittest.TestCase):
         page_prompts = [p for p in model.prompts
                         if "TASK: SUMMARIZE_CHAPTER" not in p]
         prompt2 = page_prompts[1]
-        # The anchor theme is named, with the development directive.
+        # The book's first sentence is carried into the prompt of
+        # the slot that assigns the return, with the development
+        # directive -- phrased without the apparatus vocabulary
+        # ("anchor", "theme", "refrain") that the first
+        # devotional's prose then repeated back (the meta fix).
         self.assertIn("the harbor bell rang over the water at dawn",
                       prompt2)
-        self.assertIn("refrain returns changed", prompt2)
+        # The development directive, in the plain wording the
+        # V17 rewording settled on: the earlier formula ("let
+        # it arrive changed by the days since...") was quoted
+        # back as narration by the corrected devotional and is
+        # now on the meta screen instead (tests/test_metagate).
+        self.assertIn("write it as today has remade it",
+                      prompt2)
+        self.assertNotIn("let it arrive changed", prompt2)
+        self.assertNotIn("anchor theme", prompt2)
+        self.assertNotIn("REFRAIN", prompt2)
         # But the first page is not fed forward in full: a middle
         # sentence of page 1, outside the closing excerpt, is absent.
         self.assertNotIn("quartermaster hid the silver compass",
                          prompt2)
+
+    def test_return_carried_only_where_the_slot_assigns_it(self):
+        """The saturation fix: with refrain on, a page whose slot
+        does not assign the return device receives no return
+        block at all -- in the first devotional the block rode
+        on all 100 prompts while 21 slots assigned the device,
+        and the book filled with near-verbatim returns."""
+        pack = refrain_pack()
+        pack["questions"].append({
+            "id": "q003", "chapter": "ch01", "prompt": "p3",
+            "narrative_job": "j3", "position": "pos3",
+            "devices": ["scene_reconstruction"],
+            "bible_keys": ["subject.later"]})
+        answers = dict(ANSWERS)
+        answers["q003"] = "Answer three."
+        model = LongModelRecorder()
+        with tempfile.TemporaryDirectory() as tmp:
+            builder = BookBuilder(pack, answers, model,
+                                  Path(tmp) / "state.json")
+            builder.build()
+        page_prompts = [p for p in model.prompts
+                        if "TASK: SUMMARIZE_CHAPTER" not in p]
+        # q002 assigns the return; q003 does not.
+        self.assertIn("The first page said:",
+                      page_prompts[1])
+        self.assertNotIn("The first page said:",
+                         page_prompts[2])
+
+    def test_undeveloped_recurrence_regenerated_at_generation(self):
+        """The generation-time development screen: a thematic
+        recurrence carrying nothing new fails alongside verbatim
+        duplication, and a developed retry replaces it."""
+        class UndevelopedThenDeveloped:
+            name = "undeveloped-then-developed"
+
+            def complete(self, prompt: str,
+                         max_tokens: int = 512) -> str:
+                if "TASK: SUMMARIZE_CHAPTER" in prompt:
+                    return "Synopsis of the chapter."
+                if "QUESTION_ID: q001" in prompt:
+                    return PAGE_A
+                if "RETRY" in prompt:
+                    return PAGE_B_DEVELOPED
+                return PAGE_UNDEVELOPED
+
+        with tempfile.TemporaryDirectory() as tmp:
+            builder = BookBuilder(refrain_pack(), ANSWERS,
+                                  UndevelopedThenDeveloped(),
+                                  Path(tmp) / "state.json")
+            report = builder.build()
+        kept = builder.state["pages"]["q002"]
+        self.assertEqual(kept["text"], PAGE_B_DEVELOPED)
+        self.assertEqual(kept["duplication_retries"], 1)
+        self.assertEqual(kept["refrain_undeveloped"], 0)
+        self.assertTrue(
+            report["refrain_analysis"]["development_pass"])
 
 
 class TestRefrainCliOverride(unittest.TestCase):

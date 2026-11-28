@@ -84,7 +84,8 @@ ANSWERS: dict[str, str] = {
         "before the day is allowed to close."
     ),
     "q003": (
-        f"{NAME}. That is my full name, and I am the keeper "
+        f"{NAME}. That is my full name. I am a man, and I am "
+        "the keeper "
         "whose practice these entries record: the two lines "
         "joined in one person, Frozen for my father's family "
         "and Flames for my mother's, with 'In' between them "
@@ -1921,6 +1922,16 @@ def main() -> int:
                     f"year fact {slot}: first year in {qid} is "
                     f"{first_year.group(1) if first_year else None!r}, "
                     f"expected {value!r}")
+    # Pack v1.1.0: the identity answer must state the
+    # subject's recorded gender in terms, as the revised
+    # q003 asks -- the bible's subject_gender fact extracts
+    # it from this statement.
+    sex_word = {"male": "I am a man",
+                "female": "I am a woman"}[RECORD["character"]["sex"]]
+    if sex_word not in ANSWERS["q003"]:
+        problems.append(
+            f"identity answer q003 does not state the recorded "
+            f"gender ({sex_word!r})")
     if DOCTRINE not in ANSWERS["q010"]:
         problems.append("family doctrine missing from q010")
     if RECORD["family"]["family_saying"].split(".")[0].lower() \

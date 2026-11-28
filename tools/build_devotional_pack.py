@@ -40,6 +40,24 @@ demonstration answers that question is answered from the
 canonical record, and the story bible's subject_name fact
 traces to it under the traceability gate.
 
+Pack v1.1.0 (the corrected-edition revision, after the first
+book; see DEFECTS.md, V11--V14): three changes, each the
+survey-level encoding of an engine-level fix. (1) The identity
+question at q003 now also asks whether the keeper is a man or
+a woman, and the question declares a second typed fact,
+subject_gender, beside subject_name: the first book's largest
+defect was a narrator cast as a wife, and the survey had never
+asked the subject's gender at all -- the clean-proof rule
+applied to the fact the build most needed. The recorded
+gender keys the engine's spouse-term screen and is stated in
+every page prompt. (2) The return device is renamed in
+display ("The kept sentence") and its instruction rewritten,
+and the global instructions no longer speak of "the book's
+anchor": the first book's prose repeated the machinery's
+vocabulary on 68 of 100 pages because the prompts supplied
+it, so the pack stops supplying it. (3) Nothing else changes:
+the same 100 questions, chapters, and fact spine otherwise.
+
 Refrain default: ON, chosen deliberately -- the opposite call
 from the story collection, for the opposite reason. A
 devotional is refrain-shaped by genre: the practice is the
@@ -87,7 +105,8 @@ FRAMEWORK = {
         "Transform the respondent's answers into a devotional "
         "book in the first person: one reflective entry per "
         "answer, each standing on its own and each returning, "
-        "as the day's practice returns, to the book's anchor. "
+        "as the day's practice returns, to the sentence the "
+        "practice keeps. "
         "The book's continuity is the keeper and his practice "
         "-- the respondent, his two family lines (the Flames "
         "line of his mother, the Frozen line of his father), "
@@ -113,14 +132,15 @@ FRAMEWORK = {
     ),
     "devices": {
         "anchor_return": {
-            "name": "Anchor return",
-            "instruction": "Return to the book's anchor -- the "
-                           "sentence the practice keeps -- as "
-                           "the intervening days have changed "
-                           "it: carry the newer facts into it, "
-                           "in fresh wording that means "
-                           "something the first statement could "
-                           "not have meant.",
+            "name": "The kept sentence",
+            "instruction": "Come back to the sentence the "
+                           "practice keeps -- the one first "
+                           "said at the book's opening -- as "
+                           "the days between have changed "
+                           "it: let what has happened since "
+                           "live inside it, in fresh wording "
+                           "that means something the first "
+                           "saying could not have meant.",
         },
         "practice_rendering": {
             "name": "Practice rendering",
@@ -266,12 +286,13 @@ Q["ch01"] = [
     ("Who is the main character of this devotional -- the "
      "keeper whose practice these entries record, who keeps "
      "it and stands inside every entry? Give that keeper's "
-     "full name, and say how the name comes from the two "
+     "full name, say whether the keeper is a man or a "
+     "woman, and say how the name comes from the two "
      "lines. Begin the answer with the full name.",
      "Establish the book's central identity as respondent "
      "data: the main character is the keeper the respondent "
-     "names here, and the fact is fixed from this answer "
-     "alone.",
+     "names here, and the name and the recorded gender are "
+     "fixed as facts from this answer alone.",
      ["practice_rendering", "anchor_return"],
      ["respondent.identity"],
      {"slot": "subject_name", "kind": "person_name",
@@ -1099,9 +1120,20 @@ def main() -> None:
             if fact is not None:
                 q["fact"] = fact
             questions.append(q)
+    # Pack v1.1.0: the identity question (q003) declares a
+    # second typed fact beside subject_name -- the subject's
+    # recorded gender, elicited by the same answer. It keys
+    # the engine's spouse-term screen and the subject line
+    # every page prompt carries (see DEFECTS.md, V11).
+    for q in questions:
+        if q["id"] == "q003":
+            q["facts"] = [{
+                "slot": "subject_gender", "kind": "gender",
+                "triggers": ["the respondent is a", "I am a"],
+            }]
     pack = {
         "genre": "devotional",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "framework": FRAMEWORK,
         "chapters": [
             {"id": cid, "title": title, "act": act}

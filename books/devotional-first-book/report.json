@@ -2,51 +2,51 @@
  "skipped_empty": [],
  "pages_built": 100,
  "refrain": true,
- "total_words": 31962,
+ "total_words": 32559,
  "continuity_issues": [],
  "duplication": {
-  "pages_sharing_sentence_with_previous": 53,
+  "pages_sharing_sentence_with_previous": 35,
   "total_pages": 100,
   "most_repeated_sentences": [
    {
-    "sentence": "in the dallas front room where systems hum as the morning begins, i lie still before naming each person at breakfast.",
-    "pages": 18
+    "sentence": "in the first moments of my kept day, i stir coffee quietly at the dining table before dawn.",
+    "pages": 19
    },
    {
-    "sentence": "hardship reveals hard hours: burned rooms, broken hands, doubt, and sickness.",
-    "pages": 17
+    "sentence": "breakfast aromas fill the room, setting a gentle tone as buttery rolls waft from the kitchen beyond.",
+    "pages": 14
    },
    {
-    "sentence": "ruby flames taught me to name privately; onyx frozen showed honesty by recording faults alongside victories.",
-    "pages": 13
-   },
-   {
-    "sentence": "the kitchen corner holds the anchor sentence aloud, ensuring accountability by acknowledging what needs fixing alongside preserving our legacy.",
-    "pages": 13
-   },
-   {
-    "sentence": "today marks three years since founding cold room studio within a converted icehouse.",
-    "pages": 13
-   },
-   {
-    "sentence": "in the dallas front room where systems hum as breakfast begins, i privately name each person before sitting at the table.",
-    "pages": 13
-   },
-   {
-    "sentence": "this discipline prepares me for work, recognizing what needs fixing alongside acknowledging the cost.",
+    "sentence": "each entry in our family ledger marks a step toward understanding past lessons and shaping future actions.",
     "pages": 10
    },
    {
-    "sentence": "my mother\u2019s tradition of feeding everyone at table has become my practice: writing entries in a family bible flyleaf preserves history.",
+    "sentence": "each entry marks a step toward understanding past lessons and shaping future actions.",
     "pages": 9
    },
    {
-    "sentence": "my mother's tradition of feeding everyone at table has become my practice: writing entries in a family bible flyleaf preserves history.",
-    "pages": 9
+    "sentence": "the keeper's role involves holding those who keep without books or records (like amber\u2019s interruptions), ensuring their work is honored.",
+    "pages": 8
    },
    {
-    "sentence": "each morning, i practice naming privately and counting gifts rather than feeling about them.",
+    "sentence": "holding someone requires hope; today's practice tests this by preparing for future actions while reflecting on past lessons.",
+    "pages": 8
+   },
+   {
+    "sentence": "the hum from the front room fades into song and story, setting tone for our meals and tasks alike.",
     "pages": 7
+   },
+   {
+    "sentence": "in the morning before dawn, i stir coffee quietly at the dining table, setting off breakfast aromas that fill the room.",
+    "pages": 7
+   },
+   {
+    "sentence": "in the front room where the day begins to unfold, sunlight filters through a lace curtain onto a worn wooden table set with plates and cups.",
+    "pages": 5
+   },
+   {
+    "sentence": "the keeping of integrity contrasts with the maintenance done in cold room work\u2014plain yet honest tasks preserved.",
+    "pages": 5
    }
   ],
   "per_page": [
@@ -60,786 +60,1402 @@
    {
     "page_index": 1,
     "question_id": "q002",
-    "sentences": 6,
+    "sentences": 8,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 2,
     "question_id": "q003",
-    "sentences": 17,
+    "sentences": 11,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 3,
     "question_id": "q004",
-    "sentences": 7,
-    "shared_with_previous": 2,
-    "shared_with_any_earlier": 2
+    "sentences": 4,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 4,
     "question_id": "q005",
-    "sentences": 14,
+    "sentences": 7,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 5,
     "question_id": "q006",
-    "sentences": 8,
+    "sentences": 7,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 6,
     "question_id": "q007",
-    "sentences": 8,
+    "sentences": 6,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 7,
     "question_id": "q008",
-    "sentences": 14,
-    "shared_with_previous": 3,
-    "shared_with_any_earlier": 3
+    "sentences": 9,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 8,
     "question_id": "q009",
-    "sentences": 21,
+    "sentences": 6,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 9,
     "question_id": "q010",
-    "sentences": 18,
+    "sentences": 15,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 10,
     "question_id": "q011",
-    "sentences": 18,
+    "sentences": 20,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 11,
     "question_id": "q012",
-    "sentences": 11,
+    "sentences": 19,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 12,
     "question_id": "q013",
-    "sentences": 16,
+    "sentences": 20,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 2
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 13,
     "question_id": "q014",
-    "sentences": 13,
+    "sentences": 19,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 14,
     "question_id": "q015",
-    "sentences": 6,
+    "sentences": 22,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 15,
     "question_id": "q016",
-    "sentences": 20,
+    "sentences": 21,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 16,
     "question_id": "q017",
-    "sentences": 20,
+    "sentences": 5,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 17,
     "question_id": "q018",
-    "sentences": 11,
+    "sentences": 22,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 18,
     "question_id": "q019",
-    "sentences": 10,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 19,
     "question_id": "q020",
-    "sentences": 15,
+    "sentences": 17,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 20,
     "question_id": "q021",
-    "sentences": 10,
+    "sentences": 18,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 21,
     "question_id": "q022",
-    "sentences": 12,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 0
-   },
-   {
-    "page_index": 22,
-    "question_id": "q023",
-    "sentences": 13,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 2
-   },
-   {
-    "page_index": 23,
-    "question_id": "q024",
-    "sentences": 13,
+    "sentences": 15,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 1
    },
    {
+    "page_index": 22,
+    "question_id": "q023",
+    "sentences": 14,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 1
+   },
+   {
+    "page_index": 23,
+    "question_id": "q024",
+    "sentences": 20,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
+   },
+   {
     "page_index": 24,
     "question_id": "q025",
-    "sentences": 19,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 3
+    "sentences": 16,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 25,
     "question_id": "q026",
-    "sentences": 12,
-    "shared_with_previous": 2,
-    "shared_with_any_earlier": 3
+    "sentences": 10,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 26,
     "question_id": "q027",
-    "sentences": 15,
-    "shared_with_previous": 0,
+    "sentences": 13,
+    "shared_with_previous": 1,
     "shared_with_any_earlier": 1
    },
    {
     "page_index": 27,
     "question_id": "q028",
-    "sentences": 16,
+    "sentences": 19,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 0
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 28,
     "question_id": "q029",
+    "sentences": 17,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 2
+   },
+   {
+    "page_index": 29,
+    "question_id": "q030",
+    "sentences": 23,
+    "shared_with_previous": 2,
+    "shared_with_any_earlier": 2
+   },
+   {
+    "page_index": 30,
+    "question_id": "q031",
+    "sentences": 20,
+    "shared_with_previous": 5,
+    "shared_with_any_earlier": 5
+   },
+   {
+    "page_index": 31,
+    "question_id": "q032",
+    "sentences": 3,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
+   },
+   {
+    "page_index": 32,
+    "question_id": "q033",
     "sentences": 16,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 3
    },
    {
-    "page_index": 29,
-    "question_id": "q030",
-    "sentences": 11,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 0
-   },
-   {
-    "page_index": 30,
-    "question_id": "q031",
-    "sentences": 19,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
-   },
-   {
-    "page_index": 31,
-    "question_id": "q032",
-    "sentences": 20,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 1
-   },
-   {
-    "page_index": 32,
-    "question_id": "q033",
-    "sentences": 11,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
-   },
-   {
     "page_index": 33,
     "question_id": "q034",
-    "sentences": 15,
+    "sentences": 9,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 4
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 34,
     "question_id": "q035",
-    "sentences": 18,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 2
+    "sentences": 13,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 35,
     "question_id": "q036",
-    "sentences": 13,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 2
-   },
-   {
-    "page_index": 36,
-    "question_id": "q037",
-    "sentences": 10,
+    "sentences": 9,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
+    "page_index": 36,
+    "question_id": "q037",
+    "sentences": 20,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 7
+   },
+   {
     "page_index": 37,
     "question_id": "q038",
-    "sentences": 17,
+    "sentences": 13,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 6
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 38,
     "question_id": "q039",
-    "sentences": 14,
+    "sentences": 12,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 39,
     "question_id": "q040",
-    "sentences": 14,
-    "shared_with_previous": 2,
-    "shared_with_any_earlier": 3
-   },
-   {
-    "page_index": 40,
-    "question_id": "q041",
-    "sentences": 22,
+    "sentences": 17,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 1
    },
    {
+    "page_index": 40,
+    "question_id": "q041",
+    "sentences": 15,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
+   },
+   {
     "page_index": 41,
     "question_id": "q042",
-    "sentences": 17,
+    "sentences": 21,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 1
    },
    {
     "page_index": 42,
     "question_id": "q043",
-    "sentences": 12,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 1
+    "sentences": 14,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 43,
     "question_id": "q044",
-    "sentences": 17,
-    "shared_with_previous": 2,
-    "shared_with_any_earlier": 4
+    "sentences": 16,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 3
    },
    {
     "page_index": 44,
     "question_id": "q045",
-    "sentences": 16,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 1
+    "sentences": 19,
+    "shared_with_previous": 2,
+    "shared_with_any_earlier": 3
    },
    {
     "page_index": 45,
     "question_id": "q046",
-    "sentences": 13,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
+    "sentences": 19,
+    "shared_with_previous": 3,
+    "shared_with_any_earlier": 6
    },
    {
     "page_index": 46,
     "question_id": "q047",
     "sentences": 20,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 4
-   },
-   {
-    "page_index": 47,
-    "question_id": "q048",
-    "sentences": 14,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 3
    },
    {
+    "page_index": 47,
+    "question_id": "q048",
+    "sentences": 12,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
+   },
+   {
     "page_index": 48,
     "question_id": "q049",
-    "sentences": 15,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 5
+    "sentences": 9,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 49,
     "question_id": "q050",
-    "sentences": 14,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 4
+    "sentences": 18,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 50,
     "question_id": "q051",
-    "sentences": 16,
+    "sentences": 17,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 5
    },
    {
     "page_index": 51,
     "question_id": "q052",
-    "sentences": 15,
+    "sentences": 17,
     "shared_with_previous": 1,
-    "shared_with_any_earlier": 1
+    "shared_with_any_earlier": 4
    },
    {
     "page_index": 52,
     "question_id": "q053",
-    "sentences": 19,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 11
+    "sentences": 18,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 53,
     "question_id": "q054",
-    "sentences": 16,
-    "shared_with_previous": 2,
-    "shared_with_any_earlier": 3
+    "sentences": 17,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 54,
     "question_id": "q055",
-    "sentences": 13,
-    "shared_with_previous": 2,
-    "shared_with_any_earlier": 6
+    "sentences": 20,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 55,
     "question_id": "q056",
-    "sentences": 22,
-    "shared_with_previous": 5,
-    "shared_with_any_earlier": 7
+    "sentences": 25,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 4
    },
    {
     "page_index": 56,
     "question_id": "q057",
-    "sentences": 18,
-    "shared_with_previous": 6,
-    "shared_with_any_earlier": 7
+    "sentences": 17,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 4
    },
    {
     "page_index": 57,
     "question_id": "q058",
     "sentences": 16,
-    "shared_with_previous": 4,
-    "shared_with_any_earlier": 8
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 58,
     "question_id": "q059",
-    "sentences": 15,
-    "shared_with_previous": 3,
-    "shared_with_any_earlier": 4
+    "sentences": 23,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 59,
     "question_id": "q060",
-    "sentences": 13,
-    "shared_with_previous": 3,
-    "shared_with_any_earlier": 10
+    "sentences": 15,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 5
    },
    {
     "page_index": 60,
     "question_id": "q061",
-    "sentences": 15,
+    "sentences": 7,
     "shared_with_previous": 1,
-    "shared_with_any_earlier": 1
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 61,
     "question_id": "q062",
-    "sentences": 15,
-    "shared_with_previous": 4,
-    "shared_with_any_earlier": 4
+    "sentences": 18,
+    "shared_with_previous": 2,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 62,
     "question_id": "q063",
+    "sentences": 14,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
+   },
+   {
+    "page_index": 63,
+    "question_id": "q064",
     "sentences": 17,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 1
    },
    {
-    "page_index": 63,
-    "question_id": "q064",
-    "sentences": 11,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 2
-   },
-   {
     "page_index": 64,
     "question_id": "q065",
-    "sentences": 14,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 1
+    "sentences": 13,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 3
    },
    {
     "page_index": 65,
     "question_id": "q066",
     "sentences": 11,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 66,
     "question_id": "q067",
-    "sentences": 14,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 3
+    "sentences": 13,
+    "shared_with_previous": 2,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 67,
     "question_id": "q068",
-    "sentences": 13,
+    "sentences": 19,
     "shared_with_previous": 2,
-    "shared_with_any_earlier": 7
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 68,
     "question_id": "q069",
-    "sentences": 18,
-    "shared_with_previous": 3,
-    "shared_with_any_earlier": 3
+    "sentences": 23,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
    },
    {
     "page_index": 69,
     "question_id": "q070",
-    "sentences": 13,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
-   },
-   {
-    "page_index": 70,
-    "question_id": "q071",
-    "sentences": 18,
+    "sentences": 21,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 5
    },
    {
+    "page_index": 70,
+    "question_id": "q071",
+    "sentences": 15,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
+   },
+   {
     "page_index": 71,
     "question_id": "q072",
-    "sentences": 21,
-    "shared_with_previous": 3,
-    "shared_with_any_earlier": 6
+    "sentences": 14,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 72,
     "question_id": "q073",
-    "sentences": 14,
+    "sentences": 18,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 3
    },
    {
     "page_index": 73,
     "question_id": "q074",
-    "sentences": 20,
+    "sentences": 11,
     "shared_with_previous": 1,
-    "shared_with_any_earlier": 4
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 74,
     "question_id": "q075",
-    "sentences": 12,
-    "shared_with_previous": 3,
-    "shared_with_any_earlier": 6
+    "sentences": 23,
+    "shared_with_previous": 2,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 75,
     "question_id": "q076",
-    "sentences": 23,
-    "shared_with_previous": 1,
+    "sentences": 19,
+    "shared_with_previous": 4,
     "shared_with_any_earlier": 5
    },
    {
     "page_index": 76,
     "question_id": "q077",
-    "sentences": 8,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 77,
     "question_id": "q078",
-    "sentences": 20,
-    "shared_with_previous": 0,
+    "sentences": 16,
+    "shared_with_previous": 1,
     "shared_with_any_earlier": 7
    },
    {
     "page_index": 78,
     "question_id": "q079",
-    "sentences": 21,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 3
-   },
-   {
-    "page_index": 79,
-    "question_id": "q080",
-    "sentences": 13,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 7
-   },
-   {
-    "page_index": 80,
-    "question_id": "q081",
-    "sentences": 14,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 3
-   },
-   {
-    "page_index": 81,
-    "question_id": "q082",
-    "sentences": 11,
+    "sentences": 17,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 2
    },
    {
-    "page_index": 82,
-    "question_id": "q083",
-    "sentences": 19,
+    "page_index": 79,
+    "question_id": "q080",
+    "sentences": 12,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 3
    },
    {
+    "page_index": 80,
+    "question_id": "q081",
+    "sentences": 18,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 1
+   },
+   {
+    "page_index": 81,
+    "question_id": "q082",
+    "sentences": 13,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 0
+   },
+   {
+    "page_index": 82,
+    "question_id": "q083",
+    "sentences": 15,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 2
+   },
+   {
     "page_index": 83,
     "question_id": "q084",
-    "sentences": 15,
+    "sentences": 13,
     "shared_with_previous": 0,
     "shared_with_any_earlier": 0
    },
    {
     "page_index": 84,
     "question_id": "q085",
-    "sentences": 18,
+    "sentences": 20,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 6
+    "shared_with_any_earlier": 1
    },
    {
     "page_index": 85,
     "question_id": "q086",
-    "sentences": 13,
-    "shared_with_previous": 2,
-    "shared_with_any_earlier": 8
+    "sentences": 16,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 86,
     "question_id": "q087",
-    "sentences": 11,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 1
+    "sentences": 22,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 8
    },
    {
     "page_index": 87,
     "question_id": "q088",
-    "sentences": 18,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 7
+    "sentences": 14,
+    "shared_with_previous": 2,
+    "shared_with_any_earlier": 5
    },
    {
     "page_index": 88,
     "question_id": "q089",
-    "sentences": 16,
-    "shared_with_previous": 5,
-    "shared_with_any_earlier": 8
+    "sentences": 18,
+    "shared_with_previous": 2,
+    "shared_with_any_earlier": 4
    },
    {
     "page_index": 89,
     "question_id": "q090",
-    "sentences": 20,
-    "shared_with_previous": 6,
-    "shared_with_any_earlier": 8
+    "sentences": 14,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 5
    },
    {
     "page_index": 90,
     "question_id": "q091",
-    "sentences": 18,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 1
-   },
-   {
-    "page_index": 91,
-    "question_id": "q092",
-    "sentences": 13,
+    "sentences": 21,
     "shared_with_previous": 1,
     "shared_with_any_earlier": 2
    },
    {
-    "page_index": 92,
-    "question_id": "q093",
+    "page_index": 91,
+    "question_id": "q092",
     "sentences": 20,
     "shared_with_previous": 0,
-    "shared_with_any_earlier": 5
+    "shared_with_any_earlier": 6
+   },
+   {
+    "page_index": 92,
+    "question_id": "q093",
+    "sentences": 18,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 3
    },
    {
     "page_index": 93,
     "question_id": "q094",
     "sentences": 20,
-    "shared_with_previous": 3,
+    "shared_with_previous": 4,
     "shared_with_any_earlier": 6
    },
    {
     "page_index": 94,
     "question_id": "q095",
-    "sentences": 20,
-    "shared_with_previous": 3,
-    "shared_with_any_earlier": 5
+    "sentences": 12,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 2
    },
    {
     "page_index": 95,
     "question_id": "q096",
-    "sentences": 19,
-    "shared_with_previous": 4,
-    "shared_with_any_earlier": 11
+    "sentences": 17,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 6
    },
    {
     "page_index": 96,
     "question_id": "q097",
-    "sentences": 19,
-    "shared_with_previous": 6,
-    "shared_with_any_earlier": 8
+    "sentences": 21,
+    "shared_with_previous": 0,
+    "shared_with_any_earlier": 9
    },
    {
     "page_index": 97,
     "question_id": "q098",
-    "sentences": 19,
-    "shared_with_previous": 2,
+    "sentences": 20,
+    "shared_with_previous": 1,
     "shared_with_any_earlier": 7
    },
    {
     "page_index": 98,
     "question_id": "q099",
-    "sentences": 12,
-    "shared_with_previous": 1,
-    "shared_with_any_earlier": 1
+    "sentences": 15,
+    "shared_with_previous": 3,
+    "shared_with_any_earlier": 4
    },
    {
     "page_index": 99,
     "question_id": "q100",
-    "sentences": 13,
-    "shared_with_previous": 0,
-    "shared_with_any_earlier": 2
+    "sentences": 11,
+    "shared_with_previous": 1,
+    "shared_with_any_earlier": 1
    }
   ]
  },
- "gender_gate": {
-  "retries": 23,
-  "pages_flagged": 7,
-  "flagged_sentences": 12
- },
- "model": "Qwen2.5-3B-Instruct (Q4_K_M GGUF) via llama.cpp, local",
- "refrain_analysis": {
-  "anchor_sentences": [
-   "the family name of my husband\u2019s line is flames.",
-   "in the dallas front room where the day was opened by feeding whoever was in it and the record of his family was kept in a bible\u2019s flyleaf by a woman\u2019s hand, devotion at a table and a piano first came into my life.",
-   "this is half of my practice: it is the singing half that keeps warm and keeps long."
-  ],
-  "recurrences": [
+ "connectors": {
+  "chain_markers": 5,
+  "causal_contrast_connectors": 272,
+  "chain_per_connector": 0.01838235294117647,
+  "pages_with_chain_markers": 5,
+  "per_page": [
    {
-    "page_index": 2,
-    "question_id": "q003",
-    "kind": "thematic",
-    "developed": true
+    "page_index": 0,
+    "question_id": "q001",
+    "chain_markers": 0,
+    "causal_contrast": 0
+   },
+   {
+    "page_index": 1,
+    "question_id": "q002",
+    "chain_markers": 0,
+    "causal_contrast": 4
    },
    {
     "page_index": 2,
     "question_id": "q003",
-    "kind": "thematic",
-    "developed": false
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 3,
+    "question_id": "q004",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 4,
+    "question_id": "q005",
+    "chain_markers": 0,
+    "causal_contrast": 0
+   },
+   {
+    "page_index": 5,
+    "question_id": "q006",
+    "chain_markers": 0,
+    "causal_contrast": 0
+   },
+   {
+    "page_index": 6,
+    "question_id": "q007",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 7,
+    "question_id": "q008",
+    "chain_markers": 0,
+    "causal_contrast": 2
    },
    {
     "page_index": 8,
     "question_id": "q009",
-    "kind": "thematic",
-    "developed": false
+    "chain_markers": 0,
+    "causal_contrast": 0
    },
    {
-    "page_index": 8,
-    "question_id": "q009",
-    "kind": "verbatim_copy",
-    "developed": false
+    "page_index": 9,
+    "question_id": "q010",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 10,
+    "question_id": "q011",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 11,
+    "question_id": "q012",
+    "chain_markers": 0,
+    "causal_contrast": 2
    },
    {
     "page_index": 12,
     "question_id": "q013",
-    "kind": "verbatim_copy",
-    "developed": false
+    "chain_markers": 1,
+    "causal_contrast": 5
    },
    {
-    "page_index": 12,
-    "question_id": "q013",
-    "kind": "verbatim_copy",
-    "developed": false
+    "page_index": 13,
+    "question_id": "q014",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 14,
+    "question_id": "q015",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 15,
+    "question_id": "q016",
+    "chain_markers": 0,
+    "causal_contrast": 5
+   },
+   {
+    "page_index": 16,
+    "question_id": "q017",
+    "chain_markers": 1,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 17,
+    "question_id": "q018",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 18,
+    "question_id": "q019",
+    "chain_markers": 0,
+    "causal_contrast": 4
    },
    {
     "page_index": 19,
     "question_id": "q020",
-    "kind": "thematic",
-    "developed": false
+    "chain_markers": 0,
+    "causal_contrast": 3
    },
    {
-    "page_index": 19,
-    "question_id": "q020",
-    "kind": "thematic",
-    "developed": false
+    "page_index": 20,
+    "question_id": "q021",
+    "chain_markers": 1,
+    "causal_contrast": 0
+   },
+   {
+    "page_index": 21,
+    "question_id": "q022",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 22,
+    "question_id": "q023",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 23,
+    "question_id": "q024",
+    "chain_markers": 0,
+    "causal_contrast": 6
+   },
+   {
+    "page_index": 24,
+    "question_id": "q025",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 25,
+    "question_id": "q026",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 26,
+    "question_id": "q027",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 27,
+    "question_id": "q028",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 28,
+    "question_id": "q029",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 29,
+    "question_id": "q030",
+    "chain_markers": 0,
+    "causal_contrast": 6
    },
    {
     "page_index": 30,
     "question_id": "q031",
-    "kind": "verbatim_copy",
-    "developed": false
+    "chain_markers": 0,
+    "causal_contrast": 3
    },
    {
     "page_index": 31,
     "question_id": "q032",
-    "kind": "thematic",
-    "developed": true
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 32,
+    "question_id": "q033",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 33,
+    "question_id": "q034",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 34,
+    "question_id": "q035",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 35,
+    "question_id": "q036",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 36,
+    "question_id": "q037",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 37,
+    "question_id": "q038",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 38,
+    "question_id": "q039",
+    "chain_markers": 0,
+    "causal_contrast": 0
    },
    {
     "page_index": 39,
     "question_id": "q040",
-    "kind": "thematic",
-    "developed": true
+    "chain_markers": 0,
+    "causal_contrast": 1
    },
    {
-    "page_index": 39,
-    "question_id": "q040",
-    "kind": "thematic",
-    "developed": true
+    "page_index": 40,
+    "question_id": "q041",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 41,
+    "question_id": "q042",
+    "chain_markers": 0,
+    "causal_contrast": 5
+   },
+   {
+    "page_index": 42,
+    "question_id": "q043",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 43,
+    "question_id": "q044",
+    "chain_markers": 0,
+    "causal_contrast": 4
    },
    {
     "page_index": 44,
     "question_id": "q045",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 45,
+    "question_id": "q046",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 46,
+    "question_id": "q047",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 47,
+    "question_id": "q048",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 48,
+    "question_id": "q049",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 49,
+    "question_id": "q050",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 50,
+    "question_id": "q051",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 51,
+    "question_id": "q052",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 52,
+    "question_id": "q053",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 53,
+    "question_id": "q054",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 54,
+    "question_id": "q055",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 55,
+    "question_id": "q056",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 56,
+    "question_id": "q057",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 57,
+    "question_id": "q058",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 58,
+    "question_id": "q059",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 59,
+    "question_id": "q060",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 60,
+    "question_id": "q061",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 61,
+    "question_id": "q062",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 62,
+    "question_id": "q063",
+    "chain_markers": 0,
+    "causal_contrast": 8
+   },
+   {
+    "page_index": 63,
+    "question_id": "q064",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 64,
+    "question_id": "q065",
+    "chain_markers": 0,
+    "causal_contrast": 0
+   },
+   {
+    "page_index": 65,
+    "question_id": "q066",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 66,
+    "question_id": "q067",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 67,
+    "question_id": "q068",
+    "chain_markers": 0,
+    "causal_contrast": 5
+   },
+   {
+    "page_index": 68,
+    "question_id": "q069",
+    "chain_markers": 0,
+    "causal_contrast": 5
+   },
+   {
+    "page_index": 69,
+    "question_id": "q070",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 70,
+    "question_id": "q071",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 71,
+    "question_id": "q072",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 72,
+    "question_id": "q073",
+    "chain_markers": 0,
+    "causal_contrast": 5
+   },
+   {
+    "page_index": 73,
+    "question_id": "q074",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 74,
+    "question_id": "q075",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 75,
+    "question_id": "q076",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 76,
+    "question_id": "q077",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 77,
+    "question_id": "q078",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 78,
+    "question_id": "q079",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 79,
+    "question_id": "q080",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 80,
+    "question_id": "q081",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 81,
+    "question_id": "q082",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 82,
+    "question_id": "q083",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 83,
+    "question_id": "q084",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 84,
+    "question_id": "q085",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 85,
+    "question_id": "q086",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 86,
+    "question_id": "q087",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 87,
+    "question_id": "q088",
+    "chain_markers": 1,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 88,
+    "question_id": "q089",
+    "chain_markers": 1,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 89,
+    "question_id": "q090",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 90,
+    "question_id": "q091",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 91,
+    "question_id": "q092",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 92,
+    "question_id": "q093",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 93,
+    "question_id": "q094",
+    "chain_markers": 0,
+    "causal_contrast": 0
+   },
+   {
+    "page_index": 94,
+    "question_id": "q095",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 95,
+    "question_id": "q096",
+    "chain_markers": 0,
+    "causal_contrast": 4
+   },
+   {
+    "page_index": 96,
+    "question_id": "q097",
+    "chain_markers": 0,
+    "causal_contrast": 1
+   },
+   {
+    "page_index": 97,
+    "question_id": "q098",
+    "chain_markers": 0,
+    "causal_contrast": 3
+   },
+   {
+    "page_index": 98,
+    "question_id": "q099",
+    "chain_markers": 0,
+    "causal_contrast": 2
+   },
+   {
+    "page_index": 99,
+    "question_id": "q100",
+    "chain_markers": 0,
+    "causal_contrast": 6
+   }
+  ]
+ },
+ "gender_gate": {
+  "retries": 24,
+  "pages_flagged": 8,
+  "flagged_sentences": 9
+ },
+ "spouse_gate": {
+  "retries": 0,
+  "pages_flagged": 0,
+  "flagged_sentences": 0
+ },
+ "meta_gate": {
+  "retries": 2,
+  "pages_flagged": 0,
+  "flagged_sentences": 0
+ },
+ "spouse_audit": {
+  "subject_gender": "male",
+  "wrong_term": "husband",
+  "instances": 0,
+  "pages_with_instances": 0,
+  "per_page": []
+ },
+ "meta_audit": {
+  "flagged_sentences": 0,
+  "pages_with_meta_terms": 0,
+  "by_phrase": {}
+ },
+ "truncation": {
+  "pages_repaired": 24,
+  "pages_ending_mid_sentence": 0
+ },
+ "model": "Qwen2.5-3B-Instruct (Q4_K_M GGUF) via llama.cpp, local",
+ "refrain_analysis": {
+  "anchor_sentences": [
+   "in the front room where the day begins to unfold, sunlight filters through a lace curtain onto a worn wooden table set with plates and cups.",
+   "the air is filled with the gentle hum of a spinning record as my mother's hand plays, and the scent of buttered rolls wafts from the kitchen beyond.",
+   "my practice takes root here: at this table where the day\u2019s first act\u2014feeding\u2014prepares the ground for song and story."
+  ],
+  "recurrences": [
+   {
+    "page_index": 9,
+    "question_id": "q010",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 11,
+    "question_id": "q012",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 12,
+    "question_id": "q013",
+    "kind": "thematic",
+    "developed": false
+   },
+   {
+    "page_index": 14,
+    "question_id": "q015",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 28,
+    "question_id": "q029",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 28,
+    "question_id": "q029",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 39,
+    "question_id": "q040",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 39,
+    "question_id": "q040",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 40,
+    "question_id": "q041",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 42,
+    "question_id": "q043",
     "kind": "thematic",
     "developed": true
    },
@@ -850,51 +1466,136 @@
     "developed": true
    },
    {
-    "page_index": 61,
-    "question_id": "q062",
+    "page_index": 52,
+    "question_id": "q053",
     "kind": "thematic",
     "developed": true
    },
    {
-    "page_index": 67,
-    "question_id": "q068",
+    "page_index": 52,
+    "question_id": "q053",
+    "kind": "verbatim_copy",
+    "developed": false
+   },
+   {
+    "page_index": 75,
+    "question_id": "q076",
+    "kind": "verbatim_copy",
+    "developed": false
+   },
+   {
+    "page_index": 75,
+    "question_id": "q076",
     "kind": "thematic",
     "developed": true
    },
    {
-    "page_index": 68,
-    "question_id": "q069",
+    "page_index": 75,
+    "question_id": "q076",
     "kind": "thematic",
     "developed": true
    },
    {
-    "page_index": 70,
-    "question_id": "q071",
+    "page_index": 79,
+    "question_id": "q080",
+    "kind": "verbatim_copy",
+    "developed": false
+   },
+   {
+    "page_index": 79,
+    "question_id": "q080",
     "kind": "thematic",
     "developed": true
    },
    {
-    "page_index": 77,
-    "question_id": "q078",
+    "page_index": 79,
+    "question_id": "q080",
     "kind": "thematic",
     "developed": true
    },
    {
-    "page_index": 88,
-    "question_id": "q089",
+    "page_index": 80,
+    "question_id": "q081",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 84,
+    "question_id": "q085",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 84,
+    "question_id": "q085",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 91,
+    "question_id": "q092",
+    "kind": "verbatim_copy",
+    "developed": false
+   },
+   {
+    "page_index": 91,
+    "question_id": "q092",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 93,
+    "question_id": "q094",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 93,
+    "question_id": "q094",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 93,
+    "question_id": "q094",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 94,
+    "question_id": "q095",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 94,
+    "question_id": "q095",
+    "kind": "thematic",
+    "developed": true
+   },
+   {
+    "page_index": 96,
+    "question_id": "q097",
+    "kind": "verbatim_copy",
+    "developed": false
+   },
+   {
+    "page_index": 96,
+    "question_id": "q097",
     "kind": "thematic",
     "developed": true
    }
   ],
-  "thematic_recurrences": 16,
-  "developed_recurrences": 12,
-  "verbatim_anchor_copies": 4,
+  "thematic_recurrences": 26,
+  "developed_recurrences": 25,
+  "verbatim_anchor_copies": 5,
   "failing_pages": [
-   2,
-   8,
    12,
-   19,
-   30
+   52,
+   75,
+   79,
+   91,
+   96
   ],
   "development_pass": false
  }
